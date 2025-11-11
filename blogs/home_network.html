@@ -1,377 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>How I Set Up My Home Network Like a Pro</title>
-<meta name="description" content="Step-by-step guide to setting up a secure and fast home network with Raspberry Pi, Jio AirFiber, and Cloudflare tunnels.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/home_network.html">
-
-<meta property="og:title" content="How I Set Up My Home Network Like a Pro">
-<meta property="og:description" content="Step-by-step guide to setting up a secure and fast home network with Raspberry Pi, Jio AirFiber, and Cloudflare tunnels.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/home_network.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-22T00:00:00Z">
-<meta property="article:tag" content="Networking">
-<meta property="article:tag" content="Raspberry Pi">
-<meta property="article:tag" content="Cloudflare">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How I Set Up My Home Network Like a Pro">
-<meta name="twitter:description" content="Step-by-step guide to setting up a secure and fast home network with Raspberry Pi, Jio AirFiber, and Cloudflare tunnels.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "How I Set Up My Home Network Like a Pro",
-  "description": "Step-by-step guide to setting up a secure and fast home network with Raspberry Pi, Jio AirFiber, and Cloudflare tunnels.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>Boosting My Jio AirFiber Range Complete Home Networking Setup</title>
+  <meta name="description" content="Blog post: Boosting My Jio AirFiber Range Complete Home Networking Setup">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-22T00:00:00Z",
-  "dateModified": "2025-01-22T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/home_network.html"
-  }
-}
-</script>
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="https://i.ytimg.com/vi/y47zWw0SX_0/maxresdefault.jpg" alt="Boosting My Jio AirFiber Range & Complete Home Networking Setup" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>Boosting My Jio AirFiber Range & Complete Home Networking Setup</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: December 30, 2024</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-In this post, I’ll show you how I boosted the **Wi-Fi range of my Jio AirFiber** and built a stable home network for all my devices.  
-If you’re using Jio AirFiber and facing range or speed issues, this guide will help you fix them.
+  <main>
+<article>
+            <h1>Boosting My Jio AirFiber Range Complete Home Networking Setup</h1>
 
-I’ll also share how I connected my Raspberry Pi server, IoT devices, and multiple routers for the best performance.
+            <p>In this post, I'll show you how I boosted the Wi-Fi range of my Jio AirFiber and built a stable home network for all my devices.</p>
+            <p>If you're using Jio AirFiber and facing range or speed issues, this guide will help you fix them.</p>
 
-<hr>
+            <hr>
 
-<h2>What Problems I Was Facing with Jio AirFiber</h2>
--> Wi-Fi range didn’t cover the far corners of my home.  
--> Speeds dropped when more than 6–7 devices were connected.  
--> My Raspberry Pi and ESP32 IoT devices often disconnected.  
--> I wanted to connect my home NAS and servers without interruptions.  
+            <h2>What Problems I Was Facing with Jio AirFiber</h2>
+            <p>- Wi-Fi range didn't cover the far corners of my home</p>
+            <p>- Speeds dropped when more than 6-7 devices were connected</p>
+            <p>- My Raspberry Pi and ESP32 IoT devices often disconnected</p>
+            <p>- I wanted to connect my home NAS and servers without interruptions</p>
 
-<hr>
+            <hr>
 
-<h2>What I Did to Fix These Issues</h2>
-1. Tested multiple range extenders and mesh routers.  
-2. Moved the Jio AirFiber router to the best central location.  
-3. Used an additional router in **Access Point (AP) mode**.  
-4. Set up a proper home network with static IPs for important devices.  
+            <h2>What I Did to Fix These Issues</h2>
+            <p>1. Tested multiple range extenders and mesh routers</p>
+            <p>2. Moved the Jio AirFiber router to the best central location</p>
+            <p>3. Used an additional router in Access Point (AP) mode</p>
+            <p>4. Set up a proper home network with static IPs for important devices</p>
 
-<hr>
+            <hr>
 
-<h2>Step 1: Finding the Right Router Placement</h2>
-First, I used the **Wi-Fi Analyzer app** to check signal strength in different parts of my house.  
-I then moved the Jio AirFiber router closer to the center of my home and elevated it on a shelf.  
+            <h2>Step 1: Finding the Right Router Placement</h2>
+            <p>First, I used the Wi-Fi Analyzer app to check signal strength in different parts of my house. I then moved the Jio AirFiber router closer to the center of my home and elevated it on a shelf.</p>
+            <p>This simple change improved coverage by 15-20%.</p>
 
-This simple change improved coverage by 15–20%.  
+            <hr>
 
-<hr>
+            <h2>Step 2: Adding a Secondary Router (AP Mode)</h2>
+            <p>I had an old TP-Link router lying around, so I set it up as an Access Point:</p>
+            <p>1. Connect TP-Link router to Jio AirFiber router via LAN cable</p>
+            <p>2. Disable DHCP on the TP-Link router</p>
+            <p>3. Set it to the same SSID and password as the main router</p>
+            <p>This created a seamless Wi-Fi experience as I moved around the house.</p>
 
-<h2>Step 2: Adding a Secondary Router (AP Mode)</h2>
-I had an old TP-Link router lying around, so I set it up as an Access Point:
+            <hr>
 
-1. Connect TP-Link router to Jio AirFiber router via LAN cable.  
-2. Disable DHCP on the TP-Link router.  
-3. Set it to the same SSID and password as the main router.  
+            <h2>Step 3: Using a Wi-Fi Range Extender</h2>
+            <p>For areas that still had weak signal, I added a small Wi-Fi repeater.</p>
+            <p>Tip: If possible, always prefer wired Access Points over repeaters because repeaters can cut the speed by half.</p>
 
-This created a **seamless Wi-Fi experience** as I moved around the house.
+            <hr>
 
-<hr>
+            <h2>Step 4: Optimizing Channels and Bands</h2>
+            <p>Jio AirFiber supports both 2.4GHz and 5GHz bands.</p>
+            <p>- I set 2.4GHz to a less crowded channel (1, 6, or 11)</p>
+            <p>- I locked the 5GHz band to channel 40</p>
+            <p>This reduced interference from neighbors' Wi-Fi networks.</p>
 
-<h2>Step 3: Using a Wi-Fi Range Extender</h2>
-For areas that still had weak signal, I added a small **Wi-Fi repeater**.  
+            <hr>
 
-<b>Tip:</b> If possible, always prefer wired Access Points over repeaters because repeaters can cut the speed by half.
+            <h2>Step 5: Connecting My Raspberry Pi and Servers</h2>
+            <p>I run a Raspberry Pi Cloud Server and some IoT devices at home.</p>
+            <p>To keep them stable, I assigned Static IP addresses on the router for:</p>
+            <p>- Raspberry Pi</p>
+            <p>- My NAS (TrueNAS)</p>
+            <p>- ESP32 devices</p>
+            <p>Now I can easily access them using their IP or DDNS hostname.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 4: Optimizing Channels and Bands</h2>
-Jio AirFiber supports both 2.4GHz and 5GHz bands.  
--> I set 2.4GHz to a less crowded channel (1, 6, or 11).  
--> I locked the 5GHz band to channel 40.  
+            <h2>Step 6: Adding DDNS and Cloudflare Tunnels</h2>
+            <p>I wanted to access my devices even when I was outside my home network. So I set up:</p>
+            <p>- Dynu DDNS: To get a domain name that updates automatically when my IP changes</p>
+            <p>- Cloudflare Tunnel: To securely access my Raspberry Pi and servers without port forwarding</p>
+            <p>This way, I can now access my Pi and NAS from anywhere using my subdomain.</p>
 
-This reduced interference from neighbors' Wi-Fi networks.
+            <hr>
 
-<hr>
+            <h2>Step 7: Securing My Home Network</h2>
+            <p>- Changed all default router passwords</p>
+            <p>- Disabled remote admin on the Jio AirFiber router</p>
+            <p>- Separated IoT devices into a Guest Network</p>
+            <p>- Enabled automatic backups for my Raspberry Pi</p>
 
-<h2>Step 5: Connecting My Raspberry Pi and Servers</h2>
-I run a **Raspberry Pi Cloud Server** and some IoT devices at home.  
-To keep them stable, I assigned **Static IP addresses** on the router for:  
-- Raspberry Pi  
-- My NAS (TrueNAS)  
-- ESP32 devices  
+            <hr>
 
-Now I can easily access them using their IP or DDNS hostname.
+            <h2>Final Words</h2>
+            <p>If you're struggling with Jio AirFiber's range or speed, try this method. A combination of better placement, Access Points, and DDNS will solve most issues.</p>
+            <p>Thanks for reading! Share this with your friends who use Jio AirFiber.</p>
+        </article>
+  </main>
 
-<hr><hr>
-
-🔗 Related: <a href="raspberry_to_cloud.html"><b>How I Turned My Raspberry Pi into a Cloud Server</b></a> – A complete guide to building your own private Google Drive at home.
-
-<hr><hr>
-
-<h2>Step 6: Adding DDNS and Cloudflare Tunnels</h2>
-I wanted to access my devices even when I was outside my home network.  
-So I set up:  
-- **Dynu DDNS**: To get a domain name that updates automatically when my IP changes.  
-- **Cloudflare Tunnel**: To securely access my Raspberry Pi and servers without port forwarding.
-
-<div style="background:#1e1e1e;color:#fff;padding:10px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-  <code id="cfBox" style="font-size:14px;white-space:nowrap;overflow-x:auto;display:block;">
-    cloudflared tunnel run
-  </code>
-  <button onclick="navigator.clipboard.writeText(document.getElementById('cfBox').innerText);" style="background:#333;color:#fff;border:1px solid #666;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;">
-    Copy
-  </button>
-</div>
-
-This way, I can now access my Pi and NAS from anywhere using my subdomain.
-
-<hr>
-
-<h2>Step 7: Securing My Home Network</h2>
--> Changed all default router passwords.  
--> Disabled remote admin on the Jio AirFiber router.  
--> Separated IoT devices into a **Guest Network**.  
--> Enabled automatic backups for my Raspberry Pi.  
-
-<hr>
-
-<h2>Extra Tips to Boost Jio AirFiber Performance</h2>
-1. Always update the router firmware to the latest version.  
-2. Use CAT6 LAN cables for wired devices.  
-3. Turn off unused features like WPS and USB sharing on the router.  
-4. Reboot the router once a week to clear cache.
-
-<hr>
-
-<h2>Why This Setup Works</h2>
-This setup ensures:  
-- Strong Wi-Fi coverage in every room.  
-- Stable connections for IoT devices and servers.  
-- Easy remote access without messing with port forwarding.  
-- A secure network that’s future-proof.
-
-<hr>
-
-<h2>Final Words</h2>
-If you’re struggling with Jio AirFiber’s range or speed, try this method.  
-A combination of better placement, Access Points, and DDNS will solve most issues.  
-
-👉 Also, check my <a href="cloudflare_dynu.html"><b>Cloudflare Tunnel + Dynu Setup Guide</b></a> to learn how I made my network accessible from anywhere.
-
-Thanks for reading! Share this with your friends who use Jio AirFiber.
-
-
-
-
-
-
-
-
-
-
- </div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

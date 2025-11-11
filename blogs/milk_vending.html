@@ -1,384 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Building a Milk Vending Machine with Raspberry Pi & QR Payments</title>
-<meta name="description" content="How I built a milk vending machine using Raspberry Pi, QR code scanner, and payment integration. Full step-by-step explanation.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/milk_vending.html">
-
-<meta property="og:title" content="Building a Milk Vending Machine with Raspberry Pi & QR Payments">
-<meta property="og:description" content="How I built a milk vending machine using Raspberry Pi, QR code scanner, and payment integration. Full step-by-step explanation.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/milk_vending.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-23T00:00:00Z">
-<meta property="article:tag" content="Raspberry Pi">
-<meta property="article:tag" content="IoT">
-<meta property="article:tag" content="QR Payments">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Building a Milk Vending Machine with Raspberry Pi & QR Payments">
-<meta name="twitter:description" content="How I built a milk vending machine using Raspberry Pi, QR code scanner, and payment integration. Full step-by-step explanation.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Building a Milk Vending Machine with Raspberry Pi & QR Payments",
-  "description": "How I built a milk vending machine using Raspberry Pi, QR code scanner, and payment integration. Full step-by-step explanation.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>How I Built My Milk Vending Machine Prototype</title>
+  <meta name="description" content="Blog post: How I Built My Milk Vending Machine Prototype">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-23T00:00:00Z",
-  "dateModified": "2025-01-23T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/milk_vending.html"
-  }
-}
-</script>
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="blog_images/milk vending machine blog banner.webp" alt="How I Built My Milk Vending Machine Prototype (Step-by-Step Story)" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>How I Built My Milk Vending Machine Prototype (Step-by-Step Story)</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: November 14, 2024</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-     <h4>Hey guys,</h4>
-This post is all about one of my most interesting projects – building a milk vending machine prototype using ESP32, QR code scanning, and a simple website. I’ll share exactly how I started, tested, and what mistakes I made so you can also learn.
+  <main>
+<article>
+            <h1>How I Built My Milk Vending Machine Prototype (Step-by-Step Story)</h1>
 
-<hr>
+            <h4>Hey guys,</h4>
+            <p>This post is all about one of my most interesting projects – building a milk vending machine prototype using ESP32, QR code scanning, and a simple website. I'll share exactly how I started, tested, and what mistakes I made so you can also learn.</p>
 
-<h2>The Idea – Why a Milk Vending Machine?</h2>
-One day I was thinking, “We always buy milk packets from shops, but what if there’s a machine where people can just pay, scan, and get fresh milk automatically?”
+            <hr>
 
-This idea got stuck in my head. I didn’t have all the parts, but I decided to make a prototype first to test the concept.
+            <h2>The Idea – Why a Milk Vending Machine?</h2>
+            <p>One day I was thinking, "We always buy milk packets from shops, but what if there's a machine where people can just pay, scan, and get fresh milk automatically?"</p>
+            <p>This idea got stuck in my head. I didn't have all the parts, but I decided to make a prototype first to test the concept.</p>
 
-<hr>
+            <hr>
 
-<h2>What I Needed for the Prototype</h2>
-I made a small plan and listed the components:
+            <h2>What I Needed for the Prototype</h2>
+            <p>I made a small plan and listed the components:</p>
+            <p>1. ESP32 board: This is the brain of the system (because it has Wi-Fi)</p>
+            <p>2. QR code scanner: To scan the payment or customer code</p>
+            <p>3. Website interface: For users to select the amount of milk and pay</p>
+            <p>4. Relay + Pump (later): To dispense milk, but initially I used an LED as a placeholder</p>
 
-1.ESP32 board: This is the brain of the system (because it has Wi-Fi).
-2.QR code scanner: To scan the payment or customer code.
-3.Website interface: For users to select the amount of milk and pay.
-4.Relay + Pump (later): To dispense milk, but initially I used an LED as a placeholder.
+            <hr>
 
-<hr>
+            <h2>Step 1: Setting Up ESP32</h2>
+            <p>I started with my ESP32 module. Installed Arduino IDE, added the ESP32 board manager, and tested a simple LED blink sketch.</p>
+            <p>This gave me confidence that the board was working fine.</p>
 
-<h2>Step 1: Setting Up ESP32</h2>
-I started with my ESP32 module. Installed Arduino IDE, added the ESP32 board manager, and tested a simple LED blink sketch.
+            <hr>
 
-This gave me confidence that the board was working fine.
+            <h2>Step 2: Creating the Website</h2>
+            <p>Next, I built a small website where users can choose the amount of milk and pay online. I used:</p>
+            <p>- HTML, CSS, JS for the front-end</p>
+            <p>- A simple Firebase backend to store transactions temporarily</p>
+            <p>It was not a big fancy design – just a basic form with amount field and payment button.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 2: Creating the Website</h2>
-Next, I built a small website where users can choose the amount of milk and pay online. I used:
+            <h2>Step 3: QR Code Scanning</h2>
+            <p>For the QR code part, I first tested using a simple QR code scanner module that can output the scanned data as serial input to ESP32.</p>
+            <p>When a user scanned the code, ESP32 checked if the payment was done (mock verification for now).</p>
+            <p>If payment = success → LED ON (later will be milk pump ON).</p>
 
--HTML, CSS, JS for the front-end.
+            <hr>
 
--A simple Firebase backend to store transactions temporarily.
- It was not a big fancy design – just a basic form with:
+            <h2>Step 4: Connecting the Website & ESP32</h2>
+            <p>This was the hardest part because the ESP32 needed to know which user paid.</p>
+            <p>Here's the simplified flow I built:</p>
+            <p>- User visits the website and enters the amount</p>
+            <p>- Website sends data to Firebase (order ID + status)</p>
+            <p>- ESP32 reads from Firebase (checks if any new successful order exists)</p>
+            <p>- If found, it turns ON an LED (later the milk pump)</p>
 
--Amount field
+            <hr>
 
--Payment button
+            <h2>Step 5: Testing the Setup</h2>
+            <p>Since I didn't have a pump and relay yet, I used a simple LED light:</p>
+            <p>- Green LED = Milk dispensing</p>
+            <p>- Off LED = Idle</p>
+            <p>This way I could simulate how the final machine would work.</p>
+            <p>I tested different flows and it worked!</p>
 
-<hr><hr>
+            <hr>
 
-🔗 Related: My Blogging Journey – <a href="bloging_journey.html" ><b>How I Built My Blog & Applied for Adsense</b></a>
-If you’re curious about how I built my own blog and learned Firebase basics, check out that post. It will help you understand how I connected my website with the vending machine prototype.
+            <h2>Challenges I Faced</h2>
+            <p>- Sync delay: Sometimes ESP32 took a few seconds to read Firebase updates</p>
+            <p>- Scanner issues: Cheap QR scanners don't always detect properly</p>
+            <p>- Wi-Fi drops: ESP32 disconnected from Wi-Fi a couple of times</p>
+            <p>- Payment integration: I haven't added real payment gateway yet, just mock orders</p>
 
-<hr><hr>
+            <hr>
 
-<h2>Step 3: QR Code Scanning</h2>
-For the QR code part, I first tested using a simple QR code scanner module that can output the scanned data as serial input to ESP32.
+            <h2>What I Learned</h2>
+            <p>- Building prototypes step by step is the best way</p>
+            <p>- Firebase is a good backend for small IoT projects</p>
+            <p>- ESP32 can handle web requests but you need to optimize code</p>
+            <p>- Testing with an LED first saved me from wasting milk in experiments</p>
 
--- When a user scanned the code, ESP32 checked if the payment was done (mock verification for now).
+            <hr>
 
--- If payment = success → LED ON (later will be milk pump ON).
+            <h2>Next Steps</h2>
+            <p>1. Add a proper milk pump and relay</p>
+            <p>2. Integrate UPI/Paytm payment gateway on the website</p>
+            <p>3. Add a small display to show instructions to users</p>
+            <p>4. Make it more secure and reliable before real-world use</p>
 
-<hr>
+            <hr>
 
-<h2>Step 4: Connecting the Website & ESP32</h2>
-This was the hardest part because the ESP32 needed to know which user paid.
+            <h2>Final Words</h2>
+            <p>This project gave me so much confidence. Even though it's just a prototype, it showed me how IoT + web apps can solve real-world problems.</p>
+            <p>If you liked this post, share it with your friends who love DIY projects.</p>
+        </article>
+  </main>
 
-Here’s the simplified flow I built:
-
--> User visits the website and enters the amount.
--> Website sends data to Firebase (order ID + status).
--> ESP32 reads from Firebase (checks if any new successful order exists).
--> If found, it turns ON an LED (later the milk pump).
-
-<hr>
-
-<h2>HTML Code Sample I Used to Trigger Orders</h2>
-
-<div style="background:#1e1e1e;color:#fff;padding:10px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-  <code id="codeBox" style="font-size:14px;white-space:nowrap;overflow-x:auto;display:block;">
-    &lt;button onclick="placeOrder()"&gt;Pay &amp; Get Milk&lt;/button&gt;
-  </code>
-  <button 
-    onclick="navigator.clipboard.writeText(document.getElementById('codeBox').innerText);"
-    style="background:#333;color:#fff;border:1px solid #666;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;">
-    Copy
-  </button>
-</div>
-
-This code creates a "Pay & Get Milk" button on the website. When clicked, it calls the placeOrder() function.
-
-<hr>
-
-<h2>Step 5: Testing the Setup</h2>
-Since I didn’t have a pump and relay yet, I used a simple LED light:
-
-=> Green LED = Milk dispensing
-=> Off LED = Idle
-
-This way I could simulate how the final machine would work.
-I tested different flows:
-
-=> User pays → QR scan → ESP32 LED ON
-=> Invalid scan → No LED
-
-    :) It worked!
-
-<hr>
-
-<h2>Challenges I Faced</h2>
--- Sync delay: Sometimes ESP32 took a few seconds to read Firebase updates.
--- Scanner issues: Cheap QR scanners don’t always detect properly.
--- Wi-Fi drops: ESP32 disconnected from Wi-Fi a couple of times.
--- Payment integration: I haven’t added real payment gateway yet, just mock orders.
-
-<hr>
-
-<h2>What I Learned</h2>
-> Building prototypes step by step is the best way.
-
-> Firebase is a good backend for small IoT projects.
-
-> ESP32 can handle web requests but you need to optimize code.
-
-> Testing with an LED first saved me from wasting milk in experiments 😂.
-
-<hr>
-
-<h2>Next Steps</h2>
-1. Add a proper milk pump and relay.
-2. Integrate UPI/Paytm payment gateway on the website.
-3. Add a small display to show instructions to users.
-4. Make it more secure and reliable before real-world use.
-
-<hr><hr>
-
-👉 If you haven’t read <a herf="https://dharunashokkumar.com/post?id=voM3i8KGdiUbbMPGcDGD"><b>my Full Tech Journey blog</b></a> and <a herf="https://dharunashokkumar.com/post?id=OdzrDpVclmZTR9M7uqmg">my full Electronic Journey blog </b></a>, check it out. You’ll understand how I even started learning ESP32 and Firebase from zero.
-
-<hr><hr>
-
-<h2>Final Words</h2>
-This project gave me so much confidence. Even though it’s just a prototype, it showed me how IoT + web apps can solve real-world problems.
-
-If you liked this post, share it with your friends who love DIY projects. And stay tuned – I’ll update once I finish the full working version with pump and payment integration.
-
-
-
-
-
-
-
-
-
-
-        
-    </div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

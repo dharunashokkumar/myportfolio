@@ -1,1284 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,200" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ZCL0VSNLJS');
-    </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools - Dharun Ashokkumar | Web Tools Collection</title>
-    <meta name="description" content="Explore my collection of web tools including PDF editor, QuickDrop file sharing, and BEEF security testing framework. All tools hosted and ready to use.">
-    <meta name="keywords" content="web tools, PDF editor, file sharing, security tools, web developer tools, QuickDrop, BEEF framework">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="googlebot" content="index, follow">
-    
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Web Tools - Dharun Ashokkumar">
-    <meta property="og:description" content="Collection of web tools including PDF editor, file sharing, and security testing tools built by Dharun Ashokkumar.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dharunashokkumar.com/tools">
-    <meta property="og:image" content="https://dharunashokkumar.com/images/og-image.jpg">
-    <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:locale" content="en_IN">
-    
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Web Tools - Dharun Ashokkumar">
-    <meta name="twitter:description" content="Collection of professional web tools including PDF editor, file sharing, and security testing.">
-    <meta name="twitter:image" content="https://dharunashokkumar.com/images/og-image.jpg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-    .material-symbols-outlined {
-    font-size: 52px; /* or whatever size you want */
-}
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated background particles */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(1deg); }
-            66% { transform: translateY(10px) rotate(-1deg); }
-        }
-
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            height: 70px;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.05) 0%, 
-                rgba(255, 255, 255, 0.1) 50%, 
-                rgba(255, 255, 255, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        header:hover::before {
-            opacity: 1;
-        }
-
-        header .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.8rem;
-            font-weight: 600;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            animation: pulse 2s ease-in-out infinite alternate;
-            z-index: 1001;
-            position: relative;
-            text-decoration: none;
-        }
-
-        @keyframes pulse {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.2); }
-        }
-
-        /* Navigation */
-        nav {
-            display: block;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            background: linear-gradient(45deg, transparent, transparent);
-        }
-
-        nav a.active {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-            border-radius: 25px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        nav a:hover::before {
-            opacity: 1;
-        }
-
-        nav a:hover {
-            transform: translateY(-2px);
-            text-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Menu Toggle Button */
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #ffffff;
-            transition: all 0.3s ease;
-            z-index: 1001;
-            position: relative;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-        }
-
-        .menu-toggle:hover {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Main Content */
-        main {
-            padding-top: 70px;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: clamp(60px, 12vw, 120px) 5% clamp(40px, 8vw, 80px);
-            text-align: center;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: heroGlow 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes heroGlow {
-            from { 
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.3;
-            }
-            to { 
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.6;
-            }
-        }
-
-        .hero-content {
-            z-index: 2;
-            position: relative;
-            animation: fadeInUp 1s ease-out;
-            padding: 0 1rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ffffff, #cccccc, #ffffff);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease infinite;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.3s both;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Tools Grid */
-        .tools-section {
-            padding: clamp(40px, 8vw, 80px) 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        /* Tool Card Styles */
-        .tool-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .tool-card:hover::before {
-            opacity: 1;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            filter: grayscale(100%) contrast(1.2);
-            transition: filter 0.3s ease;
-        }
-
-        .tool-card:hover .tool-icon {
-            filter: grayscale(0%) contrast(1);
-        }
-
-        .tool-card h3 {
-            font-size: clamp(1.3rem, 2.5vw, 1.5rem);
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: #ffffff;
-            z-index: 2;
-            position: relative;
-        }
-
-        .tool-meta {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-            z-index: 2;
-            position: relative;
-        }
-
-        .tech-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #22c55e;
-            animation: pulse-dot 2s infinite;
-        }
-
-        .status-dot.maintenance {
-            background: #f59e0b;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .tool-card p {
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Button Styles */
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 0.5rem 0.5rem 0.5rem 0;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            font-size: clamp(0.85rem, 2vw, 0.9rem);
-            z-index: 2;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .btn.secondary {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .btn.secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Stats Section */
-        .stats {
-            text-align: center;
-            padding: clamp(40px, 8vw, 80px) 5%;
-            background: rgba(255, 255, 255, 0.02);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stats h2 {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            margin-bottom: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        footer a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-        }
-
-        footer a:hover {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #000000;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem 3%;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-            
-            nav {
-                display: none;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(0, 0, 0, 0.98);
-                backdrop-filter: blur(20px);
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-                z-index: 999;
-                animation: slideDown 0.3s ease-out;
-            }
-            
-            nav.active {
-                display: block !important;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                padding: 1rem 0;
-                gap: 0;
-                margin: 0;
-            }
-            
-            nav li {
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                list-style: none;
-            }
-            
-            nav li:last-child {
-                border-bottom: none;
-            }
-            
-            nav a {
-                display: block;
-                padding: 1rem 2rem;
-                width: 100%;
-                border-radius: 0;
-                color: #ffffff;
-                text-decoration: none;
-                font-size: 1.1rem;
-            }
-            
-            nav a:hover {
-                background: rgba(255, 255, 255, 0.1);
-                transform: none;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .tool-card {
-                padding: 1.5rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .btn {
-                padding: 10px 20px;
-                margin: 0.25rem 0.25rem 0.25rem 0;
-                font-size: 0.85rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <a href="index" class="logo">Dharun</a>
-        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-        <nav id="nav">
-            <ul>
-                <li><a href="index">Home</a></li>
-                <li><a href="about">About Me</a></li>
-                 <li><a href="tools" class="active">Tools</a></li>
-                <li><a href="blog">Blog</a></li>
-                <li><a href="portfolio">Portfolio</a></li>
-                <li><a href="services">Services</a></li>
-               
-                <li><a href="contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>My Web Tools</h1>
-                <p>A collection of powerful web applications I've built and actively maintain. Each tool is hosted on secure subdomains using Raspberry Pi tunneling and ready for professional use.</p>
-            </div>
-        </section>
-
-        <section class="tools-section">
-            <div class="tools-grid">
-                <!--resizer-->
-                <div class="tool-card">
-                    <div class="tool-icon"><span class="material-symbols-outlined">
-resize
-</span></div>
-                    <h3>Resizer</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">Resizer</span>
-                        <span class="tech-tag"> 500kb -> 20kb</span></span>
-                        <span class="tech-tag">Utilities</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        <span>Active & Running</span>
-                    </div>
-                    <p>A professional Python Flask web application for advanced image resizing with enhanced features and batch processing capabilities.</p>
-                    <div class="tool-actions">
-                        <a href="https://resizer.dharunashokkumar.com" class="btn" target="_blank"><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                        <a href="#" class="btn secondary" onclick="showToolInfo('resizer')"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-info
-</span> More Info</a>
-                    </div>
-                </div>
-                
-                
-                <!-- converter-->
-                <div class="tool-card">
-                    <div class="tool-icon"><span class="material-symbols-outlined">
-transform
-</span></div>
-                    <h3>Converter</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">Converter-pro</span>
-                        <span class="tech-tag"> png -> jpg</span></span>
-                        <span class="tech-tag">Utilities</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        <span>Active & Running</span>
-                    </div>
-                    <p>A modern, feature-rich file conversion web application with a sleek black and white theme. Convert between multiple file formats with advanced options and real-time processing.</p>
-                    <div class="tool-actions">
-                        <a href="https://converter.dharunashokkumar.com" class="btn" target="_blank"><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                        <a href="#" class="btn secondary" onclick="showToolInfo('converter')"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-info
-</span> More Info</a>
-                    </div>
-                </div>
-                <!-- PDF Editor Tool -->
-                <div class="tool-card">
-                    <div class="tool-icon"><span class="material-symbols-outlined">
-checklist
-</span></div>
-                    <h3>QuickPoll</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">Web App</span>
-                        <span class="tech-tag"> Polling</span></span>
-                        <span class="tech-tag">Utilities</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        <span>Active & Running</span>
-                    </div>
-                    <p>Team decisions, classroom voting, event planning, survey collection, meeting polls, audience engagementPython Flask, SQLite database, QR code generation, responsive HTML/CSS, real-time JavaScript updates</p>
-                    <div class="tool-actions">
-                        <a href="https://quickpoll.dharunashokkumar.com" class="btn" target="_blank"><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                        <a href="#" class="btn secondary" onclick="showToolInfo('quick-poll')"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-info
-</span> More Info</a>
-                    </div>
-                </div>
-
-                <!-- QuickDrop Tool -->
-                <div class="tool-card">
-                    <div class="tool-icon"><span class="material-symbols-outlined">
-share
-</span></div>
-                    <h3>QuickDrop</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">File Sharing</span>
-                        <span class="tech-tag">Collaboration</span>
-                        <span class="tech-tag">Node.js</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        <span>Active & Running</span>
-                    </div>
-                    <p>Fast and secure file sharing platform designed for instant collaboration. Drop your files, get shareable links, and share with anyone without registration. Perfect for quick file transfers with automatic cleanup.</p>
-                    <div class="tool-actions">
-                        <a href="https://quickdrop.dharunashokkumar.com" class="btn" target="_blank"><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                        <a href="#" class="btn secondary" onclick="showToolInfo('quickdrop')"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-info
-</span> More Info</a>
-                    </div>
-                </div>
-
-                <!-- BEEF Tool -->
-                <div class="tool-card">
-                    <div class="tool-icon"><span class="material-symbols-outlined">
-security
-</span></div>
-                    <h3>BEEF Framework</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">Security</span>
-                        <span class="tech-tag">Penetration Testing</span>
-                        <span class="tech-tag">Ruby</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        <span>Active & Running</span>
-                    </div>
-                    <p>Browser Exploitation Framework for authorized penetration testing and security research. Professional tool for testing web application security vulnerabilities and browser-based attacks. <strong>Educational purposes only.</strong></p>
-                    <div class="tool-actions">
-                        <a href="https://beef.dharunashokkumar.com/ui/panel" class="btn" target="_blank"><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                        <a href="#" class="btn secondary" onclick="showToolInfo('beef')"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-warning
-</span> Usage Guidelines</a>
-                    </div>
-                </div>
-
-                <!-- Coming Soon Tool -->
-                <div class="tool-card" style="opacity: 0.7;">
-                    <div class="tool-icon">🚧</div>
-                    <h3>More Tools Coming Soon</h3>
-                    <div class="tool-meta">
-                        <span class="tech-tag">In Development</span>
-                    </div>
-                    <div class="status">
-                        <div class="status-dot maintenance"></div>
-                        <span>In Development</span>
-                    </div>
-                    <p>I'm constantly working on new tools and utilities to help developers and businesses. Stay tuned for more exciting additions including API testing tools, code generators, and productivity enhancers!</p>
-                    <div class="tool-actions">
-                        <a href="contact" class="btn secondary"><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-emoji_objects
-</span> Suggest a Tool</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="stats">
-            <h2>Tools Statistics</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">3</div>
-                    <div>Active Tools</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div>Uptime</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div>Free to Use</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">Secure</div>
-                    <div>HTTPS Enabled</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer style="text-align:center;padding:20px;">
-        <a href="privacy-policy">Privacy Policy</a> | 
-        <a href="terms">Terms & Conditions</a>
-    </footer>
-    <footer>
-        <p>&copy; 2025 Dharun Ashokkumar. All tools are provided as-is. Use responsibly and in accordance with applicable laws.</p>
-    </footer>
-
-    <script>
-        // Mobile Navigation Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const nav = document.getElementById('nav');
-            
-            if (menuToggle && nav) {
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    nav.classList.toggle('active');
-                    
-                    // Animate hamburger icon
-                    if (nav.classList.contains('active')) {
-                        menuToggle.innerHTML = '&#10005;'; // X symbol
-                        menuToggle.style.transform = 'rotate(180deg)';
-                    } else {
-                        menuToggle.innerHTML = '&#9776;'; // Hamburger symbol
-                        menuToggle.style.transform = 'rotate(0deg)';
-                    }
-                });
-                
-                // Close menu when clicking on a nav link
-                const navLinks = nav.querySelectorAll('a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        nav.classList.remove('active');
-                        menuToggle.innerHTML = '&#9776;';
-                        menuToggle.style.transform = 'rotate(0deg)';
-                    });
-                });
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-                        nav.classList.remove('active');
-                        menuToggle.innerHTML = '&#9776;';
-                        menuToggle.style.transform = 'rotate(0deg)';
-                    }
-                });
-            }
-
-            // Add entrance animations for tool cards
-            const cards = document.querySelectorAll('.tool-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                        }, index * 100);
-                    }
-                });
-            });
-
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                observer.observe(card);
-            });
-
-            // Add CSS animation for cards
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes fadeInUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        });
-
-        // Tool information function
-        function showToolInfo(toolName) {
-            const toolInfo = {
-                
-                 'resizer': {
-                    title: 'Advanced Image Resizer',
-                    description: `<span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> A professional Python Flask web application for advanced image resizing with enhanced features and batch processing capabilities.
-Features
-Core Functionality
-
-Single & Batch Image Processing - Process one image or multiple images at once
-Multiple Format Support - JPG, PNG, GIF, BMP, TIFF, WebP
-Advanced Resizing Options - Percent, Pixels, Inches, Centimeters with DPI control
-Proportional Lock - Maintain aspect ratio automatically
-Background Color Selection - White, black, or custom color picker
-
-Advanced Features
-
-Image Enhancements - Brightness, Contrast, Saturation, Sharpness controls
-Resampling Methods - Lanczos, Bicubic, Bilinear, Nearest
-Quality Control - Adjustable compression for JPG/WebP
-EXIF Auto-Rotation - Automatic orientation correction
-Quick Presets - Social media, print, and web size presets
-
-User Experience
-
-Drag & Drop Interface - Easy file uploading
-Real-time Preview - See changes before processing
-Progress Indicators - Visual feedback during processing
-Keyboard Shortcuts - Ctrl+O (open), Ctrl+R (resize), Ctrl+N (new)
-Settings Memory - Remembers your last settings
-Responsive Design - Works on desktop and mobile`,
-                    url: 'https://resizer.dharunashokkumar.com'
-                },
-                
-                'converter': {
-                    title: 'Converter Pro - Advanced File Conversion Platform',
-                    description: `<span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Features
-Core Functionality
-
-Multi-format Support: Images, PDFs, Word docs, Excel sheets, PowerPoint presentations, and text files
-High-Quality Conversions: Optimized algorithms for best output quality
-Batch Processing: Convert multiple pages or handle ZIP archives
-Real-time Progress: Live conversion progress with detailed status updates
-
-Advanced Features
-
-Image Enhancement: Brightness, contrast, sharpness, and filter adjustments
-Smart Quality Settings: Optimized defaults for best quality-to-size ratio
-Page Size Options: A4, Letter with portrait/landscape orientation
-Quality Control: Adjustable compression for optimal file size vs quality
-Format Optimization: Smart settings for each output format
-
-User Experience
-
-Modern UI: Sleek black and white theme with smooth animations
-Drag & Drop: Intuitive file upload with visual feedback
-Responsive Design: Works perfectly on desktop, tablet, and mobile
-Real-time Validation: Instant feedback on supported conversions
-File Information: Detailed file size and type detection
-
-📋 Supported Formats
-Input Formats
-
-Images: PNG, JPG, JPEG, WebP, BMP, TIFF, GIF, ICO
-Documents: PDF, DOCX, XLSX, PPTX, TXT, CSV
-
-Output Formats
-
-Images: PNG, JPG, JPEG, WebP, BMP, TIFF, GIF, ICO
-Documents: PDF, DOCX, TXT, CSV`,
-                    url: 'https://converter.dharunashokkumar.com'
-                },
-                
-                
-                'quick-poll': {
-                    title: 'QuickPoll - Instant Polls & Voting Platform',
-                    description: `<span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> FEATURES:
-
-Create polls in 5 seconds with unlimited options
-Real-time results with auto-refresh every 2 seconds
-QR code generation for easy mobile sharing
-Password-protected admin panel with full control
-One vote per IP address to prevent spam
-Poll expiry settings with extend functionality
-Copy-to-clipboard sharing for all devices
-Clean black & white professional interface
-Close/reopen polls anytime as admin
-Reset votes and manage poll lifecycle
-Mobile-responsive design for all screen sizes
-Local SQLite database - no cloud dependency
-
-⚡ PERFECT FOR:
-Team decisions, classroom voting, event planning, survey collection, meeting polls, audience engagement
-💻 TECH STACK:
-Python Flask, SQLite database, QR code generation, responsive HTML/CSS, real-time JavaScript updates
-🎯 DEPLOYMENT READY:
-Raspberry Pi compatible, tunnel hosting support, zero external dependencies`,
-                    url: 'https://quickpoll.dharunashokkumar.com'
-                },
-                'quickdrop': {
-                    title: 'QuickDrop - Instant File Sharing Platform',
-                    description: `<span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> FEATURES:
-• Instant file uploads with drag & drop
-• Generate shareable links immediately
-• No registration or sign-up required
-• Mobile-friendly responsive interface
-• Automatic file cleanup after expiry
-• Support for multiple file types
-• Real-time upload progress tracking
-• Secure temporary file storage
-
-⚡ PERFECT FOR:
-Team collaboration, client file sharing, quick transfers
-
-💻 TECH STACK:
-Node.js, Express.js, Multer, and cloud storage integration.`,
-                    url: 'https://quickdrop.dharunashokkumar.com'
-                },
-                'beef': {
-                    title: 'BEEF - Browser Exploitation Framework',
-                    description: `⚠️ IMPORTANT DISCLAIMER:
-This tool is for EDUCATIONAL and AUTHORIZED TESTING purposes only!
-
-🔒 CAPABILITIES:
-• Cross-site scripting (XSS) testing
-• Browser fingerprinting and reconnaissance  
-• Social engineering simulation modules
-• Network and system information gathering
-• Real-time browser control and monitoring
-• Custom payload development and testing
-
-⚖️ LEGAL REQUIREMENTS:
-✅ Use only on systems you own
-✅ Obtain explicit written permission
-✅ Educational and research purposes only
-❌ Never use on unauthorized systems
-❌ Not for malicious activities
-
-💻 TECH STACK:
-Ruby on Rails framework with JavaScript hooks and modules.`,
-                    url: 'https://beef.dharunashokkumar.com'
-                }
-            };
-
-            const info = toolInfo[toolName];
-            if (info) {
-                // Create a custom modal instead of alert for better UX
-                showModal(info);
-            }
-        }
-
-        // Custom modal function for better user experience
-        function showModal(info) {
-            // Remove existing modal if any
-            const existingModal = document.getElementById('toolModal');
-            if (existingModal) {
-                existingModal.remove();
-            }
-
-            // Create modal
-            const modal = document.createElement('div');
-            modal.id = 'toolModal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                backdrop-filter: blur(10px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                animation: fadeIn 0.3s ease;
-            `;
-
-            const modalContent = document.createElement('div');
-            modalContent.style.cssText = `
-                background: rgba(0, 0, 0, 0.9);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 20px;
-                padding: 2rem;
-                max-width: 600px;
-                max-height: 80vh;
-                overflow-y: auto;
-                margin: 1rem;
-                backdrop-filter: blur(20px);
-                animation: slideInUp 0.3s ease;
-            `;
-
-            modalContent.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="color: #fff; margin: 0; font-size: 1.3rem;">${info.title}</h2>
-                    <button onclick="closeModal()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; padding: 0.5rem;">×</button>
-                </div>
-                <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.6; white-space: pre-line; margin-bottom: 1.5rem;">
-                    ${info.description}
-                </div>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="${info.url}" target="_blank" style="
-                        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-                        color: #fff;
-                        text-decoration: none;
-                        padding: 0.75rem 1.5rem;
-                        border-radius: 25px;
-                        border: 1px solid rgba(255, 255, 255, 0.3);
-                        transition: all 0.3s ease;
-                        font-weight: 600;
-                    "><span class="material-symbols-outlined"  style="font-size: 24px;vertical-align: middle;">
-rocket_launch
-</span> Launch Tool</a>
-                    <button onclick="closeModal()" style="
-                        background: transparent;
-                        color: #fff;
-                        border: 2px solid rgba(255, 255, 255, 0.5);
-                        padding: 0.75rem 1.5rem;
-                        border-radius: 25px;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        font-weight: 600;
-                    ">Close</button>
-                </div>
-            `;
-
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-
-            // Add modal styles
-            const modalStyle = document.createElement('style');
-            modalStyle.textContent = `
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-                @keyframes slideInUp {
-                    from { transform: translateY(30px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-                #toolModal a:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-                }
-                #toolModal button:hover {
-                    background: rgba(255, 255, 255, 0.1);
-                }
-            `;
-            document.head.appendChild(modalStyle);
-
-            // Close modal when clicking outside
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeModal();
-                }
-            });
-        }
-
-        // Close modal function
-        function closeModal() {
-            const modal = document.getElementById('toolModal');
-            if (modal) {
-                modal.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    modal.remove();
-                }, 300);
-            }
-        }
-
-        // Add fadeOut animation
-        const fadeOutStyle = document.createElement('style');
-        fadeOutStyle.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(fadeOutStyle);
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Web Tools - Dharun Ashokkumar",
-      "description": "Collection of professional web tools including PDF editor, file sharing platform, and security testing framework built by Dharun Ashokkumar.",
-      "url": "https://dharunashokkumar.com/tools",
-      "author": {
-        "@type": "Person",
-        "name": "Dharun Ashokkumar",
-        "url": "https://dharunashokkumar.com"
-      },
-      "mainEntity": [
-        {
-          "@type": "SoftwareApplication",
-          "name": "PDF Editor",
-          "description": "Web-based PDF manipulation tool for merging, splitting, and editing PDF files",
-          "url": "https://pdf.dharunashokkumar.com",
-          "applicationCategory": "Productivity"
-        },
-        {
-          "@type": "SoftwareApplication", 
-          "name": "QuickDrop",
-          "description": "Fast file sharing platform for instant collaboration",
-          "url": "https://quickdrop.dharunashokkumar.com",
-          "applicationCategory": "File Sharing"
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "BEEF Framework", 
-          "description": "Browser Exploitation Framework for security testing",
-          "url": "https://beef.dharunashokkumar.com",
-          "applicationCategory": "Security"
-        }
-      ]
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools - Dharun Ashokkumar</title>
+  <meta name="description" content="Web Tools by Dharun Ashokkumar - Collection of useful web utilities">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    </script>
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
+    <nav id="nav">
+      <ul>
+        <li><a href="index">Home</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="tools">Tools</a></li>
+        <li><a href="blog">Blog</a></li>
+        <li><a href="portfolio">Portfolio</a></li>
+        <li><a href="services">Services</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Web Tools</h1>
+      <p>Collection of web tools and utilities I've built and use regularly.</p>
+    </section>
+
+    <section>
+      <h2>Available Tools</h2>
+
+      <article class="article">
+        <h3>PDF Editor</h3>
+        <p>Online PDF editing tool for quick document modifications.</p>
+      </article>
+
+      <article class="article">
+        <h3>QuickDrop File Sharing</h3>
+        <p>Fast and secure file sharing service for quick transfers.</p>
+      </article>
+
+      <article class="article">
+        <h3>BEEF Security Framework</h3>
+        <p>Browser Exploitation Framework for security testing and research.</p>
+      </article>
+
+      <article class="article">
+        <h3>Code Coach Beta</h3>
+        <p>AI-powered coding assistant to help with programming challenges.</p>
+        <p><a href="/codecoach">Try CodeCoach</a></p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      <a href="privacy-policy">Privacy Policy</a> |
+      <a href="terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
+    }
+  </script>
 </body>
 </html>

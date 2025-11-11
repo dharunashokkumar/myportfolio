@@ -1,526 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,200" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dharun's Tech blogs - Latest Web Development, Design & Startup Insights</title>
-  <meta name="description" content="Expert insights on web development, UI/UX design, entrepreneurship, and technology trends. Learn from real-world experiences and practical tutorials by Dharun Ashokkumar.">
-  <meta name="keywords" content="web development, technology, design, entrepreneurship, startups, programming, JavaScript, React, UI/UX, tutorials">
-  <meta name="author" content="Dharun Ashokkumar">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://dharunashokkumar.com/blogs">
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Dharun's Tech blogs - Web Development & Design Insights">
-  <meta property="og:description" content="Expert insights on web development, UI/UX design, and entrepreneurship. Practical tutorials and real-world experiences.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dharunashokkumar.com/blog">
-  <meta property="og:image" content="https://dharunashokkumar.com/images/blog-banner.jpg">
-  <meta property="og:site_name" content="Dharun Ashokkumar">
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dharun's Tech blogs - Web Development & Design Insights">
-  <meta name="twitter:description" content="Expert insights on web development, UI/UX design, and entrepreneurship.">
-  <meta name="twitter:image" content="https://dharunashokkumar.com/images/blog-banner.jpg">
-  
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <meta name="googlebot" content="index, follow">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <title>Blog - Dharun Ashokkumar</title>
+  <meta name="description" content="Blog by Dharun Ashokkumar - Insights on web development, technology, and digital innovation">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="favicon/site.webmanifest">
-
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Dharun's Tech Blog",
-    "description": "Expert insights on web development, UI/UX design, entrepreneurship, and technology trends",
-    "url": "https://dharunashokkumar.com/blog",
-    "author": {
-      "@type": "Person",
-      "name": "Dharun Ashokkumar",
-      "url": "https://dharunashokkumar.com"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Dharun Ashokkumar",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://dharunashokkumar.com/images/logo.png"
-      }
-    }
-  }
-  </script>
-
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-   
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-      color: #ffffff;
-      line-height: 1.7;
-      overflow-x: hidden;
-      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
-    /* Animated background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 30%);
-      animation: float 30s ease-in-out infinite;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(0.5deg); }
-    }
-
-    /* Header Styles */
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 1000;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 5%;
-      height: 70px;
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
     }
 
-    header .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #ffffff;
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
       text-decoration: none;
-      position: relative;
+      display: block;
+      margin-bottom: 20px;
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 2rem;
-      align-items: center;
-      margin: 0;
-      padding: 0;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     nav a {
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
     }
 
-    nav a:hover,
-    nav a.active {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-1px);
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
     }
 
     .menu-toggle {
       display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #ffffff;
-      background: none;
+      background: #000;
+      color: #fff;
       border: none;
-      padding: 0.5rem;
-      z-index: 1001;
-    }
-
-    /* Main Content */
-    main {
-      padding-top: 70px;
-      min-height: calc(100vh - 140px);
-    }
-
-    /* Hero Section */
-    .blog-hero {
-      text-align: center;
-      padding: clamp(60px, 10vw, 100px) 5% clamp(40px, 8vw, 80px);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-      position: relative;
-    }
-
-    .blog-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    .blog-hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: relative;
-      z-index: 2;
-    }
-
-    .blog-hero .subtitle {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-      position: relative;
-      z-index: 2;
-    }
-
-    .blog-stats {
-      display: flex;
-      justify-content: center;
-      gap: clamp(2rem, 5vw, 3rem);
-      margin-top: 2rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      min-width: 120px;
-    }
-
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 0.25rem;
-    }
-
-    /* Content Container */
-    .blog-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 5%;
-    }
-
-    /* Search Section */
-    .search-section {
-      margin-bottom: clamp(40px, 8vw, 60px);
-      text-align: center;
-    }
-
-    .search-container {
-      position: relative;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 50px;
-      color: #ffffff;
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    .search-input::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .search-input:focus {
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Posts Section */
-    .posts-section {
-      margin-bottom: clamp(60px, 10vw, 100px);
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.2rem);
-      font-weight: 600;
-      margin-bottom: 2rem;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-      gap: clamp(2rem, 4vw, 3rem);
-    }
-
-    /* Article Cards */
-    .article-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      position: relative;
-      backdrop-filter: blur(10px);
-    }
-
-    .article-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .article-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      filter: grayscale(0%) contrast(1.1);
-      transition: all 0.4s ease;
-    }
-
-    .article-card:hover .article-image {
-      filter: grayscale(0%) contrast(1.2);
-      transform: scale(1.02);
-    }
-
-    .article-content {
-      padding: 2rem;
-    }
-
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.6);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .article-category {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .article-title {
-      font-size: clamp(1.3rem, 2.5vw, 1.5rem);
-      font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-
-    .article-excerpt {
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .article-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .read-more-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .read-more-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateX(3px);
-    }
-
-    .read-time {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.5);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Newsletter Section */
-    .newsletter-section {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: clamp(2rem, 5vw, 3rem);
-      text-align: center;
-      margin-bottom: clamp(40px, 8vw, 60px);
-    }
-
-    .newsletter-title {
-      font-size: clamp(1.5rem, 3vw, 1.8rem);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-
-    .newsletter-description {
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 2rem;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 1rem;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .newsletter-input {
-      flex: 1;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 25px;
-      color: #ffffff;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    .newsletter-input::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .newsletter-button {
-      padding: 1rem 2rem;
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 25px;
+      padding: 10px 15px;
+      font-size: 16px;
       cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
+      margin-top: 10px;
     }
 
-    .newsletter-button:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
     }
 
-    /* Footer */
-    footer {
-      background: rgba(0, 0, 0, 0.5);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 3rem 5% 2rem;
-      text-align: center;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: #ffffff;
-    }
-
-    .footer-bottom {
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Responsive Design */
     @media (max-width: 768px) {
-      header {
-        padding: 1rem 3%;
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
       }
 
       .menu-toggle {
@@ -529,104 +243,35 @@
 
       nav {
         display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        z-index: 999;
-        animation: slideDown 0.3s ease-out;
       }
 
       nav.active {
-        display: block !important;
+        display: block;
+        margin-top: 20px;
       }
 
       nav ul {
         flex-direction: column;
-        padding: 2rem 0;
-        gap: 0;
-      }
-
-      nav li {
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        gap: 10px;
       }
 
       nav a {
         display: block;
-        padding: 1rem 2rem;
-        width: 100%;
-        border-radius: 0;
+        padding: 10px 0;
       }
-
-      .blog-stats {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .newsletter-form {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .footer-links {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header {
-        padding: 1rem 2%;
-      }
-
-      .blog-container {
-        padding: 0 3%;
-      }
-
-      .article-content {
-        padding: 1.5rem;
-      }
-
-      .newsletter-section {
-        padding: 2rem 1.5rem;
-      }
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Search functionality */
-    .no-results {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: rgba(255, 255, 255, 0.7);
-      grid-column: 1 / -1;
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="index" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-         <li><a href="index">Home</a></li>
-        <li><a href="about">About Me</a></li>
+        <li><a href="index">Home</a></li>
+        <li><a href="about">About</a></li>
         <li><a href="tools">Tools</a></li>
-        <li><a href="blog" class="active">Blog</a></li>
+        <li><a href="blog">Blog</a></li>
         <li><a href="portfolio">Portfolio</a></li>
         <li><a href="services">Services</a></li>
         <li><a href="contact">Contact</a></li>
@@ -635,662 +280,140 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="blog-hero">
-    <h1>Tech Insights & Development Stories</h1>
-    <p class="subtitle">Deep dives into web development, React tutorials, Firebase guides, and entrepreneurship insights. Written by a Coimbatore-based developer with real-world experience building school management systems and web applications.</p>
-    
-    <div class="blog-stats">
-        <div class="stat-item">
-            <div class="stat-number">15+</div>
-            <div class="stat-label">Articles</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">10K+</div>
-            <div class="stat-label">Monthly Readers</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">5</div>
-            <div class="stat-label">Categories</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">Tamil Nadu</div>
-            <div class="stat-label">Based In</div>
-        </div>
-    </div>
-</section>
+    <section>
+      <h1>Blog</h1>
+      <p>Insights on web development, technology, design, and digital innovation.</p>
+    </section>
 
-    <div class="blog-container">
-      <!-- Search Section -->
-      <section class="search-section">
-        <div class="search-container">
-          <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
-        </div>
-      </section>
+    <section>
+      <h2>Technology & Development</h2>
 
-      <!-- Latest Posts Section -->
-      <section class="posts-section">
-        <h2 class="section-title">Latest Articles</h2>
-        <div class="posts-grid" id="postsContainer">
-            
-            <article class="article-card">
-            <img src="https://markmanson.net/wp-content/themes/mm-main/images/courses/build-a-better-life.png" alt="My LPU Journey: From JEE Struggles to a New Beginning" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Journey</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   August 27, 2025</span>
-              </div>
-              
-              <h3 class="article-title">My LPU Journey: From JEE Struggles to a New Beginning</h3>
-              <p class="article-excerpt">The past year has been an emotional rollercoaster — from late-night study sessions to unexpected results, endless counseling rounds, and finally landing at Lovely Professional University. 
-  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/college_journey" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/tech_journey">My Tech Journey</a></h3>
+        <p>How I got started in technology and where I am today.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/bloging_journey">My Blogging Journey</a></h3>
+        <p>Why I started blogging and what I've learned along the way.</p>
+      </article>
 
-          <!-- TEMPLATE: Copy this structure for each new blog post -->
-          <article class="article-card">
-            <img src="https://www.notebookcheck.com/fileadmin/Notebooks/News/_nc4/Zimaboard-2.0.jpg" alt="My Experience with the Zima Board 2: Can This Tiny Device Be the Ultimate Home Lab?" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Home Lab</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   July 31, 2025</span>
-              </div>
-              
-              <h3 class="article-title">My Experience with the Zima Board 2: Can This Tiny Device Be the Ultimate Home Lab?</h3>
-              <p class="article-excerpt">I recently got my hands on the brand-new **Zima Board 2** from IceWhale, and I’m seriously impressed.  
-It’s a tiny single-board computer (SBC) that packs a punch — perfect for firewalls, Proxmox servers, or even a travel home lab.  
-  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/zima_board" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/skills_to_income">From Skills to Income</a></h3>
+        <p>How to monetize your technical skills effectively.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/cuely_assistant">Building an AI Assistant (Cluely-like)</a></h3>
+        <p>Creating a personal AI assistant using Electron and OpenAI.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/ai_telecaller">AI Telecaller Project</a></h3>
+        <p>Automating phone calls with AI technology.</p>
+      </article>
+    </section>
 
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://www.datocms-assets.com/104397/1712480741-beef-the-browser-exploitation-framework-for-penetration-testing.png?auto=format" alt="BeEF (Browser Exploitation Framework) – My Experience Testing Browser Security" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Cybersecurity</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   March 01, 2025</span>
-              </div>
-              
-              <h3 class="article-title">BeEF (Browser Exploitation Framework) – My Experience Testing Browser Security</h3>
-              <p class="article-excerpt">As part of my home lab setup, I wanted to test how vulnerable browsers really are.  
-That’s when I discovered **BeEF (Browser Exploitation Framework)** – a powerful tool that lets you see just how much control a hacker can get through the browser.  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/beef_inraspi" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+    <section>
+      <h2>Raspberry Pi & Hardware</h2>
 
+      <article class="article">
+        <h3><a href="blogs/raspberry_to_cloud">Turning Raspberry Pi into a Cloud Server</a></h3>
+        <p>Step-by-step guide to setting up your own cloud storage.</p>
+      </article>
 
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://m.media-amazon.com/images/I/71qw+++GSiL.jpg" alt="Fixing My Raspberry Pi Cooling Issues" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Raspberry</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   February 20, 2025</span>
-              </div>
-              
-              <h3 class="article-title">Fixing My Raspberry Pi Cooling Issues (That Weird "Tip Tip" Sound)</h3>
-              <p class="article-excerpt">One day while working on my Raspberry Pi 4, I heard a strange **"tip tip" clicking sound** coming from the cooling fan.  
-At first, I thought the Pi was dying — but it turned out to be a cooling issue.   
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/tiptip_raspisound" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/ups_for_raspi">UPS for Raspberry Pi</a></h3>
+        <p>Building an uninterruptible power supply for your Pi.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/tiptip_raspisound">TipTip: Raspberry Pi Sound Project</a></h3>
+        <p>Creating a sound system with Raspberry Pi.</p>
+      </article>
 
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://cdn.static.spotpear.com/uploads/picture/learn/raspberry-pi/raspberry-pi-hats/ups-module-3s/ups-module-3s-01.jpg" alt="Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber (My Complete Setup)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Raspberry</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   February 15, 2025</span>
-              </div>
-              
-              <h3 class="article-title">Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber (My Complete Setup)</h3>
-              <p class="article-excerpt">Power cuts and voltage drops were driving me crazy. Every time the power went out, my Raspberry Pi server and Jio AirFiber router would shut down abruptly. That meant downtime for my home lab, blogs server, and internet.  
+      <article class="article">
+        <h3><a href="blogs/beef_inraspi">BeEF in Raspberry Pi</a></h3>
+        <p>Setting up Browser Exploitation Framework on Pi.</p>
+      </article>
 
-So I finally decided to build a **smart UPS + backup system** that’s compact, affordable, and reliable.  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/ups_for_raspi" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/home_network">Home Network Setup</a></h3>
+        <p>Building a robust home network infrastructure.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/zima_board">ZimaBoard Experience</a></h3>
+        <p>Exploring the ZimaBoard single-board computer.</p>
+      </article>
+    </section>
 
+    <section>
+      <h2>Cybersecurity & Networking</h2>
 
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://www.safeaeon.com/assets/img/blogs/setup-homelab-to-practice-penetration-testing_thumbnail.webp" alt="How I Made My Own Cybersecurity Lab at Home (Using Just One Laptop)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Cybersecurity</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   January 15, 2025</span>
-              </div>
-              
-              <h3 class="article-title">How I Made My Own Cybersecurity Lab at Home (Using Just One Laptop)</h3>
-              <p class="article-excerpt">In this post, I’ll show you how I created a full-fledged cybersecurity lab on my laptop — a safe, isolated environment where I can practice hacking on real vulnerable machines without risking my home network.  
-It’s beginner-friendly, powerful, and completely free to set up!
-  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/cybersecurity_lab" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/cybersecurity_lab">Home Cybersecurity Lab</a></h3>
+        <p>Building a cybersecurity testing environment at home.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/cloudflare_dynu">Cloudflare & Dynu Setup</a></h3>
+        <p>Configuring dynamic DNS with Cloudflare and Dynu.</p>
+      </article>
+    </section>
 
-           <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://static-blog.siteground.com/wp-content/uploads/sites/2/2017/02/Cloudflare-HTTPS-WAF-update.jpg" alt="Cloudflare Tunnel + Dynu Setup (Access Raspberry Pi from Anywhere)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Cloudflare</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>   January 01, 2025</span>
-              </div>
-              
-              <h3 class="article-title">Cloudflare Tunnel + Dynu Setup (Access Raspberry Pi from Anywhere)</h3>
-              <p class="article-excerpt">In this post, I’ll show you how I made my **Raspberry Pi accessible from anywhere in the world** using **Cloudflare Tunnel and Dynu DDNS** – without port forwarding or a static IP.
-  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/cloudflare_dynu" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+    <section>
+      <h2>Electronics & IoT</h2>
 
+      <article class="article">
+        <h3><a href="blogs/electronics_journey">My Electronics Journey</a></h3>
+        <p>From hobby to professional electronics development.</p>
+      </article>
 
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://i.ytimg.com/vi/y47zWw0SX_0/maxresdefault.jpg" alt="Boosting My Jio AirFiber Range & Complete Home Networking Setup" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Lifestyle</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>  December 30, 2024</span>
-              </div>
-              
-              <h3 class="article-title">Boosting My Jio AirFiber Range & Complete Home Networking Setup</h3>
-              <p class="article-excerpt">In this post, I’ll show you how I boosted the **Wi-Fi range of my Jio AirFiber** and built a stable home network for all my devices.  
-If you’re using Jio AirFiber and facing range or speed issues, this guide will help you fix them.
-  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/home_network" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/petrol_density">Petrol Density Measurement</a></h3>
+        <p>Building a device to measure fuel density.</p>
+      </article>
 
+      <article class="article">
+        <h3><a href="blogs/milk_vending">Smart Milk Vending Machine</a></h3>
+        <p>Creating an automated milk vending solution.</p>
+      </article>
 
-           <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://i.ytimg.com/vi/HrIBGJep-1o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCHg2hXpP5f4KWpuby_Y3ZGHx7h0Q" alt="How I Built an AI Phone Caller Using ESP32 and SIM800L (No Twilio)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Tutorial</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>  December 26, 2024</span>
-              </div>
-              
-              <h3 class="article-title">How I Built an AI Phone Caller Using ESP32 and SIM800L (No Twilio)</h3>
-              <p class="article-excerpt">In this post, I’ll show you how I built my own **AI phone caller** using ESP32 and the SIM800L GSM module.  
-This project can make real phone calls, play messages, and even use AI-generated responses – without any paid Twilio accounts.  
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/ai_telecaller" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
+      <article class="article">
+        <h3><a href="blogs/wearos_weatherapp">WearOS Weather App</a></h3>
+        <p>Developing a weather application for smartwatches.</p>
+      </article>
+    </section>
 
+    <section>
+      <h2>Education</h2>
 
-
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="data:image/jpeg;base64,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" alt="Build Your Own Weather App for Wear OS Using OpenWeather API" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Tutorial</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>  December 15, 2024</span>
-              </div>
-              
-              <h3 class="article-title">Build Your Own Weather App for Wear OS Using OpenWeather API</h3>
-              <p class="article-excerpt">In this post, I’ll show you how to build a **simple yet powerful Weather App** for Wear OS smartwatches.  
-This app will display real-time weather data (temperature, conditions, and forecasts) using the **OpenWeather API**.  
-
-Whether you’re a beginner or just love building apps for your smartwatch, this tutorial will guide you step-by-step.  </p>
-              
-              <div class="article-footer">
-                <a href="blogs/wearos_weatherapp" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-           <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://tldv.io/wp-content/uploads/2025/04/Cluely-Review.jpg" alt="Build Your Own Cuely-Style AI Assistant on Windows (Step-by-Step Tutorial)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Tutorial</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>  December 01, 2024</span>
-              </div>
-              
-              <h3 class="article-title">Build Your Own Cuely-Style AI Assistant on Windows (Step-by-Step Tutorial)</h3>
-              <p class="article-excerpt">Do you want a personal AI assistant on your Windows PC – one that can pop up instantly, read your screen, and help you like Cuely? In this tutorial, I’ll show you exactly how to build it using Electron, OpenAI API, and OCR (screen reading)</p>
-              
-              <div class="article-footer">
-                <a href="blogs/cuely_assistant" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="blog/blog_images/Students Can Turn Their Tech Skills.webp" alt="How Students Can Turn Their Tech Skills into Income (My Real-Life Learnings)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Tutorial</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span>  November 29, 2024</span>
-              </div>
-              
-              <h3 class="article-title">How Students Can Turn Their Tech Skills into Income (My Real-Life Learnings)</h3>
-              <p class="article-excerpt">In this post, I want to share something very important – how you can turn your skills into income even as a student. I’ll also share my own story and dream of starting TripleETech one day.</p>
-              
-              <div class="article-footer">
-                <a href="blogs/skills_to_income" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="blog/blog_images/milk vending machine blog banner.webp" alt="How I Built My Milk Vending Machine Prototype (Step-by-Step Story)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Tutorial</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> November 14, 2024</span>
-              </div>
-              
-              <h3 class="article-title">How I Built My Milk Vending Machine Prototype (Step-by-Step Story)</h3>
-              <p class="article-excerpt">This post is all about one of my most interesting projects – building a milk vending machine prototype using ESP32, QR code scanning, and a simple website. I’ll share exactly how I started, tested, and what mistakes I made so you can also learn.</p>
-              
-              <div class="article-footer">
-                <a href="blogs/milk_vending" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-
-           <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://pidora.ca/wp-content/uploads/2025/02/raspberry-pi-personal-cloud.jpeg" alt="How I Turned My Raspberry Pi Into a Cloud & File Server (Beginner to Pro Story)" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Raspberry pi</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> October 25, 2024</span>
-              </div>
-              
-              <h3 class="article-title">How I Turned My Raspberry Pi Into a Cloud & File Server (Beginner to Pro Story)</h3>
-              <p class="article-excerpt">This post is one of my favourite stories because I literally turned a tiny Raspberry Pi board into my own cloud server and file storage system. Sounds big, right? But I started from zero and messed up a lot before I got it working.</p>
-              
-              <div class="article-footer">
-                <a href="blogs/raspberry_to_cloud" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://i.ytimg.com/vi/cSsWqeZ5oP4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDIef77mzgDp7UIjP2wRpW0EU3oVA" alt="My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Electronics</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> August 14, 2024</span>
-              </div>
-              
-              <h3 class="article-title">My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments</h3>
-              <p class="article-excerpt">In this post, I’m going to share my full journey in electronics projects – how I started with small boards like Arduino Uno, Raspberry Pi, and ESP32, and slowly built so many fun and useful projects. Trust me, I didn’t know anything in the beginning, but now I can confidently connect sensors, displays, modules and make my own gadgets.</p>
-              
-              <div class="article-footer">
-                <a href="blogs/electronics_journey" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2025/02/Blogging-alt-1-1.jpg" alt="My Blogging Journey – How I Built My Blog & Applied for Adsense" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Blogging</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> July 07, 2024</span>
-              </div>
-              
-              <h3 class="article-title">My Blogging Journey – How I Built My Blog & Applied for Adsense</h3>
-              <p class="article-excerpt">Today I want to share the complete story of how I built my own blogging website from scratch and slowly started applying for Google Adsense. Honestly, I had zero knowledge when I started, but step by step I </p>
-              
-              <div class="article-footer">
-                <a href="blogs/bloging_journey" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">5 min read</span>
-              </div>
-            </div>
-          </article>
-
-
-          <article class="article-card">
-            <img src="https://i.ytimg.com/vi/uj2zkbPRODY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAioGtOnTo-NRysvtwxlFlhKiYBBg" alt="My Full Tech Journey – From Zero to Building Websites & Gadgets" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Journey</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> June 14, 2024</span>
-              </div>
-              
-              <h3 class="article-title">My Full Tech Journey – From Zero to Building Websites & Gadgets</h3>
-              <p class="article-excerpt">Hey guys,
-I’m Dharun. Just a normal guy from Tamil Nadu who got curious about tech, slowly started doing small projects, and now I can proudly say I’m building my own websites, gadgets, and even my own company plans! It didn’t happen overnight. I started literally from zero. Let me share my full journey so you also get the vibe and confidence to start your own.
-</p>
-              
-              <div class="article-footer">
-                <a href="blogs/tech_journey" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">8 min read</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- TEMPLATE: Copy this structure for each new blogs post -->
-          <article class="article-card">
-            <img src="https://bikeadvice.in/wp-content/uploads/2016/07/Petrol-Station-1.jpg" alt="Petrol Density Anomaly at IndianOil Outlet: My Experience and What Every Consumer Should Know" class="article-image" loading="lazy">
-            
-            <div class="article-content">
-              <div class="article-meta">
-                <span class="article-category">Lifestyle</span>
-                <span><span class="material-symbols-outlined" style="font-size: 24px;vertical-align: middle;">
-event
-</span> December 30, 2014</span>
-              </div>
-              
-              <h3 class="article-title">Petrol Density Anomaly at IndianOil Outlet: My Experience and What Every Consumer Should Know</h3>
-              <p class="article-excerpt">On 20th December 2014, I stopped at an IndianOil petrol pump in Tamil Nadu for a routine refill. While observing the dispenser, I noticed something unusual — the petrol density displayed was</p>
-              
-              <div class="article-footer">
-                <a href="blogs/petrol_density" class="read-more-btn" aria-label="Read full article">
-                  Read More
-                  <span>→</span>
-                </a>
-                <span class="read-time">8 min read</span>
-              </div>
-            </div>
-          </article>
-
-          
-        </div>
-      </section>
-
-      <!-- Newsletter Section -->
-      <section class="newsletter-section">
-        <h2 class="newsletter-title">Stay Updated</h2>
-        <p class="newsletter-description">Get the latest insights on web development, design trends, and entrepreneurship delivered to your inbox weekly.</p>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-          <button type="submit" class="newsletter-button">Subscribe</button>
-        </form>
-      </section>
-    </div>
+      <article class="article">
+        <h3><a href="blogs/college_journey">My College Journey</a></h3>
+        <p>Reflections on my college experience and learnings.</p>
+      </article>
+    </section>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-links">
-        <a href="privacy-policy">Privacy Policy</a>
-        <a href="terms">Terms of Service</a>
-        <a href="contact">Contact</a>
-        <a href="about">About</a>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Dharun Ashokkumar. All rights reserved. Built with passion for sharing knowledge.</p>
-      </div>
-    </div>
+    <p>
+      <a href="privacy-policy">Privacy Policy</a> |
+      <a href="terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
   </footer>
 
   <script>
-    // Search functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('searchInput');
-      const postsContainer = document.getElementById('postsContainer');
-      const articles = postsContainer.querySelectorAll('.article-card');
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
 
-      searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase().trim();
-        let visibleCount = 0;
-
-        articles.forEach(article => {
-          const title = article.querySelector('.article-title').textContent.toLowerCase();
-          const excerpt = article.querySelector('.article-excerpt').textContent.toLowerCase();
-          const category = article.querySelector('.article-category').textContent.toLowerCase();
-
-          if (title.includes(searchTerm) || excerpt.includes(searchTerm) || category.includes(searchTerm)) {
-            article.style.display = 'block';
-            visibleCount++;
-          } else {
-            article.style.display = 'none';
-          }
-        });
-
-        // Show no results message
-        let noResultsMsg = postsContainer.querySelector('.no-results');
-        if (visibleCount === 0 && searchTerm !== '') {
-          if (!noResultsMsg) {
-            noResultsMsg = document.createElement('div');
-            noResultsMsg.className = 'no-results';
-            noResultsMsg.innerHTML = '<h3>📝 No Articles Found</h3><p>Try adjusting your search or check back soon for new content!</p>';
-            postsContainer.appendChild(noResultsMsg);
-          }
-          noResultsMsg.style.display = 'block';
-        } else if (noResultsMsg) {
-          noResultsMsg.style.display = 'none';
-        }
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
       });
-
-      // Newsletter signup
-      const newsletterForm = document.getElementById('newsletterForm');
-      newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="email"]').value;
-        alert(`Thank you for subscribing with ${email}! You'll receive our weekly tech insights.`);
-        this.reset();
-      });
-
-      // Mobile navigation
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Blog - Tech Insights',
-          page_location: window.location.href
-        });
-      }
-    });
+    }
   </script>
 </body>
 </html>

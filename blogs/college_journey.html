@@ -1,283 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <title>My LPU Journey: From JEE Struggles to a New Beginning</title>
+  <meta name="description" content="Blog post: My LPU Journey: From JEE Struggles to a New Beginning">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="https://markmanson.net/wp-content/themes/mm-main/images/courses/build-a-better-life.png" alt="How I Built an AI Phone Caller Using ESP32 and SIM800L (No Twilio)" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>My LPU Journey: From JEE Struggles to a New Beginning</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: August 27, 2025</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-<h1>My LPU Journey: From JEE Struggles to a New Beginning</h1>
+  <main>
+<article>
+            <h1>My LPU Journey: From JEE Struggles to a New Beginning</h1>
 
-The past year has been an emotional rollercoaster — from late-night study sessions to unexpected results, endless counseling rounds, and finally landing at Lovely Professional University. This post documents how I turned rejection into redirection, and why I chose to be the head of a cat rather than the tail of a tiger.
+            <p>The past year has been an emotional rollercoaster — from late-night study sessions to unexpected results, endless counseling rounds, and finally landing at Lovely Professional University. This post documents how I turned rejection into redirection, and why I chose to be the head of a cat rather than the tail of a tiger.</p>
 
-<hr> <h2>JEE: The Challenge That Started It All</h2>
+            <hr>
 
-Like millions of Indian aspirants, I aimed for top engineering colleges through JEE Main. I joined Sri Abhida Junior College, Hyderabad, and gave my best despite ups and downs.
-When the results came, I had a few good options — top IIITs like Kalyani, Dharwad, and Vadodara, but only for branches like Mechanical and Civil.
+            <h2>JEE: The Challenge That Started It All</h2>
+            <p>Like millions of Indian aspirants, I aimed for top engineering colleges through JEE Main. I joined Sri Abhida Junior College, Hyderabad, and gave my best despite ups and downs.</p>
+            <p>When the results came, I had a few good options — top IIITs like Kalyani, Dharwad, and Vadodara, but only for branches like Mechanical and Civil.</p>
+            <p>I knew I wanted Computer Science Engineering (CSE). That was my passion, my future.</p>
+            <p>So I took a bold decision: "Better to be the head of a cat than the tail of a tiger." – I chose what aligned with my goals, not just what looked good on paper.</p>
 
-I knew I wanted Computer Science Engineering (CSE). That was my passion, my future.
-So I took a bold decision:
+            <hr>
 
-❝ Better to be the head of a cat than the tail of a tiger. ❞
-– I chose what aligned with my goals, not just what looked good on paper.
+            <h2>JoSAA & CSAB Counseling Rounds</h2>
+            <p>Here's how the counseling journey went:</p>
 
-<hr> <h2>JoSAA & CSAB Counseling Rounds</h2>
+            <h3>JoSAA Counseling:</h3>
+            <p>- Allotted: IIITs with Mech/Civil branches</p>
+            <p>- Why I skipped: Not aligned with my core interest in tech</p>
 
-Here’s how the counseling journey went:
+            <h3>CSAB Special Rounds:</h3>
+            <p>- Gave it one last try — still no ideal match</p>
+            <p>- Final realization: It's not about just getting in, it's about what you'll do after getting in</p>
+            <p>Instead of settling, I decided to create my own path.</p>
 
-JoSAA Counseling:
+            <hr>
 
-Allotted: IIITs with Mech/Civil branches
-Why I skipped: Not aligned with my core interest in tech
+            <h2>Why I Chose Lovely Professional University (LPU)</h2>
+            <p>LPU wasn't my first thought — but it became my best decision:</p>
+            <p>- Beautiful campus and strong digital infrastructure</p>
+            <p>- CSE program with focus on AI/ML, Cybersecurity, and Python</p>
+            <p>- Active placement cell and industry-aligned projects</p>
+            <p>- Freedom to build and experiment – startups, side projects, hackathons</p>
+            <p>- Supportive environment that values both academics and innovation</p>
+            <p>LPU didn't just give me a seat — it gave me a stage.</p>
 
-CSAB Special Rounds:
+            <hr>
 
-Gave it one last try — still no ideal match
-Final realization: It's not about just getting in, it's about what you'll do after getting in
+            <h2>My First Year Plan</h2>
+            <p>I've already mapped out my learning journey:</p>
+            <p>- Mastering Python (official course language)</p>
+            <p>- Learning C and C++ independently</p>
+            <p>- Strengthening DSA skills</p>
+            <p>- Practicing on LeetCode, Codeforces</p>
+            <p>- Dreaming big — MNC placements, internships, and product development</p>
 
-👉 Instead of settling, I decided to create my own path.
+            <hr>
 
-<hr> <h2>Why I Chose Lovely Professional University (LPU)</h2>
+            <h2>My Projects & Startups</h2>
+            <p>Even before joining college, I've been building my own ecosystem:</p>
+            <p><strong>DadsCloud:</strong> My self-hosted data center project — India's local AWS alternative</p>
+            <p><strong>TripleETech:</strong> A startup aimed at IT services, electronics, automation, AI & web development</p>
+            <p><strong>Open-Source Contributions:</strong> From Devicon to custom AI assistants — building with the community</p>
+            <p><strong>Personal Branding:</strong> Sharing my journey through my blog, YouTube channel [pop2all], and my portfolio</p>
+            <p>LPU gives me the environment to scale these dreams — with labs, mentors, and like-minded peers.</p>
 
-LPU wasn’t my first thought — but it became my best decision:
- Beautiful campus and strong digital infrastructure
+            <hr>
 
- CSE program with focus on AI/ML, Cybersecurity, and Python
- Active placement cell and industry-aligned projects
- Freedom to build and experiment – startups, side projects, hackathons
- Supportive environment that values both academics and innovation
+            <h2>Lessons I've Learned</h2>
+            <p>This journey taught me a lot more than books ever could:</p>
+            <p>- Failure is just redirection</p>
+            <p>- Focus on your goal, not trends or rank lists</p>
+            <p>- Your path is your power — own it</p>
+            <p>Choosing LPU over a "tag" college wasn't a compromise — it was a commitment to my CSE passion and startup dream.</p>
 
- LPU didn’t just give me a seat — it gave me a stage.
+            <hr>
 
-<hr> <h2>My First Year Plan</h2>
+            <h2>The Road Ahead</h2>
+            <p>Now that I'm here, the real journey begins:</p>
+            <p>- I'll build tools, platforms, and businesses from my hostel room</p>
+            <p>- I'll collaborate, contribute, and grow</p>
+            <p>- I'll be the best version of me — at my own pace, on my own terms</p>
+            <p>If you're someone who's stuck between "what you got" vs "what you want" — remember this: "Be the head of a cat, rather than the tail of a tiger." Choose growth, not just glory.</p>
+        </article>
+  </main>
 
-I’ve already mapped out my learning journey:
-
- Mastering Python (official course language)
- Learning C and C++ independently
- Strengthening DSA skills
- Practicing on LeetCode, Codeforces
- Dreaming big — MNC placements, internships, and product development
-
-<hr> <h2>My Projects & Startups</h2>
-
-Even before joining college, I’ve been building my own ecosystem:
-
-🖥️ DadsCloud
-My self-hosted data center project — India’s local AWS alternative
-
-⚙️ TripleETech
-A startup aimed at IT services, electronics, automation, AI & web development
-
-🔗 Open-Source Contributions
-From Devicon to custom AI assistants — building with the community
-
-🌐 Personal Branding
-Sharing my journey through my blog, YouTube channel [pop2all], and my portfolio
-
-👉 LPU gives me the environment to scale these dreams — with labs, mentors, and like-minded peers.
-
-<hr> <h2>Lessons I’ve Learned</h2>
-
-This journey taught me a lot more than books ever could:
-
- Failure is just redirection
- Focus on your goal, not trends or rank lists
- Your path is your power — own it
-
-Choosing LPU over a "tag" college wasn’t a compromise — it was a commitment to my CSE passion and startup dream.
-
-<hr> <h2>The Road Ahead</h2>
-
-Now that I’m here, the real journey begins:
-
-I’ll build tools, platforms, and businesses from my hostel room
-I’ll collaborate, contribute, and grow
-I’ll be the best version of me — at my own pace, on my own terms
-If you’re someone who’s stuck between “what you got” vs “what you want” — remember this:
-
-❝ Be the head of a cat, rather than the tail of a tiger. ❞
-Choose growth, not just glory.
-
-✍️ <b>Written by Dharun Ashokkumar</b>
-Future Engineer | Entrepreneur | Creator of DadsCloud & TripleETech
-
-</div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'How I Built an AI Phone Caller Using ESP32 and SIM800L (No Twilio)',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

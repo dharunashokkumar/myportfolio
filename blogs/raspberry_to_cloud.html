@@ -1,337 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>How I Turned My Raspberry Pi into a Personal Cloud Server</title>
-<meta name="description" content="Step-by-step guide on turning your Raspberry Pi into a personal cloud server using TrueNAS, Nextcloud, and Cloudflare tunnels.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/raspberry_to_cloud.html">
-
-<meta property="og:title" content="How I Turned My Raspberry Pi into a Personal Cloud Server">
-<meta property="og:description" content="Step-by-step guide on turning your Raspberry Pi into a personal cloud server using TrueNAS, Nextcloud, and Cloudflare tunnels.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/raspberry_to_cloud.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-25T00:00:00Z">
-<meta property="article:tag" content="Raspberry Pi">
-<meta property="article:tag" content="Cloud">
-<meta property="article:tag" content="TrueNAS">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How I Turned My Raspberry Pi into a Personal Cloud Server">
-<meta name="twitter:description" content="Step-by-step guide on turning your Raspberry Pi into a personal cloud server using TrueNAS, Nextcloud, and Cloudflare tunnels.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "How I Turned My Raspberry Pi into a Personal Cloud Server",
-  "description": "Step-by-step guide on turning your Raspberry Pi into a personal cloud server using TrueNAS, Nextcloud, and Cloudflare tunnels.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>How I Turned My Raspberry Pi Into a Cloud File Server</title>
+  <meta name="description" content="Blog post: How I Turned My Raspberry Pi Into a Cloud File Server">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-25T00:00:00Z",
-  "dateModified": "2025-01-25T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/raspberry_to_cloud.html"
-  }
-}
-</script>
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="https://pidora.ca/wp-content/uploads/2025/02/raspberry-pi-personal-cloud.jpeg" alt="How I Turned My Raspberry Pi Into a Cloud & File Server (Beginner to Pro Story)" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>How I Turned My Raspberry Pi Into a Cloud & File Server (Beginner to Pro Story)</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: October 25, 2024</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-<h4>Hey guys,</h4>
-This post is one of my favourite stories because I literally turned a tiny Raspberry Pi board into my own cloud server and file storage system. Sounds big, right? But I started from zero and messed up a lot before I got it working.
+  <main>
+<article>
+            <h1>How I Turned My Raspberry Pi Into a Cloud & File Server</h1>
 
-<hr>
+            <h4>Hey guys,</h4>
+            <p>This post is one of my favourite stories because I literally turned a tiny Raspberry Pi board into my own cloud server and file storage system. Sounds big, right? But I started from zero and messed up a lot before I got it working.</p>
 
-<h2>The Idea – Why I Even Tried This</h2>
-I always wanted a way to store my files safely and access them from anywhere. Google Drive is fine, but I wanted something that I fully control. Also, I love experimenting with Raspberry Pi, so one day I thought – “What if I make my own cloud server?”
+            <hr>
 
-At first, I didn’t even know what tools I needed. But I decided to just start and figure it out on the way.
+            <h2>The Idea – Why I Even Tried This</h2>
+            <p>I always wanted a way to store my files safely and access them from anywhere. Google Drive is fine, but I wanted something that I fully control. Also, I love experimenting with Raspberry Pi, so one day I thought – "What if I make my own cloud server?"</p>
+            <p>At first, I didn't even know what tools I needed. But I decided to just start and figure it out on the way.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 1: Setting Up My Raspberry Pi</h2>
-I used my Raspberry Pi 4 Model B (this small board is like magic).
+            <h2>Step 1: Setting Up My Raspberry Pi</h2>
+            <p>I used my Raspberry Pi 4 Model B (this small board is like magic).</p>
+            <p>- Flashed Raspberry Pi OS into an SD card</p>
+            <p>- Connected keyboard, mouse, and monitor to set it up</p>
+            <p>- Connected to my home Wi-Fi</p>
+            <p>This was the easy part. The real headache started later.</p>
 
-Flashed Raspberry Pi OS into an SD card. -> Connected keyboard, mouse, and monitor to set it up. -> Connected to my home Wi-Fi. -> This was the easy part. The real headache started later 😂. 
+            <hr>
 
-<hr><hr>
+            <h2>Step 2: Adding Storage</h2>
+            <p>I didn't have a big hard disk, so I connected pendrives and a small external hard drive to the Pi. That became my storage for now.</p>
+            <p>Pro tip: If you are starting, don't waste money on big drives initially. Just use what you have.</p>
 
-<h2>🔗 Related: <a href="electronics_journey.html"><b>My Electronics Journey</b></a> – Arduino, Raspberry Pi & ESP32 Experiments</h2>
-If you’re new to Raspberry Pi and electronics, I recommend reading <a href="electronics_journey.html"><b>My Electronics Journey</b></a> blog where I explained how I learned all these boards step by step.
+            <hr>
 
-<hr><hr>
+            <h2>Step 3: Trying TrueNAS & Samba</h2>
+            <p>I wanted a proper file server, so I started with TrueNAS. It's a great tool but a little heavy. I tried to set it up, but honestly, it was too much for my Pi initially.</p>
+            <p>Then I tried Samba to share files within my home network. This worked easily – I could now access Pi storage from my laptop and phone, but only inside my Wi-Fi.</p>
+            <p>I was like, "Okay good, but I want to access my files even when I'm outside my house."</p>
 
-<h2>Step 2: Adding Storage</h2>
-I didn’t have a big hard disk, so I connected pendrives and a small external hard drive to the Pi. That became my storage for now.
+            <hr>
 
-Pro tip: If you are starting, don’t waste money on big drives initially. Just use what you have.
+            <h2>Step 4: Access From Anywhere (DDNS + Cloudflare)</h2>
+            <p>This combo (Dynu + Cloudflare tunnel) saved me from the headache of port forwarding.</p>
+            <p>I set up Dynu DDNS to get a domain name that updates automatically, and used Cloudflare tunnel to securely access my Raspberry Pi servers.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 3: Trying TrueNAS & Samba</h2>
-I wanted a proper file server, so I started with TrueNAS. It’s a great tool but a little heavy. I tried to set it up, but honestly, it was too much for my Pi initially.
+            <h2>Step 5: My Pi Cloud Was Ready!</h2>
+            <p>Now I could:</p>
+            <p>- Save files on my Pi from anywhere</p>
+            <p>- Access it using a custom link (thanks to Dynu)</p>
+            <p>- Share files with friends easily</p>
+            <p>This was such a big moment because I built my own private Google Drive using just a small Pi board and some pendrives.</p>
 
-Then I tried Samba to share files within my home network. This worked easily – I could now access Pi storage from my laptop and phone, but only inside my Wi-Fi.
+            <hr>
 
-I was like, “Okay good, but I want to access my files even when I’m outside my house.”
+            <h2>Mistakes I Made (So You Don't Repeat)</h2>
+            <p>- I corrupted the SD card twice: Because I kept unplugging the Pi without shutting down properly</p>
+            <p>- I forgot backups: Once I lost some files because I didn't keep a backup outside the Pi</p>
+            <p>- Underestimated power supply: Pi needs a good adapter; otherwise it keeps rebooting randomly</p>
 
-<hr>
+            <hr>
 
-<h2>Step 4: Access From Anywhere (DDNS + Cloudflare)</h2>
-Here’s the exact HTML link code I used to connect my Dynu DDNS domain to my Pi:
+            <h2>Final Words</h2>
+            <p>If you have a Raspberry Pi lying around, try this! You'll not only learn a lot but also get a useful cloud storage system for yourself.</p>
+            <p>Thanks for reading! Share this post with your friends who love DIY projects.</p>
+        </article>
+  </main>
 
-<div style="background:#1e1e1e;color:#fff;padding:10px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-  <code id="codeBox" style="font-size:14px;white-space:nowrap;overflow-x:auto;display:block;">
-    &lt;a href="https://mypiserver.dynu.net" target="_blank"&gt;Access My <br>Raspberry Pi Cloud Server&lt;/a&gt;
-  </code>
-  <button 
-    onclick="navigator.clipboard.writeText(document.getElementById('codeBox').innerText);alert('Code copied!');"
-    style="background:#333;color:#fff;border:1px solid #666;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;">
-    Copy
-  </button>
-</div>
-
-This combo (Dynu + Cloudflare tunnel) saved me from the headache of port forwarding.
-
-<hr>
-
-<h2>Step 5: My Pi Cloud Was Ready!</h2>
-Now I could:
-
--Save files on my Pi from anywhere.
--Access it using a custom link (thanks to Dynu).
--Share files with friends easily.
-
-This was such a big moment because I built my own private Google Drive using just a small Pi board and some pendrives.
-
-<hr>
-
-<h2>Mistakes I Made (So You Don’t Repeat)</h2>
-
-=> :( I corrupted the SD card twice: Because I kept unplugging the Pi without shutting down properly.
-=> I forgot backups: Once I lost some files because I didn’t keep a backup outside the Pi.
-Underestimated power supply: Pi needs a good adapter; otherwise it keeps rebooting randomly.
-
-<hr>
-
-<h2>Final Words</h2>
-If you have a Raspberry Pi lying around, try this! You’ll not only learn a lot but also get a useful cloud storage system for yourself.
-
-👉 Also, check out <a href="https://dharunashokkumar.com/post?id=voM3i8KGdiUbbMPGcDGD"><b>my Full Tech Journey </b></a>here if you want to know <a href="https://dharunashokkumar.com/post?id=OdzrDpVclmZTR9M7uqmg"><b>how I even started with Raspberry Pi and electronics.</b></a>
-
-<h4>Thanks for reading! Share this post with your friends who love DIY projects.</h4>
-
-
-
-
-
-
-
-
-
-
-        
-    </div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

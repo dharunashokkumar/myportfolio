@@ -1,362 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Building a Weather App for Wear OS with OpenWeather API</title>
-<meta name="description" content="Step-by-step guide on how I built a weather app for Wear OS using the OpenWeather API and Flutter.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/wearos_weatherapp.html">
-
-<meta property="og:title" content="Building a Weather App for Wear OS with OpenWeather API">
-<meta property="og:description" content="Step-by-step guide on how I built a weather app for Wear OS using the OpenWeather API and Flutter.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/wearos_weatherapp.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-30T00:00:00Z">
-<meta property="article:tag" content="Wear OS">
-<meta property="article:tag" content="Weather App">
-<meta property="article:tag" content="OpenWeather">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Building a Weather App for Wear OS with OpenWeather API">
-<meta name="twitter:description" content="Step-by-step guide on how I built a weather app for Wear OS using the OpenWeather API and Flutter.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Building a Weather App for Wear OS with OpenWeather API",
-  "description": "Step-by-step guide on how I built a weather app for Wear OS using the OpenWeather API and Flutter.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>Build Your Own Weather App for Wear OS Using OpenWeather API</title>
+  <meta name="description" content="Blog post: Build Your Own Weather App for Wear OS Using OpenWeather API">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-30T00:00:00Z",
-  "dateModified": "2025-01-30T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/wearos_weatherapp.html"
-  }
-}
-</script>
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="data:image/jpeg;base64,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" alt="Build Your Own Weather App for Wear OS Using OpenWeather API" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>Build Your Own Weather App for Wear OS Using OpenWeather API</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: December 15, 2024</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-In this post, I’ll show you how to build a **simple yet powerful Weather App** for Wear OS smartwatches.  
-This app will display real-time weather data (temperature, conditions, and forecasts) using the **OpenWeather API**.  
+  <main>
+<article>
+            <h1>Build Your Own Weather App for Wear OS Using OpenWeather API</h1>
 
-Whether you’re a beginner or just love building apps for your smartwatch, this tutorial will guide you step-by-step.  
+            <p>In this post, I'll show you how to build a simple yet powerful Weather App for Wear OS smartwatches. This app will display real-time weather data (temperature, conditions, and forecasts) using the OpenWeather API.</p>
+            <p>Whether you're a beginner or just love building apps for your smartwatch, this tutorial will guide you step-by-step.</p>
 
-👉 You can reuse this logic for Android phones as well, not just Wear OS.  
+            <hr>
 
-<hr>
+            <h2>What This Weather App Can Do</h2>
+            <p>Here's a quick overview:</p>
+            <p>- Show the current temperature and weather condition</p>
+            <p>- Show a small icon (sunny, rainy, cloudy, etc.) based on the condition</p>
+            <p>- Update automatically every hour (or on-demand)</p>
+            <p>- Lightweight and battery-friendly for Wear OS</p>
 
-<h2>What This Weather App Can Do</h2>
-Here’s a quick overview:
+            <hr>
 
--> Show the current temperature and weather condition.  
--> Show a small icon (sunny, rainy, cloudy, etc.) based on the condition.  
--> Update automatically every hour (or on-demand).  
--> Lightweight and battery-friendly for Wear OS.  
+            <h2>What You'll Need</h2>
+            <p>1. A Wear OS smartwatch (or Wear OS emulator in Android Studio)</p>
+            <p>2. Android Studio installed on your PC</p>
+            <p>3. A free OpenWeather API key</p>
+            <p>4. Basic knowledge of how Android apps work</p>
 
-<hr>
+            <hr>
 
-<h2>What You’ll Need</h2>
-1. A Wear OS smartwatch (or Wear OS emulator in Android Studio).  
-2. Android Studio installed on your PC.  
-3. A free <a href="https://openweathermap.org/api" target="_blank"><b>OpenWeather API key</b></a>.  
-4. Basic knowledge of how Android apps work.  
+            <h2>Step 1: Setup a New Wear OS Project</h2>
+            <p>Open Android Studio - New Project - Select Wear OS Empty Activity. This will create a starter project for your weather app.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 1: Setup a New Wear OS Project</h2>
-Open Android Studio → <b>New Project</b> → Select <b>Wear OS Empty Activity</b>.  
+            <h2>Step 2: Get Your OpenWeather API Key</h2>
+            <p>Go to OpenWeather and create a free account. Generate your API key, which you'll use to fetch live weather data.</p>
 
-This will create a starter project for your weather app.  
+            <hr>
 
-<hr>
+            <h2>Step 3: Add Internet Permission</h2>
+            <p>Open your AndroidManifest.xml and add:</p>
+            <pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;</code></pre>
+            <p>This allows your app to fetch data from the internet.</p>
 
-<h2>Step 2: Get Your OpenWeather API Key</h2>
-Go to <a href="https://openweathermap.org/api" target="_blank"><b>OpenWeather</b></a> and create a free account.  
-Generate your API key, which you’ll use to fetch live weather data.  
+            <hr>
 
-<div style="background:#1e1e1e;color:#fff;padding:10px 12px;border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
-  <code id="apiBox" style="font-size:14px;white-space:nowrap;overflow-x:auto;display:block;">
-    API_KEY=your-openweather-key
-  </code>
-  <button onclick="navigator.clipboard.writeText(document.getElementById('apiBox').innerText);" style="background:#333;color:#fff;border:1px solid #666;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;">
-    Copy
-  </button>
-</div>
+            <h2>Step 4: Fetch Weather Data Using Retrofit</h2>
+            <p>Use Retrofit (or the default HttpURLConnection) to call the OpenWeather API. Here's a sample API URL:</p>
+            <pre><code>https://api.openweathermap.org/data/2.5/weather?q=Salem&appid=YOUR_API_KEY&units=metric</code></pre>
+            <p>This will return JSON data like temperature, humidity, and conditions.</p>
 
-<hr>
+            <hr>
 
-<h2>Step 3: Add Internet Permission</h2>
-Open your <b>AndroidManifest.xml</b> and add:
+            <h2>Step 5: Show Weather on the Watch</h2>
+            <p>Update your activity_main.xml with a TextView and ImageView for the icon. In your MainActivity.kt, parse the API response and display the temperature and icon.</p>
 
-<pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-</code></pre>
+            <hr>
 
-This allows your app to fetch data from the internet.  
+            <h2>Why This Project is Great for Beginners</h2>
+            <p>This project teaches you:</p>
+            <p>- How to build apps for Wear OS (watch screens and layouts)</p>
+            <p>- How to call external APIs like OpenWeather</p>
+            <p>- How to work with JSON responses and display data in UI</p>
+            <p>- How to make lightweight apps that don't drain battery</p>
 
-<hr>
+            <hr>
 
-<h2>Step 4: Fetch Weather Data Using Retrofit</h2>
-Use Retrofit (or the default `HttpURLConnection`) to call the OpenWeather API.  
-Here’s a sample API URL:
+            <h2>Final Words</h2>
+            <p>Now you have your own Wear OS Weather App! Get your OpenWeather API key and start building today. You can easily modify this for Android phones too.</p>
+            <p>Thanks for reading!</p>
+        </article>
+  </main>
 
-<pre><code>https://api.openweathermap.org/data/2.5/weather?q=Salem&appid=YOUR_API_KEY&units=metric
-</code></pre>
-
-This will return JSON data like temperature, humidity, and conditions.  
-
-<hr>
-
-<h2>Step 5: Show Weather on the Watch</h2>
-Update your <b>activity_main.xml</b> with a TextView and ImageView for the icon:
-
-<pre><code>&lt;LinearLayout&gt;
-    &lt;ImageView android:id="@+id/weatherIcon"/&gt;
-    &lt;TextView android:id="@+id/weatherText"/&gt;
-&lt;/LinearLayout&gt;
-</code></pre>
-
-In your <b>MainActivity.kt</b>, parse the API response and display the temperature and icon.  
-
-<hr>
-
-<h2>Bonus: Auto-Update Every Hour</h2>
-Use <b>WorkManager</b> or a simple `Handler` to refresh data every hour without user input.  
-You can also add a refresh button on the watch face.  
-
-<hr><hr>
-
-🔗 Related: <a href="tech_journey.html"><b>My Full Tech Journey Blog</b></a> – Learn how I started Android and Wear OS development from scratch.
-
-<hr><hr>
-
-<h2>Extra Features You Can Add</h2>
-1. 3-day weather forecast screen.  
-2. Display weather based on GPS (not just a fixed city).  
-3. Show humidity, wind speed, and sunrise/sunset time.  
-4. Change background colors based on day/night or weather type.  
-
-<hr>
-
-<h2>Why This Project is Great for Beginners</h2>
-This project teaches you:  
-
--> How to build apps for Wear OS (watch screens and layouts).  
--> How to call external APIs like OpenWeather.  
--> How to work with JSON responses and display data in UI.  
--> How to make lightweight apps that don’t drain battery.  
-
-<hr>
-
-<h2>Final Words</h2>
-Now you have your own Wear OS Weather App!  
-
-👉 Get your OpenWeather API key and start building today.  
-👉 You can easily modify this for Android phones too.  
-
-Thanks for reading!  
-If you liked this tutorial, share it with your friends and check out my <a href="cuely_assistant.html"><b>AI Assistant Tutorial</b></a>  
-
-</div>
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

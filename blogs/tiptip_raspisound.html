@@ -1,330 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Fixing My Raspberry Pi Cooling Issues (That Weird "Tip Tip" Sound)</title>
-<meta name="description" content="How I fixed the weird tip-tip clicking sound from my Raspberry Pi's cooling fan and improved the cooling system.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/tiptip_raspisound.html">
-
-<meta property="og:title" content="Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)">
-<meta property="og:description" content="How I fixed the weird tip-tip clicking sound from my Raspberry Pi's cooling fan and improved the cooling system.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/tiptip_raspisound.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-28T00:00:00Z">
-<meta property="article:tag" content="Raspberry Pi">
-<meta property="article:tag" content="Cooling">
-<meta property="article:tag" content="DIY Fix">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)">
-<meta name="twitter:description" content="How I fixed the weird tip-tip clicking sound from my Raspberry Pi's cooling fan and improved the cooling system.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)",
-  "description": "How I fixed the weird tip-tip clicking sound from my Raspberry Pi's cooling fan and improved the cooling system.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>Fixing My Raspberry Pi Cooling Issues That Weird Tip Tip Sound</title>
+  <meta name="description" content="Blog post: Fixing My Raspberry Pi Cooling Issues That Weird Tip Tip Sound">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-28T00:00:00Z",
-  "dateModified": "2025-01-28T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/tiptip_raspisound.html"
-  }
-}
-</script>
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="https://m.media-amazon.com/images/I/71qw+++GSiL.jpg" alt="Fixing My Raspberry Pi Cooling Issues" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>Fixing My Raspberry Pi Cooling Issues (That Weird "Tip Tip" Sound)</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: February 20, 2025</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">One day while working on my Raspberry Pi 4, I heard a strange **"tip tip" clicking sound** coming from the cooling fan.  
-At first, I thought the Pi was dying — but it turned out to be a cooling issue.  
+  <main>
+<article>
+            <h1>Fixing My Raspberry Pi Cooling Issues (That Weird "Tip Tip" Sound)</h1>
 
-In this post, I’ll share what caused it, how I fixed it, and the cooling setup I’m now using to keep my Pi cool even under load.  
+            <p>One day while working on my Raspberry Pi 4, I heard a strange "tip tip" clicking sound coming from the cooling fan. At first, I thought the Pi was dying – but it turned out to be a cooling issue.</p>
+            <p>In this post, I'll share what caused it, how I fixed it, and the cooling setup I'm now using to keep my Pi cool even under load.</p>
 
-<hr>
+            <hr>
 
-<h2>Why Raspberry Pi Cooling is Important</h2>
+            <h2>Why Raspberry Pi Cooling is Important</h2>
+            <p>The Raspberry Pi 4 can easily reach 60-80C under load. If you don't cool it properly:</p>
+            <p>- Performance throttles (slow Pi)</p>
+            <p>- Components can degrade over time</p>
+            <p>- Fans can start making weird noises (like mine did)</p>
+            <p>My Pi is part of my 24/7 home lab, so I needed a reliable solution.</p>
 
-The Raspberry Pi 4 can easily reach **60–80°C** under load.  
-If you don’t cool it properly:  
+            <hr>
 
-- Performance throttles (slow Pi)  
-- Components can degrade over time  
-- Fans can start making weird noises (like mine did)  
+            <h2>The "Tip Tip" Sound Mystery</h2>
+            <p>This is how the issue started:</p>
+            <p>- I placed the Pi near my AC blower (to cool it temporarily)</p>
+            <p>- The fan started making a faint clicking sound: "tip... tip... tip..."</p>
+            <p>- It got worse as the AC airflow pushed the fan blades</p>
+            <p>I realized the sound was coming from the fan bearing and airflow vibrations.</p>
 
-My Pi is part of my **24/7 home lab**, so I needed a reliable solution.  
+            <hr>
 
-<hr>
+            <h2>What Causes This Sound?</h2>
+            <p>1. Fan bearing wear – Cheap fans can develop loose bearings quickly</p>
+            <p>2. Airflow imbalance – Placing it directly in front of AC or strong air caused vibration</p>
+            <p>3. Overheating – High temps stress the fan and increase noise</p>
 
-<h2>The "Tip Tip" Sound Mystery</h2>
+            <hr>
 
-This is how the issue started:  
+            <h2>How I Fixed It</h2>
+            <h3>1. Stopped putting it in front of the AC</h3>
+            <p>The cold air was causing condensation and vibration. Bad idea.</p>
 
--> I placed the Pi near my AC blower (to cool it temporarily).  
--> The fan started making a faint clicking sound: *"tip… tip… tip…"*  
--> It got worse as the AC airflow pushed the fan blades.  
+            <h3>2. Cleaned the fan</h3>
+            <p>- Removed dust with a small brush</p>
+            <p>- Reapplied a drop of light machine oil to the bearing</p>
 
-I realized the sound was coming from the **fan bearing** and airflow vibrations.  
+            <h3>3. Replaced the fan</h3>
+            <p>I switched to a better quality 30mm 5V fan. Tip: Go for ball-bearing fans (longer life, less noise).</p>
 
-<hr>
+            <h3>4. Added a proper heatsink case</h3>
+            <p>I installed the Armor aluminum heatsink case with thermal pads. This reduced my idle temp from 55C to 42C.</p>
 
-<h2>What Causes This Sound?</h2>
+            <hr>
 
-1. **Fan bearing wear** – Cheap fans can develop loose bearings quickly.  
-2. **Airflow imbalance** – Placing it directly in front of AC or strong air caused vibration.  
-3. **Overheating** – High temps stress the fan and increase noise.  
+            <h2>My Current Cooling Setup</h2>
+            <p>- Armor aluminum case (full-body heatsink)</p>
+            <p>- Ball-bearing 30mm fan</p>
+            <p>- Pi placed in a ventilated area (not near AC blower)</p>
+            <p>Now my temps stay 45-55C under load and the clicking sound is gone.</p>
 
-<hr>
+            <hr>
 
-<h2>How I Fixed It</h2>
+            <h2>Final Words</h2>
+            <p>If your Pi is making weird sounds, don't ignore it. Check the fan and replace it if needed. Use a proper heatsink case for passive cooling. Avoid extreme airflow like AC blowers – it does more harm than good.</p>
+        </article>
+  </main>
 
-### 1️⃣ Stopped putting it in front of the AC  
-The cold air was causing condensation and vibration. Bad idea.  
-
-### 2️⃣ Cleaned the fan  
-- Removed dust with a small brush  
-- Reapplied a drop of light machine oil to the bearing  
-
-### 3️⃣ Replaced the fan  
-I switched to a **better quality 30mm 5V fan**.  
-👉 <b>Tip:</b> Go for ball-bearing fans (longer life, less noise).  
-
-### 4️⃣ Added a proper heatsink case  
-I installed the **Armor aluminum heatsink case** with thermal pads.  
-This reduced my idle temp from 55°C → 42°C.  
-
-<hr>
-
-<h2>Optional: Peltier Module Cooling?</h2>
-
-I even thought about using a **Peltier module with heatsink and fan** to blow cold air, but that’s overkill and can cause condensation.  
-Stick to a good case + fan for now.  
-
-<hr>
-
-<h2>My Current Cooling Setup</h2>
-
-- Armor aluminum case (full-body heatsink)  
-- Ball-bearing 30mm fan  
-- Pi placed in a ventilated area (not near AC blower)  
-
-Now my temps stay **45–55°C under load** and the clicking sound is gone.  
-
-<hr><hr>
-
-🔗 Related: <a href="ups_for_raspi.html"><b>Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber</b></a> – Keep your Pi powered during power cuts.
-
-<hr><hr>
-
-<h2>Final Words</h2>
-
-If your Pi is making weird sounds, don’t ignore it.  
-- Check the fan and replace it if needed.  
-- Use a proper heatsink case for passive cooling.  
-- Avoid extreme airflow like AC blowers — it does more harm than good.  
-
-👉 Want me to share my **favorite Raspberry Pi cases & cooling kits**? Comment below!  
- </div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-        
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
-  <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>

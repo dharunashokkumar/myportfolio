@@ -1,375 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1345673365307600"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCL0VSNLJS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZCL0VSNLJS');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>My Electronics Journey: From Beginner to Builder</title>
-<meta name="description" content="How I started learning electronics, building circuits, and creating projects with Arduino, ESP32, and Raspberry Pi.">
-<meta name="author" content="Dharun Ashokkumar">
-<link rel="canonical" href="https://dharunashokkumar.com/electronics_journey.html">
-
-<meta property="og:title" content="My Electronics Journey: From Beginner to Builder">
-<meta property="og:description" content="How I started learning electronics, building circuits, and creating projects with Arduino, ESP32, and Raspberry Pi.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dharunashokkumar.com/electronics_journey.html">
-<meta property="article:author" content="Dharun Ashokkumar">
-<meta property="article:published_time" content="2025-01-21T00:00:00Z">
-<meta property="article:tag" content="Electronics">
-<meta property="article:tag" content="Arduino">
-<meta property="article:tag" content="Raspberry Pi">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="My Electronics Journey: From Beginner to Builder">
-<meta name="twitter:description" content="How I started learning electronics, building circuits, and creating projects with Arduino, ESP32, and Raspberry Pi.">
-
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
-
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-<link rel="manifest" href="../favicon/site.webmanifest">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "My Electronics Journey: From Beginner to Builder",
-  "description": "How I started learning electronics, building circuits, and creating projects with Arduino, ESP32, and Raspberry Pi.",
-  "author": {
-    "@type": "Person",
-    "name": "Dharun Ashokkumar",
-    "url": "https://dharunashokkumar.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Dharun Ashokkumar",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://dharunashokkumar.com/images/logo.png"
+  <title>My Electronics Journey Arduino, Raspberry Pi ESP32 Experiments</title>
+  <meta name="description" content="Blog post: My Electronics Journey Arduino, Raspberry Pi ESP32 Experiments">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  },
-  "datePublished": "2025-01-21T00:00:00Z",
-  "dateModified": "2025-01-21T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://dharunashokkumar.com/electronics_journey.html"
-  }
-}
-</script>
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  
+    header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 400;
+    }
+
+    nav a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 60px 0 20px 0;
+      border-top: 2px solid #000;
+      padding-top: 40px;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 40px 0 10px 0;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    .hero {
+      margin-bottom: 80px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      max-width: 700px;
+    }
+
+    .btn-group {
+      margin: 30px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 5px 10px 5px 0;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #000;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    .btn.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      font-size: 14px;
+    }
+
+    .project,
+    .article {
+      margin-bottom: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .project:last-child,
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .tech-list span {
+      padding: 4px 10px;
+      border: 1px solid #000;
+    }
+
+    .project-link,
+    .article-link {
+      font-weight: 600;
+      color: #000;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .project-link:hover,
+    .article-link:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 2px solid #000;
+      font-size: 16px;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .menu-toggle:hover {
+      background: #fff;
+      color: #000;
+      border: 2px solid #000;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 15px;
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        display: none;
+      }
+
+      nav.active {
+        display: block;
+        margin-top: 20px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        display: block;
+        padding: 10px 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-progress" id="scrollProgress"></div>
-  </div>
-
-  <!-- Navbar -->
   <header>
-    <a href="../index.html" class="logo">Dharun</a>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <a href="../index" class="logo">Dharun Ashokkumar</a>
+    <button class="menu-toggle" id="menu-toggle">Menu</button>
     <nav id="nav">
       <ul>
-          <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About Me</a></li>
-         <li><a href="https://academy.dharunashokkumar.com/">Academy</a></li>
-        <li><a href="../blog.html">Blog</a></li>
-        <li><a href="../portfolio.html">Portfolio</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index">Home</a></li>
+        <li><a href="../about">About</a></li>
+        <li><a href="../tools">Tools</a></li>
+        <li><a href="../blog">Blog</a></li>
+        <li><a href="../portfolio">Portfolio</a></li>
+        <li><a href="../services">Services</a></li>
+        <li><a href="../contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
-    <!-- EDIT THIS IMAGE SRC AND ALT FOR EACH POST -->
-    <img src="https://i.ytimg.com/vi/cSsWqeZ5oP4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDIef77mzgDp7UIjP2wRpW0EU3oVA" alt="My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments" class="post-img">
-    
-    <!-- EDIT THIS TITLE FOR EACH POST -->
-    <h1>My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments</h1>
-    
-    <!-- EDIT THIS DATE FOR EACH POST -->
-    <div class="date">Published: August 14, 2025</div>
-    
-    <!-- EDIT THIS CONTENT FOR EACH POST -->
-    <div class="content">
-      <h4>Hi guys,</h4>
-In this post, I’m going to share my full journey in electronics projects – how I started with small boards like Arduino Uno, Raspberry Pi, and ESP32, and slowly built so many fun and useful projects. Trust me, I didn’t know anything in the beginning, but now I can confidently connect sensors, displays, modules and make my own gadgets.
+  <main>
+<article>
+            <h1>My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments</h1>
 
-<hr>
+            <h4>Hi guys,</h4>
+            <p>In this post, I'm going to share my full journey in electronics projects – how I started with small boards like Arduino Uno, Raspberry Pi, and ESP32, and slowly built so many fun and useful projects. Trust me, I didn't know anything in the beginning, but now I can confidently connect sensors, displays, modules and make my own gadgets.</p>
 
-<h2>Where It All Started – Arduino Uno</h2>
-The very first board I got was Arduino Uno. Honestly, at that time, I didn’t even know what microcontrollers were. I just bought the board because I saw some cool YouTube videos.
+            <hr>
 
-At first, I struggled a lot:
+            <h2>Where It All Started – Arduino Uno</h2>
+            <p>The very first board I got was Arduino Uno. Honestly, at that time, I didn't even know what microcontrollers were. I just bought the board because I saw some cool YouTube videos.</p>
+            <p>At first, I struggled a lot:</p>
+            <p>- I didn't know how to install the Arduino IDE</p>
+            <p>- I didn't know how to upload code</p>
+            <p>- Even simple "Hello World" on a display used to confuse me</p>
+            <p>But slowly, I learned the basics. My first big success was making text appear on a 16x2 LCD display using the I2C module.</p>
 
--I didn’t know how to install the Arduino IDE.
--I didn’t know how to upload code.
--Even simple “Hello World” on a display used to confuse me.
+            <hr>
 
-But slowly, I learned the basics. My first big success was making text appear on a 16x2 LCD display using the I2C module. It looked so simple, but I was so happy because something I connected was showing text!
+            <h2>Playing with Sensors and Displays</h2>
+            <p>Once I understood the basics, I started experimenting with different sensors and displays:</p>
+            <p>- RFID-RC522 sensor: I built a small prototype of an access control system</p>
+            <p>- 8-segment display: I learned how to show numbers from 0-9 using Arduino</p>
+            <p>- Temperature and motion sensors: I tried simple IoT-type projects</p>
+            <p>I was learning through trial and error. Sometimes the code wouldn't compile, sometimes the connections would be wrong. But every small success pushed me forward.</p>
 
-<hr>
+            <hr>
 
-<h2>Playing with Sensors and Displays</h2>
-Once I understood the basics, I started experimenting with different sensors and displays:
+            <h2>Getting My First Raspberry Pi</h2>
+            <p>After Arduino, I wanted to do bigger projects. That's when I got my Raspberry Pi 4. This was a game-changer because it's like a mini-computer.</p>
+            <p>I used the Pi for:</p>
+            <p>- Cloud server: I turned it into my own home cloud using TrueNAS</p>
+            <p>- Websites: I learned how to host my own websites from the Pi</p>
+            <p>- IoT projects: I connected sensors and controlled them using Python scripts</p>
+            <p>- RFID and camera modules: I integrated RFID readers and camera modules to make smart gadgets</p>
 
--> RFID-RC522 sensor: I built a small prototype of an access control system. It could detect cards and show messages on the LCD.
+            <hr>
 
--> 8-segment display: I learned how to show numbers from 0-9 using Arduino. It was tricky because you need to control each segment with the right pin combination.
+            <h2>ESP32 and Wi-Fi Projects</h2>
+            <p>Then I got into ESP32 because it has built-in Wi-Fi and Bluetooth. This made it perfect for IoT and wireless projects.</p>
+            <p>Some experiments I did:</p>
+            <p>- ESP32 Camera module: I set up live video streaming that could be accessed from anywhere</p>
+            <p>- Milk vending machine prototype: I connected QR code scanning and a website interface with the ESP32</p>
+            <p>The ESP32 allowed me to connect my hardware to the internet easily.</p>
 
--> Temperature and motion sensors: I tried simple IoT-type projects like showing temperature on the display or turning on an LED when someone moves.
+            <hr>
 
-I was learning through trial and error. Sometimes the code wouldn’t compile, sometimes the connections would be wrong. But every small success pushed me forward.
+            <h2>LoRa Long-Range Communication</h2>
+            <p>I also experimented with LoRa modules (SX1278). These modules can send data over a long distance without Wi-Fi or internet.</p>
+            <p>I tried setting up two LoRa modules to communicate with each other like walkie-talkies but for data.</p>
 
-<hr>
+            <hr>
 
-<h2>Getting My First Raspberry Pi</h2>
-After Arduino, I wanted to do bigger projects. That’s when I got my Raspberry Pi 4. This was a game-changer because it’s like a mini-computer.
+            <h2>Challenges I Faced</h2>
+            <p>This journey was not smooth at all. Here are some challenges I faced:</p>
+            <p>- Power supply issues: My battery sometimes drained or didn't power modules properly</p>
+            <p>- Debugging errors: Arduino IDE and Raspberry Pi terminal errors used to scare me</p>
+            <p>- Hardware failures: Some components stopped working because I connected them wrong</p>
+            <p>- Networking issues: Setting up DDNS, port forwarding, and Cloudflare tunnels was confusing at first</p>
+            <p>But I took each problem as a learning opportunity.</p>
 
-I used the Pi for:
+            <hr>
 
--> Cloud server: I turned it into my own home cloud using TrueNAS and pendrives as storage.
--> Websites: I learned how to host my own websites from the Pi.
--> IoT projects: I connected sensors and controlled them using Python scripts.
--> RFID and camera modules: I integrated RFID readers and camera modules to make smart gadgets.
+            <h2>What I Learned from Electronics</h2>
+            <p>- Patience is key: Sometimes a single wire in the wrong place can break everything</p>
+            <p>- Read datasheets: Understanding pinouts and voltage limits is very important</p>
+            <p>- Start small: First get an LED blinking, then add more features</p>
+            <p>- Safety matters: Don't mess with high voltage without proper knowledge</p>
 
-At one point, my Pi stopped booting and only the red light was glowing. I even learned about EEPROM recovery to fix the bootloader! These problems actually taught me how to troubleshoot properly.
+            <hr>
 
-<hr>
+            <h2>Final Words</h2>
+            <p>Electronics has completely changed the way I see technology. From just connecting wires randomly, now I'm confident to build full systems.</p>
+            <p>Thanks for reading! If you liked this post, share it with your friends who are also interested in electronics.</p>
+        </article>
+  </main>
 
-<h2>ESP32 and Wi-Fi Projects</h2>
-Then I got into ESP32 because it has built-in Wi-Fi and Bluetooth. This made it perfect for IoT and wireless projects.
-
-Some experiments I did:
-
-:) ESP32 Camera module: I set up live video streaming that could be accessed from anywhere.
-
-:) Milk vending machine prototype: I connected QR code scanning and a website interface with the ESP32. Since I didn’t have a pump or relay at that time, I tested the setup using an LED light.
-
-The ESP32 allowed me to connect my hardware to the internet easily. I learned how to send and receive data using APIs, which helped me in future projects.
-
-<hr>
-
-<h2>LoRa Long-Range Communication</h2>
-I also experimented with LoRa modules (SX1278). These modules can send data over a long distance without Wi-Fi or internet.
-
-I tried setting up two LoRa modules to communicate with each other like walkie-talkies but for data. My plan is to build a system where sensors can send information even in remote areas.
-
-<hr>
-
-<h2>Challenges I Faced</h2>
-This journey was not smooth at all. Here are some challenges I faced:
-
--Power supply issues: My 12V lead-acid Amaron battery sometimes drained or didn’t power modules properly.
--Debugging errors: Arduino IDE and Raspberry Pi terminal errors used to scare me.
--Hardware failures: Some components stopped working because I connected them wrong.
--Networking issues: Setting up DDNS, port forwarding, and Cloudflare tunnels was confusing at first.
-
-But I took each problem as a learning opportunity.
-
-<hr>
-
-<h2>What I Learned from Electronics</h2>
-`Patience is key: Sometimes a single wire in the wrong place can break everything.
-
-`Read datasheets: Understanding pinouts and voltage limits is very important.
-
-`Start small: First get an LED blinking, then add more features.
-
-`Safety matters: Don’t mess with high voltage without proper knowledge.
-
-<hr>
-
-<h2>Big Projects That Made Me Confident</h2>
-Here are some of the big electronics projects I successfully built:
-
-Milk Vending Machine Prototype: QR scanner, ESP32, and website interface.
-Raspberry Pi Cloud Server: Store and access files from anywhere using Dynu DDNS and Cloudflare tunnels.
-ESP32 Camera Streaming: Access live video feed from outside the local network.
-LoRa Communication Setup: Testing long-range communication without internet.
-Access Control System: Using RFID and LCD display.
-
-Each project taught me something new and pushed me closer to becoming a proper maker.
-
-<hr>
-
-<h2>Where I’m Headed Next</h2>
-I’m planning to:
-
-Build complete IoT solutions with ESP32 and Raspberry Pi.
-
-Create advanced LoRa-based communication systems.
-
-Make electronics projects that connect with my websites and apps.
-
-I’m also planning to share tutorials on Instagram and YouTube so others can also learn from my journey.
-
-<hr>
-
-<h2>Advice for Beginners in Electronics</h2>
-If you’re just starting out, here’s my advice:
-
-Get an Arduino kit: Learn the basics of coding and connecting sensors.
-
-Watch YouTube tutorials: But also try to experiment on your own.
-
-Don’t fear errors: Everyone faces them, even pros.
-
-Keep a notebook: Write down pinouts and steps, it helps a lot.
-
-<hr>
-
-<h2>Final Words</h2>
-Electronics has completely changed the way I see technology. From just connecting wires randomly, now I’m confident to build full systems.
-
-👉 If you haven’t read it yet, check out my <a href="tech_journey.html"><b>my Full Tech Journey blog</b></a> here to know how I started everything from zero.
-
-Thanks for reading! If you liked this post, share it with your friends who are also interested in electronics. Your support helps me grow and motivates me to post more</div>
-
-    <!-- Comments Section -->
-    <div class="comments">
-      <h3>Comments</h3>
-      <div id="commentsList">
-        <!-- Sample comments - replace with real comments or remove -->
-       
-      </div>
-      <div class="comment-form">
-        <input type="text" id="commentName" placeholder="Your Name">
-        <textarea id="commentText" placeholder="Your Comment"></textarea>
-        <button id="postComment">Post Comment</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fullscreen Image Overlay -->
-  <div class="fullscreen-overlay" id="imageOverlay" onclick="closeImage()">
-    <img id="overlayImg" src="">
-  </div>
+  <footer>
+    <p>
+      <a href="../privacy-policy">Privacy Policy</a> |
+      <a href="../terms">Terms & Conditions</a>
+    </p>
+    <p>© 2025 Dharun Ashokkumar</p>
+  </footer>
 
   <script>
-    // Image fullscreen functionality
-    function openImage(src) {
-      document.getElementById('overlayImg').src = src;
-      document.getElementById('imageOverlay').style.display = 'flex';
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
+      });
     }
-
-    function closeImage() {
-      document.getElementById('imageOverlay').style.display = 'none';
-    }
-
-    // Comments functionality
-    document.getElementById('postComment').addEventListener('click', function() {
-      const name = document.getElementById('commentName').value.trim();
-      const text = document.getElementById('commentText').value.trim();
-
-      if (name && text) {
-        const commentsList = document.getElementById('commentsList');
-        const commentBox = document.createElement('div');
-        commentBox.className = 'comment-box';
-        commentBox.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
-        commentsList.appendChild(commentBox);
-
-        // Clear form
-        document.getElementById('commentName').value = '';
-        document.getElementById('commentText').value = '';
-      } else {
-        alert('Please enter both name and comment!');
-      }
-    });
-
-    // Scroll Progress
-    function updateScrollProgress() {
-      const scrolled = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxScroll) * 100;
-      document.getElementById('scrollProgress').style.width = progress + '%';
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Mobile Navigation
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.getElementById('menu-toggle');
-      const nav = document.getElementById('nav');
-      
-      if (menuToggle && nav) {
-        menuToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          nav.classList.toggle('active');
-          
-          if (nav.classList.contains('active')) {
-            this.innerHTML = '&#10005;';
-            this.style.transform = 'rotate(180deg)';
-          } else {
-            this.innerHTML = '&#9776;';
-            this.style.transform = 'rotate(0deg)';
-          }
-        });
-        
-        // Close menu when clicking on links
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-            nav.classList.remove('active');
-            menuToggle.innerHTML = '&#9776;';
-            menuToggle.style.transform = 'rotate(0deg)';
-          }
-        });
-      }
-
-      // Analytics tracking
-      if (typeof gtag !== 'undefined') {
-        gtag('config', 'G-ZCL0VSNLJS', {
-          page_title: 'Getting Started with React Hooks: A Complete Guide',
-          page_location: window.location.href
-        });
-      }
-    });
   </script>
-  <!-- Add this NEW script tag before your existing script -->
-
-
-
-
-  
- <footer>
-    <div style="text-align:center;padding:20px;">
-      <a href="../privacy-policy.html">Privacy Policy</a> | 
-      <a href="../terms.html">Terms & Conditions</a>
-    </div>
-    <p>&copy; 2025 Dharun Ashokkumar. All rights reserved.</p>
-  </footer>
 </body>
 </html>
