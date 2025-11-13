@@ -1,443 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dharun Ashokkumar</title>
-  <meta name="description" content="Dharun Ashokkumar - Developer, Blogger, Learner">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #000;
-      background: #fff;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
+<!doctype html>
+<html lang="en-GB">
+  <head>
 
-    header {
-      border-bottom: 2px solid #000;
-      padding-bottom: 20px;
-      margin-bottom: 60px;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Dharun Ashokkumar: home</title>
 
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      color: #000;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 20px;
-    }
+    <meta name="description" content="dharun ashokkumar: design, and slowness.">
+    <meta name="keywords" content="communication, interaction, graphic, product, experience, design, engineering, art, writing, lettering, typography, blog, portfolio, prototyping, development, concept, strategy, rca, royal college of art, iit, indian institute of technology, information experience design">
+    <meta name="author" content="Dharun Ashokkumar">
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+    <meta name="robots" content="index,follow">
 
-    nav a {
-      color: #000;
-      text-decoration: underline;
-      font-weight: 400;
-    }
-
-    nav a:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    h1 {
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-size: 32px;
-      font-weight: 700;
-      margin: 60px 0 20px 0;
-      border-top: 2px solid #000;
-      padding-top: 40px;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 40px 0 10px 0;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    section {
-      margin-bottom: 80px;
-    }
-
-    .hero {
-      margin-bottom: 80px;
-    }
-
-    .subtitle {
-      font-size: 20px;
-      margin-bottom: 30px;
-      font-weight: 400;
-    }
-
-    .description {
-      font-size: 18px;
-      margin-bottom: 30px;
-      max-width: 700px;
-    }
-
-    .btn-group {
-      margin: 30px 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      margin: 5px 10px 5px 0;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid #000;
-    }
-
-    .btn:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    .btn.secondary {
-      background: #fff;
-      color: #000;
-    }
-
-    .btn.secondary:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 30px 0;
-    }
-
-    .tag {
-      padding: 6px 12px;
-      border: 1px solid #000;
-      font-size: 14px;
-    }
-
-    .project,
-    .article {
-      margin-bottom: 50px;
-      padding-bottom: 50px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .project:last-child,
-    .article:last-child {
-      border-bottom: none;
-    }
-
-    .tech-list {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 15px 0;
-      font-size: 14px;
-    }
-
-    .tech-list span {
-      padding: 4px 10px;
-      border: 1px solid #000;
-    }
-
-    .project-link,
-    .article-link {
-      font-weight: 600;
-      color: #000;
-      text-decoration: underline;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .project-link:hover,
-    .article-link:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    footer {
-      margin-top: 80px;
-      padding-top: 40px;
-      border-top: 2px solid #000;
-      font-size: 16px;
-    }
-
-    footer a {
-      color: #000;
-      text-decoration: underline;
-    }
-
-    footer a:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .menu-toggle:hover {
-      background: #fff;
-      color: #000;
-      border: 2px solid #000;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 20px 15px;
-        font-size: 16px;
-      }
-
-      h1 {
-        font-size: 36px;
-      }
-
-      h2 {
-        font-size: 28px;
-      }
-
-      h3 {
-        font-size: 20px;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      nav {
-        display: none;
-      }
-
-      nav.active {
-        display: block;
-        margin-top: 20px;
-      }
-
-      nav ul {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      nav a {
-        display: block;
-        padding: 10px 0;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="index" class="logo">Dharun Ashokkumar</a>
-    <button class="menu-toggle" id="menu-toggle">Menu</button>
-    <nav id="nav">
-      <ul>
-        <li><a href="index">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="tools">Tools</a></li>
-        <li><a href="blog">Blog</a></li>
-        <li><a href="portfolio">Portfolio</a></li>
-        <li><a href="services">Services</a></li>
-        <li><a href="contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h1>Developer.<br>Blogger.<br>Lifelong Learner.</h1>
-
-      <p class="description">
-        I'm a curious learner and passionate developer who loves exploring new technologies
-        and building things that matter. I believe in simplicity, consistency, and using
-        technology to make life a little easier for everyone.
-      </p>
-
-      <div class="btn-group">
-        <a href="portfolio" class="btn">View Projects</a>
-        <a href="contact" class="btn secondary">Work Together</a>
-        <a href="/codecoach" class="btn secondary">CodeCoach Beta</a>
-      </div>
-
-      <div class="tags">
-        <span class="tag">Loves Tech</span>
-        <span class="tag">Open Source</span>
-        <span class="tag">Cloud Enthusiast</span>
-        <span class="tag">Always Learning</span>
-      </div>
-    </section>
-
-    <section class="about">
-      <h2>About</h2>
-
-      <p>
-        Full-stack web developer based in Coimbatore, Tamil Nadu. I specialize in building
-        modern web applications and school management systems.
-      </p>
-
-      <p>
-        Expertise: React, Firebase, JavaScript. I help businesses transform ideas into
-        powerful digital solutions.
-      </p>
-
-      <p>
-        From student information systems to e-commerce platforms, I create scalable,
-        user-friendly applications. I share knowledge through blogging about web development
-        trends and best practices.
-      </p>
-
-      <a href="about" class="btn secondary">More About Me</a>
-    </section>
-
-    <section class="projects">
-      <h2>Featured Projects</h2>
-
-      <div class="project">
-        <h3>University Management System</h3>
-
-        <p><strong>Problem:</strong> Educational institutions needed a comprehensive digital
-        solution to manage students, faculty, and academic operations efficiently.</p>
-
-        <p><strong>Solution:</strong> Built a complete web application with student admission
-        management, exam portal, fee tracking, and analytics dashboard using React and Firebase.</p>
-
-        <p><strong>Results:</strong> Streamlined administrative processes, reduced paperwork
-        by 80%, improved data accessibility for 500+ students.</p>
-
-        <div class="tech-list">
-          <span>React</span>
-          <span>Firebase</span>
-          <span>JavaScript</span>
-          <span>CSS3</span>
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="home">
+      <meta property="og:description" content="">
+      <meta property="og:url" content="https://dharunashokkumar.com/">
+      <meta property="og:image" content="" /><meta property="og:site_name" content="Dharun Ashokkumar" />
+    
+  </head>
+  <body>
+    <div id="container" class="home-page">
+        <div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li>
+				        <a href="projects.html">projects</a>
+			        </li>
+                    <li>
+			        	<a href="portfolio.html">portfolio</a>
+			        </li>
+                    <li>
+				        <a href="activities.html">activities</a>
+			        </li>
+                    <li>
+				        <a href="reflections.html">reflections</a>
+			        </li>
+                </ul>
+            </nav>
         </div>
+        <div id="content">
+            
 
-        <a href="portfolio#school-management" class="project-link">View Project Details →</a>
-      </div>
-
-      <div class="project">
-        <h3>Personal AI Assistant</h3>
-
-        <p><strong>Problem:</strong> Professionals needed quick AI assistance during interviews
-        and meetings without visible distractions.</p>
-
-        <p><strong>Solution:</strong> Developed a desktop application using Electron that reads
-        screen content and provides AI-powered responses via hotkey activation.</p>
-
-        <p><strong>Results:</strong> Invisible operation during screen sharing, instant responses,
-        improved interview performance for users.</p>
-
-        <div class="tech-list">
-          <span>Electron</span>
-          <span>Node.js</span>
-          <span>OpenAI API</span>
-          <span>Tesseract OCR</span>
-        </div>
-
-        <a href="portfolio#ai-assistant" class="project-link">View Project Details →</a>
-      </div>
-
-      <div class="project">
-        <h3>Professional Quotation Generator</h3>
-
-        <p><strong>Problem:</strong> Electronics company spent hours manually creating quotations
-        and invoices for clients.</p>
-
-        <p><strong>Solution:</strong> Built an automated tool that generates professional PDF
-        quotations with client details, product calculations, and branding.</p>
-
-        <p><strong>Results:</strong> Reduced quotation creation time by 90%, improved accuracy,
-        enhanced professional presentation.</p>
-
-        <div class="tech-list">
-          <span>JavaScript</span>
-          <span>HTML5</span>
-          <span>CSS3</span>
-          <span>PDF.js</span>
-        </div>
-
-        <a href="portfolio#quotation-generator" class="project-link">View Project Details →</a>
-      </div>
-
-      <a href="portfolio" class="btn">All Projects</a>
-    </section>
-
-    <section class="blog">
-      <h2>Latest Articles</h2>
-
-      <div class="article">
-        <h3>How to build a fast website</h3>
-        <p>Learn how I optimized my projects for speed and performance...</p>
-        <a href="blog" class="article-link">Read More →</a>
-      </div>
-
-      <div class="article">
-        <h3>Top 10 tools for developers</h3>
-        <p>Discover my favorite tools for productivity...</p>
-        <a href="blog" class="article-link">Read More →</a>
-      </div>
-
-      <div class="article">
-        <h3>Why I blog about tech</h3>
-        <p>Blogging is powerful for learning...</p>
-        <a href="blog" class="article-link">Read More →</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>
-      <a href="privacy-policy">Privacy Policy</a> |
-      <a href="terms">Terms & Conditions</a>
-    </p>
-    <p>© 2025 Dharun Ashokkumar</p>
-  </footer>
-
-  <script>
-    const toggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav');
-
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
-      });
-    }
-  </script>
-</body>
+            <p>i <a href="projects.html">make</a>, reflect and <a href="portfolio.html">learn</a>.<br />
+            also: i anchor <a href="https://dadscloud.com">dadscloud</a>.
+            </p>
+              <p>explore: <a href="timeline.html">timeline</a> · <a href="museum.html">internet museum</a> · <a href="resume.html">interactive resume</a></p>
+            <p><img src="img/box over head.png" title="image credit: meret vollenweider and sam nguyen, 201510" /></p>
+            <p><a href="reflections.html">read my thoughts</a> on ^^ , or <a href="mailto:dharuna457@gmail.com?subject=hello.">say hello</a>.</p>
+                        <div class="social-links">
+                <a href="https://github.com/dharuna457" title="github" target="_blank">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/dharunashokkumar/" title="linkedin" target="_blank">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.25-.129.599-.129.949v5.438h-3.554s.048-8.814 0-9.737h3.554v1.377c.43-.664 1.202-1.609 2.923-1.609 2.135 0 3.735 1.394 3.735 4.392v5.577zM5.337 8.855c-1.144 0-1.915-.762-1.915-1.715 0-.953.771-1.715 1.921-1.715 1.147 0 1.918.762 1.918 1.715 0 .953-.771 1.715-1.924 1.715zm1.581 11.597H3.754V9.671h3.164v10.781zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                    </svg>
+                </a>
+                <a href="mailto:dharuna457@gmail.com?subject=hello." title="email">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/dharun_._ashok" title="instagram" target="_blank">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.057-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.259-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 112.881 0 1.44 1.44 0 01-2.881 0z"/>
+                    </svg>
+                </a>
+            </div>
+      </div><div id="footer">
+    </div>
+</div>
+    <script src="js/rv.js"></script>
+    <script src="js/cfme.js"></script>
+    </body>
 </html>

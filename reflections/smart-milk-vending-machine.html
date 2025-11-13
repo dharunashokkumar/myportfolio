@@ -1,0 +1,150 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dharun Ashokkumar: How I Built My Milk Vending Machine Prototype</title><meta name="description" content="Automated milk dispensing prototype with ESP32, QR scanner, LED, relay, web interface, and Firebase backend. Challenges with delays, reliability, and future improvements."><meta name="keywords" content="milk vending machine, ESP32 project, QR code scanner, Firebase, IoT vending, automated dispensing, relay control, web interface, payment integration"><meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" /><link rel="stylesheet" type="text/css" href='../css/styles.css'><meta property="og:type" content="website" /><meta property="og:title" content="How I Built My Milk Vending Machine Prototype"><meta property="og:url" content="https://dharunashokkumar.com/reflections/smart-milk-vending-machine.html"><meta property="og:site_name" content="Dharun Ashokkumar"></head><body><div id="container" class="post"><div id="header"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div><div id="content"><h1 class="title"><a href="/reflections/smart-milk-vending-machine.html">How I Built My Milk Vending Machine Prototype</a></h1><p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>Building an automated milk vending machine combined hardware (ESP32, QR scanner, relay), web technologies (HTML/CSS/JS), and cloud services (Firebase). While still a prototype, it demonstrated the potential of IoT in retail automation.</p>
+
+<h2>Concept</h2>
+
+<p>User flow:</p>
+<ol><li>Customer opens website on phone</li><li>Selects quantity and pays online</li><li>Receives unique QR code</li><li>Scans QR at machine</li><li>Machine dispenses milk automatically</li></ol>
+
+<h2>Hardware Components</h2>
+
+<ul><li><strong>ESP32 development board</strong> – Wi-Fi connectivity and control logic</li><li><strong>QR code scanner module</strong> – Reads customer codes</li><li><strong>LED (prototype phase)</strong> – Placeholder for solenoid pump</li><li><strong>Relay module</strong> – Controls high-power devices</li><li><strong>Power supply</strong> – 12V for pump (future), 5V for ESP32</li><li><strong>Breadboard & wires</strong> – Prototyping connections</li></ul>
+
+<h3>Why LED Instead of Pump?</h3>
+<p>For proof-of-concept, LED represents pump activation. Validates logic without messy liquid handling during development.</p>
+
+<h2>Software Architecture</h2>
+
+<h3>Web Interface (Frontend)</h3>
+<ul><li><strong>HTML/CSS:</strong> Clean, mobile-friendly payment interface</li><li><strong>JavaScript:</strong> Handle payments, generate QR codes</li><li><strong>QR Code Library:</strong> qrcode.js for generating unique codes</li></ul>
+
+<h3>Firebase Backend</h3>
+<ul><li><strong>Firestore Database:</strong> Store payment records, QR codes, dispensing status</li><li><strong>Real-time sync:</strong> ESP32 listens for new valid codes</li><li><strong>Security rules:</strong> Prevent unauthorized access</li></ul>
+
+<h3>ESP32 Firmware</h3>
+<ul><li>Connect to Wi-Fi</li><li>Listen to QR scanner</li><li>Query Firebase for code validity</li><li>Activate relay/LED if code is valid</li><li>Mark code as used in database</li></ul>
+
+<h2>Development Flow</h2>
+
+<h3>Phase 1: Web Interface</h3>
+<p>Built payment page where users:</p>
+<ul><li>Enter phone number</li><li>Select quantity (500ml, 1L, 2L)</li><li>Make payment (UPI/card integration planned)</li><li>Receive QR code displayed and sent via SMS</li></ul>
+
+<h3>Phase 2: Firebase Integration</h3>
+<p>Database structure:</p>
+<pre><code>transactions/
+  └── {transaction_id}/
+      ├── qr_code: "unique_string"
+      ├── quantity: 1000 (ml)
+      ├── paid: true
+      ├── used: false
+      ├── timestamp: 1234567890
+      └── phone: "+91XXXXXXXXXX"
+</code></pre>
+
+<h3>Phase 3: ESP32 Hardware</h3>
+<p>ESP32 code flow:</p>
+<pre><code>1. Connect to Wi-Fi
+2. Initialize Firebase connection
+3. Loop:
+   a. Read QR scanner
+   b. If code detected:
+      - Query Firebase for this code
+      - If valid and unused:
+        * Activate LED/pump
+        * Mark code as used
+        * Log dispensing event
+      - Else: Show error LED
+</code></pre>
+
+<h2>Challenges Faced</h2>
+
+<h3>Challenge 1: Firebase Delays</h3>
+<p><strong>Problem:</strong> Firebase queries took 2-3 seconds, creating awkward wait time after scanning.</p>
+<p><strong>Attempted fix:</strong> Local caching of recent codes on ESP32. Improved to ~1 second.</p>
+<p><strong>Better solution:</strong> Use Firebase Cloud Functions to pre-validate and cache active codes.</p>
+
+<h3>Challenge 2: QR Scanner Reliability</h3>
+<p><strong>Problem:</strong> Scanner sometimes failed to read codes in bright sunlight or at angles.</p>
+<p><strong>Solution:</strong> Added LED indicator showing when scanner is ready. Designed holder to position phone at optimal angle.</p>
+
+<h3>Challenge 3: Wi-Fi Connectivity</h3>
+<p><strong>Problem:</strong> ESP32 would occasionally lose Wi-Fi connection, halting operation.</p>
+<p><strong>Solution:</strong> Implemented automatic reconnection logic with exponential backoff. Added offline mode that logs transactions locally and syncs when connection returns.</p>
+
+<h3>Challenge 4: Preventing Code Reuse</h3>
+<p><strong>Problem:</strong> Race condition: code could be used twice if scanned rapidly.</p>
+<p><strong>Solution:</strong> Firebase transaction to atomically check and mark code as used. Only one request succeeds even if scanned simultaneously.</p>
+
+<h2>Future Improvements</h2>
+
+<h3>Hardware</h3>
+<ul><li><strong>Real pump:</strong> Peristaltic or solenoid pump for actual dispensing</li><li><strong>Flow sensor:</strong> Verify correct quantity dispensed</li><li><strong>Level sensor:</strong> Monitor milk tank level, alert when low</li><li><strong>Display:</strong> OLED showing status, instructions, errors</li><li><strong>Enclosure:</strong> Weather-proof cabinet with cooling</li></ul>
+
+<h3>Software</h3>
+<ul><li><strong>Payment gateway:</strong> Razorpay/Stripe integration for real payments</li><li><strong>Admin dashboard:</strong> Monitor sales, refills, machine status</li><li><strong>SMS notifications:</strong> Receipt, low milk alerts</li><li><strong>Analytics:</strong> Track popular times, quantities, revenue</li></ul>
+
+<h3>Business Features</h3>
+<ul><li><strong>Subscription model:</strong> Monthly milk delivery at discounted rate</li><li><strong>Multi-product:</strong> Different milk types, other beverages</li><li><strong>Loyalty program:</strong> Points for frequent customers</li><li><strong>Referral system:</strong> Discounts for bringing new customers</li></ul>
+
+<h2>Cost Analysis (Prototype)</h2>
+
+<pre><code>ESP32 board:           ₹500
+QR scanner module:     ₹800
+Relay module:          ₹150
+Power supply:          ₹200
+LEDs & misc:           ₹100
+-------------------------------
+Total hardware:        ₹1,750
+
+Firebase:              Free tier
+Domain/hosting:        ₹500/year
+</code></pre>
+
+<p>Production version with pump, enclosure, sensors: ₹8,000-₹12,000</p>
+
+<h2>Lessons Learned</h2>
+
+<h3>1. Start Simple, Iterate</h3>
+<p>Using LED instead of pump for prototype saved time and mess. Validated logic before adding complexity.</p>
+
+<h3>2. Network Reliability is Critical</h3>
+<p>For IoT devices, assume network will fail. Plan for offline operation and graceful degradation.</p>
+
+<h3>3. Security From Day One</h3>
+<p>Preventing code reuse wasn't afterthought—built into architecture from start. Security is easier to build in than bolt on.</p>
+
+<h3>4. User Experience Matters</h3>
+<p>2-3 second delays felt like eternity to users. Optimize for perceived performance (loading indicators, progress bars).</p>
+
+<h3>5. Documentation While Building</h3>
+<p>Documenting wiring, code, and logic as I built made debugging infinitely easier.</p>
+
+<h2>Real-World Deployment Considerations</h2>
+
+<h3>Hygiene & Safety</h3>
+<ul><li>Food-grade materials for milk contact</li><li>Regular cleaning protocols</li><li>Refrigeration to maintain milk quality</li><li>Tamper-proof design</li></ul>
+
+<h3>Maintenance</h3>
+<ul><li>Daily milk refills and quality checks</li><li>Weekly cleaning of dispensing system</li><li>Monthly hardware inspection</li><li>Remote monitoring for issues</li></ul>
+
+<h3>Legal & Compliance</h3>
+<ul><li>FSSAI license for food handling</li><li>GST registration for business</li><li>Local permits for vending machines</li><li>Insurance for equipment and liability</li></ul>
+
+<h2>Market Potential</h2>
+
+<p>Automated milk vending addresses real problems:</p>
+<ul><li><strong>Convenience:</strong> 24/7 availability</li><li><strong>Hygiene:</strong> Contactless dispensing</li><li><strong>Quality:</strong> Directly from dairy, no intermediaries</li><li><strong>Cost:</strong> Lower overhead than staffed shops</li></ul>
+
+<p>Potential locations: apartment complexes, office buildings, colleges, residential areas.</p>
+
+<h2>Conclusion</h2>
+
+<p>The milk vending machine prototype demonstrated that combining IoT, web technologies, and cloud services can create practical automation solutions. While challenges remain (Firebase delays, scanner reliability, Wi-Fi stability), the core concept works.</p>
+
+<p>This project taught me about integrating multiple technologies, handling real-time data, building user interfaces, and thinking through business logic. From LED placeholder to production-ready pump is an engineering challenge, but the foundation is solid.</p>
+
+<p>IoT isn't just about connecting things—it's about solving real problems with technology. One QR scan, one dispense at a time.</p>
+
+</div><div id="footer"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div><script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script></body></html>

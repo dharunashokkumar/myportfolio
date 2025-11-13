@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: interactive resume</title>
+
+    <meta name="description" content="interactive resume - skills, experience, projects, achievements">
+    <meta name="author" content="Dharun Ashokkumar">
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <style>
+      /* resume-specific styles extending the main design system */
+      .resume-header {
+        max-width: 36rem;
+        margin: 0 auto 3.6rem auto;
+        text-align: left;
+      }
+
+      .resume-header h1 {
+        font-size: 1.2em;
+        font-weight: 900;
+        margin: 0;
+      }
+
+      .resume-header .tagline {
+        font-size: 0.81rem;
+        opacity: 0.8;
+        margin: 0.5em 0;
+      }
+
+      .resume-header .contact-info {
+        margin-top: 1.395rem;
+        font-size: 0.81rem;
+      }
+
+      .resume-header .contact-info a {
+        margin-right: 1em;
+      }
+
+      .resume-section {
+        max-width: 36rem;
+        margin: 3.6rem auto;
+      }
+
+      .resume-section h2 {
+        font-size: 1em;
+        font-weight: 900;
+        margin-bottom: 1.395rem;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ccc;
+      }
+
+      /* skills with animated bars */
+      .skills-category {
+        margin-bottom: 2.7rem;
+      }
+
+      .skills-category h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 1em 0;
+        font-style: normal;
+      }
+
+      .skill-item {
+        margin-bottom: 1.395rem;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .skill-item.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .skill-name {
+        font-size: 0.81rem;
+        margin-bottom: 0.3em;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .skill-level {
+        font-family: monospace;
+        opacity: 0.5;
+        font-size: 0.7425rem;
+      }
+
+      .skill-bar {
+        height: 4px;
+        background: #eee;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-bar-fill {
+        height: 100%;
+        background: #555;
+        width: 0;
+        transition: width 1s ease-out;
+        transition-delay: 0.3s;
+      }
+
+      .skill-item.visible .skill-bar-fill {
+        width: var(--skill-level);
+      }
+
+      /* experience timeline */
+      .experience-item {
+        margin-bottom: 2.7rem;
+        padding-left: 1.5em;
+        border-left: 2px solid #eee;
+        position: relative;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .experience-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .experience-item::before {
+        content: '';
+        position: absolute;
+        left: -5px;
+        top: 0.3em;
+        width: 8px;
+        height: 8px;
+        background: #555;
+        border-radius: 50%;
+      }
+
+      .experience-item .period {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.5;
+        margin-bottom: 0.3em;
+      }
+
+      .experience-item h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .experience-item .company {
+        font-size: 0.81rem;
+        margin-bottom: 0.5em;
+      }
+
+      .experience-item ul {
+        margin: 0.5em 0;
+        padding-left: 1.5em;
+      }
+
+      .experience-item li {
+        font-size: 0.81rem;
+        line-height: 1.395rem;
+        margin-bottom: 0.3em;
+      }
+
+      /* project cards */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.395rem;
+        margin-top: 1.395rem;
+      }
+
+      .project-card {
+        border: 1px solid #eee;
+        padding: 1.395rem;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.6s, transform 0.6s, background 0.3s, border-color 0.3s;
+      }
+
+      .project-card.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .project-card:hover {
+        background: #f5f5f5;
+        border-color: #555;
+        transform: scale(1.02);
+      }
+
+      .project-card h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.5em 0;
+        font-style: normal;
+      }
+
+      .project-card .tech-stack {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.5;
+        margin-bottom: 0.5em;
+      }
+
+      .project-card p {
+        font-size: 0.81rem;
+        line-height: 1.395rem;
+        margin: 0.5em 0;
+      }
+
+      /* achievements grid */
+      .achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.395rem;
+        margin-top: 1.395rem;
+      }
+
+      .achievement-card {
+        border-left: 3px solid #555;
+        padding-left: 1em;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .achievement-card.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .achievement-card h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .achievement-card .year {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.5;
+      }
+
+      .achievement-card p {
+        font-size: 0.81rem;
+        line-height: 1.395rem;
+        margin: 0.5em 0;
+      }
+
+      /* certificates list */
+      .certificates-list {
+        margin-top: 1.395rem;
+      }
+
+      .certificate-item {
+        padding: 1em 0;
+        border-bottom: 1px dotted #ccc;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .certificate-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .certificate-item:last-child {
+        border-bottom: none;
+      }
+
+      .certificate-item h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .certificate-item .issuer {
+        font-size: 0.81rem;
+        opacity: 0.8;
+      }
+
+      .certificate-item .status {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.5;
+        margin-top: 0.3em;
+      }
+
+      /* education */
+      .education-item {
+        margin-bottom: 2.7rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .education-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .education-item .period {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.5;
+        margin-bottom: 0.3em;
+      }
+
+      .education-item h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .education-item p {
+        font-size: 0.81rem;
+        margin: 0.3em 0;
+      }
+
+      /* download button */
+      .download-resume {
+        display: inline-block;
+        padding: 0.5em 1em;
+        border: 1px solid #555;
+        margin-top: 1.395rem;
+        font-size: 0.81rem;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .download-resume:hover {
+        background: #555;
+        color: #fff;
+      }
+
+      @media (max-width: 540px) {
+        .achievements-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="resume-page">
+      <div id="header">
+        <h1>
+          <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="projects.html">projects</a>
+            </li>
+            <li>
+              <a href="portfolio.html">portfolio</a>
+            </li>
+            <li>
+              <a href="activities.html">activities</a>
+            </li>
+            <li>
+              <a href="reflections.html">reflections</a>
+            </li>
+            <li>
+              <a href="resume.html" id="active_page">resume</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="resume-header">
+          <h1>dharun ashokkumar</h1>
+          <p class="tagline">software developer · infrastructure builder · continuous learner</p>
+          <div class="contact-info">
+            <a href="mailto:dharuna457@gmail.com">email</a>
+            <a href="https://github.com/dharuna457" target="_blank">github</a>
+            <a href="https://linkedin.com/in/dharunashokkumar" target="_blank">linkedin</a>
+          </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="resume-section">
+          <h2>technical skills</h2>
+
+          <div class="skills-category">
+            <h3>languages & frameworks</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>python</span>
+                <span class="skill-level">advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>javascript / node.js</span>
+                <span class="skill-level">advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>react</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>c / c++</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 70%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>html / css</span>
+                <span class="skill-level">advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3>infrastructure & devops</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>linux system administration</span>
+                <span class="skill-level">advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>docker & containerization</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>nginx / web servers</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 80%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>cloudflare / dns</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-category">
+            <h3>hardware & iot</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>raspberry pi</span>
+                <span class="skill-level">advanced</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>arduino / esp32</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>electronics & circuits</span>
+                <span class="skill-level">intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-fill" style="--skill-level: 70%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="resume-section">
+          <h2>experience</h2>
+
+          <div class="experience-item">
+            <div class="period">oct 2024 – jan 2025</div>
+            <h3>development intern</h3>
+            <p class="company">pantech prolabs india pvt ltd · remote</p>
+            <ul>
+              <li>contributed to production codebase with code reviews and quality assurance</li>
+              <li>learned professional development practices and team workflows</li>
+              <li>experienced agile methodology and sprint planning</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="period">2023 – present</div>
+            <h3>founder & infrastructure engineer</h3>
+            <p class="company">dadscloud · india-based cloud platform</p>
+            <ul>
+              <li>building hybrid cloud infrastructure platform as alternative to aws/gcp/azure</li>
+              <li>focusing on reliability, security, and making hosting accessible</li>
+              <li>learning infrastructure design, system architecture, and scalability</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="period">2020 – present</div>
+            <h3>founder</h3>
+            <p class="company">tripleetech · technology solutions</p>
+            <ul>
+              <li>web development, cybersecurity consulting, custom software solutions</li>
+              <li>delivered projects for local businesses and startups</li>
+              <li>learned client communication, project management, business operations</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="period">2021 – 2024</div>
+            <h3>freelance developer</h3>
+            <p class="company">various clients · remote</p>
+            <ul>
+              <li>built websites and applications using wordpress, react, and custom solutions</li>
+              <li>learned deployment, hosting, domain management, and client communication</li>
+              <li>delivered mobile repair service sites, job portals, business websites</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="resume-section">
+          <h2>education</h2>
+
+          <div class="education-item">
+            <div class="period">2024 – 2029</div>
+            <h3>btech computer science engineering</h3>
+            <p>lovely professional university, punjab</p>
+            <p>first semester student. coursework in programming fundamentals, data structures, and mathematics.</p>
+          </div>
+
+          <div class="education-item">
+            <div class="period">2023 – 2024</div>
+            <h3>intermediate (class xii) - pcm</h3>
+            <p>sri abhida junior college, hyderabad · 90%</p>
+          </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="resume-section">
+          <h2>featured projects</h2>
+
+          <div class="projects-grid">
+            <div class="project-card">
+              <h3>dadscloud</h3>
+              <p class="tech-stack">infrastructure · docker · linux · networking</p>
+              <p>india-based hybrid cloud infrastructure platform. learning system design, reliability engineering, and making hosting accessible to everyone.</p>
+            </div>
+
+            <div class="project-card">
+              <h3>college life simulator</h3>
+              <p class="tech-stack">unity · c# · game development</p>
+              <p>unity-based game simulating actual college life at lpu. learning game mechanics, physics, and player experience design.</p>
+            </div>
+
+            <div class="project-card">
+              <h3>iot milk vending machine</h3>
+              <p class="tech-stack">esp32 · arduino · iot · sensors</p>
+              <p>automated milk dispensing system with rfid authentication and payment integration. hardware meets software.</p>
+            </div>
+
+            <div class="project-card">
+              <h3>distributed school management</h3>
+              <p class="tech-stack">web application · distributed architecture</p>
+              <p>complete web application for educational institutions. learned distributed systems and database design.</p>
+            </div>
+
+            <div class="project-card">
+              <h3>desktop ai assistant</h3>
+              <p class="tech-stack">electron · python · ai integration</p>
+              <p>local ai model integration for productivity automation. exploring llm capabilities and desktop development.</p>
+            </div>
+
+            <div class="project-card">
+              <h3>mattermost customization</h3>
+              <p class="tech-stack">docker · web development · self-hosting</p>
+              <p>complete rebranding and customization of self-hosted communication platform for specific client needs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="resume-section">
+          <h2>achievements</h2>
+
+          <div class="achievements-grid">
+            <div class="achievement-card">
+              <h3>first raspberry pi server</h3>
+              <span class="year">2022</span>
+              <p>deployed first self-hosted services on raspberry pi. discovered infrastructure can be tangible.</p>
+            </div>
+
+            <div class="achievement-card">
+              <h3>first client website live</h3>
+              <span class="year">2021</span>
+              <p>deployed first production website for paying client. learned deployment and real-world constraints.</p>
+            </div>
+
+            <div class="achievement-card">
+              <h3>started tripleetech</h3>
+              <span class="year">2020</span>
+              <p>founded technology consulting company while learning business fundamentals.</p>
+            </div>
+
+            <div class="achievement-card">
+              <h3>first working code</h3>
+              <span class="year">2020</span>
+              <p>wrote first python program that made an led blink. that feeling never gets old.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificates Section -->
+        <div class="resume-section">
+          <h2>certificates & learning</h2>
+
+          <div class="certificates-list">
+            <div class="certificate-item">
+              <h3>meta front-end development certificate</h3>
+              <p class="issuer">meta (coursera)</p>
+              <p class="status">in progress</p>
+            </div>
+
+            <div class="certificate-item">
+              <h3>google cybersecurity certificate</h3>
+              <p class="issuer">google (coursera)</p>
+              <p class="status">in progress</p>
+            </div>
+
+            <div class="certificate-item">
+              <h3>machine learning fundamentals</h3>
+              <p class="issuer">self-study</p>
+              <p class="status">ongoing</p>
+            </div>
+
+            <div class="certificate-item">
+              <h3>data structures & algorithms</h3>
+              <p class="issuer">university coursework + self-study</p>
+              <p class="status">in progress</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Resume -->
+        <div class="resume-section">
+          <a href="#" class="download-resume">download pdf version</a>
+        </div>
+
+      </div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script src="js/rv.js"></script>
+    <script src="js/cfme.js"></script>
+    <script>
+      // intersection observer for animated elements
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 50);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      // observe all animated elements
+      document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll(
+          '.skill-item, .experience-item, .education-item, ' +
+          '.project-card, .achievement-card, .certificate-item'
+        );
+        items.forEach(item => observer.observe(item));
+      });
+    </script>
+  </body>
+</html>

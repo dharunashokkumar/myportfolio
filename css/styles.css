@@ -1,0 +1,1155 @@
+@charset "UTF-8";
+/*
+	about:
+	------
+	author: https://dharunashokkumar.com/
+	last update: at 20:37 on Mar 11, 2024.
+	------
+*/
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap");
+/* rgb(204,204,204) */
+/*	************************************************** 
+	html elements
+	************************************************** */
+html {
+  text-transform: lowercase;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0; /* ?because defaults may not be consistent across browsers */
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  text-align: center; /* to centre the content (PS. need ALL these specifications) */
+  height: 100%;
+  background: #fff;
+  font-family: "Merriweather", sans-serif;
+  font-weight: 300;
+  line-height: 1.395rem;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* to remove grey background/box that appears when you tap the screen on a iPad, etc. */
+}
+
+em {
+  font-style: italic;
+}
+
+strong, b {
+  font-weight: 900;
+}
+
+small {
+  font-size: 67%;
+}
+
+sup {
+  font-size: 75%;
+  vertical-align: top;
+  position: relative;
+  bottom: 0.225rem;
+}
+
+p span.highlight,
+p a.highlight {
+  background-color: #fe9;
+  padding: 0.1125rem;
+}
+
+hr {
+  display: block;
+  clear: both;
+  overflow: hidden; /* i don't quite know why these are required. i copied them off stacey's default css stylesheet. i think they can be gotten rid of */
+  border: none; /* "border:none;" to eliminate the default "border: 1px inset;" attribute, as explained in: http://www.w3.org/TR/CSS2/sample.html */
+  border-top: black solid 6px;
+  margin: 2.7rem auto;
+  padding: 0;
+  max-width: 36rem; /* mirrors the value of max-width from <p> */
+}
+
+hr.solid {
+  border-top-style: solid;
+}
+
+hr.dotted {
+  border-top-style: dotted;
+}
+
+hr.fullwidth {
+  max-width: inherit;
+}
+
+nav, p, h1, h2, h3, h6, ul, .footnotes {
+  font-size: 0.81rem;
+}
+
+nav, p, h1, h2, h3, h6, blockquote, .footnotes, ul, ol {
+  text-align: left; /* to counter the "text-align:center;" in its parent div(s) */
+  color: #555;
+  margin: 1.395rem auto; /* use formula: {{ margin * font-size = 1.5em }} */
+}
+
+nav, p, h1, h2, h3, h6, blockquote, .footnotes,
+#container.post #content ul, #container.post #content ol {
+  max-width: 36rem;
+}
+
+ul, ol {
+  padding-inline-start: 0; /* remove paddings by converting all values to 0 */
+  /*list-style-type: none;*/
+}
+
+p + ul {
+  margin-top: -1.2rem;
+}
+
+.footnotes ol {
+  padding-inline-start: 0.9rem;
+}
+
+ul > li > p, ol > li > p {
+  margin-left: 0.45rem;
+}
+
+h1, h2, h3 {
+  margin-top: 2.79rem;
+  font-weight: 900;
+}
+
+h3 {
+  font-style: italic;
+}
+
+blockquote {
+  border-left: 1px solid #ccc;
+}
+blockquote p + p, blockquote ul + p {
+  margin-top: -0.6975rem;
+}
+
+blockquote > p, blockquote > ul, blockquote > img {
+  margin-left: 1rem;
+}
+
+select, select > option { /* this is done to override the user-agent-stylesheet's styles that were overriding the text's appearance. */
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+
+.hide {
+  display: none;
+}
+
+#container {
+  margin: 0 auto;
+  width: 1280px;
+  text-align: center; /* to centre the content (PS. yes, we need ALL these specifications) */
+  padding: 3.6rem 1px;
+}
+#container #content ul:not(.archive) li {
+  margin-left: 1rem;
+  list-style-type: circle;
+}
+
+#content,
+#header,
+#footer {
+  margin: 3.6rem auto;
+}
+
+@media screen {
+  #footer {
+    margin-top: 5.4rem;
+  }
+}
+#header nav,
+#footer nav {
+  font-style: italic;
+}
+#header nav ul li,
+#footer nav ul li {
+  display: inline;
+}
+#header h1 + nav,
+#header h2 + nav,
+#header h3 + nav,
+#footer h1 + nav,
+#footer h2 + nav,
+#footer h3 + nav {
+  /* remove space between website title and navigation menu items */
+  margin-top: -1.395rem;
+}
+
+#footer {
+  opacity: 0.25;
+  transition: opacity 0.6s;
+}
+
+#footer:hover {
+  opacity: 1;
+}
+
+#header ul,
+#footer ul,
+ul.archive {
+  list-style-type: none; /* remove bullets */
+  display: block; /* this is as default */
+}
+
+.show-only-in-print {
+  display: none;
+}
+
+.home-page .more-info-and-links {
+  opacity: 0.5;
+}
+
+.disclaimer {
+  display: block;
+  background-color: #eee;
+  padding: 1rem;
+  margin-top: 3.6em;
+  margin-bottom: 3.6em;
+}
+
+.warning {
+  background-color: #f22;
+  color: #fff;
+}
+
+/*	************************************************** 
+	media
+	************************************************** */
+/*
+
+html structure: 
+
+<div class="media" title="images in a single coloum.">
+	<img src="" />
+	<div class="item"> 
+		<img src="" />
+		<p class="caption"></p>
+	</div>
+</div>
+
+<div class="media" title="images in 2 columns.">
+	<img class="item-halfwidth" src="" />
+	<div class="item-halfwidth"> 
+		<img src="" />
+		<p class="caption"></p>
+	</div>
+</div>
+
+*/
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* the '&' is a SASS-parent-selector. 
+  	more info: https://sass-lang.com/documentation/style-rules/parent-selector
+  	*/
+}
+img.addBorder {
+  border: 1px solid #eee;
+}
+
+.video {
+  position: relative;
+  padding-bottom: 66.67%;
+  height: 0;
+  /* videos shot in landscape mode */
+  /* videos shot in portrait mode */
+}
+.video.videoDimensions5625 {
+  padding-bottom: 56.25%;
+}
+.video.videoDimensions6667 {
+  padding-bottom: 66.67%;
+}
+.video.videoDimensions5000 {
+  padding-bottom: 100%;
+}
+.video.videoDimensions1point5 {
+  padding-bottom: 854px;
+}
+.video.videoDimensions1point25 {
+  padding-bottom: 1024px;
+}
+.video iframe.videoFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+audio {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+div.media {
+  width: 100%;
+  height: auto;
+  margin: 1.395rem auto;
+  text-align: left;
+  /*	while .narrow can be applied to the <div class="media narrow">,
+  	or even directly on <img class="narrow" />,
+  	ideally it should be a sister class to <div class="item">
+  	i.e.,  use it like so:
+  	>	<div class="item narrow">
+  	>		<img />
+  	>	</div>
+  */
+  /* 
+  	'item' helps hold things like:;
+  	- an image with a caption, 
+  	- a audio with some p-text
+  	- etc (i.e., more than one item)
+  */
+  /* class="item-halfwidth" can be applied to 
+  	- a div that holds an img(etc)
+  	- a div that holds an img-and-p.caption
+  	- (and when you're lazy) directly onto an img
+  	*/
+}
+div.media > * {
+  margin-bottom: 1.395rem;
+}
+div.media *:last-child {
+  margin-bottom: 0;
+}
+div.media .narrow {
+  /* equal in width to a p-tag */
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.media .item audio,
+div.media .item-halfwidth audio {
+  display: block;
+  /*max-*/
+  width: 100%;
+}
+div.media .item p > audio,
+div.media .item-halfwidth p > audio {
+  margin-top: 0.6975rem;
+  margin-bottom: 0.6975rem;
+}
+div.media .item img, div.media .item .video,
+div.media .item-halfwidth img,
+div.media .item-halfwidth .video {
+  margin-bottom: 0;
+}
+div.media .item img + img,
+div.media .item-halfwidth img + img {
+  margin-top: 1.395rem;
+}
+div.media .item .video.videoDimensions1point25,
+div.media .item-halfwidth .video.videoDimensions1point25 {
+  padding-bottom: 1024px;
+}
+div.media .item .caption,
+div.media .item-halfwidth .caption {
+  opacity: 0.67;
+  font-size: 0.7425rem;
+  line-height: 1.18575rem;
+  margin-top: 0.75rem;
+  /* note:  the ".7rem" value, if changed, should be changed in all three lines below*/
+  position: relative;
+  left: 0.7rem;
+  text-indent: -0.7rem;
+  width: calc(100% - 0.7rem);
+}
+div.media .item .caption::before,
+div.media .item-halfwidth .caption::before {
+  content: "↑ ";
+}
+div.media .item-halfwidth {
+  display: inline-block;
+  width: 39.3025rem;
+  height: auto;
+  /*	first, third, etc (odd) images automatically float to the left
+  	second, fourth, etc (even) images float to the right.
+  	but this doesnt work for our situation (and i have preserved it here 
+  	because it is important to refer to it during future development-cycles),
+  	and so we just float:left everything and then let a javascript function
+  	tidy things up after
+  	*/
+  /*&:nth-of-type(2n+1) { float:left; }*/
+  /*&:nth-of-type(2n) { float:right; }*/
+  float: left;
+  /*	in this website, .item-halfwidth is applied to img or div elements,
+  	(i.e., not applied to a single element consistently)
+  	and so, using nth-of-type isn't very effective.
+  	so we use javascript (correctlyFloatMediaElementsLeftOrRight.js) on elements after they've loaded,
+  	to override the automatic "nth-of-type" css-styling,
+  	and do a better job at making the correct items float left or right. */
+}
+div.media .item-halfwidth > * {
+  width: 100%;
+}
+div.media .item-halfwidth .narrow {
+  max-width: 100%;
+}
+div.media .item-halfwidth.empty {
+  margin: 0;
+  height: 0;
+}
+div.media .item-halfwidth.floatleft {
+  float: left;
+}
+div.media .item-halfwidth.floatright {
+  float: right;
+}
+div.media .item-halfwidth.floatnone {
+  float: none;
+}
+div.media .item-halfwidth .caption {
+  margin-left: 0;
+}
+div.media .item.narrow .caption {
+  margin-left: 0;
+}
+div.media::after {
+  /* 	if there are any float elements inside, then they won't overlap any content that comes after the div.
+  	as seen in 202002 on https://www.w3schools.com/howto/howto_css_clearfix.asp (search for "modern clearfix hack" on that page) 
+  	*/
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* to help me quickly type an image instead of nesting it in media>item>etcetc */
+p > img:first-child {
+  margin-top: 0;
+}
+
+p > img {
+  margin: 1.395rem auto;
+}
+
+p > img:last-child {
+  margin-bottom: 0;
+}
+
+/*	************************************************** 
+	links
+	************************************************** */
+a {
+  color: inherit;
+  padding: 0 0.1125rem;
+  border-bottom: #555 dotted 1px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a[href*="//"] {
+  border-bottom-style: solid;
+}
+
+a:hover {
+  background: #ccc;
+  transition: background 0.3s;
+  color: #555;
+  border-bottom-style: solid;
+}
+
+a:active {
+  background-color: #ccc;
+  color: black;
+}
+
+a:link#active_page {
+  background: none;
+  font-weight: 900;
+}
+
+a[data-linkstatus] {
+  padding-right: 0;
+}
+a[data-linkstatus]::after {
+  content: attr(data-linkstatus);
+  background-color: rgba(204, 204, 204, 0.33);
+  color: #555;
+  font-size: 0.67rem;
+  font-weight: 300;
+  font-style: italic;
+  padding: 0.1125rem 0.225rem;
+  margin: auto 0.225rem;
+  margin-right: 0;
+}
+
+a.deadlink::after {
+  background-color: rgba(255, 34, 34, 0.0666666667);
+}
+a.deadlink:hover {
+  background: rgba(255, 34, 34, 0.0666666667);
+  color: #f22;
+}
+a.deadlink:hover::after {
+  background-color: rgba(255, 34, 34, 0.0666666667);
+}
+
+img.clickable {
+  cursor: pointer;
+}
+.social-links {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    justify-content: left;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    color: #7e7a7afb;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    border: none;
+    padding: 0;
+}
+
+.social-links a:hover {
+    opacity: 2;
+    background: none;
+}
+
+.social-links svg {
+    width: 100%;
+    height: 100%;
+}
+
+/*	************************************************** 
+	style archive pages
+	************************************************** */
+ul.archive {
+  margin-top: 3.6em;
+  margin-bottom: 3.6em;
+  /* remove space between post title and subtext */
+}
+ul.archive li {
+  display: block;
+  width: 100%;
+}
+ul.archive li p {
+  margin: 0.775rem auto;
+}
+ul.archive li p a {
+  display: block;
+  overflow: hidden;
+}
+ul.archive li p .title {
+  font-weight: 900;
+}
+ul.archive li p .date {
+  float: right;
+  font-size: 85%;
+  opacity: 0.5;
+}
+ul.archive li p .excerpt {
+  display: none;
+}
+ul.archive li p .tags, ul.archive li p .categories {
+  font-style: italic;
+  opacity: 0.5;
+}
+ul.archive h1, ul.archive h2, ul.archive h3 {
+  margin: 0 auto;
+}
+ul.archive h1 + p, ul.archive h2 + p, ul.archive h3 + p {
+  margin-top: 0;
+}
+
+/*	on archive pages where posts are listed without thubnails 
+	(like on the reflections and activities pages),
+	let there be a padding between the title of the post 
+	and the the categories/tags that show up next to it */
+ul.archive:not(.thumblist) li p a .tags, ul.archive:not(.thumblist) li p a .categories {
+  padding-left: 0.25rem;
+}
+
+/* project thumbnails on project-archive pages */
+ul.archive.thumblist {
+  overflow: auto;
+  width: 100%; /* divs that include only floating elements used to need a last child div with clear:both. this is an alternate, cleaner solution. based on: http://quirksmode.org/css/clearing.html */
+}
+ul.archive.thumblist li {
+  position: relative;
+  display: block;
+  float: left;
+  border: 1px solid #fff;
+  width: 32%;
+  max-width: 409.6px;
+  height: 380px;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+ul.archive.thumblist li a {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+ul.archive.thumblist li a .thumbnail {
+  /* pattern visible when there's no thumbnail image */
+  background: url("/assets/css/slash-ccc-4px.gif");
+  background-repeat: repeat;
+  width: 100%;
+  height: 71.5%; /* thumbnail imgaes should have a 3:2 aspect ratio, and so this should have been 66.67%. but, for some reason, 71.5% is closer to keeping the thumbnail-images at 2/3 aspect ratio */
+  max-height: 272px;
+  overflow: hidden;
+}
+ul.archive.thumblist li a img, ul.archive.thumblist li a p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+ul.archive.thumblist li a p {
+  background: #fff;
+  position: initial;
+  opacity: 1;
+  padding: 0;
+  width: 95%;
+  height: initial;
+  margin: 0.45rem 0;
+  background: none;
+  line-height: 1.17rem;
+}
+ul.archive.thumblist li a p .title {
+  max-width: 10ch;
+  overflow: hidden;
+}
+ul.archive.thumblist li a p .date {
+  float: none;
+}
+ul.archive.thumblist li a p .date::before {
+  content: "(";
+}
+ul.archive.thumblist li a p .date::after {
+  content: ")";
+}
+ul.archive.thumblist li a p .excerpt {
+  display: block;
+}
+ul.archive.thumblist li a p .tags, ul.archive.thumblist li a p .categories {
+  display: block;
+}
+ul.archive.thumblist li:nth-child(3n+1) {
+  margin-left: 0;
+  margin-right: 0;
+}
+ul.archive.thumblist li:nth-child(3n+2) {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+ul.archive.thumblist li:nth-child(3n) {
+  margin-left: 0;
+  margin-right: 0%;
+}
+
+.home-page ul.archive.thumblist li a p .date {
+  display: none;
+}
+
+/*	************************************************** 
+	style single posts
+	************************************************** */
+.post .post-meta {
+  opacity: 0.5;
+  line-height: 1em;
+}
+.post .post-meta small > * { /* applies to immediate children of `.postmeta small` only */
+  display: block;
+}
+
+.inline-meta, h6 {
+  /* 
+  used in places like "about", 
+  where the date above entry 
+  is in smaller font and is grey.
+  */
+  font-weight: 300; /* this is to make sure that h6 doesn't show up as bold */
+  opacity: 0.4;
+  font-size: 0.7425rem;
+}
+/*	************************************************** 
+	media queries
+	************************************************** */
+@media screen and (min-device-width: 720px) {
+  .video.videoDimensions5625.item-halfwidth {
+    padding-bottom: 28.125%;
+  }
+  .video.videoDimensions6667.item-halfwidth {
+    padding-bottom: 33.335%;
+  }
+  .video.videoDimensions5000.item-halfwidth {
+    padding-bottom: 50%;
+  }
+  p.video {
+    /* assume a default video to have 2:3 aspect ratio */
+    padding-bottom: 24.0012rem;
+  }
+  p.video.videoDimensions5625 {
+    padding-bottom: 20.25rem;
+  }
+  p.video.videoDimensions6667 {
+    padding-bottom: 24.0012rem;
+  }
+  p.video.videoDimensions5000 {
+    padding-bottom: 36rem;
+  }
+}
+@media screen and (max-device-width: 1280px) {
+  #container {
+    max-width: 95vw;
+  }
+  ul.archive.thumblist li {
+    width: 30vw;
+    max-width: 384px;
+    height: 30.5vw;
+  }
+  ul.archive.thumblist li a .thumbnail {
+    height: 20vw;
+    max-height: 256px;
+  }
+  ul.archive.thumblist li a p .excerpt {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; /* see: https://www.w3schools.com/cssref/css3_pr_text-overflow.php */
+  }
+  ul.archive.thumblist li:nth-child(3n+1) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  ul.archive.thumblist li:nth-child(3n+2) {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  ul.archive.thumblist li:nth-child(3n) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  div.media .item-halfwidth {
+    width: 46.5vw;
+  }
+}
+@media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
+  ul.archive.thumblist li {
+    height: 28.5vw;
+  }
+}
+@media screen and (min-device-width: 720px) and (max-device-width: 1280px) {
+  nav, p, h1, h2, h3, ul, .footnotes {
+    font-size: 0.74997rem;
+  }
+}
+@media screen and (max-device-width: 960px) {
+  hr, hr.dotted {
+    border-top-width: 3px;
+    margin: 1.35rem auto;
+  }
+  #container {
+    /*max-width: 90vw; */
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+  }
+  #header, #content, ul.archive, #footer {
+    margin-top: 1.8rem;
+    margin-bottom: 3.6rem;
+  }
+  nav, h1, h2, h3, ul, p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  ul {
+    margin-left: 0; /* on jen's phone, all ul's were indented for some unknown reason. so, this is an explicit style to prevent such an indent. */
+  }
+}
+@media screen and (max-device-width: 720px) {
+  ul.archive.thumblist li {
+    width: 45vw;
+    margin: 0;
+    padding: 0;
+    height: 41vw;
+  }
+  ul.archive.thumblist li:nth-child(2n+1) {
+    margin: 0;
+    margin-right: 2.5vw;
+  }
+  ul.archive.thumblist li:nth-child(2n) {
+    margin: 0;
+    margin-left: 2.5vw;
+  }
+  ul.archive.thumblist li a .thumbnail {
+    height: 28vw;
+  }
+}
+@media screen and (max-device-width: 640px) {
+  /* videos shot in portrait mode */
+  .video.videoDimensions1point5 {
+    padding-bottom: 150%;
+  }
+  .video.videoDimensions1point25 {
+    padding-bottom: 175%;
+  }
+}
+@media screen and (max-device-width: 540px) {
+  #container {
+    max-width: 90vw;
+  }
+  nav, h1, h2, h3, ul, p {
+    font-size: 0.765rem;
+  }
+  a {
+    border-bottom-style: solid;
+  }
+  ul.archive li a {
+    border-bottom-color: #ccc;
+  }
+  ul.archive.thumblist li {
+    width: 42.5vw;
+    height: 46.5vw;
+  }
+  ul.archive.thumblist li a p .excerpt {
+    display: none;
+  }
+  div.media .item-halfwidth:nth-last-child(2) {
+    margin-bottom: inherit;
+  }
+  div.media .item-halfwidth:nth-last-child(2), div.media .item-halfwidth:nth-of-type(2n+1), div.media .item-halfwidth:nth-of-type(2n), div.media .item-halfwidth.floatleft, div.media .item-halfwidth.floatright {
+    float: none;
+    width: 100%;
+  }
+}
+@media screen and (max-device-width: 360px) {
+  ul.archive.thumblist li:nth-child(n) {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 1rem;
+  }
+  ul.archive.thumblist li a .thumbnail {
+    height: 60vw;
+  }
+}
+/*	************************************************** 
+	media queries for print
+
+	notes: 
+
+	1.
+	archive pages (esp ones with thumbnails) dont look good. 
+	but the purpose of these media queries is not to style those ;
+	it is single pages (like the résumé on the home page, or single projects)
+	that need to print well as a pdf (however rarely that is likely to happen).
+
+	2.
+	doesnt seem to work uniformly in all browsers. 
+	eg., safari definitely doesnt respect margins (@201901).
+
+	//
+
+	links to tutorials: 
+	- https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/
+	- 
+
+	************************************************** */
+@media print {
+  @page {
+    size: A4;
+    margin: 2cm;
+    padding: 0;
+  }
+  #container {
+    width: 100%;
+    margin: 0;
+    margin-top: -1rem;
+    padding-top: 0;
+    padding-bottom: 0; /* override settings set in the default stylesheet */
+  }
+  #container.post #content,
+  #container.home-page #content {
+    margin-top: 0;
+  }
+  #container.post nav, #container.post p, #container.post h1, #container.post h2, #container.post h3, #container.post ul, #container.post blockquote,
+  #container.home-page nav,
+  #container.home-page p,
+  #container.home-page h1,
+  #container.home-page h2,
+  #container.home-page h3,
+  #container.home-page ul,
+  #container.home-page blockquote {
+    font-size: 10pt;
+    width: 40rem;
+    page-break-inside: avoid;
+  }
+  #container.post .media,
+  #container.home-page .media {
+    width: 40rem;
+  }
+  #container.post .media .floatleft, #container.post .media .floatright,
+  #container.home-page .media .floatleft,
+  #container.home-page .media .floatright {
+    float: none;
+  }
+  #container.post a,
+  #container.post a[href^="/"],
+  #container.post a[href*=mailto],
+  #container.home-page a,
+  #container.home-page a[href^="/"],
+  #container.home-page a[href*=mailto] {
+    border-bottom-color: #ccc;
+    border-bottom-style: solid;
+  }
+  #container.post a[href*="//"],
+  #container.home-page a[href*="//"] { /* links that "contain //" are generally external links ///// reference link: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors; */
+    border-bottom-style: solid;
+  }
+  #container.post #footer,
+  #container.home-page #footer {
+    display: none;
+  }
+  .hide-in-print {
+    display: none;
+  }
+  .show-only-in-print {
+    display: initial;
+  }
+}
+/* 
+	within a post,
+	show/hide private items (images, text) in a post, 
+	depending on the Jekyll Environment  
+*/
+.private_item {
+  /* note: "development" is jekyll's default environment */
+  /* here, items classed .private_item will not display on the page */
+  display: none !important;
+}
+
+/* 
+	(on an .archive or .single page)
+	with the title of a post,
+	indicate that a post is private or featured.
+*/
+.private_post {
+  background-color: #555;
+  color: #fff;
+}
+
+.featured_post {
+  background-color: #fb0;
+  color: #fff;
+}
+
+.post .private_post {
+  /* write the post's status before the title */
+  font-size: 0.67rem;
+  font-weight: 300;
+  font-style: italic;
+  padding: 0.1125rem 0.225rem;
+  margin: auto 0.225rem auto 0;
+}
+
+.archive:not(.thumblist) .private_post,
+.archive:not(.thumblist) .featured_post {
+  /* show a round dot before the post-title */
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 50%;
+  padding: 0;
+  margin: auto 0.225rem;
+  display: inline-block;
+}
+
+/* 
+	(on an .archive.thumblist page)
+	indicate that a post is private.
+*/
+.archive.thumblist li a .thumbnail .private_post {
+  /* method 1: cover entire list-item with an overlay*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/css/slash-ccc-4px.gif");
+  background-repeat: repeat;
+  background-color: rgba(255, 34, 34, 0.0666666667);
+  /* method 2: draw a red line at the top of the list-item */
+  background-color: #f22;
+  height: 0;
+  font-weight: 900;
+  color: #fff;
+  padding: 0.25rem 0;
+  margin: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */
+
+/* Portfolio Timeline Styles - extends main styles.css */
+
+.timeline {
+    max-width: 800px;
+    margin: 2em auto;  /* Change from "2em 0" to "2em auto" */
+    position: relative;
+}
+
+/* Timeline Sections */
+.timeline-section {
+    margin-bottom: 4em;
+}
+
+.timeline-section h2 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-bottom: 2em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #000;
+}
+
+/* Timeline Items */
+.timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2em;
+    margin-bottom: 2.5em;
+    margin-left: auto;    /* Add this */
+    margin-right: auto;   /* Add this */
+    position: relative;
+}
+
+.timeline-item .year {
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #666;
+    text-align: right;
+    padding-top: 0.2em;
+}
+
+.timeline-content h3 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.3em 0;
+}
+
+.timeline-content p {
+    margin: 0.5em 0;
+    line-height: 1.6;
+}
+
+.timeline-content p.detail {
+    color: #333;
+    font-size: 0.95em;
+}
+
+.timeline-content a {
+    text-decoration: underline;
+}
+
+/* Featured Items */
+.timeline-item.featured {
+    background: #f5f5f5;
+    padding: 1.5em;
+    margin-left: auto;      /* Change from "-1.5em" */
+    margin-right: auto;     /* Change from "-1.5em" */
+    width: calc(100% + 3em); /* Add this to maintain width */
+}
+
+.timeline-item.featured .year {
+    padding-right: 0;
+}
+
+/* Achievements List */
+.timeline-content ul.achievements {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0 0 0;
+}
+
+.timeline-content ul.achievements li {
+    padding-left: 1.5em;
+    margin-bottom: 0.5em;
+    position: relative;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.timeline-content ul.achievements li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+    margin-top: 1.5em;
+}
+
+.skill-category h3 {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0 0 0.5em 0;
+}
+
+.skill-category p {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Tooltips from disclaimer style */
+.timeline-content span[title] {
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+    cursor: help;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .timeline-item {
+        grid-template-columns: 80px 1fr;
+        gap: 1em;
+    }
+    
+    .timeline-item .year {
+        font-size: 0.85em;
+    }
+    
+    .timeline-item.featured {
+        margin-left: -1em;
+        margin-right: -1em;
+        padding: 1em;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .timeline-item.featured {
+        background: none;
+        border-left: 3px solid #000;
+        padding-left: 1em;
+    }
+}

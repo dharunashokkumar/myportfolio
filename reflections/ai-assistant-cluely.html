@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: Build Your Own Cuely-Style AI Assistant on Windows</title>
+
+    <meta name="description" content="Complete tutorial for building a Windows AI assistant inspired by Cuely. Features screen OCR, GPT-4o integration, hotkey activation, and quick dismissal. Built with Electron and Tesseract.js.">
+    <meta name="keywords" content="AI assistant, Cuely alternative, Windows AI, Electron app, GPT-4o, Tesseract.js, OCR, screen reader, AI development, OpenAI API, desktop assistant, hotkey, JavaScript">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Build Your Own Cuely-Style AI Assistant on Windows">
+      <meta property="og:description" content="Tutorial for creating a custom AI assistant for Windows with screen reading and GPT-4o integration.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/ai-assistant-cluely.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/ai-assistant-cluely.html">Build Your Own Cuely-Style AI Assistant on Windows</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>Cuely is an impressive AI assistant for macOS that lets you activate an AI helper with a simple keyboard shortcut, read your screen content, and provide contextual assistance. But what if you're on Windows? In this guide, I'll show you how I built a similar AI assistant for Windows using Electron, Tesseract.js for OCR, and the GPT-4o API.</p>
+
+<h2>What We're Building</h2>
+
+<p>Our Windows AI assistant will have these key features:</p>
+
+<ul>
+<li><strong>Global hotkey activation</strong>  Press Ctrl+\ anywhere to bring up the assistant</li>
+<li><strong>Screen OCR capability</strong>  Read and understand text on your screen</li>
+<li><strong>GPT-4o integration</strong>  Powered by OpenAI's latest model for intelligent responses</li>
+<li><strong>Quick dismissal</strong>  Press Esc or click outside to close instantly</li>
+<li><strong>Minimal UI</strong>  Clean interface that doesn't get in the way</li>
+<li><strong>System tray integration</strong>  Runs quietly in the background</li>
+</ul>
+
+<h2>Prerequisites</h2>
+
+<p>Before we begin, make sure you have:</p>
+
+<ul>
+<li><strong>Windows 10 or 11</strong>  The operating system we're targeting</li>
+<li><strong>Node.js</strong>  Download from nodejs.org (LTS version recommended)</li>
+<li><strong>OpenAI API key</strong>  Sign up at platform.openai.com and create an API key</li>
+<li><strong>Basic JavaScript knowledge</strong>  Understanding of async/await and promises helps</li>
+<li><strong>Text editor</strong>  VS Code, Sublime Text, or any editor you prefer</li>
+</ul>
+
+<h2>Technology Stack</h2>
+
+<p>Here's what powers our AI assistant:</p>
+
+<ul>
+<li><strong>Electron</strong>  Framework for building cross-platform desktop apps with web technologies</li>
+<li><strong>Tesseract.js</strong>  JavaScript OCR library for reading screen text</li>
+<li><strong>OpenAI API</strong>  GPT-4o model for natural language understanding and generation</li>
+<li><strong>electron-globalShortcut</strong>  For registering system-wide keyboard shortcuts</li>
+<li><strong>screenshot-desktop</strong>  Capturing screen content programmatically</li>
+</ul>
+
+<h2>Step 1: Project Setup</h2>
+
+<p>Create a new directory and initialize the project:</p>
+
+<pre><code>mkdir windows-ai-assistant
+cd windows-ai-assistant
+npm init -y
+</code></pre>
+
+<p>Install required dependencies:</p>
+
+<pre><code>npm install electron
+npm install tesseract.js
+npm install openai
+npm install screenshot-desktop
+npm install electron-store
+</code></pre>
+
+<h2>Step 2: Basic Electron Structure</h2>
+
+<p>Create the main process file (<code>main.js</code>) that handles:</p>
+
+<ul>
+<li>Creating the application window</li>
+<li>Registering global shortcuts</li>
+<li>Managing system tray icon</li>
+<li>Handling window visibility</li>
+</ul>
+
+<p>The window should be frameless, always on top, and positioned near the cursor when activated.</p>
+
+<h2>Step 3: Configure OpenAI API</h2>
+
+<p>Store your API key securely using electron-store or environment variables. Never hardcode API keys in your source code!</p>
+
+<p>Create a settings panel where users can input their API key on first run. The key should be encrypted and stored locally.</p>
+
+<h2>Step 4: Implement Screen OCR</h2>
+
+<p>The OCR functionality involves:</p>
+
+<ol>
+<li><strong>Capture screenshot</strong>  Use screenshot-desktop to grab the current screen</li>
+<li><strong>Process with Tesseract</strong>  Extract text from the image</li>
+<li><strong>Send to GPT-4o</strong>  Include the extracted text as context</li>
+<li><strong>Display response</strong>  Show AI's answer in the interface</li>
+</ol>
+
+<p>Tesseract.js can take a few seconds to process images, so include a loading indicator to show progress.</p>
+
+<h2>Step 5: Create the User Interface</h2>
+
+<p>Build a minimal, clean interface with:</p>
+
+<ul>
+<li><strong>Input field</strong>  Where users type their questions</li>
+<li><strong>Screen read button</strong>  Trigger OCR to read current screen</li>
+<li><strong>Response area</strong>  Display AI's answers with markdown support</li>
+<li><strong>Settings button</strong>  Access API key configuration</li>
+<li><strong>Loading animation</strong>  Show when processing requests</li>
+</ul>
+
+<p>Use CSS to create a modern, semi-transparent window with rounded corners and smooth animations.</p>
+
+<h2>Step 6: Hotkey Implementation</h2>
+
+<p>Register the global shortcut in the main process:</p>
+
+<pre><code>globalShortcut.register('CommandOrControl+\\', () => {
+  mainWindow.show();
+  mainWindow.focus();
+});
+</code></pre>
+
+<p>Also implement:</p>
+
+<ul>
+<li><strong>Esc key</strong>  Hide the window</li>
+<li><strong>Click outside</strong>  Dismiss the assistant</li>
+<li><strong>Blur event</strong>  Auto-hide when focus is lost</li>
+</ul>
+
+<h2>Step 7: Integrate GPT-4o</h2>
+
+<p>Create an API wrapper that:</p>
+
+<ul>
+<li>Sends user queries to OpenAI's GPT-4o endpoint</li>
+<li>Includes screen text as context when OCR is used</li>
+<li>Handles rate limiting and errors gracefully</li>
+<li>Streams responses for better UX (show text as it generates)</li>
+<li>Maintains conversation history for context</li>
+</ul>
+
+<p>Example API call structure:</p>
+
+<pre><code>const messages = [
+  { role: "system", content: "You are a helpful AI assistant." },
+  { role: "user", content: userQuestion }
+];
+
+if (screenText) {
+  messages.push({
+    role: "user",
+    content: `Screen content: ${screenText}`
+  });
+}
+</code></pre>
+
+<h2>Step 8: Add Advanced Features</h2>
+
+<h3>Conversation History</h3>
+<p>Store recent conversations so the AI can reference previous exchanges. Clear history when the window is closed or after a timeout.</p>
+
+<h3>Quick Actions</h3>
+<p>Implement shortcuts for common tasks:</p>
+
+<ul>
+<li>"Explain this"  Quick explanation of selected screen text</li>
+<li>"Summarize"  Condense long screen content</li>
+<li>"Translate"  Convert text to another language</li>
+<li>"Fix grammar"  Correct writing mistakes</li>
+</ul>
+
+<h3>Custom Prompts</h3>
+<p>Allow users to create custom prompt templates they use frequently.</p>
+
+<h3>Clipboard Integration</h3>
+<p>Option to automatically copy AI responses to clipboard for easy pasting.</p>
+
+<h2>Step 9: Optimize Performance</h2>
+
+<h3>OCR Optimization</h3>
+<ul>
+<li>Only process the relevant portion of the screen, not the entire display</li>
+<li>Cache Tesseract worker to avoid initialization on every use</li>
+<li>Compress screenshots before processing</li>
+</ul>
+
+<h3>API Efficiency</h3>
+<ul>
+<li>Implement request queuing to avoid simultaneous API calls</li>
+<li>Add response caching for identical queries</li>
+<li>Use shorter context windows when appropriate</li>
+</ul>
+
+<h3>Resource Management</h3>
+<ul>
+<li>Hide window instead of closing to keep it ready</li>
+<li>Lazy load heavy components</li>
+<li>Release resources when window is hidden</li>
+</ul>
+
+<h2>Step 10: Package and Distribute</h2>
+
+<p>Use electron-builder to create an installer:</p>
+
+<pre><code>npm install --save-dev electron-builder
+</code></pre>
+
+<p>Configure in <code>package.json</code>:</p>
+
+<pre><code>"build": {
+  "appId": "com.yourname.ai-assistant",
+  "productName": "AI Assistant",
+  "win": {
+    "target": "nsis",
+    "icon": "assets/icon.ico"
+  }
+}
+</code></pre>
+
+<p>Build the installer:</p>
+
+<pre><code>npm run build
+</code></pre>
+
+<h2>Usage Tips</h2>
+
+<h3>Screen Reading Best Practices</h3>
+<ul>
+<li>Works best with clear, high-contrast text</li>
+<li>May struggle with handwritten text or unusual fonts</li>
+<li>Give Tesseract 2-3 seconds to process accurately</li>
+</ul>
+
+<h3>Effective Prompting</h3>
+<ul>
+<li>Be specific about what you want from screen content</li>
+<li>Use context: "Based on the code shown, suggest improvements"</li>
+<li>Combine screen reading with specific questions</li>
+</ul>
+
+<h3>API Cost Management</h3>
+<ul>
+<li>GPT-4o is powerful but costs more than GPT-3.5</li>
+<li>Set token limits to control costs</li>
+<li>Consider using GPT-3.5 for simple queries</li>
+<li>Monitor usage through OpenAI dashboard</li>
+</ul>
+
+<h2>Troubleshooting Common Issues</h2>
+
+<h3>Hotkey Not Working</h3>
+<ul>
+<li>Check if another app is using the same shortcut</li>
+<li>Run Electron app with administrator privileges</li>
+<li>Try a different key combination</li>
+</ul>
+
+<h3>OCR Producing Gibberish</h3>
+<ul>
+<li>Ensure screenshot is captured correctly</li>
+<li>Check image quality (resolution, clarity)</li>
+<li>Try preprocessing image (contrast adjustment, noise reduction)</li>
+</ul>
+
+<h3>Slow Response Times</h3>
+<ul>
+<li>Check internet connection</li>
+<li>Reduce context size sent to API</li>
+<li>Use streaming responses to show progress</li>
+</ul>
+
+<h2>Privacy and Security Considerations</h2>
+
+<ul>
+<li><strong>Screen content</strong>  OCR reads everything on screen, including sensitive information</li>
+<li><strong>API transmission</strong>  Screen text is sent to OpenAI servers</li>
+<li><strong>Local storage</strong>  Conversation history is stored on your machine</li>
+<li><strong>API key security</strong>  Keep your key encrypted and never share it</li>
+</ul>
+
+<p>Consider adding:</p>
+
+<ul>
+<li>Option to exclude certain apps from screen reading</li>
+<li>Clear button to delete conversation history</li>
+<li>Local-only mode without cloud AI (using local models)</li>
+<li>Encryption for stored conversations</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<p>Ideas to expand functionality:</p>
+
+<ul>
+<li><strong>Multi-monitor support</strong>  Choose which screen to read</li>
+<li><strong>Selection mode</strong>  Draw a box around specific screen area to analyze</li>
+<li><strong>Voice input</strong>  Speak your questions instead of typing</li>
+<li><strong>Plugin system</strong>  Extend with custom actions and integrations</li>
+<li><strong>Cross-platform</strong>  Make it work on macOS and Linux too</li>
+<li><strong>Local LLM support</strong>  Use Ollama or similar for offline AI</li>
+<li><strong>Image understanding</strong>  Analyze charts, diagrams, UI elements visually</li>
+</ul>
+
+<h2>Learning Resources</h2>
+
+<p>To dive deeper:</p>
+
+<ul>
+<li><strong>Electron documentation</strong>  electronjs.org/docs</li>
+<li><strong>Tesseract.js guide</strong>  github.com/naptha/tesseract.js</li>
+<li><strong>OpenAI API reference</strong>  platform.openai.com/docs</li>
+<li><strong>Electron sample apps</strong>  github.com/electron/electron-quick-start</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>Building an AI assistant like Cuely for Windows is surprisingly achievable with modern web technologies. Electron makes desktop development accessible to web developers, Tesseract.js brings powerful OCR capabilities, and GPT-4o provides the intelligence.</p>
+
+<p>This project taught me about:</p>
+
+<ul>
+<li>Desktop application architecture</li>
+<li>Working with system-level APIs (screenshots, global shortcuts)</li>
+<li>Integrating AI models into real applications</li>
+<li>Optimizing for performance and user experience</li>
+<li>Handling sensitive data responsibly</li>
+</ul>
+
+<p>The best part? Once you build it, you have a personalized AI assistant that works exactly how you want it to. You can customize the UI, add features specific to your workflow, and extend it indefinitely.</p>
+
+<p>Start building, experiment, and create your own AI-powered productivity tool. The code is yoursmake it perfect for your needs.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: How I Built an AI Phone Caller Using ESP32 and SIM800L</title>
+
+    <meta name="description" content="IoT project combining ESP32, SIM800L GSM module, and AI-generated audio to make automated phone calls. Learn about AT commands, voice modules, and automation with n8n.">
+    <meta name="keywords" content="AI phone caller, ESP32 project, SIM800L, GSM module, ISD1820, voice module, AT commands, IoT automation, n8n automation, automated calls, AI voice synthesis, embedded systems">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="How I Built an AI Phone Caller Using ESP32 and SIM800L">
+      <meta property="og:description" content="IoT project making real phone calls with ESP32, SIM800L GSM module, and AI-generated voice.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/ai-telecaller-project.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/ai-telecaller-project.html">How I Built an AI Phone Caller Using ESP32 and SIM800L</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>Imagine an IoT device that can make real phone calls, play AI-generated voice messages, and trigger automatically based on events. That's exactly what I built using an ESP32 microcontroller, a SIM800L GSM module, and some creative audio integration. This project combines hardware, telephony, and AI in a fascinating way.</p>
+
+<h2>The Concept</h2>
+
+<p>The goal was simple but ambitious: create a device that can:</p>
+
+<ul>
+<li>Make phone calls to any number programmatically</li>
+<li>Play pre-recorded or AI-generated voice messages during the call</li>
+<li>Trigger calls based on sensors, webhooks, or scheduled events</li>
+<li>Operate independently without requiring a smartphone or computer</li>
+</ul>
+
+<p>Applications could range from emergency alerts and appointment reminders to IoT notifications and automated customer service.</p>
+
+<h2>Hardware Components</h2>
+
+<h3>ESP32 Development Board</h3>
+<p>The brain of the operation. The ESP32 provides:</p>
+<ul>
+<li>Processing power to run code and logic</li>
+<li>GPIO pins for connecting modules</li>
+<li>Wi-Fi capability for remote control and updates</li>
+<li>Dual-core processor for handling multiple tasks</li>
+</ul>
+
+<h3>SIM800L GSM/GPRS Module</h3>
+<p>This small module enables cellular communication:</p>
+<ul>
+<li>Makes and receives phone calls</li>
+<li>Sends and receives SMS messages</li>
+<li>GPRS data connectivity</li>
+<li>Quad-band GSM support (works globally)</li>
+<li>Requires 3.7V-4.2V power (important for stability)</li>
+</ul>
+
+<h3>ISD1820 Voice Recording Module</h3>
+<p>For audio playback during calls:</p>
+<ul>
+<li>Records and plays audio messages</li>
+<li>10-second recording capacity (expandable with external chips)</li>
+<li>Simple push-button interface</li>
+<li>Audio output that connects to SIM800L's microphone input</li>
+</ul>
+
+<h3>Other Components</h3>
+<ul>
+<li><strong>SIM card</strong>  Active cellular plan with voice calling enabled</li>
+<li><strong>Power supply</strong>  Stable 5V source (SIM800L can draw 2A during calls)</li>
+<li><strong>Capacitors</strong>  1000µF to handle current spikes from SIM800L</li>
+<li><strong>Resistors</strong>  For voltage dividers if needed</li>
+<li><strong>Breadboard and jumper wires</strong>  For prototyping</li>
+</ul>
+
+<h2>Wiring the System</h2>
+
+<h3>ESP32 to SIM800L</h3>
+<pre><code>ESP32 TX (GPIO17) ’ SIM800L RX
+ESP32 RX (GPIO16) ’ SIM800L TX
+ESP32 GND ’ SIM800L GND
+SIM800L VCC ’ 3.7V-4.2V power source (with 1000µF capacitor)
+</code></pre>
+
+<h3>ISD1820 to SIM800L</h3>
+<pre><code>ISD1820 SP+ ’ SIM800L MIC+
+ISD1820 SP- ’ SIM800L MIC-
+ISD1820 VCC ’ 5V
+ISD1820 GND ’ Common GND
+ISD1820 PLAYE ’ ESP32 GPIO (for trigger control)
+</code></pre>
+
+<p><strong>Critical note:</strong> The SIM800L is extremely sensitive to power quality. Use a dedicated power supply capable of providing at least 2A, and add a large capacitor (1000µF or more) close to the module to prevent brownouts during transmission.</p>
+
+<h2>Programming the ESP32</h2>
+
+<h3>AT Commands Basics</h3>
+
+<p>The SIM800L is controlled via AT commands sent over serial communication. Key commands for our project:</p>
+
+<pre><code>AT              // Test command
+AT+CREG?        // Check network registration
+AT+CSQ          // Check signal quality
+ATD+91XXXXXXXXXX;  // Dial a number (replace with actual number)
+ATH             // Hang up call
+AT+CLVL=100     // Set speaker volume (0-100)
+</code></pre>
+
+<h3>Sample ESP32 Code Structure</h3>
+
+<pre><code>#include &lt;HardwareSerial.h&gt;
+
+HardwareSerial sim800(1);
+
+void setup() {
+  Serial.begin(115200);
+  sim800.begin(9600, SERIAL_8N1, 16, 17);  // RX, TX
+
+  delay(3000);
+  sendCommand("AT", 1000);
+  sendCommand("AT+CREG?", 1000);
+}
+
+void sendCommand(String cmd, int timeout) {
+  sim800.println(cmd);
+  long int time = millis();
+  while((time + timeout) > millis()) {
+    while(sim800.available()) {
+      Serial.write(sim800.read());
+    }
+  }
+}
+
+void makeCall(String number) {
+  sendCommand("ATD" + number + ";", 1000);
+  delay(20000);  // Call duration
+  sendCommand("ATH", 1000);  // Hang up
+}
+</code></pre>
+
+<h3>Integrating Voice Playback</h3>
+
+<p>When the call connects, trigger the ISD1820 to play the recorded message:</p>
+
+<pre><code>void playMessage() {
+  digitalWrite(ISD1820_PLAY_PIN, LOW);
+  delay(100);
+  digitalWrite(ISD1820_PLAY_PIN, HIGH);
+}
+
+void makeCallWithMessage(String number) {
+  sendCommand("ATD" + number + ";", 1000);
+  delay(5000);  // Wait for call to connect
+  playMessage();  // Trigger audio playback
+  delay(15000);  // Play duration
+  sendCommand("ATH", 1000);  // Hang up
+}
+</code></pre>
+
+<h2>Voice Integration Options</h2>
+
+<h3>Option 1: Pre-recorded Messages (Simple)</h3>
+<p>Record a message directly on the ISD1820 module:</p>
+<ol>
+<li>Press and hold the REC button</li>
+<li>Speak your message (up to 10 seconds)</li>
+<li>Release button to stop recording</li>
+<li>Press PLAY to test</li>
+</ol>
+
+<p>Pros: Simple, works offline, no external dependencies</p>
+<p>Cons: Fixed message, limited duration, manual recording required</p>
+
+<h3>Option 2: AI-Generated Voice (Advanced)</h3>
+<p>Use text-to-speech APIs to generate dynamic messages:</p>
+
+<ol>
+<li><strong>Generate audio</strong>  Use OpenAI TTS, Google Cloud Text-to-Speech, or ElevenLabs API</li>
+<li><strong>Store on SD card</strong>  Save MP3 files to microSD connected to ESP32</li>
+<li><strong>Play via module</strong>  Use DFPlayer Mini MP3 module instead of ISD1820</li>
+<li><strong>Trigger during call</strong>  Same principle as ISD1820</li>
+</ol>
+
+<p>Pros: Dynamic messages, realistic voices, can include variables (name, time, data)</p>
+<p>Cons: Requires internet initially, more complex hardware, API costs</p>
+
+<h3>DFPlayer Mini Integration</h3>
+
+<p>For AI-generated audio, replace ISD1820 with DFPlayer Mini:</p>
+
+<pre><code>ESP32 RX (GPIO4) ’ DFPlayer TX
+ESP32 TX (GPIO2) ’ DFPlayer RX
+DFPlayer SPK+ ’ SIM800L MIC+
+DFPlayer SPK- ’ SIM800L MIC-
+</code></pre>
+
+<p>Use the DFRobotDFPlayerMini library to control playback programmatically.</p>
+
+<h2>Automation with n8n</h2>
+
+<p>To make this truly powerful, integrate with n8n (an automation platform) to trigger calls based on events:</p>
+
+<h3>Workflow Example: Emergency Alert System</h3>
+
+<ol>
+<li><strong>Sensor triggers</strong>  Temperature sensor detects fire (ESP32 sends HTTP request)</li>
+<li><strong>n8n receives webhook</strong>  Processes the alert</li>
+<li><strong>Generate voice message</strong>  n8n calls text-to-speech API with details</li>
+<li><strong>Store audio</strong>  Saves to accessible location</li>
+<li><strong>Trigger ESP32</strong>  Sends command to make call</li>
+<li><strong>ESP32 calls number</strong>  Plays emergency message</li>
+</ol>
+
+<h3>Other Use Cases</h3>
+
+<ul>
+<li><strong>Appointment reminders</strong>  Schedule calls to remind about bookings</li>
+<li><strong>Delivery notifications</strong>  Alert when package arrives</li>
+<li><strong>System monitoring</strong>  Call admin when server goes down</li>
+<li><strong>Home security</strong>  Call owner when motion detected</li>
+<li><strong>Weather alerts</strong>  Warn about severe weather conditions</li>
+</ul>
+
+<h2>Challenges and Solutions</h2>
+
+<h3>Challenge 1: SIM800L Power Issues</h3>
+<p><strong>Problem:</strong> Module keeps resetting, showing "UNDER-VOLTAGE WARNING"</p>
+<p><strong>Solution:</strong> Use dedicated 3.7V-4.2V power supply with at least 2A capacity. Add 1000µF capacitor across VCC and GND. Don't power from ESP32's 3.3V pin.</p>
+
+<h3>Challenge 2: Call Audio Quality</h3>
+<p><strong>Problem:</strong> Voice message sounds distorted or too quiet</p>
+<p><strong>Solution:</strong> Adjust ISD1820/DFPlayer output volume. Use AT+CLVL command to set SIM800L speaker volume. Ensure proper ground connection between all modules.</p>
+
+<h3>Challenge 3: Network Registration</h3>
+<p><strong>Problem:</strong> SIM800L can't connect to network</p>
+<p><strong>Solution:</strong> Check SIM card is activated and has calling enabled. Use AT+CREG? to check registration status. Ensure antenna is properly connected. Try different locations for better signal.</p>
+
+<h3>Challenge 4: Timing Issues</h3>
+<p><strong>Problem:</strong> Voice plays before call connects or after it disconnects</p>
+<p><strong>Solution:</strong> Add sufficient delay after ATD command (5-10 seconds depending on network). Monitor call status with AT+CLCC command to detect connection.</p>
+
+<h2>Educational Value</h2>
+
+<p>This project taught me about:</p>
+
+<h3>GSM Module Operation</h3>
+<ul>
+<li>How cellular networks handle voice calls</li>
+<li>AT command protocol for modem control</li>
+<li>Power requirements of RF transmission</li>
+<li>Signal quality and network registration</li>
+</ul>
+
+<h3>AI Voice APIs</h3>
+<ul>
+<li>Text-to-speech synthesis technologies</li>
+<li>Audio format conversion and optimization</li>
+<li>API authentication and rate limiting</li>
+<li>Cost management for cloud services</li>
+</ul>
+
+<h3>IoT Integration</h3>
+<ul>
+<li>Triggering hardware actions from software events</li>
+<li>Webhook-based communication</li>
+<li>Real-time system monitoring and alerts</li>
+<li>Building reliable automation workflows</li>
+</ul>
+
+<h2>Legal and Ethical Considerations</h2>
+
+<p><strong>Important:</strong> Before deploying an automated calling system:</p>
+
+<ul>
+<li>Check local laws about automated calls (may be restricted or require consent)</li>
+<li>Don't use for spam or harassment</li>
+<li>Provide opt-out mechanisms</li>
+<li>Respect Do Not Call registries</li>
+<li>Be transparent about automated nature of calls</li>
+<li>Limit call frequency to prevent annoyance</li>
+</ul>
+
+<p>This project is educational. Use responsibly and ethically.</p>
+
+<h2>Future Enhancements</h2>
+
+<ul>
+<li><strong>Two-way communication</strong>  Receive DTMF input during call for interactive menus</li>
+<li><strong>SMS fallback</strong>  Send text if call isn't answered</li>
+<li><strong>Voice recognition</strong>  Analyze responses using speech-to-text</li>
+<li><strong>Multiple languages</strong>  Generate messages in caller's preferred language</li>
+<li><strong>Call logging</strong>  Store records in database for analytics</li>
+<li><strong>Retry logic</strong>  Automatically retry if call fails or goes to voicemail</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>Building an AI phone caller with ESP32 and SIM800L demonstrates how accessible IoT and telephony integration has become. What once required expensive enterprise equipment can now be built with $20 worth of components and some creative programming.</p>
+
+<p>The combination of hardware (ESP32, SIM800L), audio (ISD1820 or DFPlayer), and automation (n8n, AI APIs) creates a powerful system for notifications, alerts, and communication.</p>
+
+<p>Whether you're building an emergency alert system, appointment reminder, or just exploring the possibilities of IoT telephony, this project provides a solid foundation.</p>
+
+<p>Start small, test thoroughly, and always use these capabilities responsibly. The technology is powerfuluse it to help, not to annoy.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

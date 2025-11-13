@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: internet museum</title>
+
+    <meta name="description" content="an interactive museum of internet history, culture, and artifacts">
+    <meta name="author" content="Dharun Ashokkumar">
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+      /* advanced museum styles */
+      .museum-intro {
+        max-width: 36rem;
+        margin: 1.395rem auto 3.6rem auto;
+      }
+
+      .museum-intro .highlight-box {
+        background: #fe9;
+        padding: 1em;
+        margin: 1.395rem 0;
+        border-left: 3px solid #555;
+      }
+
+      /* navigation wings */
+      .museum-wings {
+        max-width: 100%;
+        margin: 3.6rem auto 5.4rem auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.395rem;
+      }
+
+      .wing-card {
+        border: 2px solid #555;
+        padding: 1.395rem;
+        transition: all 0.3s;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s, transform 0.6s, background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+      }
+
+      .wing-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .wing-card:hover {
+        background: #555;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-4px);
+      }
+
+      .wing-card .wing-icon {
+        font-size: 2.5em;
+        flex-shrink: 0;
+      }
+
+      .wing-card .wing-content {
+        flex: 1;
+      }
+
+      .wing-card h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+        vertical-align: middle;
+      }
+
+      .museum-section h2 .material-symbols-outlined {
+        font-size: 1em;
+        vertical-align: middle;
+        margin-right: 0.3em;
+      }
+
+      .wing-card .wing-count {
+        font-family: monospace;
+        font-size: 0.7425rem;
+        opacity: 0.7;
+      }
+
+      /* section styling */
+      .museum-section {
+        margin-bottom: 7.2rem;
+      }
+
+      .museum-section h2 {
+        font-size: 1.2em;
+        font-weight: 900;
+        margin: 3.6rem auto 1.395rem auto;
+        max-width: 36rem;
+        border-bottom: 3px solid #555;
+        padding-bottom: 0.5em;
+      }
+
+      .museum-section .section-intro {
+        max-width: 36rem;
+        margin: 0 auto 2.7rem auto;
+        font-size: 0.81rem;
+        opacity: 0.9;
+        font-style: italic;
+      }
+
+      /* exhibit grid */
+      .exhibit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.395rem;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .exhibit-item {
+        border: 1px solid #ccc;
+        padding: 1.395rem;
+        transition: all 0.4s;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.5s, transform 0.5s, background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        position: relative;
+      }
+
+      .exhibit-item.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .exhibit-item:hover {
+        background: #f5f5f5;
+        border-color: #555;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      .exhibit-item .exhibit-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #555;
+        color: #fff;
+        padding: 0.3em 0.6em;
+        font-size: 0.7425rem;
+        font-family: monospace;
+      }
+
+      .exhibit-item .exhibit-badge.viral {
+        background: #f22;
+      }
+
+      .exhibit-item .exhibit-badge.legendary {
+        background: #fb0;
+        color: #555;
+      }
+
+      .exhibit-item h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.5em 0;
+        font-style: normal;
+      }
+
+      .exhibit-item .year {
+        font-family: monospace;
+        font-size: 0.81rem;
+        color: #555;
+        opacity: 0.5;
+        display: block;
+        margin-bottom: 0.5em;
+      }
+
+      .exhibit-item p {
+        font-size: 0.81rem;
+        line-height: 1.395rem;
+        margin: 0.5em 0;
+      }
+
+      .exhibit-item .artifact {
+        font-family: monospace;
+        background: #eee;
+        padding: 0.5em;
+        margin: 1em 0;
+        font-size: 0.7425rem;
+        border-left: 3px solid #555;
+        word-break: break-all;
+      }
+
+      .exhibit-item .quote {
+        font-style: italic;
+        padding-left: 1em;
+        border-left: 2px solid #ccc;
+        margin: 1em 0;
+        opacity: 0.8;
+      }
+
+      .exhibit-item .tags {
+        font-style: italic;
+        opacity: 0.5;
+        font-size: 0.7425rem;
+        margin-top: 1em;
+      }
+
+      /* special featured exhibits */
+      .exhibit-item.featured {
+        border: 2px solid #555;
+        background: #f5f5f5;
+      }
+
+      .exhibit-item.featured:hover {
+        background: #fff;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      }
+
+      /* stat counter  */
+      .museum-stats {
+        max-width: 36rem;
+        margin: 3.6rem auto;
+        text-align: center;
+        padding: 1.395rem;
+        border: 1px dotted #ccc;
+      }
+
+      .museum-stats .stat {
+        display: inline-block;
+        margin: 0 1em;
+      }
+
+      .museum-stats .stat-number {
+        font-family: monospace;
+        font-size: 1.2em;
+        font-weight: 900;
+        display: block;
+      }
+
+      .museum-stats .stat-label {
+        font-size: 0.7425rem;
+        opacity: 0.5;
+      }
+
+      @media (max-width: 720px) {
+        .exhibit-grid {
+          grid-template-columns: 1fr;
+          gap: 1.395rem;
+        }
+
+        .museum-wings {
+          grid-template-columns: 1fr;
+        }
+
+        .exhibit-item {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="museum-page">
+      <div id="header">
+        <h1>
+          <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="projects.html">projects</a>
+            </li>
+            <li>
+              <a href="portfolio.html">portfolio</a>
+            </li>
+            <li>
+              <a href="activities.html">activities</a>
+            </li>
+            <li>
+              <a href="reflections.html">reflections</a>
+            </li>
+            <li>
+              <a href="museum.html" id="active_page">museum</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <h1>internet museum by dharun</h1>
+
+        <div class="museum-intro">
+          <p>an interactive museum preserving internet history, culture, and the moments that shaped how we live online. from the dancing baby to ai agents, from geocities to tiktok, this is where internet culture lives forever.</p>
+
+          <div class="highlight-box">
+            <p><strong>curatorial approach:</strong> exhibits selected for cultural impact, technical significance, or pure nostalgia value. organized into thematic "wings" inspired by neal.fun's internet artifacts and the internet hall of fame.</p>
+          </div>
+        </div>
+
+        <!-- Museum Wings Navigation -->
+        <div class="museum-wings">
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">language</span>
+            </div>
+            <div class="wing-content">
+              <h3>web 1.0 nostalgia</h3>
+              <p class="wing-count">18 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">sentiment_satisfied</span>
+            </div>
+            <div class="wing-content">
+              <h3>meme hall of fame</h3>
+              <p class="wing-count">24 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">sports_esports</span>
+            </div>
+            <div class="wing-content">
+              <h3>gaming culture</h3>
+              <p class="wing-count">12 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">smartphone</span>
+            </div>
+            <div class="wing-content">
+              <h3>social media evolution</h3>
+              <p class="wing-count">15 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">local_fire_department</span>
+            </div>
+            <div class="wing-content">
+              <h3>viral moments</h3>
+              <p class="wing-count">20 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">bolt</span>
+            </div>
+            <div class="wing-content">
+              <h3>tech milestones</h3>
+              <p class="wing-count">16 exhibits</p>
+            </div>
+          </div>
+
+          <div class="wing-card">
+            <div class="wing-icon">
+              <span class="material-symbols-outlined">flag</span>
+            </div>
+            <div class="wing-content">
+              <h3>indian internet culture</h3>
+              <p class="wing-count">16 exhibits</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="museum-stats">
+          <div class="stat">
+            <span class="stat-number">121</span>
+            <span class="stat-label">total exhibits</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">1991–2025</span>
+            <span class="stat-label">years covered</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">nostalgia value</span>
+          </div>
+        </div>
+
+        <!-- WEB 1.0 NOSTALGIA -->
+        <div class="museum-section" id="web1">
+          <h2><span class="material-symbols-outlined">language</span> web 1.0 nostalgia wing</h2>
+          <p class="section-intro">the early days when every site had under construction gifs, tiled backgrounds, and visitor counters. geocities, neopets, and the chaotic beauty of amateur web design.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">1991</span>
+              <h3>the first website</h3>
+              <p>tim berners-lee publishes the first website at cern on august 6, explaining the world wide web project.</p>
+              <div class="artifact">http://info.cern.ch/hypertext/WWW/TheProject.html</div>
+              <span class="tags">web history,&nbsp;origins</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1994</span>
+              <h3>dancing baby</h3>
+              <p>one of the first viral internet memes. a 3d-rendered baby dancing. shared via email chains and early forums before youtube existed.</p>
+              <p class="quote">"this low-poly baby defined what it meant to go viral"</p>
+              <span class="tags">meme,&nbsp;viral,&nbsp;3d graphics</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">1996</span>
+              <h3>space jam website</h3>
+              <p>promotional site for the movie space jam. still live today at the original url. a perfectly preserved time capsule of 90s web design with tables, image maps, and autoplaying midi.</p>
+              <div class="artifact">https://www.spacejam.com/1996/</div>
+              <span class="tags">website,&nbsp;preservation,&nbsp;90s aesthetic</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1996</span>
+              <h3>under construction gif</h3>
+              <p>the iconic animated gif with construction worker. every geocities page had one. websites were always "under construction."</p>
+              <span class="tags">design,&nbsp;geocities,&nbsp;web culture</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1997</span>
+              <h3>the hampster dance</h3>
+              <p>one of the earliest examples of an internet phenomenon. hundreds of animated hamsters dancing to a sped-up version of "whistle stop."</p>
+              <div class="artifact">hampsterdance.com (archived)</div>
+              <span class="tags">viral,&nbsp;animation,&nbsp;music</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1998</span>
+              <h3>geocities at its peak</h3>
+              <p>geocities gave the internet to the people. 25,000 pages in first half of decade. by 2009 shutdown, 38 million pages existed. organized by "neighborhoods."</p>
+              <span class="tags">web hosting,&nbsp;user-generated content</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1999</span>
+              <h3>neopets launches</h3>
+              <p>virtual pet website that defined childhoods. at peak, 25 million users. flash games, html editing, fake economy. pure early-2000s internet magic.</p>
+              <span class="tags">gaming,&nbsp;virtual pets,&nbsp;nostalgia</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">1999</span>
+              <h3>all your base</h3>
+              <p>flash animation based on poor english translation from sega game zero wing. "all your base are belong to us" became first internet catchphrase.</p>
+              <p class="quote">"somebody set up us the bomb"</p>
+              <span class="tags">meme,&nbsp;gaming,&nbsp;translation</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2000</span>
+              <h3>homestarrunner.com</h3>
+              <p>flash animation series that defined early 2000s internet humor. strong bad emails, trogdor the burninator, teen girl squad.</p>
+              <span class="tags">animation,&nbsp;flash,&nbsp;comedy</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2001</span>
+              <h3>newgrounds at peak</h3>
+              <p>flash animation and game portal. where internet creators learned animation, game development, and how to dodge school content filters.</p>
+              <span class="tags">flash,&nbsp;community,&nbsp;games</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2002</span>
+              <h3>ebaumsworld controversies</h3>
+              <p>content aggregator known for viral videos and watermarking other people's content. defined early internet content wars.</p>
+              <span class="tags">controversy,&nbsp;viral videos</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2003</span>
+              <h3>ytmnd: you're the man now dog</h3>
+              <p>site for creating pages combining an image, text, and looping sound. bizarre humor. incredibly specific memes. "punch the keys for god's sake!"</p>
+              <span class="tags">meme generator,&nbsp;remix culture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MEME HALL OF FAME -->
+        <div class="museum-section" id="memes">
+          <h2><span class="material-symbols-outlined">sentiment_satisfied</span> meme hall of fame</h2>
+          <p class="section-intro">from image macros to tiktok sounds, these are the moments that made the internet laugh, cry, and share billions of times.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2005</span>
+              <h3>lolcats & i can has cheezburger</h3>
+              <p>cats + impact font = internet gold. i can has cheezburger launched in 2007, but lolcat format started on 4chan in 2005.</p>
+              <p class="quote">"i can has cheezburger?"</p>
+              <span class="tags">cats,&nbsp;image macro,&nbsp;4chan</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2007</span>
+              <h3>rickrolling / never gonna give you up</h3>
+              <p>rick astley's 1987 song becomes ultimate bait-and-switch. you think you're clicking one link, but SURPRISE - rick astley.</p>
+              <div class="artifact">dQw4w9WgXcQ</div>
+              <span class="tags">prank,&nbsp;music,&nbsp;youtube</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2008</span>
+              <h3>rage comics</h3>
+              <p>simple 4-panel comics with faces like "troll face," "forever alone," "y u no." defined 2008-2012 internet humor.</p>
+              <span class="tags">comic,&nbsp;4chan,&nbsp;rage faces</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2010</span>
+              <h3>philosoraptor</h3>
+              <p>velociraptor thinking deeply about silly philosophical questions. "if you expect the unexpected, is the unexpected now expected?"</p>
+              <span class="tags">advice animals,&nbsp;philosophy</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2011</span>
+              <h3>nyan cat</h3>
+              <p>pop-tart cat flying through space leaving a rainbow trail. 10-hour youtube video. still stuck in your head.</p>
+              <span class="tags">animation,&nbsp;music,&nbsp;loop</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2012</span>
+              <h3>gangnam style breaks youtube</h3>
+              <p>psy's music video becomes first to hit 1 billion views. actually broke youtube's view counter (previously maxed at 2,147,483,647).</p>
+              <span class="tags">music,&nbsp;viral,&nbsp;youtube</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2012</span>
+              <h3>overly attached girlfriend</h3>
+              <p>laina morris's parody video spawned thousands of memes. wide-eyed stare became iconic.</p>
+              <span class="tags">image macro,&nbsp;youtube</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2013</span>
+              <h3>doge</h3>
+              <p>shiba inu with comic sans captions. "such wow. very meme. much amaze." originated from 2010 photo, went viral 2013, became cryptocurrency.</p>
+              <span class="tags">dog,&nbsp;comic sans,&nbsp;crypto</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2014</span>
+              <h3>the dress: blue/black or white/gold</h3>
+              <p>photo of a dress breaks the internet. people literally saw different colors. optical illusion divided humanity.</p>
+              <span class="tags">optical illusion,&nbsp;viral</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2015</span>
+              <h3>john cena meme</h3>
+              <p>unexpected john cena appearances with "AND HIS NAME IS JOHN CENA" and trumpet sounds. perfect jump scare format.</p>
+              <span class="tags">surprise,&nbsp;wrestling,&nbsp;sound</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>harambe</h3>
+              <p>gorilla shot at cincinnati zoo. internet mourned, memed, and never forgot. "dicks out for harambe."</p>
+              <span class="tags">tribute,&nbsp;tragedy,&nbsp;gorilla</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>evil kermit</h3>
+              <p>kermit talking to dark-hooded version of himself. "me to me" format perfect for expressing internal conflict.</p>
+              <span class="tags">muppets,&nbsp;internal dialogue</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2017</span>
+              <h3">distracted boyfriend</h3>
+              <p>stock photo becomes meme format. boyfriend looking at another woman while girlfriend looks disgusted. perfect comparison template.</p>
+              <span class="tags">stock photo,&nbsp;relationship,&nbsp;format</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2018</span>
+              <h3>big chungus</h3>
+              <p>enlarged bugs bunny from 1941 cartoon becomes inexplicable meme. pure absurdist humor.</p>
+              <span class="tags">absurdist,&nbsp;bugs bunny</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2019</span>
+              <h3>woman yelling at cat</h3>
+              <p>taylor armstrong crying and pointing + confused cat at dinner table. versatile comparison meme.</p>
+              <span class="tags">cat,&nbsp;reaction,&nbsp;comparison</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2020</span>
+              <h3>bernie sanders mittens</h3>
+              <p>bernie at biden's inauguration. sitting with folded arms, wearing mittens. photoshopped everywhere. pure wholesome content.</p>
+              <span class="tags">politics,&nbsp;wholesome,&nbsp;photoshop</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2024</span>
+              <h3>demure / mindful / cutesy</h3>
+              <p>jools lebron's workplace makeup video goes viral. "very demure, very mindful, very cutesy." coined summer 2024 catchphrase.</p>
+              <span class="tags">tiktok,&nbsp;catchphrase,&nbsp;workplace</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAMING CULTURE -->
+        <div class="museum-section" id="gaming">
+          <h2><span class="material-symbols-outlined">sports_esports</span> gaming culture wing</h2>
+          <p class="section-intro">from minecraft to among us, these games shaped internet culture and how we play together online.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item">
+              <span class="year">2009</span>
+              <h3>minecraft launches</h3>
+              <p>markus persson releases minecraft alpha. becomes best-selling game ever. defines creative gaming for generation.</p>
+              <span class="tags">sandbox,&nbsp;creative,&nbsp;survival</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2011</span>
+              <h3>twitch launches</h3>
+              <p>justin.tv gaming spinoff becomes phenomenon. streamers become celebrities. "pogchamp" enters vocabulary.</p>
+              <span class="tags">streaming,&nbsp;esports,&nbsp;community</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2013</span>
+              <h3>flappy bird phenomenon</h3>
+              <p>frustratingly difficult mobile game goes viral. creator removes it from stores at peak popularity. caused actual rage.</p>
+              <span class="tags">mobile,&nbsp;viral,&nbsp;frustration</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2017</span>
+              <h3>fortnite battle royale</h3>
+              <p>free-to-play battle royale with building mechanics. dances become global phenomenon. changed gaming business model.</p>
+              <span class="tags">battle royale,&nbsp;cultural impact</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2018</span>
+              <h3>among us released</h3>
+              <p>social deduction game released 2018, exploded 2020 during pandemic. "sus" enters mainstream vocabulary.</p>
+              <span class="tags">social deduction,&nbsp;multiplayer</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2020</span>
+              <h3>among us pandemic explosion</h3>
+              <p>2018 game becomes biggest game of 2020. streamers play it, everyone plays it. emergency meetings replace real meetings.</p>
+              <p class="quote">"red is sus"</p>
+              <span class="tags">pandemic,&nbsp;social,&nbsp;viral</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>pokemon go launches</h3>
+              <p>augmented reality pokemon game. people actually go outside. walk into things. trespass. community days in parks worldwide.</p>
+              <span class="tags">ar,&nbsp;mobile,&nbsp;pokemon</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2023</span>
+              <h3>baldur's gate 3 phenomenon</h3>
+              <p>larian studios proves single-player rpgs not dead. raises bar for entire industry. romance with bear goes viral.</p>
+              <span class="tags">rpg,&nbsp;quality,&nbsp;storytelling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOCIAL MEDIA EVOLUTION -->
+        <div class="museum-section" id="social">
+          <h2><span class="material-symbols-outlined">smartphone</span> social media evolution</h2>
+          <p class="section-intro">how we went from myspace top 8 to tiktok algorithms. the platforms that changed how humans communicate.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item">
+              <span class="year">2003</span>
+              <h3>myspace launches</h3>
+              <p>customize your profile with html/css. music autoplays. top 8 friends causes drama. tom is everyone's first friend.</p>
+              <span class="tags">social network,&nbsp;customization</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2004</span>
+              <h3>thefacebook.com launches</h3>
+              <p>zuckerberg launches from harvard dorm. initially .edu only. the wall changes everything. becomes just "facebook."</p>
+              <span class="tags">social network,&nbsp;college,&nbsp;wall</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2006</span>
+              <h3>twitter's first tweet</h3>
+              <p>jack dorsey: "just setting up my twttr". 140 characters. hashtags invented by users. @replies, retweets follow.</p>
+              <div class="artifact">@jack: just setting up my twttr</div>
+              <span class="tags">microblogging,&nbsp;real-time</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2010</span>
+              <h3>instagram launches</h3>
+              <p>kevin systrom and mike krieger create photo app. filters make everyone photographer. acquired by facebook for $1 billion in 2012.</p>
+              <span class="tags">photos,&nbsp;filters,&nbsp;mobile</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2011</span>
+              <h3>snapchat's disappearing messages</h3>
+              <p>evan spiegel creates ephemeral messaging. photos disappear. stories format invented here, copied everywhere.</p>
+              <span class="tags">ephemeral,&nbsp;privacy,&nbsp;stories</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>tiktok / douyin launches</h3>
+              <p>bytedance creates douyin in china, tiktok internationally. merges with musical.ly 2018. algorithm supremacy. changes internet.</p>
+              <span class="tags">short video,&nbsp;algorithm,&nbsp;viral</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2020</span>
+              <h3>tiktok dance era</h3>
+              <p>renegade, savage, say so. 14-year-old jalaiah harmon creates renegade. charli d'amelio makes it famous. dance trends define 2020.</p>
+              <span class="tags">dance,&nbsp;trends,&nbsp;creators</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2023</span>
+              <h3>threads launches</h3>
+              <p>meta creates twitter competitor. 100 million signups in days. federation via activitypub planned.</p>
+              <span class="tags">decentralization,&nbsp;competition</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIRAL MOMENTS -->
+        <div class="museum-section" id="viral">
+          <h2><span class="material-symbols-outlined">local_fire_department</span> viral moments hall</h2>
+          <p class="section-intro">the moments that stopped the internet. when everyone was watching, talking about, and sharing the same thing.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2012</span>
+              <h3>felix baumgartner space jump</h3>
+              <p>red bull stratos. jumps from edge of space. breaks sound barrier in freefall. 8 million watch live on youtube.</p>
+              <span class="tags">livestream,&nbsp;record,&nbsp;extreme</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2013</span>
+              <h3>the harlem shake</h3>
+              <p>baauer's song spawns video trend. one person dances, then suddenly everyone. thousands of variations in weeks.</p>
+              <span class="tags">dance,&nbsp;trend,&nbsp;music</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2014</span>
+              <h3>ice bucket challenge</h3>
+              <p>als awareness campaign goes mega-viral. celebrities, politicians, everyone. actually raised $115 million for research.</p>
+              <span class="tags">charity,&nbsp;challenge,&nbsp;awareness</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2015</span>
+              <h3>yanny or laurel</h3>
+              <p>audio clip divides internet. people hear different words. like the dress but for ears.</p>
+              <span class="tags">audio,&nbsp;debate,&nbsp;perception</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2020</span>
+              <h3>dreams / ocean spray skateboard</h3>
+              <p>nathan apodaca (@420doggface208) skateboards to work while drinking ocean spray and vibing to fleetwood mac's dreams. pure mood.</p>
+              <span class="tags">tiktok,&nbsp;vibes,&nbsp;music</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2021</span>
+              <h3>gamestop / wallstreetbets</h3>
+              <p>reddit vs hedge funds. r/wallstreetbets coordinates to squeeze short sellers. actual market impact. "diamond hands" and "to the moon."</p>
+              <span class="tags">finance,&nbsp;reddit,&nbsp;chaos</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2021</span>
+              <h3>ship stuck in suez canal</h3>
+              <p>ever given blocks suez canal for 6 days. memes about one stuck boat halting global trade. tiny excavator becomes hero.</p>
+              <span class="tags">shipping,&nbsp;chaos,&nbsp;global</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2022</span>
+              <h3>will smith oscars slap</h3>
+              <p>"keep my wife's name out your mouth." will smith slaps chris rock on live tv. becomes instant meme format.</p>
+              <span class="tags">oscars,&nbsp;live tv,&nbsp;shock</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2023</span>
+              <h3>submarine girl / tube girl</h3>
+              <p>sabrina bahsoon dancing on london tube goes viral. confident joy in public transport. spawns trend.</p>
+              <span class="tags">tiktok,&nbsp;confidence,&nbsp;joy</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2024</span>
+              <h3>hawk tuah girl</h3>
+              <p>street interview becomes phenomenon. simple phrase breaks internet. demonstrates power of authenticity and timing.</p>
+              <span class="tags">interview,&nbsp;viral,&nbsp;phrase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TECH MILESTONES -->
+        <div class="museum-section" id="tech">
+          <h2><span class="material-symbols-outlined">bolt</span> tech milestones wing</h2>
+          <p class="section-intro">the technical innovations that made everything possible. infrastructure, platforms, and paradigm shifts.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2004</span>
+              <h3>gmail launches</h3>
+              <p>google announces gmail on april 1 (people think it's joke). 1gb storage when competitors offered 2-4mb. invitation-only creates demand.</p>
+              <span class="tags">email,&nbsp;storage,&nbsp;google</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2007</span>
+              <h3>iphone unveiling</h3>
+              <p>steve jobs: "an ipod, a phone, and an internet communicator." mobile internet begins. computing becomes personal.</p>
+              <span class="tags">mobile,&nbsp;hardware,&nbsp;revolution</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2008</span>
+              <h3>github launches</h3>
+              <p>tom, chris, and pj create github. git + social features = open source revolution. collaboration transforms.</p>
+              <span class="tags">development,&nbsp;collaboration,&nbsp;git</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2009</span>
+              <h3>bitcoin whitepaper</h3>
+              <p>satoshi nakamoto introduces bitcoin. "peer-to-peer electronic cash system." blockchain becomes real. crypto era begins.</p>
+              <span class="tags">cryptocurrency,&nbsp;blockchain</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2010</span>
+              <h3>instagram filters change photography</h3>
+              <p>mobile photography becomes art. everyone becomes photographer. aesthetic accessibility democratizes visual culture.</p>
+              <span class="tags">photography,&nbsp;mobile,&nbsp;filters</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2015</span>
+              <h3>let's encrypt launches</h3>
+              <p>free ssl certificates for everyone. https becomes standard instead of luxury. mozilla, eff, cisco sponsor. web becomes secure.</p>
+              <span class="tags">security,&nbsp;encryption,&nbsp;infrastructure</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>alphago defeats lee sedol</h3>
+              <p>deepmind's alphago beats world champion at go 4-1. ai enters public consciousness. machines master intuition.</p>
+              <span class="tags">ai,&nbsp;deepmind,&nbsp;milestone</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2022</span>
+              <h3>chatgpt launches</h3>
+              <p>openai releases chatgpt november 30. reaches 100 million users in 2 months. ai becomes conversational. changes everything.</p>
+              <span class="tags">ai,&nbsp;language model,&nbsp;breakthrough</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2023</span>
+              <h3>generative ai explosion</h3>
+              <p>midjourney, stable diffusion, claude, llama, dall-e 3. text-to-image, text-to-video. creative work transforms overnight.</p>
+              <span class="tags">ai,&nbsp;generation,&nbsp;creativity</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2024</span>
+              <h3>sora text-to-video</h3>
+              <p>openai previews sora. text prompts generate realistic 60-second videos. video generation becomes real.</p>
+              <span class="tags">ai,&nbsp;video,&nbsp;generation</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2025</span>
+              <h3>ai agents become real</h3>
+              <p>autonomous ai agents handle complex multi-step tasks. software development enters new era. humans direct, ai executes.</p>
+              <span class="tags">ai agents,&nbsp;automation,&nbsp;future</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- INDIAN INTERNET CULTURE -->
+        <div class="museum-section" id="india">
+          <h2><span class="material-symbols-outlined">flag</span> indian internet culture wing</h2>
+          <p class="section-intro">from jio revolution to desi memes, how india shaped its own unique internet culture with 450+ million users and counting.</p>
+
+          <div class="exhibit-grid">
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2007</span>
+              <h3>flipkart founded</h3>
+              <p>sachin and binny bansal, iit delhi alumni, start online bookstore in bangalore. becomes india's e-commerce pioneer. walmart acquires for $16 billion in 2018.</p>
+              <span class="tags">startup,&nbsp;e-commerce,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2010</span>
+              <h3>ola cabs launches</h3>
+              <p>bhavish agarwal and ankit bhati create india's ride-hailing platform. acquires taxiforsure for $200 million in 2015.</p>
+              <span class="tags">startup,&nbsp;mobility,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2010</span>
+              <h3>paytm begins</h3>
+              <p>vijay shekhar sharma starts online recharge platform. becomes india's digital payments leader. symbol of cashless india.</p>
+              <span class="tags">fintech,&nbsp;payments,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge legendary">legendary</span>
+              <span class="year">2016</span>
+              <h3>jio revolution</h3>
+              <p>reliance jio launches september 5 with free data. 100 million users in 170 days. india becomes world's top mobile data consumer. 4g for everyone.</p>
+              <p class="quote">"data became cheaper than water. internet reached every corner of india."</p>
+              <span class="tags">telecom,&nbsp;revolution,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2016</span>
+              <h3>jio phone</h3>
+              <p>world's most affordable 4g smartphone. brought 500 million feature phone users online. digital india accelerates.</p>
+              <span class="tags">mobile,&nbsp;accessibility,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2017</span>
+              <h3>desi meme culture emerges</h3>
+              <p>indian meme pages explode on instagram and facebook. @theindianmemes, @rvcjinsta, @desihumor. bollywood templates, cricket memes, engineering college humor.</p>
+              <span class="tags">memes,&nbsp;culture,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2018</span>
+              <h3>priya varrier wink</h3>
+              <p>malayalam film "oru adaar love" teaser makes priya prakash varrier india's wink girl. 2-second clip breaks internet. instant national phenomenon.</p>
+              <span class="tags">viral,&nbsp;bollywood,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2019</span>
+              <h3>ranu mondal railway station</h3>
+              <p>ranu mondal singing "ek pyaar ka nagma hai" at railway station goes viral. overnight sensation. from railway platform to recording studio.</p>
+              <span class="tags">viral,&nbsp;singing,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2019</span>
+              <h3>dhinchak pooja phenomenon</h3>
+              <p>"selfie maine leli aaj" becomes anthem of irony. fearless confidence turns her into cultural phenomenon. love it or hate it, couldn't ignore it.</p>
+              <span class="tags">viral,&nbsp;music,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item featured">
+              <span class="exhibit-badge viral">viral</span>
+              <span class="year">2020</span>
+              <h3>rasode mein kaun tha</h3>
+              <p>yashraj mukhate remixes saas-bahu serial dialogue. "rasode mein kaun tha?" becomes national catchphrase. defined indian remix culture.</p>
+              <p class="quote">"ek minute. rasode mein kaun tha?"</p>
+              <span class="tags">viral,&nbsp;music,&nbsp;remix,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2020</span>
+              <h3>tiktok ban in india</h3>
+              <p>india bans tiktok and 58 chinese apps. 200 million indian users affected. instagram reels fills the void. shift in short-video landscape.</p>
+              <span class="tags">policy,&nbsp;social media,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2021</span>
+              <h3>regional content explosion</h3>
+              <p>tier 2 and tier 3 cities dominate content creation. punjabi, tamil, telugu, kannada, bengali creators go viral. india's linguistic diversity online.</p>
+              <span class="tags">regional,&nbsp;diversity,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2023</span>
+              <h3>desi vs videsi trend</h3>
+              <p>comparison memes contrasting indian habits with western norms. hilariously exaggerated takes on desi life. relatability at peak.</p>
+              <span class="tags">memes,&nbsp;culture,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2024</span>
+              <h3>india surpasses 900m internet users</h3>
+              <p>internet penetration reaches 65%. rural connectivity triples since 2015. mobile-first nation. world's second-largest online population.</p>
+              <span class="tags">milestone,&nbsp;growth,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2025</span>
+              <h3>rcb wins championship</h3>
+              <p>after 17-year drought, royal challengers bangalore wins title. internet melts. ee sala cup namde. cricket fandom at peak.</p>
+              <span class="tags">sports,&nbsp;cricket,&nbsp;india</span>
+            </div>
+
+            <div class="exhibit-item">
+              <span class="year">2025</span>
+              <h3>mahakumbh viral videos</h3>
+              <p>mahakumbh mela becomes hotspot for viral content. celebrities at sangam. fake sadhu exposed. spiritual meets digital.</p>
+              <span class="tags">culture,&nbsp;religion,&nbsp;viral,&nbsp;india</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curator's Note -->
+        <div class="museum-stats" style="text-align: left; border: 2px solid #555; padding: 1.395rem;">
+          <h3 style="margin-top: 0;">curator's note</h3>
+          <p>this museum is a living document. as internet culture evolves, new exhibits are added. missing something important? these artifacts represent moments that shaped how we interact, create, and exist online.</p>
+          <p><strong>preservation philosophy:</strong> inspired by neal.fun's internet artifacts, cameron's world, and the internet archive. focusing on cultural impact over comprehensiveness.</p>
+          <p style="opacity: 0.5; margin-bottom: 0;">— dharun, 2025</p>
+        </div>
+
+      </div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script src="js/rv.js"></script>
+    <script src="js/cfme.js"></script>
+    <script>
+      // intersection observer for scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 30);
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      // observe all animated elements
+      document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.exhibit-item, .wing-card');
+        items.forEach(item => observer.observe(item));
+
+        // smooth scroll for wing cards
+        document.querySelectorAll('.wing-card').forEach((card, index) => {
+          card.addEventListener('click', () => {
+            const sections = ['web1', 'memes', 'gaming', 'social', 'viral', 'tech', 'india'];
+            const target = document.getElementById(sections[index]);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

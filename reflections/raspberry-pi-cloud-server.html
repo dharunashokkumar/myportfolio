@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: How I Turned My Raspberry Pi Into a Cloud & File Server</title>
+
+    <meta name="description" content="Transform a Raspberry Pi 4 into personal cloud storage with external drives, Samba file sharing, and remote access via DDNS and Cloudflare tunnels. Learn from SD card failures and power management lessons.">
+    <meta name="keywords" content="Raspberry Pi cloud server, file server, Samba, TrueNAS, DDNS, Dynu, Cloudflare tunnel, home server, NAS, SD card corruption, remote access, network storage">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="How I Turned My Raspberry Pi Into a Cloud & File Server">
+      <meta property="og:description" content="Building personal cloud storage with Raspberry Pi 4, external drives, and remote access capabilities.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/raspberry-pi-cloud-server.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/raspberry-pi-cloud-server.html">How I Turned My Raspberry Pi Into a Cloud & File Server</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>Cloud storage subscriptions are expensive. Google Drive, Dropbox, iCloudthey all charge monthly fees that add up quickly. But what if you could create your own cloud storage solution that you completely control, accessible from anywhere, for just the cost of a Raspberry Pi and a hard drive?</p>
+
+<p>That's exactly what I did with my Raspberry Pi 4, and I learned some valuable lessons along the way (including why proper shutdowns matter and the importance of UPS systems).</p>
+
+<h2>The Vision</h2>
+
+<p>My goals were straightforward:</p>
+
+<ul>
+<li><strong>Local file sharing</strong>  Access files from any device on my home network</li>
+<li><strong>Remote access</strong>  Reach my files from anywhere in the world</li>
+<li><strong>Large storage capacity</strong>  Use external hard drives for terabytes of space</li>
+<li><strong>Low cost</strong>  One-time hardware purchase instead of monthly subscriptions</li>
+<li><strong>Privacy</strong>  My data stays on my hardware, not someone else's servers</li>
+</ul>
+
+<h2>Hardware Setup</h2>
+
+<h3>Raspberry Pi 4 (4GB Model)</h3>
+<p>The Pi 4 is perfect for a file server because it offers:</p>
+<ul>
+<li>USB 3.0 ports for fast external drive access</li>
+<li>Gigabit Ethernet for network transfer speeds</li>
+<li>Enough RAM to handle file serving and additional services</li>
+<li>Low power consumption (under 15W including external drive)</li>
+</ul>
+
+<h3>External Storage</h3>
+<p>I used a 1TB USB 3.0 external hard drive, but you could use:</p>
+<ul>
+<li>USB flash drives (for smaller storage needs)</li>
+<li>External SSDs (faster but more expensive)</li>
+<li>SATA drives with USB adapter</li>
+<li>Multiple drives for RAID setups</li>
+</ul>
+
+<h3>Other Essentials</h3>
+<ul>
+<li><strong>MicroSD card</strong>  32GB or larger for the OS</li>
+<li><strong>Official Raspberry Pi power supply</strong>  Essential for stability</li>
+<li><strong>Ethernet cable</strong>  More reliable than Wi-Fi for a server</li>
+<li><strong>Case with cooling</strong>  Keeps temperatures manageable</li>
+</ul>
+
+<h2>Step 1: Initial Setup</h2>
+
+<h3>Flashing the OS</h3>
+
+<p>I used Raspberry Pi Imager to flash Raspberry Pi OS Lite (64-bit):</p>
+
+<ol>
+<li>Download Raspberry Pi Imager</li>
+<li>Choose "Raspberry Pi OS Lite (64-bit)"</li>
+<li>Configure hostname, enable SSH, set username/password</li>
+<li>Write to SD card</li>
+</ol>
+
+<p>Lite version is perfect for serversno desktop environment means more resources for actual server tasks.</p>
+
+<h3>First Boot</h3>
+
+<pre><code>ssh dharun@raspberrypi.local
+sudo apt update
+sudo apt upgrade -y
+sudo raspi-config
+</code></pre>
+
+<p>In raspi-config:</p>
+<ul>
+<li>Set timezone</li>
+<li>Expand filesystem to use full SD card</li>
+<li>Configure memory split (minimum for GPU since no desktop)</li>
+</ul>
+
+<h2>Step 2: Mounting External Storage</h2>
+
+<h3>Connect and Identify Drive</h3>
+
+<pre><code>sudo fdisk -l
+</code></pre>
+
+<p>Look for your drive (usually /dev/sda1).</p>
+
+<h3>Create Mount Point</h3>
+
+<pre><code>sudo mkdir /mnt/storage
+sudo chown -R dharun:dharun /mnt/storage
+</code></pre>
+
+<h3>Auto-Mount on Boot</h3>
+
+<p>Get the drive's UUID:</p>
+
+<pre><code>sudo blkid
+</code></pre>
+
+<p>Edit /etc/fstab:</p>
+
+<pre><code>sudo nano /etc/fstab
+</code></pre>
+
+<p>Add line:</p>
+
+<pre><code>UUID=your-drive-uuid /mnt/storage ext4 defaults,auto,users,rw,nofail 0 0
+</code></pre>
+
+<p>The "nofail" option is crucialit prevents boot failures if the drive isn't connected.</p>
+
+<h2>Step 3: TrueNAS Attempt (Spoiler: Too Heavy)</h2>
+
+<p>I initially tried TrueNAS SCALE, hoping for a full-featured NAS solution. The results?</p>
+
+<ul>
+<li><strong>Installation worked</strong> but performance was sluggish</li>
+<li><strong>Web interface</strong> was slow and unresponsive on Pi 4</li>
+<li><strong>Resource usage</strong> was too high for the Pi's capabilities</li>
+<li><strong>Conclusion:</strong> TrueNAS is excellent for x86 hardware but overkill for Raspberry Pi</li>
+</ul>
+
+<p>I reverted to Raspberry Pi OS and took a simpler approach.</p>
+
+<h2>Step 4: Samba for Local File Sharing</h2>
+
+<p>Samba lets Windows, macOS, and Linux devices access your files seamlessly.</p>
+
+<h3>Install Samba</h3>
+
+<pre><code>sudo apt install samba samba-common-bin -y
+</code></pre>
+
+<h3>Configure Samba</h3>
+
+<p>Edit configuration:</p>
+
+<pre><code>sudo nano /etc/samba/smb.conf
+</code></pre>
+
+<p>Add share definition at the bottom:</p>
+
+<pre><code>[PiStorage]
+path = /mnt/storage
+browseable = yes
+writeable = yes
+only guest = no
+create mask = 0777
+directory mask = 0777
+public = no
+</code></pre>
+
+<h3>Create Samba User</h3>
+
+<pre><code>sudo smbpasswd -a dharun
+</code></pre>
+
+<h3>Restart Samba</h3>
+
+<pre><code>sudo systemctl restart smbd
+</code></pre>
+
+<h3>Access from Other Devices</h3>
+
+<p><strong>Windows:</strong> Open File Explorer, type `\\raspberrypi\PiStorage`</p>
+<p><strong>macOS:</strong> Finder ’ Go ’ Connect to Server ’ `smb://raspberrypi.local/PiStorage`</p>
+<p><strong>Linux:</strong> File manager ’ Network ’ Browse Network</p>
+
+<h2>Step 5: Remote Access Setup</h2>
+
+<p>Local file sharing is great, but I wanted access from anywhere. This required two components: DDNS and a tunnel.</p>
+
+<h3>Dynamic DNS with Dynu</h3>
+
+<p>My ISP doesn't provide a static IP, so I used Dynu for a permanent hostname.</p>
+
+<ol>
+<li>Create free account at Dynu.com</li>
+<li>Add a new hostname (e.g., mypiserver.freeddns.org)</li>
+<li>Install ddclient on Pi:
+<pre><code>sudo apt install ddclient -y</code></pre>
+</li>
+<li>Configure ddclient with Dynu credentials</li>
+<li>Enable and start service:
+<pre><code>sudo systemctl enable ddclient
+sudo systemctl start ddclient</code></pre>
+</li>
+</ol>
+
+<h3>Cloudflare Tunnel</h3>
+
+<p>Instead of port forwarding (which my Jio AirFiber doesn't support well), I used Cloudflare Tunnel:</p>
+
+<ol>
+<li>Create Cloudflare account and add domain</li>
+<li>Install cloudflared on Pi</li>
+<li>Create tunnel and configure routes</li>
+<li>Access files remotely via HTTPS</li>
+</ol>
+
+<p>This bypasses firewall restrictions and provides automatic SSL encryption. (See my dedicated Cloudflare+Dynu tutorial for detailed steps.)</p>
+
+<h2>Lessons Learned the Hard Way</h2>
+
+<h3>Lesson 1: SD Card Corruption from Improper Shutdowns</h3>
+
+<p><strong>The Problem:</strong> Early in my Pi server journey, I treated it like any other devicepulling power when done. Big mistake. After several power cuts, my SD card became corrupted, and the Pi wouldn't boot.</p>
+
+<p><strong>What Happened:</strong> Raspberry Pi OS writes to the SD card frequently. Sudden power loss during write operations corrupts the filesystem. After multiple occurrences, the card became unrecoverable.</p>
+
+<p><strong>The Solution:</strong></p>
+<ul>
+<li><strong>Always shut down properly:</strong> `sudo shutdown -h now`</li>
+<li><strong>Use quality SD cards:</strong> SanDisk Extreme, Samsung EVO Plus (with higher write endurance)</li>
+<li><strong>Implement UPS:</strong> Battery backup prevents sudden power loss</li>
+<li><strong>Regular backups:</strong> Image your SD card periodically</li>
+<li><strong>Boot from SSD:</strong> More reliable than SD cards for server use</li>
+</ul>
+
+<h3>Lesson 2: Backup Everything</h3>
+
+<p>After losing data once, I implemented a backup strategy:</p>
+
+<ul>
+<li><strong>Local backups:</strong> Second external drive with rsync cron job</li>
+<li><strong>Cloud backup:</strong> Important files to Google Drive/Backblaze</li>
+<li><strong>SD card images:</strong> Monthly clones using Win32DiskImager or dd</li>
+</ul>
+
+<pre><code># Daily backup script
+rsync -av --delete /mnt/storage/ /mnt/backup/
+</code></pre>
+
+<h3>Lesson 3: Power Supply Quality Matters</h3>
+
+<p>Using a cheap phone charger caused random reboots under load. The official Raspberry Pi power supply (or equivalent 5V 3A adapter) is essential for stability, especially with external drives connected.</p>
+
+<h3>Lesson 4: Monitor Temperatures</h3>
+
+<p>Running 24/7, my Pi got warm. I added monitoring:</p>
+
+<pre><code>vcgencmd measure_temp
+</code></pre>
+
+<p>Installed active cooling when temps consistently exceeded 70°C. Now it stays around 45-55°C under load.</p>
+
+<h2>Current Status and Usage</h2>
+
+<p>My Raspberry Pi server has been running reliably for months now, providing:</p>
+
+<ul>
+<li><strong>1TB personal cloud storage</strong> accessible from all my devices</li>
+<li><strong>Media server</strong> with Plex for streaming movies and music</li>
+<li><strong>Document repository</strong> replacing Dropbox for important files</li>
+<li><strong>Photo backup</strong> from phones via SMB or automated scripts</li>
+<li><strong>Development environment</strong> hosting Git repositories and test websites</li>
+</ul>
+
+<p>Total cost: About ¹8,000 (Pi + accessories + drive) vs. ¹1,200/month for 1TB cloud storage = payback in 7 months.</p>
+
+<h2>Performance Considerations</h2>
+
+<h3>Transfer Speeds</h3>
+<ul>
+<li><strong>Local network (Gigabit Ethernet):</strong> 80-110 MB/s</li>
+<li><strong>USB 3.0 to external HDD:</strong> 100-120 MB/s</li>
+<li><strong>SD card bottleneck:</strong> 40-50 MB/s (reason to consider SSD boot)</li>
+<li><strong>Remote access via Cloudflare:</strong> Limited by upload speed (typically 10-20 MB/s)</li>
+</ul>
+
+<h3>Concurrent Users</h3>
+<p>Raspberry Pi 4 handles 3-5 simultaneous file transfers comfortably. More users cause slowdown. For heavy multi-user scenarios, consider upgrading to Pi 5 or x86 hardware.</p>
+
+<h2>Security Best Practices</h2>
+
+<ul>
+<li><strong>Change default passwords</strong> for all services</li>
+<li><strong>Keep software updated:</strong> Regular `sudo apt update && sudo apt upgrade`</li>
+<li><strong>Use strong Samba passwords</strong> different from system password</li>
+<li><strong>Enable firewall:</strong> UFW to restrict access</li>
+<li><strong>Disable SSH password login</strong> (use keys instead)</li>
+<li><strong>VPN access:</strong> Consider WireGuard for secure remote access alternative</li>
+<li><strong>Fail2ban:</strong> Protect against brute force attacks</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<p>Plans for expanding my Pi server:</p>
+
+<ul>
+<li><strong>RAID 1 setup</strong> with two drives for redundancy</li>
+<li><strong>Automated photo sync</strong> from phones using Syncthing</li>
+<li><strong>NextCloud</strong> for full cloud suite (calendar, contacts, notes)</li>
+<li><strong>Pi-hole</strong> for network-wide ad blocking</li>
+<li><strong>Docker containers</strong> for isolated services</li>
+<li><strong>Monitoring dashboard</strong> with Grafana showing disk usage, temperature, network traffic</li>
+</ul>
+
+<h2>Would I Recommend It?</h2>
+
+<p><strong>Yes, if you:</strong></p>
+<ul>
+<li>Want complete control over your data</li>
+<li>Have reliable power (or invest in UPS)</li>
+<li>Don't need access to large files when on mobile data (upload speeds limit remote access)</li>
+<li>Enjoy tinkering and learning Linux</li>
+<li>Want to save money long-term on cloud subscriptions</li>
+</ul>
+
+<p><strong>Maybe not if you:</strong></p>
+<ul>
+<li>Need 100% uptime (professional cloud services have better SLAs)</li>
+<li>Require multi-gigabyte syncs on the go</li>
+<li>Prefer plug-and-play solutions without configuration</li>
+<li>Live in areas with frequent power outages (without UPS backup)</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>Transforming a Raspberry Pi into a personal cloud and file server is a rewarding project that combines practical utility with learning opportunities. Yes, I corrupted an SD card and learned about proper shutdowns the hard way. Yes, I had to figure out DDNS and tunneling. But the result is a reliable, private, cost-effective storage solution that I completely control.</p>
+
+<p>The lessons about power management, backups, and system administration have value far beyond this project. And the satisfaction of accessing "my cloud" knowing it's actually my hardware running in my home? Priceless.</p>
+
+<p>If you have a Raspberry Pi and an external drive collecting dust, give it a try. Start simple with Samba, add remote access when you're comfortable, and expand functionality as you learn. Your own cloud awaits.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

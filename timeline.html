@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: timeline</title>
+
+    <meta name="description" content="a timeline merging my life with internet history">
+    <meta name="author" content="Dharun Ashokkumar">
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <style>
+      /* timeline-specific styles extending the main design system */
+      .timeline-wrapper {
+        max-width: 36rem;
+        margin: 3.6rem auto;
+        position: relative;
+      }
+
+      .timeline-section {
+        margin-bottom: 4em;
+      }
+
+      .timeline-section h2 {
+        font-size: 1em;
+        font-weight: 900;
+        margin-bottom: 2em;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: 2em;
+        margin-bottom: 2.5em;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s, transform 0.6s;
+      }
+
+      .timeline-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .timeline-item .year {
+        font-family: monospace;
+        font-size: 0.81rem;
+        color: #555;
+        opacity: 0.5;
+        text-align: right;
+        padding-top: 0.2em;
+      }
+
+      .timeline-content h3 {
+        font-size: 0.81rem;
+        font-weight: 900;
+        margin: 0 0 0.3em 0;
+        font-style: normal;
+      }
+
+      .timeline-content p {
+        margin: 0.5em 0;
+        line-height: 1.395rem;
+        font-size: 0.81rem;
+      }
+
+      .timeline-content p.detail {
+        color: #555;
+        font-size: 0.81rem;
+        opacity: 0.8;
+      }
+
+      .timeline-content .tag {
+        font-style: italic;
+        opacity: 0.5;
+        font-size: 0.81rem;
+      }
+
+      .timeline-item.featured {
+        background: #f5f5f5;
+        padding: 1.5em;
+        margin-left: -1.5em;
+        margin-right: -1.5em;
+      }
+
+      .timeline-item.internet {
+        opacity: 0.8;
+      }
+
+      .timeline-item.internet .year {
+        opacity: 0.4;
+      }
+
+      @media (max-width: 540px) {
+        .timeline-item {
+          grid-template-columns: 70px 1fr;
+          gap: 1em;
+        }
+
+        .timeline-item.featured {
+          margin-left: -1em;
+          margin-right: -1em;
+          padding: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="timeline-page">
+      <div id="header">
+        <h1>
+          <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+        </h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="projects.html">projects</a>
+            </li>
+            <li>
+              <a href="portfolio.html">portfolio</a>
+            </li>
+            <li>
+              <a href="activities.html">activities</a>
+            </li>
+            <li>
+              <a href="reflections.html">reflections</a>
+            </li>
+            <li>
+              <a href="timeline.html" id="active_page">timeline</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <p>a timeline that weaves together moments from my life with pivotal events in internet history. because our personal stories exist within larger technological narratives.</p>
+
+        <div class="timeline-wrapper">
+          <!-- 2000s: Origins -->
+          <div class="timeline-section">
+            <h2>early days (2000–2009)</h2>
+
+            <div class="timeline-item internet">
+              <span class="year">2004</span>
+              <div class="timeline-content">
+                <h3>facebook launches</h3>
+                <p class="detail">mark zuckerberg launches thefacebook from harvard dorm. initially exclusive to college students.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2005</span>
+              <div class="timeline-content">
+                <h3>youtube founded</h3>
+                <p class="detail">"me at the zoo" becomes the first youtube video. the platform launches in february.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2006</span>
+              <div class="timeline-content">
+                <h3>twitter launches</h3>
+                <p class="detail">jack dorsey sends first tweet: "just setting up my twttr"</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2007</span>
+              <div class="timeline-content">
+                <h3>iphone released</h3>
+                <p class="detail">steve jobs unveils the first iphone. "an ipod, a phone, and an internet communicator."</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item featured">
+              <span class="year">2008</span>
+              <div class="timeline-content">
+                <h3>born into the digital age</h3>
+                <p class="detail">arrived in a world where the internet was already essential infrastructure. smartphones existed. social media was growing.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2008</span>
+              <div class="timeline-content">
+                <h3>github launches</h3>
+                <p class="detail">tom preston-werner, chris wanstrath, and pj hyett create github. open source collaboration transforms.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2009</span>
+              <div class="timeline-content">
+                <h3>bitcoin whitepaper</h3>
+                <p class="detail">satoshi nakamoto introduces bitcoin. decentralized currency becomes real.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2010s: Discovery -->
+          <div class="timeline-section">
+            <h2>growing up digital (2010–2019)</h2>
+
+            <div class="timeline-item internet">
+              <span class="year">2010</span>
+              <div class="timeline-content">
+                <h3>instagram launches</h3>
+                <p class="detail">kevin systrom and mike krieger launch instagram. acquired by facebook for $1b in 2012.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2011</span>
+              <div class="timeline-content">
+                <h3>snapchat launches</h3>
+                <p class="detail">evan spiegel creates snapchat. ephemeral content becomes mainstream.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2013</span>
+              <div class="timeline-content">
+                <h3>first computer memories</h3>
+                <p class="detail">earliest memories of using a computer. the screen was mesmerizing. didn't know it would become everything.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2013</span>
+              <div class="timeline-content">
+                <h3>doge meme explodes</h3>
+                <p class="detail">such wow. very internet. shiba inu becomes cultural icon.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2015</span>
+              <div class="timeline-content">
+                <h3>let's encrypt launches</h3>
+                <p class="detail">free ssl certificates for everyone. https becomes accessible to all websites.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2016</span>
+              <div class="timeline-content">
+                <h3>discovering games</h3>
+                <p class="detail">first deep dive into video games. learned problem-solving through play. didn't realize games were teaching logic.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2016</span>
+              <div class="timeline-content">
+                <h3>alphago defeats lee sedol</h3>
+                <p class="detail">deepmind's alphago beats world champion. ai enters public consciousness.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2018</span>
+              <div class="timeline-content">
+                <h3>first website fascination</h3>
+                <p class="detail">clicked "view source" for the first time. saw the code behind websites. everything changed.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2019</span>
+              <div class="timeline-content">
+                <h3>tiktok goes global</h3>
+                <p class="detail">tiktok becomes worldwide phenomenon. short-form video dominates.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2020s: Building -->
+          <div class="timeline-section">
+            <h2>building & creating (2020–present)</h2>
+
+            <div class="timeline-item featured">
+              <span class="year">2020</span>
+              <div class="timeline-content">
+                <h3>first python program</h3>
+                <p class="detail">wrote first working python script at age 12. made an led blink. that feeling never gets old.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2020</span>
+              <div class="timeline-content">
+                <h3>pandemic accelerates remote work</h3>
+                <p class="detail">covid-19 forces global shift to remote. zoom, discord, slack become essential. among us explodes.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item featured">
+              <span class="year">2020</span>
+              <div class="timeline-content">
+                <h3>started tripleetech</h3>
+                <p class="detail">launched technology startup at 12. offering web development and consulting. learning business through doing.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2021</span>
+              <div class="timeline-content">
+                <h3>first client website</h3>
+                <p class="detail">deployed first live website for paying client at 13. learned that code isn't just about making things work.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2021</span>
+              <div class="timeline-content">
+                <h3>nft boom</h3>
+                <p class="detail">beeple sells nft artwork for $69m. crypto and web3 enter mainstream.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2022</span>
+              <div class="timeline-content">
+                <h3>first raspberry pi</h3>
+                <p class="detail">got first raspberry pi at 14. discovered self-hosting. infrastructure became tangible.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2022</span>
+              <div class="timeline-content">
+                <h3>chatgpt launches</h3>
+                <p class="detail">openai releases chatgpt. reaches 100m users in 2 months. ai becomes conversational.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item featured">
+              <span class="year">2023</span>
+              <div class="timeline-content">
+                <h3>dadscloud begins</h3>
+                <p class="detail">started building india-based cloud infrastructure platform at 15. architecture over hype.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2023</span>
+              <div class="timeline-content">
+                <h3>cybersecurity deep dive</h3>
+                <p class="detail">started learning penetration testing and security research. understanding attack vectors.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2023</span>
+              <div class="timeline-content">
+                <h3>ai explosion</h3>
+                <p class="detail">midjourney, stable diffusion, claude, llama. generative ai transforms software development.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2024</span>
+              <div class="timeline-content">
+                <h3>started university</h3>
+                <p class="detail">began btech computer science at lovely professional university at 16. formal education meets practical experience.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item featured">
+              <span class="year">2024</span>
+              <div class="timeline-content">
+                <h3>pantech internship</h3>
+                <p class="detail">three-month development internship at 16. experienced professional workflows and code reviews.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2024</span>
+              <div class="timeline-content">
+                <h3>iot milk vending machine</h3>
+                <p class="detail">built automated milk dispensing system with esp32 and payment integration. hardware meets software.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2024</span>
+              <div class="timeline-content">
+                <h3>claude sonnet 3.5 & opus 4</h3>
+                <p class="detail">anthropic releases advanced models. ai coding assistants become legitimate development tools.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <span class="year">2025</span>
+              <div class="timeline-content">
+                <h3>continuing to build</h3>
+                <p class="detail">at 17, focusing on production systems. learning ml and dsa. scaling dadscloud. keep learning. keep building.</p>
+                <span class="tag">life</span>
+              </div>
+            </div>
+
+            <div class="timeline-item internet">
+              <span class="year">2025</span>
+              <div class="timeline-content">
+                <h3>ai agents everywhere</h3>
+                <p class="detail">autonomous ai agents become reality. software development transforms again.</p>
+                <span class="tag">internet</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script src="js/rv.js"></script>
+    <script src="js/cfme.js"></script>
+    <script>
+      // intersection observer for fade-in animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 100);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      // observe all timeline items
+      document.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.timeline-item');
+        items.forEach(item => observer.observe(item));
+      });
+    </script>
+  </body>
+</html>

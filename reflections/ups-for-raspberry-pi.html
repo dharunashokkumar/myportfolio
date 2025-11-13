@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber</title>
+
+    <meta name="description" content="Complete guide to building backup power for Jio AirFiber router and Raspberry Pi server. Artis or Zebronics UPS plus mini-UPS for extended runtime and clean shutdowns.">
+    <meta name="keywords" content="Raspberry Pi UPS, Jio AirFiber backup, power backup, Artis UPS, Zebronics UPS, mini-UPS, 5V UPS, 12V backup, home server power, SD card protection, clean shutdown">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber">
+      <meta property="og:description" content="Protect your Raspberry Pi server and Jio AirFiber router from power outages with affordable UPS solutions.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/ups-for-raspberry-pi.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/ups-for-raspberry-pi.html">Build a Smart UPS & Backup System for Raspberry Pi & Jio AirFiber</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>After corrupting my Raspberry Pi's SD card twice due to sudden power cuts, I learned an important lesson: running a 24/7 server without backup power is asking for trouble. Add my Jio AirFiber router to the mix, and every power outage meant losing both internet and my cloud server.</p>
+
+<p>Here's how I built a reliable, affordable backup power system for under ¹4,000 that provides hours of runtime and automatic clean shutdowns.</p>
+
+<h2>The Problem</h2>
+
+<p>My setup includes:</p>
+
+<ul>
+<li><strong>Jio AirFiber router</strong>  12V, ~12W power consumption</li>
+<li><strong>Raspberry Pi 4</strong>  5V, ~10W with external drive</li>
+<li><strong>Power cuts</strong>  2-3 times per week, lasting 10 minutes to 2 hours</li>
+</ul>
+
+<p>Sudden power loss causes:</p>
+<ul>
+<li>SD card corruption on the Raspberry Pi</li>
+<li>Interrupted file transfers leading to data loss</li>
+<li>Internet downtime affecting remote work</li>
+<li>Need to manually restart everything after power returns</li>
+</ul>
+
+<h2>The Solution: Dual UPS Approach</h2>
+
+<p>Instead of one expensive specialized UPS, I use a two-tiered system:</p>
+
+<ol>
+<li><strong>Standard UPS</strong> for the router and main power</li>
+<li><strong>Mini-UPS modules</strong> for direct 5V/12V DC power to devices</li>
+</ol>
+
+<p>This combination provides maximum runtime at minimum cost.</p>
+
+<h2>Part 1: Main UPS for Router</h2>
+
+<h3>Recommended Options</h3>
+
+<h4>Option A: Artis 650VA UPS (¹2,400-¹2,600)</h4>
+<ul>
+<li>650VA / 360W capacity</li>
+<li>2-3 hour runtime for router alone</li>
+<li>4-5 hour runtime for router + Raspberry Pi</li>
+<li>Available on Amazon, Flipkart, offline stores</li>
+<li>Built-in surge protection</li>
+<li>Replaceable battery (easy maintenance)</li>
+</ul>
+
+<h4>Option B: Zebronics ZEB-U725 (¹2,800-¹3,000)</h4>
+<ul>
+<li>725VA / 400W capacity</li>
+<li>Slightly longer runtime than Artis</li>
+<li>Better build quality</li>
+<li>LED indicators for battery status</li>
+<li>Auto voltage regulation</li>
+</ul>
+
+<h3>Why These Models?</h3>
+
+<p>For low-power devices like routers and Raspberry Pi, you don't need expensive high-capacity UPS units designed for PCs. These entry-level models provide:</p>
+
+<ul>
+<li>Sufficient wattage (our total load: ~22W)</li>
+<li>Long runtime due to minimal power draw</li>
+<li>Affordable price point</li>
+<li>Wide availability and service support</li>
+</ul>
+
+<h3>Runtime Calculations</h3>
+
+<p>Approximate runtime with 650VA UPS:</p>
+
+<pre><code>Load: 22W (router 12W + Pi 10W)
+Battery: 12V 7Ah typical
+Runtime = (Battery Wh × Efficiency) / Load
+Runtime = (84Wh × 0.7) / 22W
+Runtime H 2.5-3 hours
+</code></pre>
+
+<p>In practice, expect 2-3 hours of full operation during outages.</p>
+
+<h2>Part 2: Mini-UPS for Direct DC Power</h2>
+
+<p>While the main UPS works, using AC output ’ wall adapters ’ DC is inefficient. Mini-UPS modules provide direct 5V/12V DC with integrated battery backup.</p>
+
+<h3>5V Mini-UPS for Raspberry Pi</h3>
+
+<p>Search for "5V DC UPS" or "Raspberry Pi UPS" on Amazon/AliExpress:</p>
+
+<ul>
+<li><strong>Price:</strong> ¹800-¹1,200</li>
+<li><strong>Battery:</strong> Typically 18650 lithium cells (2-4 cells)</li>
+<li><strong>Output:</strong> 5V 3A (sufficient for Pi 4)</li>
+<li><strong>Runtime:</strong> 4-6 hours for Raspberry Pi alone</li>
+<li><strong>Features:</strong> Pass-through charging, automatic switchover</li>
+</ul>
+
+<h3>12V Mini-UPS for Router</h3>
+
+<p>For Jio AirFiber or similar 12V routers:</p>
+
+<ul>
+<li><strong>Price:</strong> ¹1,000-¹1,500</li>
+<li><strong>Battery:</strong> 12V lithium-ion pack</li>
+<li><strong>Output:</strong> 12V 2A</li>
+<li><strong>Runtime:</strong> 3-5 hours for typical router</li>
+<li><strong>Bonus:</strong> Can also power 12V LED strips, cameras, etc.</li>
+</ul>
+
+<h3>How They Work</h3>
+
+<ol>
+<li><strong>Normal operation:</strong> Mains power charges battery and powers device</li>
+<li><strong>Power cut:</strong> Instantly switches to battery (no interruption)</li>
+<li><strong>Power return:</strong> Switches back to mains and recharges battery</li>
+</ol>
+
+<p>No switching delay, unlike traditional UPS which have 5-10ms switchover time.</p>
+
+<h2>My Recommended Setup</h2>
+
+<h3>Configuration 1: Maximum Protection (¹4,000)</h3>
+
+<ul>
+<li>Artis 650VA UPS (¹2,500)  Main power backup</li>
+<li>5V mini-UPS (¹1,000)  Raspberry Pi dedicated backup</li>
+<li>12V mini-UPS (¹1,200)  Router dedicated backup</li>
+</ul>
+
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>4+ hours runtime on Pi and router even if main UPS fails</li>
+<li>No power conversion losses (DC directly from mini-UPS)</li>
+<li>Clean power for sensitive electronics</li>
+<li>Modular  can replace/upgrade components individually</li>
+</ul>
+
+<h3>Configuration 2: Budget-Friendly (¹2,500)</h3>
+
+<ul>
+<li>Artis 650VA UPS only</li>
+<li>Power both devices through their standard adapters</li>
+</ul>
+
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Lower upfront cost</li>
+<li>Simpler setup</li>
+<li>Still provides 2-3 hours backup</li>
+</ul>
+
+<p><strong>Trade-offs:</strong></p>
+<ul>
+<li>Power conversion losses (AC’DC’AC’DC)</li>
+<li>Slightly shorter runtime due to inefficiency</li>
+</ul>
+
+<h2>Installation and Setup</h2>
+
+<h3>Main UPS Setup</h3>
+
+<ol>
+<li>Unbox and charge UPS for 8-12 hours before first use</li>
+<li>Connect router's power adapter to UPS outlet</li>
+<li>If using Configuration 2, also plug in Pi adapter</li>
+<li>Test by disconnecting mains power  devices should stay on</li>
+</ol>
+
+<h3>Mini-UPS Setup for Raspberry Pi</h3>
+
+<ol>
+<li>Connect mini-UPS input to power source (wall adapter or main UPS)</li>
+<li>Connect mini-UPS output directly to Raspberry Pi USB-C power port</li>
+<li>Verify 5V 3A output is stable using `vcgencmd get_throttled`</li>
+<li>Check that Pi runs correctly on battery power</li>
+</ol>
+
+<h3>Mini-UPS Setup for Router</h3>
+
+<ol>
+<li>Identify router's power requirements (12V 1-2A typically)</li>
+<li>Connect mini-UPS input to mains or main UPS</li>
+<li>Connect mini-UPS 12V output to router's DC jack</li>
+<li>Verify router boots and maintains connection</li>
+</ol>
+
+<h2>Smart Shutdown Integration</h2>
+
+<p>The real intelligence comes from detecting power failure and shutting down the Pi gracefully before battery depletes.</p>
+
+<h3>Simple Approach: Monitor GPIO</h3>
+
+<p>Some mini-UPS modules have a status pin that goes LOW when on battery. Connect to Pi GPIO and monitor:</p>
+
+<pre><code>import RPi.GPIO as GPIO
+import os
+import time
+
+POWER_STATUS_PIN = 17  # GPIO pin connected to UPS status
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(POWER_STATUS_PIN, GPIO.IN)
+
+while True:
+    if GPIO.input(POWER_STATUS_PIN) == GPIO.LOW:
+        # Power failure detected
+        time.sleep(120)  # Wait 2 minutes
+        if GPIO.input(POWER_STATUS_PIN) == GPIO.LOW:
+            # Still on battery after 2 min, shutdown
+            os.system('sudo shutdown -h now')
+    time.sleep(10)
+</code></pre>
+
+<h3>Advanced Approach: UPS HAT</h3>
+
+<p>Purpose-built Raspberry Pi UPS HATs (like Geekworm X728) offer:</p>
+
+<ul>
+<li>Integrated battery management</li>
+<li>Safe shutdown scripts</li>
+<li>Power monitoring via I2C</li>
+<li>Automatic startup when power returns</li>
+<li>Price: ¹3,000-¹4,000</li>
+</ul>
+
+<h2>Monitoring and Maintenance</h2>
+
+<h3>Battery Health</h3>
+
+<p>UPS batteries degrade over time:</p>
+
+<ul>
+<li>Test monthly by simulating power failure</li>
+<li>Replace battery every 2-3 years (¹800-¹1,200 for 12V 7Ah)</li>
+<li>Keep UPS in cool, ventilated area</li>
+<li>Don't fully discharge  hurts battery lifespan</li>
+</ul>
+
+<h3>Runtime Testing</h3>
+
+<p>Periodically test actual runtime:</p>
+
+<ol>
+<li>Fully charge UPS</li>
+<li>Disconnect mains power</li>
+<li>Note start time</li>
+<li>Monitor until UPS low-battery alarm</li>
+<li>Record runtime for reference</li>
+</ol>
+
+<p>Declining runtime indicates battery replacement needed.</p>
+
+<h3>Logging Power Events</h3>
+
+<p>Create a log of power failures:</p>
+
+<pre><code>#!/bin/bash
+echo "$(date): Power failure detected" >> /var/log/power-events.log
+</code></pre>
+
+<p>Helps identify patterns and UPS effectiveness.</p>
+
+<h2>Power Consumption Optimization</h2>
+
+<p>To extend runtime, reduce power draw:</p>
+
+<h3>Raspberry Pi Optimizations</h3>
+<ul>
+<li><strong>Disable HDMI:</strong> Saves ~25mA
+<pre><code>/usr/bin/tvservice -o</code></pre>
+</li>
+<li><strong>Reduce CPU frequency:</strong> Lower performance but longer runtime</li>
+<li><strong>Disable unused USB ports</strong></li>
+<li><strong>Turn off LED indicators</strong></li>
+<li><strong>Use efficient storage:</strong> SSD instead of spinning HDD</li>
+</ul>
+
+<h3>Router Optimizations</h3>
+<ul>
+<li>Disable Wi-Fi if not needed during backup (use Ethernet only)</li>
+<li>Reduce transmit power if range isn't critical</li>
+<li>Disable unused features (guest network, USB ports)</li>
+</ul>
+
+<h2>Cost-Benefit Analysis</h2>
+
+<h3>Total Investment</h3>
+
+<pre><code>Artis 650VA UPS:        ¹2,500
+5V Mini-UPS:            ¹1,000
+12V Mini-UPS:           ¹1,200
+-----------------------------------
+Total:                  ¹4,700
+</code></pre>
+
+<h3>What You Get</h3>
+
+<ul>
+<li>Protection from SD card corruption (saved me ¹2,000+ in lost work)</li>
+<li>Uninterrupted internet during short outages</li>
+<li>Peace of mind for server uptime</li>
+<li>4+ hour runtime for critical devices</li>
+<li>Clean shutdown capability preventing data loss</li>
+</ul>
+
+<h3>Alternative Costs</h3>
+
+<ul>
+<li><strong>Raspberry Pi UPS HAT:</strong> ¹3,500-¹4,500 (Pi only, not router)</li>
+<li><strong>Enterprise UPS:</strong> ¹6,000-¹15,000 (overkill for this use)</li>
+<li><strong>Generator:</strong> ¹30,000+ (loud, expensive, fuel costs)</li>
+</ul>
+
+<h2>Troubleshooting Common Issues</h2>
+
+<h3>UPS Keeps Beeping</h3>
+<p>Likely overloaded. Check that total wattage doesn't exceed UPS capacity. For our setup, 22W is well within limitsif beeping, battery may be failing.</p>
+
+<h3>Raspberry Pi Shows Under-Voltage Warning</h3>
+<p>Mini-UPS output voltage dropping below 4.75V. Check:</p>
+<ul>
+<li>Battery charge level</li>
+<li>Output current capacity (need 3A for Pi 4)</li>
+<li>Cable quality (use thick, short cables)</li>
+</ul>
+
+<h3>Short Runtime Despite New Battery</h3>
+<ul>
+<li>Verify battery is genuine (many fakes on market)</li>
+<li>Check for power-hungry peripherals (external HDDs draw significant power)</li>
+<li>Ensure UPS is fully charged before test</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<ul>
+<li><strong>Solar charging:</strong> Add solar panel to recharge UPS batteries during day</li>
+<li><strong>Remote monitoring:</strong> Webhook notifications when power fails</li>
+<li><strong>Graceful service shutdown:</strong> Stop services in priority order before shutdown</li>
+<li><strong>Automatic resume:</strong> Pi powers back on when mains returns</li>
+<li><strong>Multiple Pis:</strong> Scale system to support additional servers</li>
+</ul>
+
+<h2>Lessons Learned</h2>
+
+<p><strong>1. Prevention is cheaper than recovery:</strong> ¹4,000 for UPS vs. hours of work recreating corrupted systems.</p>
+
+<p><strong>2. Don't skimp on power supply quality:</strong> Cheap UPS with poor voltage regulation can damage devices.</p>
+
+<p><strong>3. Test regularly:</strong> UPS sitting unused for months may fail when actually needed.</p>
+
+<p><strong>4. Document your setup:</strong> When UPS beeps at 3 AM during power cut, you'll want clear notes on what to do.</p>
+
+<p><strong>5. Clean shutdowns save data:</strong> Automated shutdown scripts are worth the effort to implement.</p>
+
+<h2>Conclusion</h2>
+
+<p>Building a backup power system for Raspberry Pi and Jio AirFiber router is straightforward and affordable. The combination of a standard UPS plus mini-UPS modules provides hours of runtime at under ¹4,000less than the cost of replacing one corrupted SD card and lost work.</p>
+
+<p>For anyone running a home server, NAS, or critical network equipment, backup power isn't optionalit's essential infrastructure. The peace of mind knowing your systems will survive power outages is well worth the investment.</p>
+
+<p>Power cuts are inevitable. Data loss isn'tif you prepare properly.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

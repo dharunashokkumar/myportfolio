@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dharun Ashokkumar: My Experience with the Zima Board 2</title>
+<meta name="description" content="Review of Zima Board 2 from IceWhale. Intel N100 quad-core, 8GB RAM, dual 2.5GbE. Performance testing with Iperf shows 1.09Gbps. Recommendations for portable firewall and home server use.">
+<meta name="keywords" content="Zima Board, Intel N100, mini PC, home server, portable firewall, 2.5GbE, Iperf, network performance, IceWhale, x86 server">
+<meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+<link rel="stylesheet" type="text/css" href='../css/styles.css'>
+<meta property="og:type" content="website" /><meta property="og:title" content="My Experience with the Zima Board 2">
+<meta property="og:description" content="Hands-on review of Zima Board 2 mini PC for home server and networking.">
+<meta property="og:url" content="https://dharunashokkumar.com/reflections/zimaboard-experience.html">
+<meta property="og:site_name" content="Dharun Ashokkumar"></head><body>
+<div id="container" class="post"><div id="header">
+<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+<ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div>
+<div id="content"><h1 class="title"><a href="/reflections/zimaboard-experience.html">My Experience with the Zima Board 2</a></h1>
+<p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>The Zima Board 2 from IceWhale caught my attention as a step up from Raspberry Pi—x86 architecture, dual 2.5 Gigabit Ethernet, and enough power for serious homelab applications. After testing it extensively, here's my honest assessment.</p>
+
+<h2>Specifications</h2>
+<ul>
+<li><strong>CPU:</strong> Intel N100 quad-core (3.6GHz boost)</li>
+<li><strong>RAM:</strong> 8GB LPDDR5X (my model)</li>
+<li><strong>Network:</strong> Dual Intel 2.5GbE ports</li>
+<li><strong>Storage:</strong> M.2 NVMe slot + SATA</li>
+<li><strong>PCIe:</strong> Mini PCIe slot</li>
+<li><strong>Power:</strong> 12V DC, ~15W typical</li>
+<li><strong>Size:</strong> Ultra-compact fanless design</li>
+</ul>
+
+<h2>Performance Testing</h2>
+
+<h3>Network Throughput (Iperf3)</h3>
+<p>Tested with Iperf to measure actual network performance:</p>
+<pre><code># Server mode
+iperf3 -s
+
+# Client test
+iperf3 -c [server-ip] -t 60
+
+Result: 1.09 Gbps average throughput
+</code></pre>
+
+<p>This is excellent for 2.5GbE—limited only by my test equipment, not the Zima Board.</p>
+
+<h3>CPU Load During Network Testing</h3>
+<p>Under full network saturation: <strong>60-80% CPU utilization</strong>. The Intel N100 is powerful but not unlimited. Running multiple VMs plus heavy network traffic will max it out.</p>
+
+<h2>Use Cases</h2>
+
+<h3>1. Portable Firewall/Router</h3>
+<p>Dual 2.5GbE makes it perfect for pfSense or OPNsense:</p>
+<ul>
+<li>WAN on port 1, LAN on port 2</li>
+<li>IDS/IPS with Suricata</li>
+<li>VPN server (WireGuard, OpenVPN)</li>
+<li>Ad blocking with pfBlockerNG</li>
+</ul>
+
+<h3>2. Travel Lab</h3>
+<p>Compact size makes it ideal for portable homelab:</p>
+<ul>
+<li>Fits in laptop bag</li>
+<li>Low power consumption</li>
+<li>Run multiple VMs for testing</li>
+<li>Practice networking/security on the go</li>
+</ul>
+
+<h3>3. All-in-One Server</h3>
+<ul>
+<li>Proxmox host running multiple containers</li>
+<li>Home Assistant for smart home</li>
+<li>Plex/Jellyfin media server</li>
+<li>Pi-hole DNS</li>
+<li>Docker containers</li>
+</ul>
+
+<h2>Recommendation: Buy 16GB Variant</h2>
+
+<p><strong>Critical insight:</strong> If you plan to run multiple VMs, get the 16GB model. I tested with 8GB and found it limiting:</p>
+<ul>
+<li>Proxmox + 2 VMs: 85% RAM usage</li>
+<li>Can't comfortably run 3+ VMs simultaneously</li>
+<li>Docker containers add up quickly</li>
+</ul>
+
+<p>The 16GB model gives breathing room for serious homelab work.</p>
+
+<h2>Compared to Raspberry Pi</h2>
+
+<table>
+<tr><th>Feature</th><th>Zima Board 2</th><th>Raspberry Pi 4</th></tr>
+<tr><td>Architecture</td><td>x86 (Intel N100)</td><td>ARM</td></tr>
+<tr><td>Compatibility</td><td>Run any x86 software</td><td>ARM-specific software</td></tr>
+<tr><td>Network</td><td>Dual 2.5GbE</td><td>Single 1GbE</td></tr>
+<tr><td>Performance</td><td>~3x faster</td><td>Baseline</td></tr>
+<tr><td>Power</td><td>~15W</td><td>~10W</td></tr>
+<tr><td>Price</td><td>$150-200</td><td>$55</td></tr>
+<tr><td>Community</td><td>Small but growing</td><td>Huge, excellent support</td></tr>
+</table>
+
+<h2>Pros</h2>
+<ul>
+<li>x86 compatibility—no ARM limitations</li>
+<li>Dual 2.5GbE for serious networking</li>
+<li>Fanless, silent operation</li>
+<li>NVMe storage for fast boot/access</li>
+<li>Compact and portable</li>
+<li>Low power consumption</li>
+</ul>
+
+<h2>Cons</h2>
+<ul>
+<li>Higher price than Raspberry Pi</li>
+<li>8GB model too limited for multi-VM setups</li>
+<li>Smaller community/ecosystem</li>
+<li>Proprietary power adapter</li>
+</ul>
+
+<h2>Verdict</h2>
+
+<p><strong>Buy if:</strong></p>
+<ul>
+<li>Need x86 compatibility</li>
+<li>Building network appliance (firewall, router)</li>
+<li>Want portable homelab</li>
+<li>Budget allows (~₹15,000+)</li>
+<li>Prefer single-board computer to mini PC</li>
+</ul>
+
+<p><strong>Stick with Raspberry Pi if:</strong></p>
+<ul>
+<li>Budget-conscious</li>
+<li>ARM software is sufficient</li>
+<li>Don't need multi-gigabit networking</li>
+<li>Value huge community support</li>
+</ul>
+
+<p>The Zima Board 2 is a capable machine that bridges the gap between Raspberry Pi and full mini PCs. For network-focused applications and portable labs, it's excellent. Just get the 16GB model.</p>
+
+</div><div id="footer">
+<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+<ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div>
+<script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+</body></html>

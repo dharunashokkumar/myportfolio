@@ -1,0 +1,627 @@
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- 
+      reference: 
+      https://github.com/joshbuchea/HEAD 
+      (as seen on: 202002)
+    -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Dharun Ashokkumar: on data manifestations</title>
+
+    <meta name="description" content="Dharun Ashokkumar: design, and slowness.">
+    <meta name="keywords" content="communication, interaction, graphic, product, experience, design, engineering, art, writing, lettering, typography, blog, portfolio, prototyping, development, concept, strategy, rca, royal college of art, iit, indian institute of technology, information experience design">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+    
+    <link rel="stylesheet" type="text/css" href='/assets/css/styles.css?version=202403051732'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="on data manifestations">
+      <meta property="og:description" content="">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/202210-data_manifestation.html">
+      
+        <meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/thumb.jpg" />
+        <!--<meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/air%20pollution%20necklace.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/asthma%20device.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/asthma.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/auschwitz%20book%20page.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/auschwitz%20book.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/co2%20balloons%20scale.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/co2%20balloons.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/copenhagen%20chair%201.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/copenhagen%20chair%202.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/costofwar.gif" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/data%20provocation.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/economist%201.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/economist%202.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/fork.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/german%20civil%20code.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/gilbrich.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/gun%20sq.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/gun.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/hans%20rosling%20ted%202010.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/height%20moma.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/ibc%20book.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/ibc%20website.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/iceberg.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/icewatch.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/ijeoma%20wage%20islands%20interactive.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/ijeoma%20wage%20islands.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/information%20overload.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/lettuce%20many.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/lettuce.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/lungs.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/moss.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/mousetraps.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/plastic.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/rice.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/slowstudio%20airquality%20shruthivenkat%20mugs.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/stratigraphy.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/tap.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/tasty%20tweets.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/thumb.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/tides.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/train%20delay%20scarf.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/tree%20rings%201.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/vaccination.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/vases%20copy.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/vases.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/venice%20hands.jpg" /><meta property="og:image" content="https://dharunashokkumar.com/assets/media/reflections/202210%20data%20manifestations/water%20pollution.jpg" />--><meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/teaching.html">teaching</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<!-- start: marker for private post --><!-- end: marker for private post -->
+	<a href="/reflections/202210-data_manifestation.html">on data manifestations</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<!-- start: show date -->
+			<span class="date">2020–22</span>
+		<!-- end: show date -->
+		<!-- start: show tags (if there is/are) --><span class="tags">
+					<em>tagged with: </em>design</span><!-- end: show tags -->
+		<!-- start: show categories -->
+			<span class="categories"><em>filed under<!-- post categories-->: </em> 
+					<!-- start: link to category archive page --><a href="/reflections.html">reflections</a><!-- end: link to category archive page --></span>
+		<!-- end: show categories -->
+	</small>
+</p><!-- end: .post-meta -->
+
+<h2 id="on-effect-and-affect">on <em>effect</em> and <em>affect</em></h2>
+
+<div class="media">
+    <div class="item narrow">
+        <div class="video videoDimensions5625">
+            <iframe class="videoFrame" src="https://www.youtube-nocookie.com/embed/9kBKQS7J7xI?start=630&amp;end=703;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="media">
+	<div class="item narrow">
+		<img src="/assets/media/reflections/202210 data manifestations/gun sq.jpg" />
+		<p class="caption"></p>
+	</div>
+</div> -->
+
+<p>luke dubois (2016):</p>
+<blockquote>
+  <p>data visualisation. when you do it right, it’s illuminating. when you do it wrong, it’s anaesthetising ; it reduces people to numbers.</p>
+</blockquote>
+
+<p>me (2021–22):</p>
+<blockquote>
+  <p>there’s a difference between communicating data <em>effectively</em> versus doing so <em>affectively</em>. designers do not exist to serve or ingratiate data : heck!, our work may not even present the data, as long as it somehow succeeds in <em>affecting</em> emotion and behaviour.</p>
+</blockquote>
+
+<p><a href="http://www.nadeemhaidary.com/informed">nadeem haidary</a> (2009):</p>
+<blockquote>
+  <p>Much of the knowledge and statistics in the world exists in places like books, newspapers and web sites. You read things like “In Britain, 20 million tons <em>[sic]</em> of food is thrown out each year.” Statistics like these may be striking when you first read them, but without context or placement in the physical world, they are rarely remembered and rarely change people’s behavior. What if this kind of information crawled off the page…</p>
+</blockquote>
+
+<!-- 
+<div class="media">
+	<div class="item narrow">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/economist 1.jpg" />
+		<p class="caption">adding a postit for every graph, chart, table, illustration or infographic in one issue of the economist. (2017)</p>
+	</div>
+	<div class="item narrow">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/economist 2.jpg" />
+		<p class="caption">how can a graph about gun-violence be <em>memorable</em> if there are scores of postit-worthy items in every (weekly) issue of the magazine?</p>
+	</div>
+</div>
+ -->
+
+<p>—</p>
+
+<h2 id="limitations-of-visualising-data">limitations of <em>visualising</em> data</h2>
+
+<p>even though data plays such a central role in our lives today, few people are <a href="https://en.wikipedia.org/w/index.php?title=Data_literacy&amp;oldid=1110051256">literate</a> enough to engage with it, and 2d data-visualisations seldom produce lasting <em>affect</em> in audiences who have grown numb due to overexposure to a precision-engineered stream of attention-hogging visual artefacts.</p>
+
+<p>hence: to make our data <em>memorable</em> (and thereafter affect behaviour change), it wouldn’t hurt to sometimes pull data out of 2d-media ; to <em>manifest</em> and situate it in the real world ; so it may be <em>experienced</em> more holistically.</p>
+
+<p>—</p>
+
+<h2 id="what-data-can-help-us-do">what data can help us do</h2>
+
+<p>data can help us <em>inform</em> people: elucidate, educate, <!-- share a point-of-view,  -->put-forth an interpretation, highlight a problem, support a solution, or <del>merely</del> invoke curiosity. it may also be <em>provocative</em>: to express skepticism, <!-- ridicule,  -->pose a question, or challenge a norm. <!-- often, a manifestation does more than one of these things. --></p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/water pollution.jpg" />
+		<p class="caption">
+			<!-- Popsicles of pollution: ice lollies highlight Taiwan&#39;s contaminated waterways. --> samples of water collected from urban rivers, creeks and ports were frozen in moulds and preserved in resin. &ldquo;We hope when more people see this they can change their lifestyles,&rdquo; one of designers said. 
+			<br />
+			info: <a href="https://www.theguardian.com/cities/gallery/2017/sep/01/popsicles-pollution-ice-lollies-taiwan-taipei-contaminated-waterways">theguardian (2017)</a>
+		</p>
+	</div>
+    <div class="item-halfwidth">
+        <div class="video videoDimensions5625">
+            <iframe class="videoFrame" src="https://www.youtube-nocookie.com/embed/o4PnSYAqQHU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+        <p class="caption">
+        	communicating the importance of social distancing during the covid19 pandemic. 
+        	<br />
+        	info: the ohio health department commissioned this <a href="https://www.youtube.com/watch?v=o4PnSYAqQHU">video</a> in 2020, and <a href="https://www.washingtonpost.com/health/2020/04/10/ohio-coronavirus-video/">the washington post</a> and <a href="https://www.cleveland.com/coronavirus/2020/04/ohio-health-department-video-uses-mousetraps-ping-pong-balls-to-show-importance-of-social-distancing.html">cleveland</a> wrote about it.
+        </p>
+    </div>
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/ijeoma wage islands.jpg" />
+		<p class="caption">
+			<a href="https://studioijeoma.com/Wage-Islands-2">Ekene Ijeoma’s &lsquo;Wage Islands&rsquo; (2019)</a>: this interactive installation submerged a <span class="private_item">topographic</span> map of new york city, leaving behind only those places their wage may afford to rent, revealing inequalities in income and housing-costs.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/gun.jpg" />
+		<p class="caption">
+			luke dubois’s gun fired whenever a homicide was reported in the city. 
+			<br />
+			info: 
+			<a href="https://www.lukedubois.com/projects-2/takeabullet">'take a bullet for the city' (2014)</a>, <a href="https://vimeo.com/110217245">test-firing video</a>, <a href="https://youtu.be/9kBKQS7J7xI?start=630&amp;end=703">tedtalk (2016)</a><span class="private_item">, <a href="https://www.jonathanferraragallery.com/exhibitions/guns-in-the-hands-of-artists/selected-works?view=slider#35">exhibited at jonathan ferrara gallery (2014–15)</a></span>.
+		</p>
+	</div>
+</div>
+
+<p>—</p>
+
+<h2 id="what-manifestations-can-help-us-do">what <em>manifestations</em> can help us do</h2>
+
+<p>data manifestations may work as <em>hooks</em>, to draw people into an unknown or less-considered topic, or as <em>reinforcements</em>, to bolster conversations around a known topic. they may also help <em>study</em> data, see it in new light, and discover patterns in it.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/german civil code.jpg" />
+		<p class="caption">
+			A room-filling visualization that illustrates the patterns of references—and, hence, the complexity—within the German civil code. Every paragraph is pasted on the wall, and Each red thread stands for a reference from it to another paragraph. 
+			<br />
+			info: &lsquo;Network of the German Civil Code&rsquo; (2013) by Oliver Bieh-Zimmert. as seen on <a href="http://dataphys.org/list/network-of-the-german-civil-code/">dataphys</a> and <a href="http://www.visual-telling.com/?p=282">visual-telling</a> in 2022.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/iceberg.jpg" />
+		<p class="caption">
+			to raise an alarm about the rapid loss of polar ice (caused by human-induced climate change), Olafur Eliasson and Minik Rosing transported an iceberg from the arctic, and let it melt at City Hall Square, in Copenhagen. 
+			<br />
+			see: <a href="https://olafureliasson.net/archive/artwork/WEK109190/ice-watch">Ice Watch (2014)</a>.
+		</p>
+	</div>
+</div>
+<div class="media">
+	<div class="item narrow">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/gilbrich.jpg" />
+		<p class="caption">
+			3D wire models of hand motion paths <!-- (this image: showing one man&#39;s progress of learning paths-of-least-waste) --> ("chronocyclegraphs") created from time-lapse photographs. used to study and teach human motion.
+			<br />
+			info: <a href="https://en.wikipedia.org/wiki/Frank_Bunker_Gilbreth,_Sr.">Frank Gilbreth</a>&#39;s Wire Models of Factory Worker Movements (1915). as seen on <a href="http://dataphys.org/list/wire-models-of-factory-worker-movements/">dataphys</a> in 2022. regine debatty (‘we make money not art’) also <a href="https://we-make-money-not-art.com/the_chronocyclegraph/">wrote about this (in 2012)</a>.
+		</p>
+	</div>
+</div>
+
+<p>—</p>
+
+<h2 id="how-data-manifestations-come-to-be">how data manifestation’s come to be</h2>
+
+<p>there exist <em>naturally</em>-occuring forms of data manifestation, like <a title="an illustration of tree rings seen on the website of the Swiss Federal Institute for Forest, Snow and Landscape Research" href="https://www.wsl.ch/en/forest/tree-ring-research/tree-ring-research-much-more-than-just-counting-rings.html">tree rings</a> and <a href="https://en.wikipedia.org/wiki/Stratigraphy" title="image downloaded from a wikipedia entry on &lsquo;Stratigraphy&rsquo;">rock strata</a>. more often than not, they manifest time.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/tree rings 1.jpg" />
+	</div>
+	<div class="item-halfwidth">
+		<img class="addBorder" src="/assets/media/reflections/202210 data manifestations/stratigraphy.jpg" />
+	</div>
+</div>
+
+<p>sometimes, flat representations <em>incidentally</em> (just happen to) manifest beyond two dimensions<!-- , occupy volumes, and fill-up spaces -->. ‘the book of names’ at <a href="https://www.auschwitz.org/en/">auschwitz</a><span class="private_item">, which <a href="/activities/201910-auschwitz-trip.html">i visited in 2019</a>,</span> is one example of this.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/auschwitz book page.jpg" />
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/auschwitz book.jpg" />
+	</div>
+</div>
+
+<p>at most times, however, we <em>intentionally</em> go-about manifestating data. let’s look at one example:</p>
+
+<p><a href="https://www.iraqbodycount.org/">iraqbodycount</a> meticulously documented civilian deaths caused by the <a href="https://en.wikipedia.org/wiki/2003_invasion_of_Iraq">2003 american invasion of iraq</a> for well-over a decade. names of the deceased could have been stored in a table or book, and were usually presented as a bar-graph on their website.</p>
+
+<div class="media">
+	<img class="item-halfwidth addBorder" src="/assets/media/reflections/202210 data manifestations/../../projects/201606 rca thecostofwar/201806 showrca/125 IMG_8006-1440px.jpg" />
+	<img class="item-halfwidth addBorder" src="/assets/media/reflections/202210 data manifestations/ibc website.jpg" />
+</div>
+
+<p>i portrayed this data as <a href="/projects/202006-slow-thecostofwar.html">a stream of blood</a> on a <a href="https://slow.studio/projects/2020-thecostofwar/">webpage</a> (2020) ; this was a moving, yet flat, representation. in order to pull it out of the screen, the data was manifest <a href="/projects/201606-rca-thecostofwar.html">using tubelights</a>, showing how ‘every life lost is a light going out from this world’ (2016).</p>
+
+<div class="media">
+	<img class="item-halfwidth addBorder" src="/assets/media/reflections/202210 data manifestations/../../projects/202010 slowstudio/projects/2006 thecostofwar/video-1440.gif" />
+	<!-- <img class="addBorder" src="/assets/media/reflections/202210 data manifestations/../../projects/201606 rca thecostofwar/201602 thecostofwar, rca courtyard galleries/600.gif" /> -->
+    <div class="item-halfwidth video videoDimensions5625">
+        <iframe class="videoFrame" src="https://player.vimeo.com/video/183160150?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+    </div>
+</div>
+
+<p>—</p>
+
+<h2 id="attributes-of-manifestations">attributes of manifestations</h2>
+
+<p>manifestations can be: literal, abstract (using numbers, graphs and charts), referential, or metaphorical.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/tap.jpg" />
+		<p class="caption">
+			a faucet that visualizes (quite <em>literally</em>) the amount of water consumed when it is used. this was made as part of <a href="http://www.nadeemhaidary.com/informed">nadeem haidery’s &lsquo;in-formed&rsquo;</a> project in 2009.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/tides.jpg" />
+		<p class="caption">
+			manifesting tidal range as steel <em>graphs</em> in a wooden frame :<a href="https://en.wikipedia.org/w/index.php?title=Adrien_Segal&amp;oldid=1109255997">adrien segal</a>&#39;s <a href="https://www.adriensegal.com/tidal-datum">tidal datum series (2006/2011)</a>. 
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/vaccination.jpg" />
+		<p class="caption">
+			<a href="https://www.pbs.org/show/its-okay-be-smart/" title="pbs: &lsquo;it&#39;s okay to be smart&rsquo;">joe hanson</a> <em>referred</em> to people (and disease) using table-tennis balls (and mousetraps), while explaining how <a href="https://youtu.be/Et_J8_x4qBs">vaccinations help contain the spread of covid19</a> (2021). 
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/../../projects/201410 rca migration tops/60.jpg" />
+		<p class="caption">
+			spinning-tops as <em>metaphors</em> for the continuous migration of peoples in-and-out-of countries: a top represents the number of immigrants (upper half) and emigrants (lower half) for each country. <a href="/projects/201410-rca-migration-tops.html">we made these in a workshop run by karin von ompteda (in 2014)</a>.
+		</p>
+	</div>
+</div>
+
+<p>when manifesting extreme magnitudes or unfamiliar units, designers create <a href="https://aviz.fr/concretescale" title="Fanny Chevalier, Romain Vuillemot and Guia Gali introduced this term in 2013, in a paper titled &lsquo;Using Concrete Scales: A Practical Framework for Effective Visual Depiction of Complex Measures&rsquo;" id="concretescales">concrete scales</a> to help “relate, re-express [by <em>referencing</em> familiar concepts], and compare them through visual depictions using magnitudes and units that are easier to grasp”.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/hans rosling ted 2010.jpg" />
+		<p class="caption">
+			<a href="https://www.ted.com/talks/hans_rosling_global_population_growth_box_by_box">hans rosling’s 2010 ted talk</a> on global population growth, where he used buckets to represent population-volumes. <span class="private_item">also see: links to all his talks on <a href="http://dataphys.org/list/hans-rosling-adopts-physical-visualizations/">dataphys</a>.</span>
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/rice.jpg" />
+		<p class="caption">
+			Each grain of rice equals one person in <a href="https://stans.cafe/project/project-of-all-the-people/">&lsquo;Of All The People In All The World&rsquo; (2004)<!--  by Stan’s cafe --></a>. <span class="private_item">i came across this project on <a href="http://dataphys.org/list/of-all-the-people-in-all-the-world-stats-with-rice/">dataphys</a>.</span>
+		</p>
+	</div>
+</div>
+
+<p>as designers, our goal is to make data <em>relatable</em>. most of the work produced for this is visual and on two-dimensional surfaces (and that’s okay). sometimes, we do physicalise the data: we make it tangible, textured, touchable, pickupable, whathaveyou. however, our work may just as well be acoustic, olfactory (and edible), liquid or gaseous, felt as heat or pressure, or something else altogether.</p>
+
+<p>the term ‘data <em>physicalisation</em>’ is quite popular while describing such work (see: <a href="http://dataphys.org/w/index.php?title=Terminology&amp;oldid=554">dataphys</a>). but since we can employ a wide-range of media (and modalities) <span class="private_item">that comprise a person’s lived experience</span> in our work, i prefer calling it ‘data <em>manifestation</em>’ instead.</p>
+
+<div class="media">
+	<div class="private_item item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/moss.jpg" />
+		<p class="caption">
+			Sigitas Guzauskas’s Living Map, where moss grows proportional to the water it is given, to visualise rainfall. as seen on <a href="https://www.behance.net/gallery/68572509/LIVING-MAP">behance portfolio</a> and <a href="http://dataphys.org/list/living-map-precipitation-visualized-with-moss/">on dataphys</a>.
+		</p>
+	</div> 
+	<div class="item-halfwidth">
+	    <div class="video videoDimensions5625">
+	        <iframe class="videoFrame" src="https://player.vimeo.com/video/151331347?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+	    </div>
+	    <p class="caption">
+        	a sad song that plays more loudly if more people post sad tweets online. 
+        	<br />
+        	see: &lsquo;Twitter Tissues&rsquo;, made by Polly O’Flynn &amp; Henry Beech Mole in <a href="https://karinvonompteda.com/DataSpace-Showcase-V-A">a workshop run by Karin von Ompteda and kevin Walker in 2013</a>.
+        </p>	
+    </div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/tasty tweets.jpg" />
+		<p class="caption">
+			&ldquo;Have you ever wondered what twitter tastes like?&rdquo; :the proportion of different fruits in this smoothie mirrors how often those fruits are mentioned on twitter.
+			<br />
+			made by kat zorina, Ruben van der Vleuten and Kostantinos Frantzis <a href="https://ciid.dk/education/portfolio/idp12/courses/data-visualisation/projects/tasty-tweets/">at ciid in 2012</a>.
+		</p>
+	</div>
+	<div class="private_item item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/food.webp" />
+		<p class="caption">
+			&ldquo;how far did the smoothie ingredients travel to reach boston?&rdquo; :made by <a href="http://www.joshuarosenstock.com/data-cuisine/">joshua rosenstock</a> at a <a href="https://data-cuisine.net/workshops/data-cuisine-boston">data cuisine workshop in 2016</a>. 
+			<br />
+			side-comment: most of the work produced in these workshops is still &lsquo;a flat data visualisation (usually a bar graph), using pixels of food&rsquo;. while well-presented, it produces very little <em>affect</em>. i look forward to stronger work in the years to come, though. 
+		</p>
+	</div>
+</div>
+
+<p>we may produce an object, fill a space, stage a performance, design a participatory experience, or do something else.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/train delay scarf.jpg" />
+		<p class="caption">
+			<em>making an object</em>: Sara Weber’s mother knitted a scarf during her daily train rides to work in Munich, and used different colors depending on the amount of delay. (Sara <a href="https://twitter.com/sara__weber/status/1081950904671240192">tweeted</a> about it in 2019<span class="private_item">, and i read about it <a href="http://dataphys.org/list/self-knitted-scarf-of-train-delays/">on dataphys</a></span>.)
+		</p>
+	</div> 	
+	<!-- 
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/../../projects/201606 rca thecostofwar/201602 thecostofwar, rca courtyard galleries/600.gif" />
+		<p class="caption">
+			<a href="/projects/201606-rca-thecostofwar.html">thecostofwar (2016)</a> could be placed almost anywhere because light, being amorphous, <em>filled up whatever space</em> it was given. 
+		</p>
+	</div> 
+	-->
+	<div class="item-halfwidth">
+	    <div class="video videoDimensions5625">
+	        <iframe class="videoFrame" src="https://player.vimeo.com/video/242147857#t=1m18s?color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+	    </div>
+	    <p class="caption">
+	    	turning sentiment data from text-chats into a <em>performance</em>, as part of my <a href="/projects/201511-rca-collaboration-for-expression.html">collaboration for expression</a> project in 2015.
+        </p>	
+    </div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/asthma.jpg" />
+		<p class="caption">
+			in 2020, Todd Linkner <a href="https://web.northeastern.edu/mfashow/projects/todd.html">designed</a> a breathing device (<em>object</em>) and a workshop (<em>participatory experience</em>), to help people understand an asthmatic person&#39;s difficulty in breathing in deteriorating enviroments.
+		</p>
+	</div> 	 	
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/height moma.jpg" />
+		<p class="caption">
+			Roman Ondák’s &lsquo;<a href="https://www.moma.org/learn/moma_learning/roman-ondak-measuring-the-universe-2007/">Measuring the Universe</a>&rsquo; (2007) began as an empty white gallery, and invited people to <em>participate</em> by standing against the wall (and getting their heights marked). 
+		</p>
+	</div>
+</div>
+
+<p>how may our manifestations behave?: they may be fixed, active (changing or moving in a predetermined sequence), reactive (to the audience, or to a data-stream, or something else), or interactive ; they may even be ephemeral.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/air pollution necklace.jpg" />
+		<p class="caption">
+			3d-printed necklaces showing one week of air-quality data<!--  in sheffield, uk -->, in &lsquo;<a href="http://www.stefanieposavec.com/airtransformed">touching air</a>&rsquo; by Stefanie Posavec and Miriam Quick (2016). “The necklaces sit heavily on the chest, mimicking the physical burden that air pollution places on the heart and lungs.” <span class="private_item">also seen <a href="http://dataphys.org/list/touching-air-necklace-shows-air-pollution/">on dataphys</a>.</span>
+		</p>
+	</div> 	
+	<div class="item-halfwidth">
+		<img class=" " src="/assets/media/reflections/202210 data manifestations/../../projects/201606 rca thecostofwar/201602 thecostofwar, rca courtyard galleries/600.gif" />
+		<p class="caption">
+			a light goes out to mark every civilian-death following the 2003 american invasion of iraq, in a predetermined sequence (using historical data), in <a href="/projects/201606-rca-thecostofwar.html">thecostofwar (2016)</a>.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class=" " src="/assets/media/reflections/202210 data manifestations/lettuce.jpg" />
+		<p class="caption">
+			a lettuce plant placed in a box, representing one major city on earth. the concencration of ozone in the box, which changes in real-time to reflect the pollution level in that city, affects the plant. 
+			<br />
+			see: garden of eden (2007) by Thorsten Kiesl, Harald Moser, and Timm-Oliver Wilks ; described <span class="private_item"><a href="http://dataphys.org/list/garden-of-eden/">on dataphys</a>,</span> <a href="https://kunstuni-linz.at/fileadmin/media/institute/medien/abteilungen/interface_cultures/projects/2007/Folder_ars2007.pdf">on kunstuni-linz.at</a> <a href="https://kunstuni-linz.at/fileadmin/media/institute/medien/abteilungen/interface_cultures/projects/2007/Projects.pdf">(twice)</a>, in florian weil’s <a href="http://archive.derhess.de/blog.derhess.de/2014/06/02/visualizing-techniques-with-plants-for-interaction-design/">2014 blogpost</a>, and <a href="https://www.wollle.at/en/projekt/goe-2">on wollle.at</a>.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/ijeoma wage islands interactive.jpg" />
+		<p class="caption">
+			<a href="https://studioijeoma.com/Wage-Islands-2">Ekene Ijeoma’s &lsquo;Wage Islands&rsquo; (2019)</a>: once a visitor provided their wage, this interactive installation submerged a <span class="private_item">topographic</span> map of new york city, leaving behind only those places their wage may afford to rent.
+		</p>
+	</div>
+</div>
+<div class="media">
+	<div class="item narrow">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/icewatch.jpg" />
+		<p class="caption">
+			pieces from an iceberg, melting outside the tate modern in london (2018), to raise an alarm about the rapid loss of polar ice (caused by human-induced climate change). this piece did <em>persist</em> for a long time, in memory if not on the ground. see: <a href="https://olafureliasson.net/archive/artwork/WEK109190/ice-watch">Ice Watch</a>.
+		</p>
+	</div>
+</div>
+
+<p>we may start our work by looking at a dataset, but, ultimately, want to use this data to invoke a feeling of some kind in the audience ; we want to gift them a memorable experience, and invite them to engage with the data/topic at hand.</p>
+
+<p>to do so, our manifestations may be quantitative or—in a manner of speaking—qualitative, or even perhaps something mixed. in other words, we may represent a statistic, or manifest the impact (emotional, or otherwise) surrounding that statistic.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/co2 balloons.jpg" />
+		<p class="caption">
+			CO₂ emissions of twenty countries in 2014. Every orange ball equals 100 billion tonnes of CO₂. 
+			<br />
+			info: <a href="http://dataphys.org/list/co2-emissions-shown-with-balloons/">dataphys</a> recorded this project as made by Mario Klemm (who shared <a href="https://vimeo.com/221881098">this video</a>) and José Ernesto Rodriguez in a course &lsquo;<a href="https://interface.fh-potsdam.de/dataobjects/">Data objects</a>&rsquo; led by <a href="https://esono.com/">Boris</a> <a href="https://idl.fh-potsdam.de/people/prof-boris-muller/">Müller</a> at Potsdam University of Applied Science in 2017. 
+		</p>
+	</div> 	
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/copenhagen chair 2.jpg" />
+		<p class="caption">
+			“Flooding will become part of our everyday life unless we start doing something about our climate. According to the latest united-nations Climate Report, sea-levels are expected to rise up to 1 meter before 2100 if the global warming continues.” 
+			<br />
+			info: tv2 denmark&#39;s <a href="https://nowthisnews.com/earth/copenhagen-denmark-raising-benches-sea-level-rise">‘Our Earth our responsibility’ campaign</a> in Copenhagen (2022).
+		</p>
+	</div> 	
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/slowstudio airquality shruthivenkat mugs.jpg" />
+		<p class="caption">
+			“indians suffer up to ⅛ shorter lives due to air pollution” :manifesting this invisible loss in both, quality and volume, of life, through objects that surround us. (made by <a href="https://shruthivenkat.com/">shruthi venkat</a> in 2021, while working with me at <a href="https://slow.studio">slowstudio</a>.)
+		</p>
+	</div> 	
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/asthma device.jpg" />
+		<p class="caption">
+			a breathing device (with a dial), which a person places in their mouth and breathes through. As the user turns the dial from 0 to 6, the device restricts airflow, simulating airway constriction similar to asthma. Todd Linkner <a href="https://web.northeastern.edu/mfashow/projects/todd.html">designed the breathing device</a> to help people understand an asthmatic person&#39;s difficulty in breathing in increasingly deteriorating enviroments.
+		</p>
+	</div> 	 
+</div>
+
+<p>our manifestations may be accurate or approximate, distorted or (over-)simplified, or even skip representing the data altogether. they intend to impart an <em>affect</em>, and we (as designers) are permitted some <em>creative freedom</em> while representing the data (as long as we are not dishonest).</p>
+
+<p>think of it this way:  what use is an accurate library-catalogue if no one visits libraries any more?<sup id="fnref:noaffect" role="doc-noteref"><a href="#fn:noaffect" class="footnote" rel="footnote">1</a></sup> designers may not be tasked with building libraries, but we <em>are</em> in the business of gifting people the motivation to read. i repeat— we’re not <em>merely</em> designing catalogues, shelves or entrances : we’re <em>gifting affect</em>.</p>
+
+<div class="media">
+	<!-- 
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/german civil code.jpg" />
+		<p class="caption">
+			A room-filling visualization that illustrates the patterns of references—and, hence, the complexity—within the German civil code. Every paragraph is pasted on the wall, and Each red thread stands for a reference from it to another paragraph. 
+			<br/>
+			info: &lsquo;Network of the German Civil Code&rsquo; (2013) by Oliver Bieh-Zimmert. as seen on <a href="http://dataphys.org/list/network-of-the-german-civil-code/">dataphys</a> and <a href="http://www.visual-telling.com/?p=282">visual-telling</a> in 2022.
+		</p>
+	</div>
+	-->
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/fork.jpg" />
+		<p class="caption">
+			The fork shows caloric consumption for four countries. yes, the data here is simplified and approximated (after all, nutrition and consumption are complex topics), but the piece serves well to draw people into this topic and, perhaps, spend time talking about it on over a meal.
+			<br />
+			see: data-driven tableware, as part of <a href="http://www.nadeemhaidary.com/informed">nadeem haidery’s &lsquo;in-formed&rsquo;</a> project (2009). <span class="private_item">also seen <a href="http://dataphys.org/list/nadeem-haidarys-tableware/">on dataphys</a>.</span>
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/lungs.jpg" />
+		<p class="caption">
+			the lungs on this billboard started off clean, white, and gradually turned dark grey, to raise awareness about abysmal air quality (<a href="https://en.wikipedia.org/w/index.php?title=Air_quality_index&amp;oldid=1111892187#India">aqi</a>) in the city. the discolouration of the lungs was not mapped to any data, and urban-dust may not even be the most important thing to highlight in aqi-conversations, but the installation did make <em>effective</em> use of imagery, material, scale, placement, time and repetition to create <em>affect</em>. <span class="private_item">Data about AQI was also presented in the digital display next to it.</span> (photographed <span class="private_item">by Shruthi Venkat</span> on Church Street, Bangalore, in 2021.) 
+		</p>
+	</div>
+</div>
+
+<p>we may <em>distort</em> ‘space’ or ‘time’ in our representations, in order to direct or pronounce affect. by <em>distort</em>, i mean things like shift, warp, scale (for example: enlarge or diminish <em>space</em>, and, elongate or compress <em>time</em>), conjoin, etc.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class=" " src="/assets/media/reflections/202210 data manifestations/../../projects/201606 rca thecostofwar/201806 showrca/130 IMG_7699-720px.jpg" />
+		<p class="caption">
+			in <a href="/projects/201606-rca-thecostofwar.html">thecostofwar (2016)</a>, i <em>compressed</em> time, playing-out eight years of data over one hour. i was happy to sacrifice temporal accuracy in order to gift <em>affect</em> to people within the short time they'd spend at the piece. 
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/copenhagen chair 1.jpg" />
+		<p class="caption">
+			in their <a href="https://nowthisnews.com/earth/copenhagen-denmark-raising-benches-sea-level-rise">‘Our Earth our responsibility’ campaign</a> (2022), tv2 denmark <em>displaced</em> time and brought 2100&#39;s sea-levels to the present day.
+		</p>
+	</div>
+</div>
+
+<p>besides <em>distortion</em>, we can also use <em>scale</em> and <em>multiplicity</em> to pronounce the affect our manifestations lend the audience.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/../../projects/202010 slowstudio/projects/2106 worldexpo datasculptures/exhibition_audience/annlinde.jpg" />
+		<p class="caption">
+			<em>scale</em>: we made human-sized <a href="/projects/202106-worldexpo-datasculptures.html">datasculptures</a> for the worldexpo (2021), presenting data about sweden&#39;s stance on socio-economic topics like immigration, democracy, foreign aid, women in academia, energy, and sustainable forestry. 
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/co2 balloons scale.jpg" />
+		<p class="caption">
+			<em>multiplicity and scale</em>: 2014-data on CO₂ emissions of several countries towering above people. Every orange ball equals 100 billion tonnes of CO₂. (&lsquo;Datenobjekt: CO₂-Emissionen&rsquo;, as seen <a href="https://vimeo.com/221881098">in Mario Klemm's video</a>, and <a href="http://dataphys.org/list/co2-emissions-shown-with-balloons/">on dataphys</a>.)
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/lettuce many.jpg" />
+		<p class="caption">
+			<em>multiplicity</em>: in &lsquo;garden of eden&rsquo; (2007), air-quality in cities around the world was manifest using lettuce. each lettuce plant was placed in its own air-controlled box, and suffered the air-quality of its chosen city.
+			(sources: <a href="http://dataphys.org/list/garden-of-eden/">1</a> <a href="https://kunstuni-linz.at/fileadmin/media/institute/medien/abteilungen/interface_cultures/projects/2007/Folder_ars2007.pdf">2</a> <a href="https://kunstuni-linz.at/fileadmin/media/institute/medien/abteilungen/interface_cultures/projects/2007/Projects.pdf">3</a> <a href="http://archive.derhess.de/blog.derhess.de/2014/06/02/visualizing-techniques-with-plants-for-interaction-design/">4</a> <a href="https://www.wollle.at/en/projekt/goe-2">5</a>)
+		</p>
+	</div>
+</div>
+
+<p>we pay attention to context—cultural, geo-spatial, temporal, or otherwise—while manifesting the data.</p>
+
+<div class="media">
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/plastic.jpg" />
+		<p class="caption">
+			plastic that washed-up on bali's shores was arranged into a chart, to show what happens to plastic-objects after their first use. (you can read about this project on <a href="https://perpetual-plastic.net/">perpetual-plastic</a> and <a href="http://dataphys.org/list/perpetual-plastic/">dataphys</a>, and watch <a href="http://ericebner.com/perpetual-plastic">eric ebner</a>'s <a href="https://vimeo.com/522165954">video about it</a>.)
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/vases.jpg" />
+		<p class="caption">
+			in 2016, <a href="https://huoyijin.com/post/146509384400/sky-blue-%E5%A4%A9%E9%9D%92-royal-college-of-art-%E8%8B%B1%E5%9B%BD%E7%9A%87%E5%AE%B6%E8%89%BA%E6%9C%AF%E5%AD%A6%E9%99%A2">yijin huo</a> used a ru porcelain vase&mdash;well-known in his culture to be of &ldquo;the colour of the sky after the rain&rdquo;&mdash;as a <a href="#concretescales">concrete scale</a> to show the colour of the sky above beijing, in order to highlight damning air quality levels in the city. the project was also described on <a href="https://www.fastcompany.com/3061434/these-vases-are-stained-to-match-beijings-polluted-skies">fastcompany</a>.
+		</p>
+	</div>
+	<div class="item-halfwidth">
+		<img class="" src="/assets/media/reflections/202210 data manifestations/venice hands.jpg" />
+		<p class="caption">
+			Lorenzo Quinn made this in Venice, in 2017, as <a href="https://mashable.com/article/venice-hands-sculpture-sea-level-rise">&ldquo;a stark reminder that the city is sinking&rdquo;</a>. <span class="private_item">bombay experiences flooding too, and will suffer due to rising sea-levels in the decades to come, but this piece wouldn't have worked as well there, because 'sinking' is at-best a seasonal feeling (in the monsoons), and not isn't yet a term people collectively use to describe their city.</span> (one may argue that this is more a sculpture than a 'data manifestation' ; and it would be a fair argument. i do, however, refer to it as being both.)
+		</p>
+	</div>
+</div>
+
+<p><span class="private_item">
+	where can our manifestations be placed?: on a table, in a museum or gallery, outdoors, in homes, be ephemeral, as a performance, in a dining experience, or, basically, in any-and-every context where a person experiences things. it may be a single piece, or a group of objects, or a sequence of experiences tied together by a common story.
+</span></p>
+
+<p><span class="private_item">
+	like you see with <em>experience design</em>, there will be countless papers and projects which try to build-up theory about this (and that is fine), but no amount of theory can substitute sensitivity. spend time with the subject at hand, feel the data, take a stance, observe the context, discover what people relate with and value, develop a craft, believe in yourself :and good work will flow through you and manifest into the world. you can use theory to tune your work, but use your humanity to decide what to make in the first place.
+</span></p>
+
+<p>—</p>
+
+<h2 id="thinking-conceptually">thinking conceptually</h2>
+
+<p>at the end of the day, whether in written or visual or manifest form, and irrespective of finish, a design is only as strong as the <em>content</em> and <em>concept</em> it stems from. here are some prototypes made over 3 days, using paper and found/waste-materials, by my students in a data-manifestation workshop in 2022.</p>
+
+<p><a href="https://www.linkedin.com/in/prachi-raj1">prachi raj tiwari</a>: “13,000 school students died by suicide in india in 2021”.</p>
+
+<div class="media">
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2256-960.jpeg" />
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2255-960.jpeg" />
+</div>
+
+<p><a href="https://www.linkedin.com/in/saoniruikar">saoni ruikar</a>: “plastics are in the foodchain, and people ingest ¼ kg plastic a year”.</p>
+
+<div class="media">
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2264-960.jpeg" />
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2267-960.jpeg" />
+</div>
+
+<p><a href="https://www.linkedin.com/in/uddipta-gogoi-274633b8">uddipta gogoi</a>: 2-wheelers showed up in three statistics in india: 50% of all road deaths in india involved people on 2-wheelers ; a staggering rise in “quick” home-delivery services was being fulfilled by ‘gig’-workers riding 2-wheelers ; and, driving “quick” led to a three-fold increase in road-accident deaths. (note: i worked with uddipta on the text after the workshop.)</p>
+
+<div class="media">
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2247-edited-960.jpg" />
+	<img class="item-halfwidth" src="/assets/media/reflections/202210 data manifestations/../../teaching/202209 spab data manifestation/spa bhopal 2022 data manifestation IMG_2248-edited-1280.jpg" />
+</div>
+
+<p>—</p>
+
+<h2 id="a-designers-allegience-data-or-affect">a designer’s allegience: data or affect?</h2>
+
+<p>human endeavour should evidence integrity, compassion, and morality; and be about using technology to improve the world (instead of <em>misusing</em> the world to improve technology). <span class="private_item">once you grow past the initial infatuation with your craft, i hope you realise that </span>working with data is no different.</p>
+
+<p>our work is free to be visual, sonic, tasty, written, miniscule, fleeting, grand, intricate, painful, or something else: as long as it is <em>affective</em>.</p>
+
+<p>now, go!, <a href="https://duckduckgo.com/?q=Neil+Gaiman+2012+Commencement+Speech+Make+Good+Art&amp;ia=web" title="Neil Gaiman: 2012 Commencement Speech, titled &lsquo;Make Good Art&rsquo;">make good art</a>.</p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:noaffect" role="doc-endnote">
+      <p>in 2014, the World Bank <a href="https://documents.worldbank.org/en/publication/documents-reports/documentdetail/387501468322733597/which-world-bank-reports-are-widely-read" title="report authored by Doerte Doemeland and James Trevino in 2014 for the World Bank: 'Which world bank reports are widely read?' (report number WPS6851).">studied</a> how most reports published by it are never downloaded. the <a href="https://www.washingtonpost.com/news/wonk/wp/2014/05/08/the-solutions-to-all-our-problems-may-be-buried-in-pdfs-that-nobody-reads/"><em>Washington Post</em> wrote about it</a>, and questioned how the world-bank’s work may contribute to change if it is seldom read. <a href="#fnref:noaffect" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+      </div><div id="footer">
+	<!-- start: navigation --><!-- start: site title & menu -->
+		<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/teaching.html">teaching</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+<!-- end: site title & menu -->
+		<!-- start: show related posts --><!-- start: links to previous/next posts -->
+						<nav>
+							<span style="opacity:.25;"><em><!--category: -->reflections</em></span>
+							<br/><!-- display older post in category --><a href="/reflections/202208-making-is-a-political-act.html">
+									&larr;
+									making is a political act 
+								</a><br/>
+							<!-- display newer post in category --><a href="/reflections/202303-on-work-and-dignity.html"> 
+									on work and dignity
+									&rarr;
+								</a></nav>
+						<!-- end: links to previous/next posts--><!-- end: show related posts --><!-- end: navigation -->
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

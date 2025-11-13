@@ -1,0 +1,53 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dharun Ashokkumar: How I Made My Own Cybersecurity Lab at Home</title><meta name="description" content="Build isolated cybersecurity lab with VirtualBox, Kali Linux, and VulnHub machines. Practice penetration testing safely with Mr. Robot VM, Nikto, Gobuster, and Burp Suite."><meta name="keywords" content="cybersecurity lab, VirtualBox, Kali Linux, VulnHub, Mr. Robot VM, pentesting, Nikto, Gobuster, Burp Suite, ethical hacking, home lab"><meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" /><link rel="stylesheet" type="text/css" href='../css/styles.css'><meta property="og:type" content="website" /><meta property="og:title" content="How I Made My Own Cybersecurity Lab at Home"><meta property="og:url" content="https://dharunashokkumar.com/reflections/home-cybersecurity-lab.html"><meta property="og:site_name" content="Dharun Ashokkumar"></head><body><div id="container" class="post"><div id="header"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div><div id="content"><h1 class="title"><a href="/reflections/home-cybersecurity-lab.html">How I Made My Own Cybersecurity Lab at Home</a></h1><p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>Setting up a cybersecurity lab at home transformed my learning from theory to practice. Using free tools and VirtualBox, I created an isolated environment to safely practice penetration testing without risking real systems.</p>
+
+<h2>Tools Required (All Free)</h2>
+<ul><li><strong>VirtualBox</strong> – Free virtualization platform</li><li><strong>Kali Linux</strong> – Pentesting distribution with pre-installed tools</li><li><strong>VulnHub machines</strong> – Intentionally vulnerable VMs for practice</li><li><strong>8GB+ RAM</strong> – Comfortable for running 2-3 VMs simultaneously</li></ul>
+
+<h2>Setup Steps</h2>
+
+<h3>1. Install VirtualBox</h3>
+<p>Download from virtualbox.org, install on Windows/Mac/Linux.</p>
+
+<h3>2. Download Kali Linux VM</h3>
+<p>Get pre-built VirtualBox image from kali.org/get-kali. Import OVA file into VirtualBox.</p>
+
+<h3>3. Download Vulnerable Machines</h3>
+<p>VulnHub.com provides free vulnerable VMs. Started with <strong>Mr. Robot VM</strong> – based on TV show, great for beginners.</p>
+
+<h3>4. Configure Internal Network</h3>
+<p>Critical for safety—isolate lab from home network:</p>
+<ul><li>VirtualBox → Settings → Network → Internal Network</li><li>Name: "PentestLab"</li><li>Both Kali and vulnerable VM on same internal network</li><li>NO internet access from vulnerable machines</li></ul>
+
+<h3>5. Setup DHCP (Kali)</h3>
+<p>Kali acts as network infrastructure:</p>
+<pre><code>sudo systemctl start isc-dhcp-server</code></pre>
+
+<h2>Practice Workflow</h2>
+
+<h3>Reconnaissance</h3>
+<p>Discover target's IP:</p>
+<pre><code>netdiscover -r 192.168.56.0/24
+nmap -sV -sC [target-ip]</code></pre>
+
+<h3>Scanning with Nikto</h3>
+<p>Web vulnerability scanner:</p>
+<pre><code>nikto -h http://[target-ip]</code></pre>
+
+<h3>Directory Enumeration with Gobuster</h3>
+<p>Find hidden directories:</p>
+<pre><code>gobuster dir -u http://[target-ip] -w /usr/share/wordlists/dirb/common.txt</code></pre>
+
+<h3>Burp Suite for Web Analysis</h3>
+<p>Intercept and modify HTTP requests, find injection points, test parameters.</p>
+
+<h2>Safety Benefits</h2>
+<ul><li><strong>Isolated network</strong> – Can't accidentally attack real systems</li><li><strong>Snapshots</strong> – Revert VM to clean state anytime</li><li><strong>Legal</strong> – VulnHub VMs are meant to be attacked</li><li><strong>Learning</strong> – Make mistakes without consequences</li></ul>
+
+<h2>Learning Resources</h2>
+<ul><li>VulnHub.com – Free vulnerable VMs</li><li>HackTheBox.com – Online pentesting practice</li><li>OWASP WebGoat – Web security training</li><li>TryHackMe – Guided learning paths</li></ul>
+
+<p>Building a home cybersecurity lab is the best way to transition from reading about security to actually doing security. Start today—the skills you develop are invaluable.</p>
+
+</div><div id="footer"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div><script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script></body></html>

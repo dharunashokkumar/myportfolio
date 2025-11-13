@@ -1,0 +1,66 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dharun Ashokkumar: Cloudflare Tunnel + Dynu Setup (Access Raspberry Pi from Anywhere)</title><meta name="description" content="Complete guide to accessing Raspberry Pi remotely without port forwarding. Bypass Jio AirFiber shared IP issues using Dynu DDNS and Cloudflare Tunnel for secure HTTPS access."><meta name="keywords" content="Cloudflare Tunnel, Dynu DDNS, Raspberry Pi remote access, no port forwarding, cloudflared, dynamic DNS, Jio AirFiber, shared IP, HTTPS, MFA"><meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" /><link rel="stylesheet" type="text/css" href='../css/styles.css'><meta property="og:type" content="website" /><meta property="og:title" content="Cloudflare Tunnel + Dynu Setup"><meta property="og:url" content="https://dharunashokkumar.com/reflections/cloudflare-dynu-setup.html"><meta property="og:site_name" content="Dharun Ashokkumar"></head><body><div id="container" class="post"><div id="header"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div><div id="content"><h1 class="title"><a href="/reflections/cloudflare-dynu-setup.html">Cloudflare Tunnel + Dynu Setup (Access Raspberry Pi from Anywhere)</a></h1><p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>Jio AirFiber uses shared IPs, making traditional port forwarding impossible. This guide shows how to access your Raspberry Pi from anywhere using Dynu DDNS and Cloudflare Tunnel—no port forwarding needed.</p>
+
+<h2>The Problem</h2>
+<ul><li>Jio AirFiber assigns shared/CGNAT IP addresses</li><li>Can't port forward from external internet</li><li>Need secure remote access to Raspberry Pi server</li><li>Want HTTPS without managing certificates</li></ul>
+
+<h2>Requirements</h2>
+<ul><li>Raspberry Pi (or any server)</li><li>Free Dynu account (dynu.com)</li><li>Free Cloudflare account (cloudflare.com)</li><li>Domain name (optional, can use Dynu subdomain)</li></ul>
+
+<h2>Part 1: Dynu DDNS Setup</h2>
+
+<h3>Create Dynu Hostname</h3>
+<ol><li>Sign up at dynu.com</li><li>DDNS Services → Add</li><li>Choose hostname: mypiserver.freeddns.org</li><li>Set to your current IP (Dynu will update automatically)</li></ol>
+
+<h3>Install ddclient on Pi</h3>
+<pre><code>sudo apt install ddclient -y
+sudo nano /etc/ddclient.conf</code></pre>
+
+<p>Configure with Dynu credentials to keep hostname updated.</p>
+
+<h2>Part 2: Cloudflare Tunnel Setup</h2>
+
+<h3>Add Domain to Cloudflare</h3>
+<ol><li>Add site to Cloudflare account</li><li>Update nameservers at domain registrar</li><li>Or use Cloudflare's free subdomain</li></ol>
+
+<h3>Install cloudflared on Pi</h3>
+<pre><code>wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+sudo dpkg -i cloudflared-linux-arm64.deb</code></pre>
+
+<h3>Authenticate</h3>
+<pre><code>cloudflared tunnel login</code></pre>
+
+<h3>Create Tunnel</h3>
+<pre><code>cloudflared tunnel create mypi
+cloudflared tunnel route dns mypi pi.yourdomain.com</code></pre>
+
+<h3>Configure Tunnel</h3>
+<p>Edit ~/.cloudflared/config.yml:</p>
+<pre><code>tunnel: [tunnel-id]
+credentials-file: /home/pi/.cloudflared/[tunnel-id].json
+
+ingress:
+  - hostname: pi.yourdomain.com
+    service: http://localhost:80
+  - service: http_status:404</code></pre>
+
+<h3>Run as Service</h3>
+<pre><code>sudo cloudflared service install
+sudo systemctl start cloudflared
+sudo systemctl enable cloudflared</code></pre>
+
+<h2>Benefits</h2>
+<ul><li><strong>Bypass firewall/CGNAT</strong> – Works with Jio AirFiber restrictions</li><li><strong>Automatic SSL</strong> – HTTPS without certificate management</li><li><strong>No nameserver management</strong> – Cloudflare handles DNS</li><li><strong>DDoS protection</strong> – Cloudflare's network protects your Pi</li><li><strong>Fast</strong> – Cloudflare's global CDN</li></ul>
+
+<h2>Security Best Practices</h2>
+<ul><li>Enable Cloudflare Access for MFA</li><li>Restrict access by IP/country if needed</li><li>Use strong credentials on Pi services</li><li>Keep cloudflared updated</li><li>Monitor access logs</li><li>Don't expose unnecessary services</li></ul>
+
+<h2>Troubleshooting</h2>
+<p><strong>Tunnel won't start:</strong> Check cloudflared logs with <code>journalctl -u cloudflared -f</code></p>
+<p><strong>Can't access:</strong> Verify DNS propagation, check tunnel status in Cloudflare dashboard</p>
+<p><strong>502 error:</strong> Ensure local service (port 80) is running on Pi</p>
+
+<p>This setup transformed my Raspberry Pi from local-only to globally accessible server, all without port forwarding or static IP. Secure, reliable, free.</p>
+
+</div><div id="footer"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div><script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script></body></html>

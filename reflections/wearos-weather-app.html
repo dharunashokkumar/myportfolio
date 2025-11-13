@@ -1,0 +1,219 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dharun Ashokkumar: Build Your Own Weather App for Wear OS Using OpenWeather API</title><meta name="description" content="Tutorial for building Wear OS weather app using OpenWeather API. Features current temperature, weather icons, hourly updates, and power optimization for smartwatches."><meta name="keywords" content="Wear OS, weather app, OpenWeather API, Android Studio, smartwatch development, Retrofit, JSON parsing, battery optimization, wearable apps"><meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" /><link rel="stylesheet" type="text/css" href='../css/styles.css'><meta property="og:type" content="website" /><meta property="og:title" content="Build Your Own Weather App for Wear OS Using OpenWeather API"><meta property="og:url" content="https://dharunashokkumar.com/reflections/wearos-weather-app.html"><meta property="og:site_name" content="Dharun Ashokkumar"></head><body><div id="container" class="post"><div id="header"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div><div id="content"><h1 class="title"><a href="/reflections/wearos-weather-app.html">Build Your Own Weather App for Wear OS Using OpenWeather API</a></h1><p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>Building a weather app for Wear OS smartwatches teaches you about API integration, JSON parsing, battery-optimized updates, and designing for tiny screens. Here's how to create a functional weather app using OpenWeather API.</p>
+
+<h2>What We're Building</h2>
+
+<ul><li><strong>Current temperature display</strong> with weather icons</li><li><strong>Location-based weather</strong> using device GPS</li><li><strong>Hourly auto-updates</strong> in background</li><li><strong>Power-optimized</strong> to preserve battery</li><li><strong>Offline caching</strong> for last known weather</li></ul>
+
+<h2>Prerequisites</h2>
+
+<ul><li><strong>Wear OS device or emulator</strong></li><li><strong>Android Studio</strong> (latest version)</li><li><strong>OpenWeather API key</strong> (free at openweathermap.org)</li><li><strong>Basic Kotlin/Java knowledge</strong></li></ul>
+
+<h2>Step 1: Get OpenWeather API Key</h2>
+
+<ol><li>Sign up at openweathermap.org</li><li>Navigate to API keys section</li><li>Generate new key (free tier: 60 calls/minute, 1M calls/month)</li><li>Wait 10-15 minutes for activation</li></ol>
+
+<h2>Step 2: Create Wear OS Project</h2>
+
+<p>In Android Studio:</p>
+<ol><li>New Project → Wear OS templates</li><li>Select "Blank Wear OS app"</li><li>Language: Kotlin, Minimum SDK: API 30</li></ol>
+
+<h2>Step 3: Add Dependencies</h2>
+
+<p>In build.gradle (Module: app):</p>
+<pre><code>dependencies {
+    // Retrofit for API calls
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    
+    // Coroutines for async operations
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    
+    // Location services
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    
+    // Wear OS libraries
+    implementation 'androidx.wear:wear:1.3.0'
+}
+</code></pre>
+
+<h2>Step 4: Add Permissions</h2>
+
+<p>In AndroidManifest.xml:</p>
+<pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+</code></pre>
+
+<h2>Step 5: Create API Service</h2>
+
+<p>WeatherApiService.kt:</p>
+<pre><code>interface WeatherApiService {
+    @GET("weather")
+    suspend fun getWeather(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("appid") apiKey: String,
+        @Query("units") units: String = "metric"
+    ): WeatherResponse
+}
+</code></pre>
+
+<h2>Step 6: Data Models</h2>
+
+<p>Parse JSON from OpenWeather:</p>
+<pre><code>data class WeatherResponse(
+    val main: Main,
+    val weather: List<Weather>,
+    val name: String
+)
+
+data class Main(
+    val temp: Double,
+    val feels_like: Double,
+    val humidity: Int
+)
+
+data class Weather(
+    val id: Int,
+    val main: String,
+    val description: String,
+    val icon: String
+)
+</code></pre>
+
+<h2>Step 7: Design UI for Wear OS</h2>
+
+<p>Key considerations for watch screens:</p>
+<ul><li><strong>Large text</strong> – Easy to read at glance</li><li><strong>Minimal elements</strong> – Don't clutter tiny screen</li><li><strong>Round-aware layouts</strong> – Works on circular and square watches</li><li><strong>High contrast</strong> – Readable in sunlight</li></ul>
+
+<p>activity_main.xml:</p>
+<pre><code>&lt;androidx.wear.widget.BoxInsetLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+    
+    &lt;TextView
+        android:id="@+id/temperatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="48sp"
+        android:text="--°" /&gt;
+        
+    &lt;ImageView
+        android:id="@+id/weatherIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp" /&gt;
+        
+&lt;/androidx.wear.widget.BoxInsetLayout&gt;
+</code></pre>
+
+<h2>Step 8: Implement Location & API Call</h2>
+
+<p>MainActivity.kt:</p>
+<pre><code>class MainActivity : WearableActivity() {
+    
+    private val API_KEY = "your_api_key_here"
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        getLocationAndWeather()
+    }
+    
+    private fun getLocationAndWeather() {
+        // Get location using FusedLocationProviderClient
+        // Call API with coordinates
+        // Update UI with weather data
+    }
+}
+</code></pre>
+
+<h2>Step 9: Power Optimization</h2>
+
+<h3>Batch Updates</h3>
+<p>Don't update every minute—hourly is sufficient for weather.</p>
+
+<h3>Use WorkManager</h3>
+<p>Schedule periodic background updates:</p>
+<pre><code>val weatherWorkRequest = PeriodicWorkRequestBuilder&lt;WeatherWorker&gt;(
+    1, TimeUnit.HOURS
+).build()
+
+WorkManager.getInstance(context).enqueue(weatherWorkRequest)
+</code></pre>
+
+<h3>Cache Last Result</h3>
+<p>Store weather data locally (SharedPreferences) to show immediately on app launch without API call.</p>
+
+<h2>Step 10: Weather Icons</h2>
+
+<p>Map OpenWeather icon codes to local drawable resources:</p>
+<pre><code>fun getWeatherIcon(iconCode: String): Int {
+    return when(iconCode) {
+        "01d" -> R.drawable.ic_clear_day
+        "01n" -> R.drawable.ic_clear_night
+        "02d", "02n" -> R.drawable.ic_few_clouds
+        "09d", "09n" -> R.drawable.ic_rain
+        "10d", "10n" -> R.drawable.ic_rain_day
+        "11d", "11n" -> R.drawable.ic_thunderstorm
+        "13d", "13n" -> R.drawable.ic_snow
+        else -> R.drawable.ic_unknown
+    }
+}
+</code></pre>
+
+<h2>Advanced Features</h2>
+
+<h3>Complications</h3>
+<p>Show weather on watch face as complication:</p>
+<ul><li>Create ComplicationProviderService</li><li>Provide weather data to watch faces</li><li>Update periodically</li></ul>
+
+<h3>Tiles</h3>
+<p>Wear OS Tiles for quick glance:</p>
+<ul><li>Swipeable tile showing current weather</li><li>Multiple cities support</li><li>Forecast for next hours</li></ul>
+
+<h3>Multi-City</h3>
+<ul><li>Save favorite cities</li><li>Swipe between locations</li><li>Persistent storage with Room database</li></ul>
+
+<h2>Testing</h2>
+
+<h3>On Emulator</h3>
+<ol><li>Create Wear OS emulator in AVD Manager</li><li>Set location manually in emulator</li><li>Test different weather conditions</li></ol>
+
+<h3>On Real Device</h3>
+<ol><li>Enable Developer Options on watch</li><li>Enable ADB debugging</li><li>Connect via Wi-Fi or Bluetooth</li><li>Deploy and test in real conditions</li></ol>
+
+<h2>Common Issues & Solutions</h2>
+
+<h3>API Key Not Working</h3>
+<p>Wait 10-15 minutes after generation. Check activation email.</p>
+
+<h3>Location Permission Denied</h3>
+<p>Request runtime permissions properly on Android 6+.</p>
+
+<h3>Battery Drain</h3>
+<p>Reduce update frequency. Use WorkManager instead of AlarmManager. Avoid wake locks.</p>
+
+<h3>UI Not Fitting Round Screens</h3>
+<p>Use BoxInsetLayout for round-aware positioning.</p>
+
+<h2>Publishing to Play Store</h2>
+
+<ol><li>Create signed APK/Bundle</li><li>Prepare screenshots from both round and square watches</li><li>Write description highlighting Wear OS features</li><li>Set up Google Play Developer account</li><li>Upload and publish</li></ol>
+
+<h2>Learning Outcomes</h2>
+
+<ul><li><strong>API integration:</strong> RESTful APIs, Retrofit, async calls</li><li><strong>JSON parsing:</strong> Data classes, Gson converter</li><li><strong>Location services:</strong> Fused Location Provider</li><li><strong>Wear OS specifics:</strong> Complications, Tiles, round screens</li><li><strong>Battery optimization:</strong> Background work scheduling</li><li><strong>Permissions:</strong> Runtime permission handling</li></ul>
+
+<h2>Conclusion</h2>
+
+<p>Building a Wear OS weather app combines API integration, mobile development, and wearable-specific design considerations. The OpenWeather API provides reliable data, Retrofit simplifies networking, and Wear OS libraries handle device-specific challenges.</p>
+
+<p>From displaying temperature on your wrist to sophisticated complications and tiles, this project teaches fundamental skills applicable to any wearable or mobile app development.</p>
+
+<p>Start building, deploy to your smartwatch, and enjoy checking weather at a glance from your wrist.</p>
+
+</div><div id="footer"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div><script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script></body></html>

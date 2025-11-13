@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dharun Ashokkumar: Boosting My Jio AirFiber Range: Complete Home Networking Setup</title>
+    <meta name="description" content="Complete guide to improving Jio AirFiber coverage with router positioning, access points, Wi-Fi repeaters, channel optimization, static IPs, and remote access via Dynu DDNS and Cloudflare Tunnel.">
+    <meta name="keywords" content="Jio AirFiber, Wi-Fi range, home networking, router setup, access point, Wi-Fi repeater, channel optimization, static IP, DDNS, Cloudflare tunnel, network security">
+    <meta name="author" content="Dharun Ashokkumar">
+    <meta name="robots" content="index,follow">
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Boosting My Jio AirFiber Range: Complete Home Networking Setup">
+    <meta property="og:description" content="How I optimized my entire home network for better coverage, speed, and security.">
+    <meta property="og:url" content="https://dharunashokkumar.com/reflections/home-network-setup.html">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div><div id="content">
+<h1 class="title"><a href="/reflections/home-network-setup.html">Boosting My Jio AirFiber Range: Complete Home Networking Setup</a></h1>
+<p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>When I first got Jio AirFiber, the speeds were impressive but Wi-Fi coverage was lacking. Dead zones in bedrooms, weak signal upstairs, and IoT devices dropping connections. Here's how I transformed my home network from frustrating to flawless.</p>
+
+<h2>Problem 1: Router Positioning</h2>
+<p><strong>Solution:</strong> Used Wi-Fi Analyzer app (Android) to find optimal placement. Moved router from corner to central location. <strong>Result:</strong> 15-20% signal improvement throughout house.</p>
+
+<h2>Problem 2: Extended Coverage</h2>
+<p><strong>Solution:</strong> Repurposed old TP-Link router as secondary access point. Connected via Ethernet backhaul. <strong>Result:</strong> Eliminated dead zones, seamless roaming between APs.</p>
+
+<h3>Wi-Fi Repeater Alternative</h3>
+<p>Tried TP-Link range extender but found it halved speeds due to bandwidth sharing. Ethernet-connected AP is superior when possible.</p>
+
+<h2>Problem 3: Channel Congestion</h2>
+<p><strong>2.4GHz band:</strong> Switched to less congested channel (found via Wi-Fi Analyzer). <strong>5GHz band:</strong> Changed to channel 40 for better performance. <strong>Result:</strong> Reduced interference, faster speeds.</p>
+
+<h2>Problem 4: Device Management</h2>
+<p><strong>Static IPs assigned:</strong></p>
+<ul>
+<li>Raspberry Pi: 192.168.1.100</li>
+<li>TrueNAS server: 192.168.1.101</li>
+<li>ESP32 devices: 192.168.1.110-119</li>
+</ul>
+<p>Makes devices reliably accessible and simplifies port forwarding.</p>
+
+<h2>Problem 5: Remote Access</h2>
+<p><strong>Solution:</strong> Dynu DDNS for permanent hostname + Cloudflare Tunnel for secure access bypassing ISP restrictions. <strong>Result:</strong> Access Raspberry Pi server from anywhere with HTTPS encryption.</p>
+
+<h2>Problem 6: Security Concerns</h2>
+<p><strong>Measures implemented:</strong></p>
+<ul>
+<li>Changed default admin password</li>
+<li>Disabled remote admin access from WAN</li>
+<li>Created guest network for visitors</li>
+<li>Isolated IoT devices on separate VLAN</li>
+<li>Regular firmware updates</li>
+<li>Enabled WPA3 encryption</li>
+<li>Regular backups of router configuration</li>
+</ul>
+
+<h2>Final Network Topology</h2>
+<pre><code>
+Internet → Jio AirFiber Router (192.168.1.1)
+    ├── Main Wi-Fi (2.4GHz + 5GHz)
+    ├── Ethernet → Raspberry Pi (192.168.1.100)
+    ├── Ethernet → Secondary AP (different SSID or same for roaming)
+    ├── Ethernet → Desktop PC
+    └── IoT VLAN → ESP32 devices, smart home
+</code></pre>
+
+<h2>Performance Results</h2>
+<ul>
+<li><strong>Coverage:</strong> 100% of house, no dead zones</li>
+<li><strong>Speed:</strong> 250+ Mbps at router, 150+ Mbps at far end</li>
+<li><strong>Latency:</strong> 5-10ms to gateway</li>
+<li><strong>Uptime:</strong> 99.9% with UPS backup</li>
+<li><strong>Connected devices:</strong> 25+ simultaneously without issues</li>
+</ul>
+
+<h2>Lessons Learned</h2>
+<p><strong>1. Location matters more than power.</strong> Central placement beats stronger signal from corner.</p>
+<p><strong>2. Wired backhaul is king.</strong> Ethernet connections between APs provide better performance than wireless mesh.</p>
+<p><strong>3. Channel selection is crucial.</strong> Auto-select often chooses poorly. Manual optimization makes huge difference.</p>
+<p><strong>4. Security isn't optional.</strong> Default passwords and open admin panels are invitations to attackers.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+  </body>
+</html>

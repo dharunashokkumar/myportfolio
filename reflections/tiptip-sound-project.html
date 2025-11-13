@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dharun Ashokkumar: Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)</title>
+
+    <meta name="description" content="Troubleshooting and fixing Raspberry Pi 4 fan noise and cooling problems. Solutions include fan upgrade, heatsink case installation, and temperature optimization bringing temps from 55°C to 42°C.">
+    <meta name="keywords" content="Raspberry Pi cooling, fan noise, tip tip sound, Pi 4 temperature, heatsink case, Armor case, ball bearing fan, thermal management, overclock cooling, passive cooling">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <!-- crawling/indexing by search engines -->
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+    <!-- start: opengraph tags to make this page a rich-object -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)">
+      <meta property="og:description" content="How I solved Raspberry Pi 4 fan noise and reduced temperatures from 55°C to 42°C idle.">
+      <meta property="og:url" content="https://dharunashokkumar.com/reflections/tiptip-sound-project.html">
+      <meta property="og:site_name" content="Dharun Ashokkumar">
+    <!-- end: opengraph tags to make this page a rich-object -->
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/tiptip-sound-project.html">Fixing My Raspberry Pi Cooling Issues (That Weird 'Tip Tip' Sound)</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<p>If you've ever heard a weird "tip tip tip" sound coming from your Raspberry Pi, you know how annoying it can be. That rhythmic clicking drove me crazyespecially when running my Pi 4 as a 24/7 server. After investigating and trying several solutions, I finally achieved silent operation and dramatically better cooling.</p>
+
+<p>Here's the journey from annoying fan noise to whisper-quiet computing.</p>
+
+<h2>The Problem: That Weird "Tip Tip" Sound</h2>
+
+<p>My Raspberry Pi 4 started making a rhythmic clicking sound"tip tip tip"that got worse over time. It wasn't constant; it would come and go, especially during temperature fluctuations.</p>
+
+<h3>Initial Symptoms</h3>
+
+<ul>
+<li>Rhythmic clicking/ticking noise (tip tip tip)</li>
+<li>Idle temperature around 55°C (131°F)</li>
+<li>Temperature spikes to 65-70°C under load</li>
+<li>Fan running constantly but not effectively cooling</li>
+<li>Noise getting progressively worse over weeks</li>
+</ul>
+
+<h2>Diagnosing the Causes</h2>
+
+<p>After research and experimentation, I identified several contributing factors:</p>
+
+<h3>Cause 1: Worn Fan Bearings</h3>
+
+<p>The cheap sleeve-bearing fan that came with my case had degraded after months of continuous operation. Sleeve bearings wear out from:</p>
+
+<ul>
+<li>Continuous 24/7 operation</li>
+<li>Dust accumulation</li>
+<li>Lubricant drying out</li>
+<li>Heat cycling</li>
+</ul>
+
+<p>The "tip tip" sound was the fan blade hitting the housing as the bearing wobbled.</p>
+
+<h3>Cause 2: Vibration from AC Current</h3>
+
+<p>I noticed the sound intensified when certain loads were on the same circuit. The cheap fan was picking up electrical noise and vibrating at the AC frequency (50Hz in India), creating the rhythmic ticking.</p>
+
+<h3>Cause 3: Thermal Stress Cycles</h3>
+
+<p>Temperature cycling (cool ’ hot ’ cool) was causing expansion and contraction of plastic parts, making the fan mount loose and allowing vibration.</p>
+
+<h3>Cause 4: Inadequate Heat Dissipation</h3>
+
+<p>The fan was fighting a losing battle because:</p>
+<ul>
+<li>Small heatsinks with limited surface area</li>
+<li>Poor thermal contact with CPU</li>
+<li>Restricted airflow in the case</li>
+</ul>
+
+<p>This created a vicious cycle: inadequate cooling ’ fan runs harder ’ more noise and wear.</p>
+
+<h2>Solution 1: Relocating the Pi</h2>
+
+<p>First, I addressed environmental factors:</p>
+
+<h3>What I Did</h3>
+<ul>
+<li>Moved Pi away from other electronics</li>
+<li>Placed it on vibration-dampening foam</li>
+<li>Positioned it in better-ventilated area</li>
+<li>Used a dedicated power circuit (separate from AC/fridge)</li>
+</ul>
+
+<h3>Results</h3>
+<p>Noise reduced by about 30%, but the "tip tip" remained during load. Temperature dropped 2-3°C but still too high for comfort.</p>
+
+<p><strong>Verdict:</strong> Helpful but not sufficient.</p>
+
+<h2>Solution 2: Cleaning and Maintenance</h2>
+
+<h3>Deep Cleaning Process</h3>
+
+<ol>
+<li><strong>Power off completely</strong> (proper shutdown, not just pulling power)</li>
+<li><strong>Compressed air</strong> to remove dust from fan, heatsinks, board</li>
+<li><strong>Isopropyl alcohol</strong> (90%+) on cotton swabs for stubborn grime</li>
+<li><strong>Fan lubrication</strong>  carefully applied sewing machine oil to bearing</li>
+<li><strong>Thermal paste replacement</strong> on existing heatsinks</li>
+</ol>
+
+<h3>Results</h3>
+<p>Immediately after cleaning, noise reduced significantly and temperatures dropped 3-4°C. However, within a week, the tip-tip sound returned.</p>
+
+<p><strong>Verdict:</strong> Temporary fix; underlying problem remained.</p>
+
+<h2>Solution 3: Fan Upgrade to Ball Bearing</h2>
+
+<p>I replaced the cheap sleeve-bearing fan with a quality 30mm ball-bearing fan.</p>
+
+<h3>Why Ball Bearings?</h3>
+
+<ul>
+<li>Much longer lifespan (50,000+ hours vs. 20,000 for sleeve)</li>
+<li>Better performance in all orientations</li>
+<li>Resistant to vibration and shock</li>
+<li>Consistent performance over time</li>
+<li>Quieter operation (no wobble)</li>
+</ul>
+
+<h3>Fan Specifications</h3>
+
+<ul>
+<li><strong>Size:</strong> 30mm × 30mm × 10mm (common Raspberry Pi size)</li>
+<li><strong>Voltage:</strong> 5V DC</li>
+<li><strong>Current:</strong> 0.1-0.2A (Pi can safely provide via GPIO)</li>
+<li><strong>Speed:</strong> 5000-6000 RPM</li>
+<li><strong>Bearing type:</strong> Ball bearing (crucial!)</li>
+<li><strong>Cost:</strong> ¹150-¹250 online</li>
+</ul>
+
+<h3>Installation</h3>
+
+<pre><code>Red wire ’ GPIO Pin 4 (5V)
+Black wire ’ GPIO Pin 6 (Ground)
+</code></pre>
+
+<p>Mounted using original mounting holes with rubber grommets for vibration isolation.</p>
+
+<h3>Results</h3>
+
+<ul>
+<li>Noise completely eliminatedfan is whisper-quiet</li>
+<li>Temperature dropped another 3-4°C</li>
+<li>Consistent, reliable cooling</li>
+<li>No degradation after months of continuous use</li>
+</ul>
+
+<p><strong>Verdict:</strong> Major improvement, but I wanted even better.</p>
+
+<h2>Solution 4: Armor Aluminum Heatsink Case</h2>
+
+<p>The ultimate solution was upgrading to a full aluminum passive heatsink case.</p>
+
+<h3>What is an Armor Case?</h3>
+
+<p>An aluminum enclosure that serves as both case and giant heatsink:</p>
+
+<ul>
+<li>Entire case is precision-machined aluminum</li>
+<li>Direct thermal contact with Pi's CPU, RAM, and chips</li>
+<li>Massive surface area for heat dissipation</li>
+<li>No fan required for passive cooling</li>
+<li>Professional appearance</li>
+</ul>
+
+<h3>Product: Geekworm Raspberry Pi 4 Armor Case</h3>
+
+<ul>
+<li><strong>Price:</strong> ¹800-¹1,200 (varies by seller)</li>
+<li><strong>Material:</strong> CNC-machined aluminum alloy</li>
+<li><strong>Finish:</strong> Anodized black</li>
+<li><strong>Thermal pads:</strong> Included for CPU, RAM, power chip</li>
+<li><strong>Access:</strong> Cutouts for all ports, GPIO, camera, display</li>
+</ul>
+
+<h3>Installation Process</h3>
+
+<ol>
+<li><strong>Prepare Pi:</strong> Remove from old case, clean all components</li>
+<li><strong>Apply thermal pads:</strong> Stick pads to CPU, RAM, and USB controller chip</li>
+<li><strong>Position Pi:</strong> Carefully place Pi in bottom half of case</li>
+<li><strong>Close case:</strong> Top half presses thermal pads against aluminum</li>
+<li><strong>Secure screws:</strong> Tighten evenly for good thermal contact</li>
+</ol>
+
+<p><strong>Critical tip:</strong> Don't over-tighten screwscan warp board. Snug, not tight.</p>
+
+<h3>Results: Dramatic Improvement</h3>
+
+<p>Temperature comparison:</p>
+
+<pre><code>Before Armor Case:
+- Idle: 55°C (with active fan)
+- Light load: 60-65°C
+- Heavy load: 70-75°C
+
+After Armor Case:
+- Idle: 42°C (passive cooling only!)
+- Light load: 45-50°C
+- Heavy load: 55-60°C
+</code></pre>
+
+<p>That's a <strong>13°C reduction at idle</strong> and completely silent operation!</p>
+
+<h2>Monitoring Temperature</h2>
+
+<p>To track thermals, I use these commands:</p>
+
+<h3>Check Current Temperature</h3>
+
+<pre><code>vcgencmd measure_temp
+</code></pre>
+
+<h3>Continuous Monitoring</h3>
+
+<pre><code>watch -n 2 vcgencmd measure_temp
+</code></pre>
+
+<h3>Temperature with Load Test</h3>
+
+<pre><code># Generate load
+stress --cpu 4 --timeout 60s &
+
+# Monitor temps
+watch -n 1 vcgencmd measure_temp
+</code></pre>
+
+<h3>Automatic Logging</h3>
+
+<p>Created a cron job to log temperatures:</p>
+
+<pre><code>*/5 * * * * /usr/bin/vcgencmd measure_temp >> /var/log/pi-temps.log
+</code></pre>
+
+<p>This helps identify thermal patterns and catch problems early.</p>
+
+<h2>Alternative Cooling Solutions</h2>
+
+<p>If the Armor case doesn't fit your needs, consider:</p>
+
+<h3>1. ICE Tower Cooler</h3>
+<ul>
+<li>Massive tower heatsink with 40mm fan</li>
+<li>Overkill but extremely effective</li>
+<li>Can achieve sub-40°C even under heavy load</li>
+<li>Cost: ¹1,500-¹2,000</li>
+</ul>
+
+<h3>2. Flirc Aluminum Case</h3>
+<ul>
+<li>Similar to Armor but different design</li>
+<li>Excellent passive cooling</li>
+<li>Premium build quality</li>
+<li>Cost: ¹2,500-¹3,000</li>
+</ul>
+
+<h3>3. PWM Fan Control</h3>
+<ul>
+<li>Use transistor to control fan speed based on temperature</li>
+<li>Quiet at low temps, ramps up under load</li>
+<li>Requires basic electronics knowledge</li>
+<li>Cost: ¹100-¹200 in parts</li>
+</ul>
+
+<h3>4. Water Cooling (Experimental)</h3>
+<ul>
+<li>Custom water blocks available</li>
+<li>Absolutely silent and cool</li>
+<li>Complex installation, risk of leaks</li>
+<li>Cost: ¹3,000-¹5,000</li>
+<li><strong>Verdict:</strong> Cool factor high, practicality low</li>
+</ul>
+
+<h2>Thermal Management Best Practices</h2>
+
+<h3>1. Proper Case Ventilation</h3>
+<ul>
+<li>Intake from bottom/sides</li>
+<li>Exhaust from top/back</li>
+<li>Don't block vents</li>
+<li>Maintain airflow path</li>
+</ul>
+
+<h3>2. Ambient Temperature Control</h3>
+<ul>
+<li>Keep Pi in air-conditioned room if possible</li>
+<li>Avoid placing near heat sources</li>
+<li>Direct sunlight is enemy number one</li>
+</ul>
+
+<h3>3. Reduce Heat Generation</h3>
+<ul>
+<li>Disable unused features (HDMI, LEDs, unused USB)</li>
+<li>Don't overclock unless necessary</li>
+<li>Use efficient power supply</li>
+<li>Limit background processes</li>
+</ul>
+
+<h3>4. Quality Thermal Interface</h3>
+<ul>
+<li>Use good thermal paste (Arctic MX-4, Noctua NT-H1)</li>
+<li>Replace thermal pads if compressed</li>
+<li>Ensure full contact between components and heatsink</li>
+</ul>
+
+<h2>Is This Normal?</h2>
+
+<p>Many Pi users ask: "What temperature is normal?"</p>
+
+<h3>Safe Operating Range</h3>
+
+<ul>
+<li><strong>Idle: 40-50°C</strong>  Good</li>
+<li><strong>Light load: 50-60°C</strong>  Normal</li>
+<li><strong>Heavy load: 60-70°C</strong>  Acceptable</li>
+<li><strong>Sustained 70-80°C</strong>  Thermal throttling begins</li>
+<li><strong>Above 80°C</strong>  Automatic frequency reduction, performance impact</li>
+<li><strong>Above 85°C</strong>  System will throttle aggressively</li>
+</ul>
+
+<h3>When to Worry</h3>
+
+<ul>
+<li>Idle temps consistently above 60°C</li>
+<li>Hitting thermal throttling during normal use</li>
+<li>Temperature rapidly cycling (sign of poor thermal contact)</li>
+<li>Throttling icon appearing (thermometer in top-right corner)</li>
+</ul>
+
+<h2>Cost-Benefit Analysis</h2>
+
+<h3>My Total Cooling Investment</h3>
+
+<pre><code>Ball-bearing fan:       ¹200
+Armor heatsink case:    ¹1,000
+Thermal paste:          ¹150
+-----------------------------------
+Total:                  ¹1,350
+</code></pre>
+
+<h3>Benefits Achieved</h3>
+
+<ul>
+<li><strong>Silent operation</strong>  no fan noise at all</li>
+<li><strong>13°C cooler</strong>  extends component lifespan</li>
+<li><strong>No thermal throttling</strong>  consistent performance</li>
+<li><strong>Professional appearance</strong>  aluminum case looks great</li>
+<li><strong>Peace of mind</strong>  no worried about cooling failures</li>
+</ul>
+
+<h2>Lessons Learned</h2>
+
+<p><strong>1. Don't ignore weird noises.</strong> That tip-tip sound was warning of bearing failure. Early intervention prevents bigger problems.</p>
+
+<p><strong>2. Passive cooling is underrated.</strong> No fan means no noise and no mechanical failure point.</p>
+
+<p><strong>3. Temperature headroom matters.</strong> Running cooler extends hardware life and allows for future overclocking if needed.</p>
+
+<p><strong>4. Quality components are worth it.</strong> The difference between a ¹50 fan and ¹200 fan is night and day.</p>
+
+<p><strong>5. Monitor your system.</strong> Regular temperature checks catch problems before they become critical.</p>
+
+<h2>Conclusion</h2>
+
+<p>That annoying "tip tip tip" sound led me down a rabbit hole of thermal management, but the result is a Raspberry Pi that runs cool, quiet, and reliably 24/7. From 55°C idle with noisy fan to 42°C passive coolingthat's the power of proper thermal design.</p>
+
+<p>If your Pi is making weird sounds or running hot, don't ignore it. Whether it's a simple fan upgrade or a full aluminum case, the investment in proper cooling pays dividends in reliability, performance, and sanity.</p>
+
+<p>Silent computing is possible. Your Pi (and your ears) will thank you.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
+    </body>
+</html>

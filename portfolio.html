@@ -1,346 +1,368 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Dharun Ashokkumar</title>
-  <meta name="description" content="Portfolio of Dharun Ashokkumar - Web development projects and digital innovation">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #000;
-      background: #fff;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    header {
-      border-bottom: 2px solid #000;
-      padding-bottom: 20px;
-      margin-bottom: 60px;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      color: #000;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 20px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: #000;
-      text-decoration: underline;
-      font-weight: 400;
-    }
-
-    nav a:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    h1 {
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-size: 32px;
-      font-weight: 700;
-      margin: 60px 0 20px 0;
-      border-top: 2px solid #000;
-      padding-top: 40px;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 40px 0 10px 0;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    section {
-      margin-bottom: 80px;
-    }
-
-    .hero {
-      margin-bottom: 80px;
-    }
-
-    .subtitle {
-      font-size: 20px;
-      margin-bottom: 30px;
-      font-weight: 400;
-    }
-
-    .description {
-      font-size: 18px;
-      margin-bottom: 30px;
-      max-width: 700px;
-    }
-
-    .btn-group {
-      margin: 30px 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      margin: 5px 10px 5px 0;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid #000;
-    }
-
-    .btn:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    .btn.secondary {
-      background: #fff;
-      color: #000;
-    }
-
-    .btn.secondary:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 30px 0;
-    }
-
-    .tag {
-      padding: 6px 12px;
-      border: 1px solid #000;
-      font-size: 14px;
-    }
-
-    .project,
-    .article {
-      margin-bottom: 50px;
-      padding-bottom: 50px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .project:last-child,
-    .article:last-child {
-      border-bottom: none;
-    }
-
-    .tech-list {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 15px 0;
-      font-size: 14px;
-    }
-
-    .tech-list span {
-      padding: 4px 10px;
-      border: 1px solid #000;
-    }
-
-    .project-link,
-    .article-link {
-      font-weight: 600;
-      color: #000;
-      text-decoration: underline;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .project-link:hover,
-    .article-link:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    footer {
-      margin-top: 80px;
-      padding-top: 40px;
-      border-top: 2px solid #000;
-      font-size: 16px;
-    }
-
-    footer a {
-      color: #000;
-      text-decoration: underline;
-    }
-
-    footer a:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .menu-toggle:hover {
-      background: #fff;
-      color: #000;
-      border: 2px solid #000;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 20px 15px;
-        font-size: 16px;
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dharun Ashokkumar: portfolio</title>
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="stylesheet" type="text/css" href='css/styles.css'>
+    <style>
+      /* Clean expandable portfolio styles */
+      .portfolio-section {
+        margin-bottom: 1em;
+        border-bottom: 1px solid #ddd;
       }
-
-      h1 {
-        font-size: 36px;
+      
+      .section-header {
+        cursor: pointer;
+        padding: 1em 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
       }
-
-      h2 {
-        font-size: 28px;
+      
+      .section-header:hover {
+        opacity: 0.7;
       }
-
-      h3 {
-        font-size: 20px;
+      
+      .section-header h2 {
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: normal;
       }
-
-      .menu-toggle {
+      
+      .expand-icon {
+        font-family: monospace;
+        font-size: 1.2em;
+        transition: transform 0.3s ease;
+      }
+      
+      .section-header.active .expand-icon {
+        transform: rotate(90deg);
+      }
+      
+      .section-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .section-content.active {
+        max-height: 5000px;
+        padding-bottom: 1.5em;
+      }
+      
+      /* Timeline styles */
+      .timeline-item {
+        margin-bottom: 1.5em;
+      }
+      
+      .timeline-year {
+        font-family: monospace;
+        color: #666;
+        font-size: 0.9em;
         display: block;
+        margin-bottom: 0.3em;
       }
-
-      nav {
-        display: none;
+      
+      .timeline-content h3 {
+        margin: 0 0 0.3em 0;
+        font-size: 1em;
+        font-weight: bold;
       }
-
-      nav.active {
-        display: block;
-        margin-top: 20px;
+      
+      .timeline-content p {
+        margin: 0.5em 0;
+        line-height: 1.6;
       }
-
-      nav ul {
-        flex-direction: column;
-        gap: 10px;
+      
+      .detail {
+        color: #555;
+        font-size: 0.95em;
       }
-
-      nav a {
-        display: block;
-        padding: 10px 0;
+      
+      .achievements {
+        list-style: none;
+        padding: 0;
+        margin: 1em 0 0 0;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <a href="index" class="logo">Dharun Ashokkumar</a>
-    <button class="menu-toggle" id="menu-toggle">Menu</button>
-    <nav id="nav">
-      <ul>
-        <li><a href="index">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="tools">Tools</a></li>
-        <li><a href="blog">Blog</a></li>
-        <li><a href="portfolio">Portfolio</a></li>
-        <li><a href="services">Services</a></li>
-        <li><a href="contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+      
+      .achievements li {
+        padding-left: 1.5em;
+        margin-bottom: 0.5em;
+        position: relative;
+        font-size: 0.9em;
+        line-height: 1.5;
+      }
+      
+      .achievements li:before {
+        content: '→';
+        position: absolute;
+        left: 0;
+      }
+      
+      /* Skills grid */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5em;
+        margin-top: 1em;
+      }
+      
+      .skill-category h3 {
+        font-size: 0.9em;
+        font-weight: bold;
+        margin: 0 0 0.5em 0;
+      }
+      
+      .skill-category p {
+        margin: 0;
+        font-size: 0.9em;
+        line-height: 1.6;
+        color: #555;
+      }
+      
+      /* Mobile specific */
+      @media (max-width: 600px) {
+        .section-header h2 {
+          font-size: 1.1em;
+        }
+        
+        .skills-grid {
+          grid-template-columns: 1fr;
+          gap: 1em;
+        }
+        
+        .timeline-item {
+          margin-bottom: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="portfolio-page">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="portfolio.html" id="active_page">portfolio</a></li>
+            <li><a href="activities.html">activities</a></li>
+            <li><a href="reflections.html">reflections</a></li>
+          </ul>
+        </nav>
+      </div>
 
-  <main>
-    <section>
-      <h1>Portfolio</h1>
-      <p>A showcase of my work in web development, design, and digital innovation. Each project represents a unique challenge and creative solution.</p>
-    </section>
+      <div id="content">
+        <p class="intro">
+          studying at <a href="https://www.lpu.in/" target="_blank">lovely professional university</a>. 
+          working on <a href="https://dadscloud.com">dadscloud</a> and learning infrastructure. 
+          <span class="highlight">available for internships summer 2026</span>.
+        </p>
 
-    <article class="project">
-      <h2>University Management System</h2>
-      <p>A complete web application to manage students, teachers, courses, and exams for educational institutions.</p>
-      <p><strong>Technologies:</strong> HTML • React • CSS3 • JavaScript • Firebase • Node.js</p>
-    </article>
+        <!-- EDUCATION SECTION -->
+        <div class="portfolio-section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>education</h2>
+            <span class="expand-icon">→</span>
+          </div>
+          <div class="section-content">
+            <div class="timeline-item">
+              <span class="timeline-year">2024–2029</span>
+              <div class="timeline-content">
+                <h3>btech computer science engineering</h3>
+                <p><a href="https://www.lpu.in/" target="_blank">lovely professional university</a>, punjab</p>
+                <p class="detail">first semester student. coursework in programming fundamentals, data structures, and mathematics.</p>
+              </div>
+            </div>
 
-    <article class="project">
-      <h2>Personal AI Assistant (Cluely-like)</h2>
-      <p>A local AI assistant built using Electron and OpenAI API that can read screen content and help during interviews.</p>
-      <p><strong>Technologies:</strong> Electron • Node.js • OpenAI API • Tesseract OCR</p>
-      <p><a href="https://github.com/dharuna457/my-cuely">View on GitHub</a></p>
-    </article>
+            <div class="timeline-item">
+              <span class="timeline-year">2023–2024</span>
+              <div class="timeline-content">
+                <h3>intermediate (class xii) - pcm</h3>
+                <p>sri abhida junior college, hyderabad · 90%</p>
+              </div>
+            </div>
 
-    <article class="project">
-      <h2>Quotation Generator for Electronics Company</h2>
-      <p>A tool to generate professional quotations for clients in PDF format.</p>
-      <p><strong>Technologies:</strong> Python • JavaScript • HTML • CSS</p>
-    </article>
+            <div class="timeline-item">
+              <span class="timeline-year">ongoing</span>
+              <div class="timeline-content">
+                <h3>continuous learning</h3>
+                <ul class="achievements">
+                  <li>meta front-end development certificate (in progress)</li>
+                  <li>google cybersecurity certificate (in progress)</li>
+                  <li>machine learning fundamentals (self-study)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <article class="project">
-      <h2>Weather Tracking App (Village Specific)</h2>
-      <p>A weather forecast app that displays live weather information for your village using the OpenWeather API.</p>
-      <p><strong>Technologies:</strong> HTML • OpenWeather API • D3.js • REST API</p>
-    </article>
+        <!-- EXPERIENCE SECTION -->
+        <div class="portfolio-section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>experience</h2>
+            <span class="expand-icon">→</span>
+          </div>
+          <div class="section-content">
+            <div class="timeline-item">
+              <span class="timeline-year">oct 2024–jan 2025</span>
+              <div class="timeline-content">
+                <h3>development intern</h3>
+                <p><a href="https://pantech.ai" target="_blank">pantech prolabs india pvt ltd</a> · remote</p>
+                <p class="detail">three-month internship in development team under supervisor sanjay.</p>
+                <ul class="achievements">
+                  <li>contributed to production codebase with code reviews</li>
+                  <li>learned professional development practices</li>
+                  <li>experienced team development workflows</li>
+                </ul>
+              </div>
+            </div>
 
-    <article class="project">
-      <h2>Blogging Website</h2>
-      <p>A personal blog platform for publishing articles and posts.</p>
-      <p><strong>Technologies:</strong> HTML • Firebase • D3.js • CSS • JavaScript</p>
-    </article>
+            <div class="timeline-item">
+              <span class="timeline-year">2023–present</span>
+              <div class="timeline-content">
+                <h3>personal project</h3>
+                <p><a href="/projects/dadscloud.html">dadscloud</a></p>
+                <p class="detail">working on cloud infrastructure project focused on making hosting accessible.</p>
+                <ul class="achievements">
+                  <li>learning infrastructure fundamentals hands-on</li>
+                  <li>experimenting with different approaches to hosting</li>
+                  <li>understanding reliability and system design</li>
+                </ul>
+              </div>
+            </div>
 
-    <article class="project">
-      <h2>Cloud Storage on Raspberry Pi</h2>
-      <p>A personal cloud server setup using Raspberry Pi and TrueNAS for file sharing in a local network.</p>
-      <p><strong>Technologies:</strong> Raspberry Pi • TrueNAS • Linux</p>
-    </article>
-  </main>
+            <div class="timeline-item">
+              <span class="timeline-year">2021–2024</span>
+              <div class="timeline-content">
+                <h3>freelance projects</h3>
+                <p>various clients · remote</p>
+                <p class="detail">built websites and small applications to learn client work.</p>
+                <ul class="achievements">
+                  <li>websites for local businesses</li>
+                  <li>learned wordpress, basic react, deployment</li>
+                  <li>practiced client communication</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <footer>
-    <p>
-      <a href="privacy-policy">Privacy Policy</a> |
-      <a href="terms">Terms & Conditions</a>
-    </p>
-    <p>© 2025 Dharun Ashokkumar</p>
-  </footer>
+        <!-- SKILLS SECTION -->
+        <div class="portfolio-section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>technical skills</h2>
+            <span class="expand-icon">→</span>
+          </div>
+          <div class="section-content">
+            <div class="skills-grid">
+              <div class="skill-category">
+                <h3>languages</h3>
+                <p>python, javascript, c, html/css, bash</p>
+              </div>
 
-  <script>
-    const toggle = document.getElementById('menu-toggle');
-    const nav = document.getElementById('nav');
+              <div class="skill-category">
+                <h3>web development</h3>
+                <p>react, node.js, wordpress, vercel</p>
+              </div>
 
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        toggle.textContent = nav.classList.contains('active') ? 'Close' : 'Menu';
-      });
-    }
-  </script>
-</body>
+              <div class="skill-category">
+                <h3>infrastructure</h3>
+                <p>docker, linux, git, nginx, cloudflare</p>
+              </div>
+
+              <div class="skill-category">
+                <h3>hardware & iot</h3>
+                <p>arduino, esp32, raspberry pi, rfid, sensors</p>
+              </div>
+
+              <div class="skill-category">
+                <h3>currently learning</h3>
+                <p>machine learning, data structures, computer vision</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOURNEY SECTION -->
+        <div class="portfolio-section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>journey</h2>
+            <span class="expand-icon">→</span>
+          </div>
+          <div class="section-content">
+            <div class="timeline-item">
+              <span class="timeline-year">2020</span>
+              <p class="detail">started with python basics and first arduino projects. discovered making leds blink.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-year">2021</span>
+              <p class="detail">learned web fundamentals. built first live website. started freelance work.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-year">2022</span>
+              <p class="detail">got first raspberry pi. discovered self-hosting. built iot systems.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-year">2023</span>
+              <p class="detail">deep dive into cloud platforms. started learning cybersecurity. began dadscloud architecture.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-year">2024</span>
+              <p class="detail">integrated ai into projects. learned react properly. developed distributed systems. joined pantech internship.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-year">2025</span>
+              <p class="detail">focusing on production systems. learning ml and dsa through structured courses. continuing to build.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISION SECTION -->
+        <div class="portfolio-section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>vision</h2>
+            <span class="expand-icon">→</span>
+          </div>
+          <div class="section-content">
+            <p class="detail">
+              build technology that actually helps people. create tools and infrastructure that enable others to build their ideas.
+            </p>
+            <p class="detail">
+              focus on learning continuously, building consistently, and helping others along the way.
+            </p>
+            <p class="detail">
+              keep learning. keep building. keep improving.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script>
+      function toggleSection(header) {
+        const content = header.nextElementSibling;
+        const isActive = header.classList.contains('active');
+        
+        // Toggle active state
+        if (isActive) {
+          header.classList.remove('active');
+          content.classList.remove('active');
+        } else {
+          header.classList.add('active');
+          content.classList.add('active');
+        }
+      }
+    </script>
+  </body>
 </html>

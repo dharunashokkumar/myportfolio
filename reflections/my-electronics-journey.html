@@ -1,0 +1,65 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dharun Ashokkumar: My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments</title><meta name="description" content="Progression through electronics from Arduino Uno basics to ESP32 IoT projects. LCD displays, RFID, sensors, Raspberry Pi servers, LoRa communications, and lessons learned along the way."><meta name="keywords" content="Arduino, Raspberry Pi, ESP32, electronics journey, RFID, LCD, sensors, IoT, LoRa SX1278, Python, GPIO, breadboard, datasheets"><meta name="author" content="Dharun Ashokkumar"><meta name="robots" content="index,follow"><link rel="icon" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" /><link rel="stylesheet" type="text/css" href='../css/styles.css'><meta property="og:type" content="website" /><meta property="og:title" content="My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments"><meta property="og:url" content="https://dharunashokkumar.com/reflections/my-electronics-journey.html"><meta property="og:site_name" content="Dharun Ashokkumar"></head><body><div id="container" class="post"><div id="header"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div><div id="content"><h1 class="title"><a href="/reflections/my-electronics-journey.html">My Electronics Journey – Arduino, Raspberry Pi & ESP32 Experiments</a></h1><p class="post-meta"><small><span class="date">2024</span><span class="categories"><em>filed under: </em><a href="/reflections.html">reflections</a></span></small></p>
+
+<p>My electronics journey began with a simple Arduino Uno and has evolved into complex IoT systems with ESP32, cloud servers with Raspberry Pi, and long-range communications with LoRa. Here's the progression and lessons learned.</p>
+
+<h2>Phase 1: Arduino Uno Basics</h2>
+
+<h3>First Projects</h3>
+<ul><li><strong>Blinking LED</strong> – The "Hello World" of electronics</li><li><strong>LCD Displays (16×2)</strong> – Displaying custom messages via I2C</li><li><strong>RFID Modules (RC522)</strong> – Reading cards for access control</li><li><strong>Seven-segment displays</strong> – Building digital counters</li><li><strong>Temperature sensors (DHT11/DHT22)</strong> – Measuring environment</li></ul>
+
+<h3>Key Learnings</h3>
+<ul><li>Understanding breadboard connections</li><li>Reading pin diagrams</li><li>Basic C programming for Arduino</li><li>Serial communication for debugging</li><li>Importance of common ground</li></ul>
+
+<h2>Phase 2: Raspberry Pi 4 – Real Computing</h2>
+
+<h3>Projects</h3>
+<ul><li><strong>Cloud storage server</strong> – Samba file sharing + remote access</li><li><strong>Web hosting</strong> – Apache/Nginx for personal sites</li><li><strong>IoT hub</strong> – Controlling devices with Python scripts</li><li><strong>Home automation</strong> – GPIO control of relays and sensors</li></ul>
+
+<h3>Key Learnings</h3>
+<ul><li>Linux command line proficiency</li><li>Python for GPIO control</li><li>Server administration basics</li><li>Networking concepts (static IPs, DDNS, tunnels)</li><li>System reliability (UPS, backups, proper shutdowns)</li></ul>
+
+<h2>Phase 3: ESP32 – Wireless IoT</h2>
+
+<h3>Projects</h3>
+<ul><li><strong>Wi-Fi/Bluetooth connectivity</strong> – Wireless sensor networks</li><li><strong>Video streaming</strong> – ESP32-CAM for surveillance</li><li><strong>QR vending machine</strong> – Integrated with Firebase</li><li><strong>Web servers</strong> – Hosting control interfaces on ESP32</li><li><strong>MQTT communication</strong> – Real-time data transmission</li></ul>
+
+<h3>Key Learnings</h3>
+<ul><li>Wireless protocol handling (Wi-Fi, Bluetooth, BLE)</li><li>Power management for battery-operated devices</li><li>API integration (REST, Firebase, MQTT)</li><li>Dual-core programming on ESP32</li><li>Camera interfacing and image processing</li></ul>
+
+<h2>Phase 4: LoRa SX1278 – Long-Range Communication</h2>
+
+<h3>Projects</h3>
+<ul><li>Point-to-point communication (up to 2km in urban area)</li><li>Sensor networks without Wi-Fi dependency</li><li>Agricultural monitoring with low power consumption</li></ul>
+
+<h3>Key Learnings</h3>
+<ul><li>Radio frequency basics</li><li>Understanding bandwidth vs. range trade-offs</li><li>Antenna design importance</li><li>Low-power wide-area networks (LPWAN)</li></ul>
+
+<h2>Important Lessons Learned</h2>
+
+<h3>1. Patience is Essential</h3>
+<p>Electronics rarely work on first try. Debugging is 80% of the process. Embrace it.</p>
+
+<h3>2. Read Datasheets Thoroughly</h3>
+<p>Module specifications aren't suggestions—they're requirements. Wrong voltage = fried component.</p>
+
+<h3>3. Build Incrementally</h3>
+<p>Test each component individually before integrating. Troubleshooting complex systems is nightmare; troubleshooting simple modules is manageable.</p>
+
+<h3>4. Electrical Safety First</h3>
+<ul><li>Never work on live mains power</li><li>Use proper fuses and protection</li><li>Understand current limits</li><li>Don't short batteries</li></ul>
+
+<h3>5. Documentation Matters</h3>
+<p>Comment your code, label your wires, take photos of working setups. Future you will be grateful.</p>
+
+<h2>Tools Every Electronics Hobbyist Needs</h2>
+<ul><li><strong>Multimeter</strong> – Measure voltage, current, continuity (₹500-1000)</li><li><strong>Breadboard & jumper wires</strong> – Prototyping without soldering</li><li><strong>Soldering iron</strong> – Permanent connections (₹300-2000)</li><li><strong>Wire strippers</strong> – Clean wire preparation</li><li><strong>Power supply</strong> – Adjustable voltage/current source</li><li><strong>USB-UART adapter</strong> – Programming and debugging</li></ul>
+
+<h2>Common Mistakes I Made</h2>
+<ul><li>Connecting 5V module to 3.3V pin → Fried ESP32</li><li>Forgetting common ground between power supplies</li><li>Using cheap jumper wires that broke during demos</li><li>Not using pull-up/pull-down resistors where needed</li><li>Powering high-current devices from Arduino pins</li></ul>
+
+<h2>Next Steps</h2>
+<ul><li>PCB design and fabrication</li><li>Advanced motor control (stepper motors, servos)</li><li>Integration with machine learning (TinyML on ESP32)</li><li>Custom sensor development</li><li>Product prototyping for TripleETech</li></ul>
+
+<p>Electronics isn't just about components and code—it's about bringing ideas to physical reality. Every project teaches something new. Start simple, build consistently, never stop learning.</p>
+
+</div><div id="footer"><h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav><ul><li><a href="/projects.html">projects</a></li><li><a href="/portfolio.html">portfolio</a></li><li><a href="/activities.html">activities</a></li><li><a href="/reflections.html">reflections</a></li></ul></nav></div></div><script src="/assets/js/responsiveVideo.js"></script><script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script></body></html>
