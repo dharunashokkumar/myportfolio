@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Repurposing Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..900;1,9..144,200..900&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --terracotta: #c56a58;
+            --olive: #5a6f54;
+            --sand: #f5f0e8;
+            --burnt-umber: #8b5a3c;
+            --sage: #a4b5a0;
+            --cream: #fffcf5;
+            --charcoal: #2a2a2a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --border: #e8e7e3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(138, 90, 60, 0.015) 2px, rgba(138, 90, 60, 0.015) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(138, 90, 60, 0.01) 2px, rgba(138, 90, 60, 0.01) 4px);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, 
+                rgba(197, 106, 88, 0.06) 0%, 
+                rgba(197, 106, 88, 0.02) 40%,
+                transparent 70%);
+            border-radius: 43% 57% 61% 39% / 52% 41% 59% 48%;
+            animation: heroBlob 20s ease-in-out infinite;
+            z-index: -1;
+            filter: blur(30px);
+        }
+
+        @keyframes heroBlob {
+            0%, 100% { 
+                border-radius: 43% 57% 61% 39% / 52% 41% 59% 48%;
+                transform: translateX(-50%) rotate(0deg) scale(1);
+            }
+            33% { 
+                border-radius: 58% 42% 39% 61% / 48% 59% 41% 52%;
+                transform: translateX(-50%) rotate(120deg) scale(1.1);
+            }
+            66% { 
+                border-radius: 39% 61% 57% 43% / 41% 52% 48% 59%;
+                transform: translateX(-50%) rotate(240deg) scale(0.95);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(42px, 6vw, 78px);
+            font-weight: 320;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 5%;
+            right: 5%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--terracotta) 3%,
+                var(--terracotta) 97%,
+                transparent 100%);
+            border-radius: 45% 55% 48% 52% / 52% 48% 51% 49%;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: drawUnderline 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
+            opacity: 0.3;
+        }
+
+        @keyframes drawUnderline {
+            to {
+                transform: scaleX(1) rotate(-0.5deg);
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 19px;
+            color: var(--text-secondary);
+            font-weight: 430;
+            letter-spacing: 0.003em;
+            margin-bottom: 16px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .tagline {
+            font-size: 15px;
+            color: var(--burnt-umber);
+            font-style: italic;
+            opacity: 0.6;
+            font-weight: 450;
+        }
+
+        .source-card {
+            background: linear-gradient(105deg, 
+                rgba(255, 252, 245, 0.95) 0%, 
+                rgba(245, 240, 232, 0.9) 100%);
+            border: 0.5px solid rgba(232, 231, 227, 0.4);
+            padding: 35px 40px;
+            margin-bottom: 60px;
+            position: relative;
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.03),
+                0 8px 24px rgba(0, 0, 0, 0.02);
+            clip-path: polygon(
+                0% 0%, 99.5% 0%, 100% 1%, 100% 98.5%, 
+                99% 99%, 98% 100%, 2% 100%, 1% 99.5%, 0% 98%
+            );
+        }
+
+        .source-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--terracotta) 20%,
+                var(--terracotta) 80%,
+                transparent 100%);
+            border-radius: 0 0 50% 50%;
+            opacity: 0.25;
+        }
+
+        .source-card h3 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--terracotta);
+            margin-bottom: 14px;
+        }
+
+        .source-title {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 420;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+
+        .source-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 450;
+        }
+
+        .source-meta span::after {
+            content: '·';
+            margin-left: 20px;
+            color: var(--terracotta);
+            opacity: 0.2;
+        }
+
+        .source-meta span:last-child::after {
+            display: none;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 60px;
+            padding: 10px;
+            background: linear-gradient(105deg, 
+                rgba(255, 252, 245, 0.6) 0%, 
+                rgba(245, 240, 232, 0.5) 100%);
+            border: 0.5px solid rgba(232, 231, 227, 0.4);
+            border-radius: 8px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .tabs::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle,
+                rgba(197, 106, 88, 0.12) 0%,
+                rgba(197, 106, 88, 0.06) 40%,
+                transparent 70%);
+            border-radius: 48% 52% 55% 45% / 43% 57% 48% 52%;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 0;
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .tabs.splash::before {
+            width: 200px;
+            height: 200px;
+            animation: inkSplash 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes inkSplash {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.3) rotate(180deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 0.6;
+            }
+        }
+
+        .tab {
+            padding: 13px 24px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 460;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.005em;
+            border-radius: 4px 18px 5px 16px / 16px 5px 17px 4px;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle,
+                rgba(164, 181, 160, 0.08) 0%,
+                transparent 70%);
+            border-radius: inherit;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: scale(0.8) rotate(0deg);
+            z-index: -1;
+        }
+
+        .tab:hover::before {
+            opacity: 1;
+            transform: scale(1.15) rotate(180deg);
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+            font-weight: 490;
+            transform: translateY(-2px) rotate(-0.3deg);
+        }
+
+        .tab.active {
+            color: var(--text-primary);
+            background: linear-gradient(104deg, 
+                rgba(255, 255, 255, 0.85) 0%, 
+                rgba(255, 252, 245, 0.75) 100%);
+            border: 0.5px solid rgba(197, 106, 88, 0.15);
+            font-weight: 510;
+            box-shadow: 
+                0 2px 8px rgba(197, 106, 88, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px) rotate(-0.2deg);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            left: 12px;
+            right: 12px;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--terracotta) 15%,
+                var(--terracotta) 85%,
+                transparent 100%);
+            border-radius: 50% 50% 48% 52%;
+            opacity: 0.3;
+            transform: scaleX(1.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInContent 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-header {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .content-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 46px;
+            font-weight: 340;
+            letter-spacing: -0.015em;
+            margin-bottom: 14px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(92deg,
+                transparent 0%,
+                rgba(197, 106, 88, 0.15) 5%,
+                rgba(197, 106, 88, 0.25) 50%,
+                rgba(197, 106, 88, 0.15) 95%,
+                transparent 100%);
+            border-radius: 2px 88% 3px 85% / 92% 2px 87% 4px;
+            transform: rotate(-0.8deg) scaleX(1.02);
+        }
+
+        .content-header p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 440;
+            letter-spacing: 0.004em;
+        }
+
+        .carousel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            margin: 40px 0;
+        }
+
+        .slide-card {
+            background: linear-gradient(108deg, 
+                rgba(255, 255, 255, 0.92) 0%, 
+                rgba(255, 252, 245, 0.88) 100%);
+            border: 0.5px solid rgba(232, 231, 227, 0.5);
+            padding: 45px 35px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 
+                0 2px 6px rgba(0, 0, 0, 0.02),
+                0 6px 18px rgba(0, 0, 0, 0.015);
+            border-radius: 6px;
+            overflow: visible;
+        }
+
+        .slide-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: inherit;
+            z-index: -1;
+            border-radius: inherit;
+            clip-path: polygon(
+                0% 0.5%, 2% 0%, 98% 0%, 100% 1%, 
+                100% 99%, 98.5% 100%, 1% 100%, 0% 98.5%
+            );
+        }
+
+        .slide-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%,
+                rgba(164, 181, 160, 0.08) 0%,
+                transparent 60%);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .slide-card:hover {
+            transform: translateY(-6px) rotate(-0.4deg) scale(1.01);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.04),
+                0 20px 40px rgba(0, 0, 0, 0.025);
+            border-color: rgba(197, 106, 88, 0.2);
+        }
+
+        .slide-card:hover::after {
+            opacity: 1;
+        }
+
+        .slide-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--terracotta);
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .slide-title {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 420;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+
+        .slide-content {
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            font-weight: 430;
+            letter-spacing: 0.002em;
+        }
+
+        .slide-card.dark {
+            background: linear-gradient(105deg, 
+                rgba(139, 90, 60, 0.92) 0%, 
+                rgba(90, 111, 84, 0.88) 100%);
+            color: var(--cream);
+        }
+
+        .slide-card.dark .slide-number {
+            color: var(--sage);
+        }
+
+        .slide-card.dark .slide-title {
+            color: var(--cream);
+        }
+
+        .slide-card.dark .slide-content {
+            color: rgba(255, 252, 245, 0.85);
+        }
+
+        .slide-card.light {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        .slide-card.accent {
+            background: linear-gradient(102deg, 
+                rgba(197, 106, 88, 0.08) 0%, 
+                rgba(212, 165, 116, 0.06) 100%);
+        }
+
+        .tweet {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(232, 231, 227, 0.4);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 16px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .tweet::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 0;
+            bottom: 8px;
+            width: 3px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                var(--terracotta) 10%,
+                var(--burnt-umber) 50%,
+                var(--terracotta) 90%,
+                transparent 100%);
+            border-radius: 0 50% 50% 0;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: scaleY(0.5);
+        }
+
+        .tweet:hover {
+            transform: translateX(8px) rotate(-0.2deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border-color: rgba(197, 106, 88, 0.25);
+        }
+
+        .tweet:hover::before {
+            opacity: 0.4;
+            transform: scaleY(1);
+        }
+
+        .tweet-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--terracotta);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .tweet-text {
+            color: var(--text-primary);
+            line-height: 1.75;
+            font-size: 15px;
+            font-weight: 430;
+            letter-spacing: 0.002em;
+        }
+
+        .tweet-text strong {
+            font-weight: 560;
+            color: var(--burnt-umber);
+            position: relative;
+            padding: 0 2px;
+        }
+
+        .email {
+            background: linear-gradient(103deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 252, 245, 0.9) 100%);
+            border: 0.5px solid rgba(232, 231, 227, 0.5);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+            box-shadow: 
+                0 3px 10px rgba(0, 0, 0, 0.025),
+                0 10px 30px rgba(0, 0, 0, 0.015);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .email::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle,
+                rgba(90, 111, 84, 0.06) 0%,
+                rgba(90, 111, 84, 0.02) 40%,
+                transparent 70%);
+            border-radius: 42% 58% 61% 39% / 51% 43% 57% 49%;
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            filter: blur(15px);
+        }
+
+        .email:hover {
+            transform: translateY(-4px) rotate(-0.15deg);
+            box-shadow: 
+                0 6px 18px rgba(0, 0, 0, 0.035),
+                0 16px 45px rgba(0, 0, 0, 0.02);
+            border-color: rgba(197, 106, 88, 0.2);
+        }
+
+        .email:hover::after {
+            opacity: 1;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .email-header {
+            border-bottom: 0.5px solid rgba(232, 231, 227, 0.4);
+            padding-bottom: 22px;
+            margin-bottom: 26px;
+        }
+
+        .email-subject {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            font-weight: 440;
+            letter-spacing: -0.012em;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .email-meta {
+            font-size: 12px;
+            color: var(--terracotta);
+            font-weight: 550;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .email-body {
+            color: var(--text-secondary);
+            line-height: 1.82;
+            font-size: 15px;
+            font-weight: 430;
+            letter-spacing: 0.003em;
+        }
+
+        .email-body p {
+            margin-bottom: 16px;
+        }
+
+        .email-body strong {
+            color: var(--text-primary);
+            font-weight: 530;
+            position: relative;
+            padding: 0 3px;
+            margin: 0 -3px;
+        }
+
+        .email-body strong::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(104deg, 
+                transparent 4%, 
+                rgba(212, 165, 116, 0.1) 10%,
+                rgba(212, 165, 116, 0.18) 50%,
+                rgba(212, 165, 116, 0.1) 90%,
+                transparent 96%);
+            transform: rotate(-0.8deg);
+            border-radius: 2px 85% 3px 88% / 92% 2px 89% 3px;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .podcast-segment {
+            background: rgba(255, 255, 255, 0.65);
+            border-left: 3px solid transparent;
+            border-image: linear-gradient(180deg, 
+                transparent 5%,
+                var(--terracotta) 15%,
+                var(--olive) 50%,
+                var(--terracotta) 85%,
+                transparent 95%) 1;
+            padding: 32px;
+            margin-bottom: 24px;
+            border-radius: 4px 8px 4px 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .podcast-segment:hover {
+            transform: translateX(6px) rotate(-0.1deg);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .podcast-time {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--terracotta);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .podcast-title {
+            font-family: 'Fraunces', serif;
+            font-size: 26px;
+            font-weight: 420;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            line-height: 1.25;
+        }
+
+        .podcast-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+            font-weight: 430;
+        }
+
+        .podcast-content p {
+            margin-bottom: 14px;
+        }
+
+        .podcast-content strong {
+            color: var(--text-primary);
+            font-weight: 540;
+        }
+
+        .soundbite {
+            background: linear-gradient(105deg, 
+                rgba(164, 181, 160, 0.1) 0%, 
+                rgba(164, 181, 160, 0.05) 100%);
+            border-left: 3px solid var(--sage);
+            padding: 20px 24px;
+            margin: 20px 0;
+            border-radius: 3px 12px 4px 10px / 14px 3px 13px 4px;
+            font-style: italic;
+            color: var(--text-primary);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            position: relative;
+            font-weight: 450;
+            letter-spacing: 0.001em;
+        }
+
+        .soundbite::before {
+            content: '💬';
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 28px;
+            opacity: 0.15;
+            filter: grayscale(1);
+        }
+
+        .infographic-section {
+            background: rgba(255, 255, 255, 0.7);
+            border: 0.5px solid rgba(232, 231, 227, 0.5);
+            border-radius: 8px;
+            padding: 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .infographic-section:hover {
+            transform: translateY(-3px) rotate(0.1deg);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+            border-color: rgba(197, 106, 88, 0.2);
+        }
+
+        .infographic-title {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            font-weight: 440;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 0.5px solid rgba(197, 106, 88, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 24px;
+            margin: 28px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-8px) rotate(-2deg);
+        }
+
+        .color-box {
+            width: 85px;
+            height: 85px;
+            margin-bottom: 10px;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            border: 0.5px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .color-swatch:nth-child(1) .color-box {
+            border-radius: 43% 57% 61% 39% / 52% 41% 59% 48%;
+        }
+
+        .color-swatch:nth-child(2) .color-box {
+            border-radius: 58% 42% 39% 61% / 48% 59% 41% 52%;
+        }
+
+        .color-swatch:nth-child(3) .color-box {
+            border-radius: 39% 61% 57% 43% / 41% 52% 48% 59%;
+        }
+
+        .color-swatch:nth-child(4) .color-box {
+            border-radius: 61% 39% 43% 57% / 59% 48% 52% 41%;
+        }
+
+        .color-swatch:nth-child(5) .color-box {
+            border-radius: 42% 58% 48% 52% / 57% 43% 61% 39%;
+        }
+
+        .color-swatch:nth-child(6) .color-box {
+            border-radius: 52% 48% 51% 49% / 48% 52% 49% 51%;
+        }
+
+        .color-swatch:hover .color-box {
+            transform: scale(1.12) rotate(180deg);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.12),
+                inset 0 2px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .color-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .spec-item {
+            background: rgba(247, 246, 243, 0.5);
+            border: 0.5px solid rgba(232, 231, 227, 0.4);
+            padding: 20px;
+            border-radius: 4px 14px 5px 13px / 15px 4px 14px 5px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: rotate(-0.2deg);
+        }
+
+        .spec-item:nth-child(even) {
+            transform: rotate(0.2deg);
+        }
+
+        .spec-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(197, 106, 88, 0.25);
+            transform: translateY(-2px) rotate(0deg) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .spec-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--terracotta);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .spec-value {
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 480;
+            letter-spacing: 0.001em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+            padding: 40px;
+            background: linear-gradient(105deg, 
+                rgba(255, 252, 245, 0.5) 0%, 
+                rgba(247, 246, 243, 0.4) 100%);
+            border-radius: 10px;
+            border: 0.5px solid rgba(232, 231, 227, 0.4);
+        }
+
+        .stat {
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stat:hover {
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 52px;
+            font-weight: 350;
+            color: var(--terracotta);
+            line-height: 1;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            animation: breathe 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 470;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, 
+                rgba(139, 90, 60, 0.08) 0%, 
+                rgba(90, 111, 84, 0.06) 100%);
+            padding: 60px 50px;
+            text-align: center;
+            margin-top: 70px;
+            border-radius: 12px;
+            border: 0.5px solid rgba(197, 106, 88, 0.15);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.025),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, 
+                rgba(197, 106, 88, 0.08) 0%, 
+                transparent 60%);
+            border-radius: 38% 62% 57% 43% / 48% 55% 45% 52%;
+            opacity: 0.6;
+            animation: ctaBlob 15s ease-in-out infinite;
+            filter: blur(40px);
+        }
+
+        @keyframes ctaBlob {
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg);
+                border-radius: 38% 62% 57% 43% / 48% 55% 45% 52%;
+            }
+            33% { 
+                transform: translate(400px, 100px) rotate(120deg);
+                border-radius: 62% 38% 43% 57% / 55% 45% 52% 48%;
+            }
+            66% { 
+                transform: translate(200px, -50px) rotate(240deg);
+                border-radius: 57% 43% 62% 38% / 45% 52% 48% 55%;
+            }
+        }
+
+        .cta-section h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 36px;
+            font-weight: 380;
+            letter-spacing: -0.014em;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            font-weight: 440;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .highlight {
+            color: var(--terracotta);
+            font-weight: 540;
+            position: relative;
+            padding: 0 4px;
+            margin: 0 -4px;
+        }
+
+        .highlight::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(98deg, 
+                transparent 2%, 
+                rgba(197, 106, 88, 0.12) 8%,
+                rgba(197, 106, 88, 0.18) 50%,
+                rgba(197, 106, 88, 0.12) 92%,
+                transparent 98%);
+            transform: rotate(-1.2deg) skewX(-2deg);
+            border-radius: 3px 85% 4px 88% / 92% 3px 87% 4px;
+            z-index: -1;
+        }
+
+        .big-stat {
+            font-family: 'Fraunces', serif;
+            font-size: 68px;
+            font-weight: 340;
+            color: var(--terracotta);
+            line-height: 1;
+            margin: 16px 0;
+            letter-spacing: -0.03em;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 38px; }
+            .carousel-grid { grid-template-columns: 1fr; }
+            .tabs { flex-wrap: wrap; gap: 8px; }
+            .container { padding: 50px 24px; }
+            .content-header h2 { font-size: 34px; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(232, 231, 227, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(197, 106, 88, 0.3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(197, 106, 88, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Content Repurposing Engine</h1>
+            <p class="subtitle">One whitepaper → complete multi-platform content ecosystem</p>
+            <p class="tagline">Transform long-form into platform-optimized assets that breathe across channels</p>
+        </div>
+        
+        <div class="source-card">
+            <h3>Source Content</h3>
+            <p class="source-title">"The Hidden Cost of Marketing Guesswork: Why AI-Powered Analytics Are No Longer Optional"</p>
+            <div class="source-meta">
+                <span>4,200 words</span>
+                <span>3 case studies</span>
+                <span>12+ data points</span>
+                <span>Implementation framework</span>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('linkedin')">LinkedIn Carousel</button>
+            <button class="tab" onclick="showTab('twitter')">Twitter Thread</button>
+            <button class="tab" onclick="showTab('email')">Email Sequence</button>
+            <button class="tab" onclick="showTab('podcast')">Podcast Points</button>
+            <button class="tab" onclick="showTab('infographic')">Infographic Spec</button>
+        </div>
+        
+        <div id="linkedin" class="tab-content active">
+            <div class="content-header">
+                <h2>LinkedIn Carousel</h2>
+                <p>8 professionally designed slides · Square format · Scroll-worthy narrative</p>
+            </div>
+            
+            <div class="carousel-grid">
+                <div class="slide-card dark">
+                    <div class="slide-number">Slide 1</div>
+                    <div class="slide-title">The Hidden Cost of Marketing Guesswork</div>
+                    <div class="slide-content">Why AI-powered analytics are no longer optional<br><br>→ Swipe for insights</div>
+                </div>
+                
+                <div class="slide-card light">
+                    <div class="slide-number">Slide 2</div>
+                    <div class="slide-title">The Problem</div>
+                    <div class="big-stat">73%</div>
+                    <div class="slide-content">of CMOs make budget decisions based on intuition, not data</div>
+                </div>
+                
+                <div class="slide-card">
+                    <div class="slide-number">Slide 3</div>
+                    <div class="slide-title">Three Problems Humans Can't Solve</div>
+                    <div class="slide-content">
+                        <strong>1.</strong> Cross-Channel Attribution<br>
+                        <strong>2.</strong> Segment Blind Spots<br>
+                        <strong>3.</strong> Real-Time Optimization
+                    </div>
+                </div>
+                
+                <div class="slide-card dark">
+                    <div class="slide-number">Slide 4</div>
+                    <div class="slide-title">What AI Actually Solves</div>
+                    <div class="slide-content">
+                        Automated Attribution<br>
+                        Predictive Budgeting<br>
+                        Anomaly Detection<br>
+                        Segment Optimization
+                    </div>
+                </div>
+                
+                <div class="slide-card accent">
+                    <div class="slide-number">Slide 5</div>
+                    <div class="slide-title">Real Business Impact</div>
+                    <div class="slide-content">
+                        <strong>DataFlow:</strong> +27% efficiency<br>
+                        <strong>TechStack:</strong> $300K saved<br>
+                        <strong>FinanceOS:</strong> +$2.1M profit
+                    </div>
+                </div>
+                
+                <div class="slide-card light">
+                    <div class="slide-number">Slide 6</div>
+                    <div class="slide-title">What Actually Works</div>
+                    <div class="slide-content">
+                        Crawl, Walk, Run<br>
+                        Humans in the Loop<br>
+                        Data Quality First
+                    </div>
+                </div>
+                
+                <div class="slide-card">
+                    <div class="slide-number">Slide 7</div>
+                    <div class="slide-title">Build vs. Buy</div>
+                    <div class="slide-content">
+                        <strong>Build:</strong> $2-5M, 18-24 months<br>
+                        <strong>Buy:</strong> $50K-500K, 3-6 months<br><br>
+                        90-95% capability at 10-20% cost
+                    </div>
+                </div>
+                
+                <div class="slide-card dark">
+                    <div class="slide-number">Slide 8</div>
+                    <div class="slide-title">The window for early-adopter advantage is closing</div>
+                    <div class="slide-content">
+                        Companies implementing in 2025 gain <span class="highlight">12-24 months</span> of lead time<br><br>
+                        Comment 'ANALYTICS' below
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-number">8</div><div class="stat-label">Slides</div></div>
+                <div class="stat"><div class="stat-number">10×10</div><div class="stat-label">Square</div></div>
+                <div class="stat"><div class="stat-number">3</div><div class="stat-label">Themes</div></div>
+                <div class="stat"><div class="stat-number">12+</div><div class="stat-label">Data Points</div></div>
+            </div>
+        </div>
+        
+        <div id="twitter" class="tab-content">
+            <div class="content-header">
+                <h2>Twitter Thread</h2>
+                <p>10 tweets · Momentum-building · Engagement-optimized · ~90 second read</p>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 1 (Hook)</div>
+                <div class="tweet-text">
+                    Marketing teams are drowning in data while starving for insights.<br><br>
+                    <strong>73% of CMOs</strong> admit they're making budget decisions based on intuition, not data.<br><br>
+                    Here's why AI-powered analytics are no longer optional (and 3 companies that proved it): 🧵
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 2</div>
+                <div class="tweet-text">
+                    The average B2B company tracks <strong>127 metrics across 14 platforms</strong>.<br><br>
+                    Yet when boards ask "which campaigns actually drive revenue?" most CMOs can't give a confident answer.<br><br>
+                    The data exists. But it's scattered across 7 dashboards, each telling a different story.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 3</div>
+                <div class="tweet-text">
+                    <strong>Problem #1:</strong> Cross-channel attribution is humanly impossible.<br><br>
+                    Modern customer journeys span <strong>8-12 touchpoints over 47 days</strong>.<br><br>
+                    Last-click attribution credits only the final touch. First-click ignores everything after.<br><br>
+                    Both approaches are fundamentally wrong.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 4</div>
+                <div class="tweet-text">
+                    <strong>Problem #2:</strong> Segment blind spots hide millions in value.<br><br>
+                    Humans analyze 3-5 predefined segments. AI can identify <strong>20+ micro-segments</strong> with dramatically different performance.<br><br>
+                    Example: Mid-market FinTech CTOs respond <strong>3.2x better</strong> to ROI messaging on email.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 5</div>
+                <div class="tweet-text">
+                    <strong>Problem #3:</strong> Real-time optimization is impossible manually.<br><br>
+                    Most teams review performance <strong>monthly</strong>—a 30-60 day lag.<br><br>
+                    By the time you identify an underperforming campaign, you've already burned a month of budget on it.<br><br>
+                    AI detects issues within <strong>hours</strong>, not months.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 6</div>
+                <div class="tweet-text">
+                    What AI actually solves (beyond the hype):<br><br>
+                    • <strong>Automated multi-touch attribution</strong><br>
+                    • <strong>Predictive budget allocation</strong> with confidence intervals<br>
+                    • <strong>Real-time anomaly detection</strong><br>
+                    • <strong>Segment-level optimization</strong> at scale<br><br>
+                    It's not magic. It's math you can't do manually.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 7</div>
+                <div class="tweet-text">
+                    <strong>DataFlow</strong> ($35M ARR) discovered their content marketing influenced <strong>31% of deals</strong>—not 8% as old attribution showed.<br><br>
+                    They increased content budget 180%, reduced paid search 35%.<br><br>
+                    Result: <span class="highlight">27% efficiency improvement</span> in Q2-Q3.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 8</div>
+                <div class="tweet-text">
+                    <strong>TechStack</strong> ($120M revenue) ran a broken Google Ads campaign for 6 weeks that excluded their best segment.<br><br>
+                    AI caught it in <strong>48 hours</strong>, preventing a <strong>$300K budget leak</strong>.<br><br>
+                    That one save paid for 5 years of the AI platform.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 9</div>
+                <div class="tweet-text">
+                    <strong>FinanceOS</strong> ($45M ARR) had "okay" mid-market performance.<br><br>
+                    AI identified <strong>14 micro-segments</strong> within mid-market, with ROI ranging from <strong>89% to 412%</strong>.<br><br>
+                    They reallocated spend to high-value segments.<br><br>
+                    Result: <span class="highlight">$2.1M profit increase</span> with identical total spend.
+                </div>
+            </div>
+            
+            <div class="tweet">
+                <div class="tweet-number">Tweet 10</div>
+                <div class="tweet-text">
+                    The window for early-adopter advantage is closing.<br><br>
+                    Companies implementing AI analytics today gain <strong>12-24 months lead time</strong>.<br><br>
+                    The teams winning in 2025 turn data into <em>decisions</em> faster than competitors turn it into <em>dashboards</em>.<br><br>
+                    Want the full deep-dive? Link in bio.
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-number">10</div><div class="stat-label">Tweets</div></div>
+                <div class="stat"><div class="stat-number">90s</div><div class="stat-label">Read Time</div></div>
+                <div class="stat"><div class="stat-number">12+</div><div class="stat-label">Data Points</div></div>
+                <div class="stat"><div class="stat-number">3</div><div class="stat-label">Case Studies</div></div>
+            </div>
+        </div>
+        
+        <div id="email" class="tab-content">
+            <div class="content-header">
+                <h2>Email Nurture Sequence</h2>
+                <p>5-email journey · Progressive trust-building · Problem → Solution → Decision</p>
+            </div>
+            
+            <div class="email">
+                <div class="email-header">
+                    <div class="email-subject">Is your team spending 22% of time on reporting?</div>
+                    <div class="email-meta">Day 1 · Problem Awareness</div>
+                </div>
+                <div class="email-body">
+                    <p>Hi [First Name],</p>
+                    <p>Quick question: How many hours did your marketing team spend last week pulling reports, reconciling data across platforms, and trying to figure out which campaigns actually work?</p>
+                    <p>If you're like most B2B marketing leaders, the answer is uncomfortable.</p>
+                    <p>Recent research shows marketing teams spend an average of <strong>22% of their time on reporting and analytics</strong>—yet 68% still lack confidence in their attribution accuracy.</p>
+                    <p>That's not a people problem. It's a systems problem.</p>
+                    <p><strong>Tomorrow, I'll share the three specific problems that make manual marketing analysis impossible at scale.</strong></p>
+                    <p>Best,<br>[Name]</p>
+                </div>
+            </div>
+            
+            <div class="email">
+                <div class="email-header">
+                    <div class="email-subject">The 3 problems keeping you from data-driven decisions</div>
+                    <div class="email-meta">Day 2 · Problem Deep-Dive</div>
+                </div>
+                <div class="email-body">
+                    <p>[First Name],</p>
+                    <p>Yesterday I asked how much time your team spends on reporting without getting confident answers.</p>
+                    <p>Today, let's talk about why even great analysts can't solve this manually.</p>
+                    <p><strong>Problem #1: The Attribution Maze</strong><br>
+                    Modern B2B buyers take 8-12 touchpoints across 47 days. That's millions of possible interaction paths.</p>
+                    <p><strong>Problem #2: The Segment Blind Spot</strong><br>
+                    You're analyzing 3-5 segments. But what if there are 20+ micro-segments with dramatically different performance?</p>
+                    <p><strong>Problem #3: The Speed Gap</strong><br>
+                    Markets change daily. Teams review monthly. That's a 30-60 day detection lag.</p>
+                    <p><strong>Tomorrow:</strong> What AI analytics actually does (with real company results).</p>
+                    <p>Best,<br>[Name]</p>
+                </div>
+            </div>
+            
+            <div class="email">
+                <div class="email-header">
+                    <div class="email-subject">How companies found millions in "hidden" performance</div>
+                    <div class="email-meta">Day 3 · Solution & Social Proof</div>
+                </div>
+                <div class="email-body">
+                    <p>[First Name],</p>
+                    <p>Today: what AI analytics actually does, with real numbers from real companies.</p>
+                    <p><strong>What AI Solves:</strong></p>
+                    <p>1. <strong>Automated Attribution</strong> - True ROI by channel, no data scientists needed<br>
+                    2. <strong>Predictive Budgeting</strong> - Model scenarios with confidence intervals<br>
+                    3. <strong>Anomaly Detection</strong> - Flag issues in hours, not months<br>
+                    4. <strong>Segment Optimization</strong> - 20+ micro-segments optimized independently</p>
+                    <p><strong>Real Impact:</strong></p>
+                    <p><strong>DataFlow</strong> ($35M ARR): Discovered content influenced 31% of deals, not 8%. <span class="highlight">+27% efficiency</span></p>
+                    <p><strong>TechStack</strong> ($120M): Caught broken targeting in 48 hours. <span class="highlight">Prevented $300K loss</span></p>
+                    <p><strong>FinanceOS</strong> ($45M ARR): Found 14 micro-segments (89%-412% ROI). <span class="highlight">+$2.1M profit</span></p>
+                    <p><strong>Tomorrow:</strong> Why 60% of implementations fail—and how to be in the 40%.</p>
+                    <p>Best,<br>[Name]</p>
+                </div>
+            </div>
+            
+            <div class="email">
+                <div class="email-header">
+                    <div class="email-subject">Why 60% fail (and how to succeed)</div>
+                    <div class="email-meta">Day 4 · Implementation Reality</div>
+                </div>
+                <div class="email-body">
+                    <p>[First Name],</p>
+                    <p>The honest truth vendors won't tell you: <strong>60% of AI analytics projects fail</strong>.</p>
+                    <p><strong>What Doesn't Work:</strong><br>
+                    ❌ Everything all at once<br>
+                    ❌ Full automation from day one<br>
+                    ❌ Ignoring data quality</p>
+                    <p><strong>What Actually Works:</strong><br>
+                    ✓ <strong>Crawl, Walk, Run</strong> - Start with ONE use case, prove value, expand<br>
+                    ✓ <strong>Humans in the Loop</strong> - AI recommends, humans decide initially<br>
+                    ✓ <strong>Data Quality First</strong> - Fix tracking before implementing AI</p>
+                    <p><strong>The Honest Timeline:</strong><br>
+                    Build in-house: $2-5M, 18-24 months<br>
+                    Buy platform: $50K-500K, 3-6 months to value</p>
+                    <p>For most companies under $200M revenue, buying delivers 90-95% of capability at 10-20% of the cost.</p>
+                    <p><strong>Tomorrow:</strong> What this means for your team in 2025-2026.</p>
+                    <p>Best,<br>[Name]</p>
+                </div>
+            </div>
+            
+            <div class="email">
+                <div class="email-header">
+                    <div class="email-subject">The early-adopter window is closing</div>
+                    <div class="email-meta">Day 5 · Future State & CTA</div>
+                </div>
+                <div class="email-body">
+                    <p>[First Name],</p>
+                    <p>Final email in this series.</p>
+                    <p>AI-powered analytics is moving from <strong>"competitive advantage"</strong> to <strong>"table stakes"</strong>.</p>
+                    <p>Companies implementing today gain <strong>12-24 months of operational lead time</strong>.</p>
+                    <p>By 2026-2027, you're not comparing yourself to competitors—you're comparing yourself to competitors who have 18 months of refined, AI-optimized operations.</p>
+                    <p><strong>Your competitors will:</strong><br>
+                    • Identify issues in 48 hours (you take 30 days)<br>
+                    • Optimize 20+ micro-segments (you manage 3-5)<br>
+                    • Use predictive modeling (you use last quarter's results)</p>
+                    <p>The gap compounds. 18 months behind operationally = 3-4 quarters behind financially.</p>
+                    <p><strong>Your Next Step:</strong></p>
+                    <p>1. Book a 30-min strategy call: [Calendar Link]<br>
+                    2. Download complete guide: [Resource Link]</p>
+                    <p>The marketing teams winning in 2025 aren't the ones with the most data. They're the ones who turned data into <em>decisions</em> faster than competitors turned it into <em>dashboards</em>.</p>
+                    <p>Thanks for reading,<br>[Name]</p>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-number">5</div><div class="stat-label">Emails</div></div>
+                <div class="stat"><div class="stat-number">5 days</div><div class="stat-label">Cadence</div></div>
+                <div class="stat"><div class="stat-number">2-3min</div><div class="stat-label">Read Each</div></div>
+                <div class="stat"><div class="stat-number">3</div><div class="stat-label">CTA Levels</div></div>
+            </div>
+        </div>
+        
+        <div id="podcast" class="tab-content">
+            <div class="content-header">
+                <h2>Podcast Interview Outline</h2>
+                <p>25-minute conversation · 5 segments · Stories + data + sound bites</p>
+            </div>
+            
+            <div class="podcast-segment">
+                <div class="podcast-time">Segment 1 (0:00-7:00)</div>
+                <div class="podcast-title">Opening & The Problem</div>
+                <div class="podcast-content">
+                    <p><strong>Your Opening:</strong> "Here's the crazy part—marketing teams have never had MORE data. Average B2B company tracks 127 metrics across 14 platforms. Yet when boards ask 'which campaigns drive revenue?', most CMOs can't answer confidently."</p>
+                    <p><strong>Story:</strong> Sarah Chen, VP Marketing at Series B SaaS. Smart team, good tools, tracking everything. Yet spent 15 hours weekly on manual reporting. By the time they understood what worked, quarter was over.</p>
+                    <div class="soundbite">
+                        💬 Key Sound Bite: "We've moved from data-poor to data-rich, but we're still insight-poor."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="podcast-segment">
+                <div class="podcast-time">Segment 2 (7:00-12:00)</div>
+                <div class="podcast-title">The Three Problems</div>
+                <div class="podcast-content">
+                    <p><strong>Problem #1: Attribution Maze</strong><br>
+                    8-12 touchpoints over 47 days. Millions of interaction paths. Calculating true multi-touch attribution is beyond human capability.</p>
+                    
+                    <div class="soundbite">
+                        💬 "Last-click attribution is like giving all credit for a touchdown to whoever carried the ball over the goal line—ignoring 60 yards of blocking and passing."
+                    </div>
+                    
+                    <p><strong>Problem #2: Segment Blind Spots</strong><br>
+                    Humans: 3-5 segments. AI: 20+ micro-segments. Real example: Mid-market financial services in Northeast respond 340% better to case studies than demos.</p>
+                    
+                    <p><strong>Problem #3: Speed Gap</strong><br>
+                    Client ran broken Google Ads for 6 weeks. Would've burned $300K. AI caught it in 48 hours.</p>
+                </div>
+            </div>
+            
+            <div class="podcast-segment">
+                <div class="podcast-time">Segment 3 (12:00-17:00)</div>
+                <div class="podcast-title">What AI Actually Does</div>
+                <div class="podcast-content">
+                    <p><strong>Four Practical Capabilities:</strong></p>
+                    <p>1. <strong>Automated Multi-Touch Attribution</strong> - True contribution value for each interaction<br>
+                    2. <strong>Predictive Budget Allocation</strong> - Simulate scenarios with confidence intervals<br>
+                    3. <strong>Real-Time Anomaly Detection</strong> - Normal variance vs. genuine problems<br>
+                    4. <strong>Segment-Level Optimization</strong> - Enterprise Healthcare CTOs: 3.2x better to compliance messaging on LinkedIn Tue-Thu mornings</p>
+                    
+                    <div class="soundbite">
+                        💬 "AI doesn't replace marketing judgment—it removes the computational bottleneck forcing marketers to optimize for averages instead of variance."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="podcast-segment">
+                <div class="podcast-time">Segment 4 (17:00-21:00)</div>
+                <div class="podcast-title">Real Company Results</div>
+                <div class="podcast-content">
+                    <p><strong>DataFlow ($35M ARR):</strong> Old attribution showed content drove 8% of pipeline. AI revealed 31%—happened early where old models undercounted. Increased content 180%, reduced search 35%. <span class="highlight">+27% efficiency</span></p>
+                    
+                    <p><strong>TechStack ($120M):</strong> Excluded best segment (500+ employees) accidentally. CPL spiked 340%. Volume crashed 67%. AI caught in 48 hours. <span class="highlight">$300K save = 4.3x annual platform cost</span></p>
+                    
+                    <p><strong>FinanceOS ($45M ARR):</strong> AI found 14 micro-segments in mid-market. ROI: 89%-412%. Highest: 3-7 year companies, 50-200 employees, secondary markets. <span class="highlight">$2.1M profit increase, identical spend</span></p>
+                </div>
+            </div>
+            
+            <div class="podcast-segment">
+                <div class="podcast-time">Segment 5 (21:00-25:00)</div>
+                <div class="podcast-title">Implementation & Closing</div>
+                <div class="podcast-content">
+                    <p><strong>What Works:</strong> Crawl, walk, run. Start with ONE use case. Keep humans in loop. Fix data quality FIRST.</p>
+                    
+                    <p><strong>Closing Thought:</strong> "AI-powered analytics moving from 'competitive advantage' to 'table stakes.' Companies implementing in 2025 gain 12-24 months lead time. By 2026-2027, you're comparing to competitors with 18 months of refined operations. That gap compounds quarterly."</p>
+                    
+                    <div class="soundbite">
+                        💬 "Marketing teams winning in 2025 aren't the ones with the most data. They're the ones turning data into decisions faster than competitors turn it into dashboards."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-number">25min</div><div class="stat-label">Duration</div></div>
+                <div class="stat"><div class="stat-number">5</div><div class="stat-label">Segments</div></div>
+                <div class="stat"><div class="stat-number">3</div><div class="stat-label">Stories</div></div>
+                <div class="stat"><div class="stat-number">4</div><div class="stat-label">Sound Bites</div></div>
+            </div>
+        </div>
+        
+        <div id="infographic" class="tab-content">
+            <div class="content-header">
+                <h2>Infographic Visual Specification</h2>
+                <p>Designer-ready specs · 800×3000px vertical · Professional B2B aesthetic</p>
+            </div>
+            
+            <div class="infographic-section">
+                <div class="infographic-title">📐 Format Specifications</div>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Dimensions</div>
+                        <div class="spec-value">800px × 3000px</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Orientation</div>
+                        <div class="spec-value">Vertical scroll</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Resolution</div>
+                        <div class="spec-value">72 DPI (web)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">File Size</div>
+                        <div class="spec-value">&lt;500KB target</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="infographic-section">
+                <div class="infographic-title">🎨 Premium Color Palette</div>
+                <div class="color-palette">
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #1F4E78;"></div>
+                        <div class="color-label">Deep Blue<br>#1F4E78</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #4A90E2;"></div>
+                        <div class="color-label">Teal<br>#4A90E2</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #E74C3C;"></div>
+                        <div class="color-label">Coral<br>#E74C3C</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #27AE60;"></div>
+                        <div class="color-label">Forest Green<br>#27AE60</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #333333;"></div>
+                        <div class="color-label">Dark Gray<br>#333333</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #F2F2F2; border: 1px solid #ddd;"></div>
+                        <div class="color-label">Light Gray<br>#F2F2F2</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="infographic-section">
+                <div class="infographic-title">📝 Typography System</div>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Headers</div>
+                        <div class="spec-value">Montserrat Bold<br>32-48px</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Subheaders</div>
+                        <div class="spec-value">Montserrat SemiBold<br>24px</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Body Text</div>
+                        <div class="spec-value">Open Sans Regular<br>16px</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Data Callouts</div>
+                        <div class="spec-value">Montserrat ExtraBold<br>72px</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="infographic-section">
+                <div class="infographic-title">📊 Seven Section Breakdown</div>
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 1: Hero (0-400px)</strong> — Gradient background (Deep Blue → Teal), main title 48px white, magnifying glass icon with data visualization elements</p>
+                
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 2: Problem Stats (400-900px)</strong> — Three large stat callouts: "127 metrics", "73% intuition", "22% time reporting". White boxes, coral left border, 72px bold numbers</p>
+                
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 3: Three Problems (900-1600px)</strong> — Vertical flow, alternating left/right. Teal icon circles (120px) connected by dotted lines</p>
+                
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 4: AI Solutions (1600-2200px)</strong> — Deep blue background. 2×2 grid of white solution boxes with icons</p>
+                
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 5: Real Results (2200-2700px)</strong> — Three companies with horizontal data bars. Gradient bars (teal→green)</p>
+                
+                <p style="margin-bottom: 16px; color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 6: Timeline (2700-3000px)</strong> — Horizontal 4-phase timeline. Connected teal circles showing Months 1-12</p>
+                
+                <p style="color: var(--text-secondary); line-height: 1.7;"><strong style="color: var(--text-primary);">Section 7: Footer/CTA (2900-3000px)</strong> — Deep blue background, white text, teal accent line</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-number">3000px</div><div class="stat-label">Height</div></div>
+                <div class="stat"><div class="stat-number">7</div><div class="stat-label">Sections</div></div>
+                <div class="stat"><div class="stat-number">15+</div><div class="stat-label">Data Points</div></div>
+                <div class="stat"><div class="stat-number">6</div><div class="stat-label">Colors</div></div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h3>Content Repurposing Complete</h3>
+            <p>One 4,200-word blog post transformed into <span class="highlight">5 platform-optimized formats</span><br>
+            Each piece maintains brand coherence while respecting channel-specific engagement patterns</p>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            const allContents = document.querySelectorAll('.tab-content');
+            const allTabs = document.querySelectorAll('.tab');
+            const tabsContainer = document.querySelector('.tabs');
+            
+            tabsContainer.classList.add('splash');
+            setTimeout(() => tabsContainer.classList.remove('splash'), 800);
+            
+            allContents.forEach(content => content.classList.remove('active'));
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo({
+                top: document.querySelector('.tabs').offsetTop - 30,
+                behavior: 'smooth'
+            });
+        }
+        
+        window.addEventListener('load', () => {
+            const animatedElements = document.querySelectorAll('.slide-card, .tweet, .email, .podcast-segment');
+            animatedElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 80 * index);
+            });
+        });
+    </script>
+</body>
+</html>

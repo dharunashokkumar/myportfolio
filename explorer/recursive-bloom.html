@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursive Bloom - Generative Art</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Anthropic Brand Colors */
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        /* Control Sections */
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+
+        /* Seed Controls */
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+        }
+
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1);
+            background: white;
+        }
+
+        .seed-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .regen-button {
+            margin-bottom: 0;
+        }
+
+        /* Parameter Controls */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 8px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: #c86641;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Color Pickers */
+        .color-group {
+            margin-bottom: 16px;
+        }
+
+        .color-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+            margin-bottom: 4px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-picker-container input[type="color"] {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+            padding: 0;
+        }
+
+        .color-value {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--anthropic-mid-gray);
+        }
+
+        /* Buttons */
+        .button {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--anthropic-dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .button:hover {
+            background: #2a2a28;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(20, 20, 19, 0.2);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button-row .button {
+            flex: 1;
+        }
+
+        /* Canvas Area */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        #canvas-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(20, 20, 19, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--anthropic-mid-gray);
+            font-size: 16px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Controls -->
+        <div class="sidebar">
+            <h1>Recursive Bloom</h1>
+            <p class="subtitle">Organic branching structures grown through recursive subdivision and Perlin noise</p>
+
+            <!-- Seed Section -->
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="12345" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button" onclick="previousSeed()">← Prev</button>
+                    <button class="button" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button regen-button" onclick="randomSeedAndUpdate()">Random Seed</button>
+            </div>
+
+            <!-- Parameters Section -->
+            <div class="control-section">
+                <h3>Parameters</h3>
+                
+                <!-- Growth Origins -->
+                <div class="control-group">
+                    <label>Growth Origins</label>
+                    <div class="slider-container">
+                        <input type="range" id="originCount" min="1" max="8" step="1" value="3" oninput="updateParam('originCount', this.value)">
+                        <span class="value-display" id="originCount-value">3</span>
+                    </div>
+                </div>
+
+                <!-- Recursion Depth -->
+                <div class="control-group">
+                    <label>Recursion Depth</label>
+                    <div class="slider-container">
+                        <input type="range" id="maxDepth" min="4" max="10" step="1" value="7" oninput="updateParam('maxDepth', this.value)">
+                        <span class="value-display" id="maxDepth-value">7</span>
+                    </div>
+                </div>
+
+                <!-- Branch Angle -->
+                <div class="control-group">
+                    <label>Branch Angle</label>
+                    <div class="slider-container">
+                        <input type="range" id="branchAngle" min="15" max="45" step="1" value="25" oninput="updateParam('branchAngle', this.value)">
+                        <span class="value-display" id="branchAngle-value">25</span>
+                    </div>
+                </div>
+
+                <!-- Noise Influence -->
+                <div class="control-group">
+                    <label>Organic Chaos</label>
+                    <div class="slider-container">
+                        <input type="range" id="noiseInfluence" min="0" max="1" step="0.05" value="0.4" oninput="updateParam('noiseInfluence', this.value)">
+                        <span class="value-display" id="noiseInfluence-value">0.4</span>
+                    </div>
+                </div>
+
+                <!-- Length Decay -->
+                <div class="control-group">
+                    <label>Length Decay</label>
+                    <div class="slider-container">
+                        <input type="range" id="lengthRatio" min="0.55" max="0.75" step="0.01" value="0.65" oninput="updateParam('lengthRatio', this.value)">
+                        <span class="value-display" id="lengthRatio-value">0.65</span>
+                    </div>
+                </div>
+
+                <!-- Stroke Weight -->
+                <div class="control-group">
+                    <label>Line Thickness</label>
+                    <div class="slider-container">
+                        <input type="range" id="strokeWeight" min="0.5" max="3" step="0.1" value="1.2" oninput="updateParam('strokeWeight', this.value)">
+                        <span class="value-display" id="strokeWeight-value">1.2</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colors Section -->
+            <div class="control-section">
+                <h3>Colors</h3>
+                
+                <div class="color-group">
+                    <label>Primary Hue</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color1" value="#e91e63" onchange="updateColor('color1', this.value)">
+                        <span class="color-value" id="color1-value">#e91e63</span>
+                    </div>
+                </div>
+
+                <div class="color-group">
+                    <label>Secondary Hue</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color2" value="#00bcd4" onchange="updateColor('color2', this.value)">
+                        <span class="color-value" id="color2-value">#00bcd4</span>
+                    </div>
+                </div>
+
+                <div class="color-group">
+                    <label>Accent Hue</label>
+                    <div class="color-picker-container">
+                        <input type="color" id="color3" value="#ffc107" onchange="updateColor('color3', this.value)">
+                        <span class="color-value" id="color3-value">#ffc107</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="button-row">
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Growing recursive structures...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════
+        // GENERATIVE ART PARAMETERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let params = {
+            seed: 12345,
+            originCount: 3,
+            maxDepth: 7,
+            branchAngle: 25,
+            noiseInfluence: 0.4,
+            lengthRatio: 0.65,
+            strokeWeight: 1.2,
+            colorPalette: ['#e91e63', '#00bcd4', '#ffc107']
+        };
+
+        let defaultParams = {...params};
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // P5.JS RECURSIVE BRANCHING ALGORITHM
+        // ═══════════════════════════════════════════════════════════════════════
+
+        let origins = [];
+        let noiseScale = 0.005;
+
+        function setup() {
+            let canvas = createCanvas(1000, 1000);
+            canvas.parent('canvas-container');
+            
+            initializeSystem();
+            
+            document.querySelector('.loading').style.display = 'none';
+        }
+
+        function initializeSystem() {
+            randomSeed(params.seed);
+            noiseSeed(params.seed);
+
+            origins = [];
+            
+            // Create growth origins with aesthetic spacing
+            if (params.originCount === 1) {
+                origins.push({x: width/2, y: height/2, angle: -HALF_PI});
+            } else {
+                for (let i = 0; i < params.originCount; i++) {
+                    let angle = (TWO_PI / params.originCount) * i + random(-0.3, 0.3);
+                    let radius = random(100, 250);
+                    let x = width/2 + cos(angle) * radius;
+                    let y = height/2 + sin(angle) * radius;
+                    let startAngle = angle + PI + random(-QUARTER_PI, QUARTER_PI);
+                    
+                    origins.push({x: x, y: y, angle: startAngle});
+                }
+            }
+
+            // Draw everything
+            background(255);
+            
+            // Draw all recursive trees
+            for (let origin of origins) {
+                push();
+                translate(origin.x, origin.y);
+                rotate(origin.angle);
+                
+                // Start with a random color from palette
+                let baseColorIndex = floor(random(params.colorPalette.length));
+                
+                drawBranch(0, 0, 100, 0, 0, baseColorIndex);
+                pop();
+            }
+        }
+
+        function drawBranch(x, y, length, angle, depth, colorIndex) {
+            if (depth >= params.maxDepth) return;
+            if (length < 1) return;
+
+            // Calculate end point
+            let noiseValue = noise(x * noiseScale, y * noiseScale, depth * 0.5);
+            let angleNoise = map(noiseValue, 0, 1, -PI/4, PI/4) * params.noiseInfluence;
+            let actualAngle = angle + angleNoise;
+            
+            let lengthNoise = noise(x * noiseScale + 1000, y * noiseScale + 1000, depth * 0.5);
+            let lengthVariation = map(lengthNoise, 0, 1, 0.85, 1.15);
+            let actualLength = length * lengthVariation;
+            
+            let endX = x + cos(actualAngle) * actualLength;
+            let endY = y + sin(actualAngle) * actualLength;
+
+            // Color based on depth and palette
+            let depthRatio = depth / params.maxDepth;
+            let col = lerpColorFromPalette(colorIndex, depthRatio);
+            
+            // Stroke weight decreases with depth
+            let weight = params.strokeWeight * (1 - depthRatio * 0.7);
+            let alpha = map(depth, 0, params.maxDepth, 220, 100);
+            
+            stroke(col.r, col.g, col.b, alpha);
+            strokeWeight(weight);
+            
+            // Draw curved line for organic feel
+            noFill();
+            beginShape();
+            for (let t = 0; t <= 1; t += 0.1) {
+                let mx = lerp(x, endX, t);
+                let my = lerp(y, endY, t);
+                
+                // Add subtle curve
+                let curvature = sin(t * PI) * length * 0.05;
+                let perpX = -sin(actualAngle) * curvature;
+                let perpY = cos(actualAngle) * curvature;
+                
+                vertex(mx + perpX, my + perpY);
+            }
+            endShape();
+
+            // Recursive branching
+            if (depth < params.maxDepth) {
+                let newLength = actualLength * params.lengthRatio;
+                let angleVariation = radians(params.branchAngle);
+                
+                // Branch to the left
+                let leftAngle = actualAngle - angleVariation + random(-0.2, 0.2);
+                drawBranch(endX, endY, newLength, leftAngle, depth + 1, colorIndex);
+                
+                // Branch to the right
+                let rightAngle = actualAngle + angleVariation + random(-0.2, 0.2);
+                drawBranch(endX, endY, newLength, rightAngle, depth + 1, (colorIndex + 1) % params.colorPalette.length);
+                
+                // Occasionally add a center branch for density
+                if (random() > 0.7 && depth < params.maxDepth - 2) {
+                    let centerAngle = actualAngle + random(-0.3, 0.3);
+                    drawBranch(endX, endY, newLength * 0.8, centerAngle, depth + 1, (colorIndex + 2) % params.colorPalette.length);
+                }
+            }
+        }
+
+        function lerpColorFromPalette(colorIndex, t) {
+            // Start with vibrant saturated color, fade to pastel
+            let hexColor = params.colorPalette[colorIndex % params.colorPalette.length];
+            let col = hexToRgb(hexColor);
+            
+            // Desaturate and lighten based on depth
+            let r = lerp(col.r, 255, t * 0.6);
+            let g = lerp(col.g, 255, t * 0.6);
+            let b = lerp(col.b, 255, t * 0.6);
+            
+            return {r: r, g: g, b: b};
+        }
+
+        function hexToRgb(hex) {
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : {r: 0, g: 0, b: 0};
+        }
+
+        function draw() {
+            // Static image - no animation needed
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // UI CONTROL HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateParam(paramName, value) {
+            let numValue = parseFloat(value);
+            params[paramName] = numValue;
+            document.getElementById(paramName + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        function updateColor(colorId, value) {
+            let index = parseInt(colorId.replace('color', '')) - 1;
+            params.colorPalette[index] = value;
+            document.getElementById(colorId + '-value').textContent = value;
+            initializeSystem();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SEED CONTROL FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════════════
+
+        function updateSeedDisplay() {
+            document.getElementById('seed-input').value = params.seed;
+        }
+
+        function updateSeed() {
+            let input = document.getElementById('seed-input');
+            let newSeed = parseInt(input.value);
+            if (newSeed && newSeed > 0) {
+                params.seed = newSeed;
+                initializeSystem();
+            } else {
+                updateSeedDisplay();
+            }
+        }
+
+        function previousSeed() {
+            params.seed = Math.max(1, params.seed - 1);
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function nextSeed() {
+            params.seed = params.seed + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function randomSeedAndUpdate() {
+            params.seed = Math.floor(Math.random() * 999999) + 1;
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        function resetParameters() {
+            params = {...defaultParams};
+            
+            document.getElementById('originCount').value = params.originCount;
+            document.getElementById('originCount-value').textContent = params.originCount;
+            document.getElementById('maxDepth').value = params.maxDepth;
+            document.getElementById('maxDepth-value').textContent = params.maxDepth;
+            document.getElementById('branchAngle').value = params.branchAngle;
+            document.getElementById('branchAngle-value').textContent = params.branchAngle;
+            document.getElementById('noiseInfluence').value = params.noiseInfluence;
+            document.getElementById('noiseInfluence-value').textContent = params.noiseInfluence;
+            document.getElementById('lengthRatio').value = params.lengthRatio;
+            document.getElementById('lengthRatio-value').textContent = params.lengthRatio;
+            document.getElementById('strokeWeight').value = params.strokeWeight;
+            document.getElementById('strokeWeight-value').textContent = params.strokeWeight;
+            
+            document.getElementById('color1').value = params.colorPalette[0];
+            document.getElementById('color1-value').textContent = params.colorPalette[0];
+            document.getElementById('color2').value = params.colorPalette[1];
+            document.getElementById('color2-value').textContent = params.colorPalette[1];
+            document.getElementById('color3').value = params.colorPalette[2];
+            document.getElementById('color3-value').textContent = params.colorPalette[2];
+            
+            updateSeedDisplay();
+            initializeSystem();
+        }
+
+        window.addEventListener('load', function() {
+            updateSeedDisplay();
+        });
+    </script>
+</body>
+</html>
