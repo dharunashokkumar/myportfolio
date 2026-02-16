@@ -1040,3 +1040,75 @@ ul.archive.thumblist li:nth-child(3n) {
         padding-left: 1em;
     }
 }
+
+/* Secret Lock Icon */
+#secret-lock {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 9999;
+  opacity: 0.18;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 0;
+}
+#secret-lock:hover {
+  opacity: 0.6;
+}
+
+/* Vault Page Styles */
+.vault-container {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: left;
+}
+.vault-container h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #333;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #333;
+  padding-bottom: 0.5rem;
+}
+.vault-links {
+  list-style: none;
+  padding: 0;
+}
+.vault-links li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+.vault-links li:last-child {
+  border-bottom: none;
+}
+.vault-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.81rem;
+  display: block;
+}
+.vault-links a:hover {
+  color: #000;
+}
+.vault-links .link-label {
+  font-weight: 900;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.vault-links .link-url {
+  font-size: 0.7rem;
+  color: #999;
+  word-break: break-all;
+}
+.vault-back {
+  margin-top: 2rem;
+  font-size: 0.81rem;
+}
+.vault-back a {
+  color: #999;
+}
+.vault-back a:hover {
+  color: #333;
+}

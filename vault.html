@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vault</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  </head>
+  <body>
+    <div id="container">
+      <div class="vault-container">
+        <h2>🔒 secret vault</h2>
+
+        <ul class="vault-links">
+
+          <!-- ADD YOUR SECRET LINKS BELOW -->
+          <!-- Copy this block for each new link:
+          <li>
+            <a href="https://example.com" target="_blank">
+              <span class="link-label">link name</span>
+              <span class="link-url">https://example.com</span>
+            </a>
+          </li>
+          -->
+
+          <li>
+            <a href="https://course-notes-ahj.pages.dev/" target="_blank">
+              <span class="link-label">Personal Notes
+              </span>
+              <span class="link-url">https://course-notes-ahj.pages.dev/</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://lpulabs.pages.dev/" target="_blank">
+              <span class="link-label">lpulabs</span>
+              <span class="link-url">https://lpulabs.pages.dev/</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://market-2bu.pages.dev/" target="_blank">
+              <span class="link-label">Finnhub (market)</span>
+              <span class="link-url">https://market-2bu.pages.dev/</span>
+            </a>
+          </li>
+
+          <!-- ADD MORE LINKS ABOVE -->
+
+        </ul>
+
+        <p class="vault-back"><a href="index.html">← back to home</a></p>
+      </div>
+    </div>
+
+    <script>
+      // Protect vault: redirect if not authenticated
+      if (sessionStorage.getItem('vault_access') !== 'granted') {
+        window.location.href = 'index.html';
+      }
+    </script>
+  </body>
+</html>

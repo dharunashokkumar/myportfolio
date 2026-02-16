@@ -4,6 +4,7 @@
 # Allow all search engines to crawl the entire site
 User-agent: *
 Allow: /
+Disallow: /vault.html
 
 # Sitemap location
 Sitemap: https://dharunashokkumar.com/sitemap.xml
