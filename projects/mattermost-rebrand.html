@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,57 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Mattermost Rebrand</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/mattermost-rebrand.html">mattermost rebrand</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="tags"><em>tagged with: </em>web development, docker</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>a complete rebranding of a self-hosted <a href="https://mattermost.com/" target="_blank">mattermost</a> instance. not just changing colours &mdash; making it feel like it belongs to the organisation instead of looking like a generic chat tool.</p>
+
+<p>why mattermost over slack or discord? ownership. with a self-hosted instance, all the data stays on your infrastructure. no third-party reading your messages, no surprise pricing changes, no features getting paywalled. for teams that care about data sovereignty, it's the obvious choice.</p>
+
+<p>the deployment runs on docker. mattermost server, postgres database, and nginx reverse proxy, all in a docker-compose stack. makes it easy to update, backup, and migrate. the whole thing can be brought up on a new server in minutes.</p>
+
+<p>the visual rebrand started with the theme system. mattermost lets you customise the sidebar, centre channel, and link colours through its admin panel. but that only gets you so far. for deeper changes &mdash; the login page, the loading screen, the favicon, the header &mdash; you need css overrides and custom assets.</p>
+
+<p>wrote custom css that gets injected through the system console's custom branding section. replaced the default logos with organisation-specific ones. redesigned the login page to match the company's visual identity. changed the email templates so notifications look consistent too.</p>
+
+<p>plugin customisation was another layer. configured webhooks for integrations with other internal tools. set up custom slash commands for common workflows. adjusted notification defaults so people weren't overwhelmed on day one.</p>
+
+<p>integrating with existing infrastructure meant connecting to the organisation's ldap for single sign-on. users don't need another password &mdash; they log in with their existing credentials. also set up proper ssl with let's encrypt, configured the nginx proxy for websocket support (mattermost needs that for real-time messaging), and tuned postgres for the expected user count.</p>
+
+<p>the result is a communication platform that feels native to the organisation. people use it without thinking about the underlying tool &mdash; which is exactly what good infrastructure should do.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

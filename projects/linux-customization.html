@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,65 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Linux Customization</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/linux-customization.html">linux customization</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2023–25</span>
+		<span class="tags"><em>tagged with: </em>linux, devops</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>i started using linux because i wanted more control over my machines. i stayed because it fundamentally changed how i think about computing.</p>
+
+<p>the distro-hopping phase was inevitable. ubuntu was the safe entry point, the one everyone recommends. it worked fine but felt like someone else's decisions about what my desktop should look like. fedora came next and introduced me to a more cutting-edge package ecosystem. then arch, which is where things really clicked. installing arch forced me to understand every layer of the system, from the bootloader to the display server.</p>
+
+<p>but this isn't really about which distro is best. it's about what happens when you start treating your operating system as something you build rather than something you consume.</p>
+
+<h2>terminal life</h2>
+
+<p>most of my day lives in the terminal now. zsh with a minimal prompt that shows me only what i need. tmux for session management, because losing your workspace to an accidental terminal close is a pain you only experience once. neovim as my primary editor, configured over months of small tweaks and plugin experiments.</p>
+
+<p>i manage all of this through a dotfiles repository. every configuration file is version controlled and symlinked. when i set up a new machine, one script pulls everything down and puts it in place. it sounds excessive until you've had to reconfigure everything from scratch for the third time.</p>
+
+<h2>docker and server work</h2>
+
+<p>containerization was the natural next step. i run several services in docker containers, everything from personal web apps to monitoring tools. docker-compose files define the entire stack, and spinning up a new environment takes minutes instead of hours.</p>
+
+<p>server hardening became important once i started hosting things publicly. fail2ban, proper firewall rules, ssh key-only authentication, automated security updates. monitoring with prometheus and grafana so i can actually see what's happening on the box.</p>
+
+<h2>automating deployments</h2>
+
+<p>i wrote shell scripts and eventually moved to proper ci/cd pipelines for deploying my projects. a git push triggers a build, runs tests, and deploys to the server. it's not fancy infrastructure, but it's reliable, and i understand every piece of it.</p>
+
+<p>linux became the foundation for everything else i do. web development, server management, automation, even creative projects. once you're comfortable in the terminal, the overhead of learning new tools drops dramatically. everything is just text, files, and processes.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

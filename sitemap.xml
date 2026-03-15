@@ -5,197 +5,197 @@
   <!-- Main Pages (High Priority) -->
   <url>
     <loc>https://dharunashokkumar.com/</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
+    <loc>https://dharunashokkumar.com/about.html</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
     <loc>https://dharunashokkumar.com/projects.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/portfolio.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/resume.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
+    <loc>https://dharunashokkumar.com/opensource.html</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
     <loc>https://dharunashokkumar.com/activities.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/museum.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/timeline.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Project Pages (High Priority) -->
   <url>
-    <loc>https://dharunashokkumar.com/projects/dadscloud.html</loc>
-    <lastmod>2025-01-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
     <loc>https://dharunashokkumar.com/projects/college-life-simulator.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://dharunashokkumar.com/projects/tripleetech.html</loc>
-    <lastmod>2025-01-13</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/milk-vending-iot.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/school-management-system.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/desktop-ai-assistant.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/mattermost-rebrand.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/penetration-testing.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/linux-customization.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/client-websites.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/bsnl-fiber-setup.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201907-furhat.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/202305-affective_deepfakes.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/202106-worldexpo-datasculptures.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201801-random-swarm_xiii.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201708-random-zoological.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201609-random-gosh.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201509-random-aspect.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201506-rca-humanoid-blanket.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/201210-processing-tree.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -203,175 +203,175 @@
   <!-- Reflection Pages (Blog Content) -->
   <url>
     <loc>https://dharunashokkumar.com/reflections/why-self-host-everything.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/building-dadscloud.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/raspberry-pi-cloud-server.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/home-network-setup.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/cloudflare-dynu-setup.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/ai-assistant-cluely.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/ai-telecaller-project.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/smart-milk-vending-machine.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/home-cybersecurity-lab.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/beef-raspberry-pi.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/my-tech-journey.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/my-electronics-journey.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/my-college-journey.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/my-blogging-journey.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/skills-to-income.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/petrol-density-measurement.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/ups-for-raspberry-pi.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/tiptip-sound-project.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/wearos-weather-app.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/zimaboard-experience.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/202210-data_manifestation.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/202208-making-is-a-political-act.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/202010-against-impressive-work.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/201607-from-cosmonauts-to-ai.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/reflections/201603-letter-writing.html</loc>
-    <lastmod>2025-01-13</lastmod>
+    <lastmod>2026-03-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

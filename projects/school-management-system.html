@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,59 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>School Management System</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/school-management-system.html">school management system</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="tags"><em>tagged with: </em>web development, system architecture</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>a distributed web application for educational institutions. built to replace the spreadsheets and paper registers that most schools around here still rely on.</p>
+
+<p>three separate dashboards &mdash; one for students, one for teachers, one for administrators. each role sees only what they need to. students check their grades, attendance, and fee status. teachers manage their classes, mark attendance, and enter grades. admins get the full picture &mdash; student records, staff management, fee collection, reports.</p>
+
+<p>the tech stack: node.js on the backend with express, react on the frontend, mongodb for the database. chose mongo because the data structures vary quite a bit between institutions &mdash; some track things others don't &mdash; and a flexible schema made it easier to accommodate that.</p>
+
+<p>went with a microservices architecture. separate services for authentication, student management, attendance, grades, and fee records. each service has its own database and communicates through rest apis. this made development easier to manage and meant i could update one service without touching the others.</p>
+
+<p>role-based access control was critical. implemented jwt-based authentication with refresh tokens. each api endpoint checks not just whether you're logged in, but whether your role has permission to access that specific resource. teachers can't see fee records. students can't modify grades. admins can do everything.</p>
+
+<p>the rest api design followed standard conventions. proper http methods, meaningful status codes, pagination for list endpoints, filtering and sorting where it made sense. documented everything with swagger so that anyone extending the system would know what's available.</p>
+
+<p>attendance tracking works in real-time. teacher marks attendance on their dashboard, students and parents see it immediately. same with grades &mdash; enter them once, and they flow through to report cards, transcripts, and analytics.</p>
+
+<p>deployment uses docker containers. each microservice gets its own container, orchestrated with docker compose. makes it straightforward to spin up the whole system on a new server, and keeps the environments consistent between development and production.</p>
+
+<p>the hardest part wasn't the code &mdash; it was understanding how different schools actually work. every institution has slightly different processes, and building something flexible enough to accommodate that without becoming overly complex was the real design challenge.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

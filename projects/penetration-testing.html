@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,55 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Penetration Testing</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/penetration-testing.html">penetration testing</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2023&ndash;25</span>
+		<span class="tags"><em>tagged with: </em>cybersecurity, ethical hacking</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>hands-on penetration testing and security research. started out of curiosity &mdash; wanting to understand how systems actually break, not just how they're built.</p>
+
+<p>the toolkit grew over time. kali linux as the base. nmap for network scanning and enumeration &mdash; figuring out what's running, what's exposed, what shouldn't be. burp suite for intercepting and poking at web traffic. metasploit when i needed to go deeper and actually demonstrate an exploit.</p>
+
+<p>most of the learning happened on <a href="https://www.hackthebox.com/" target="_blank">hackthebox</a> and <a href="https://tryhackme.com/" target="_blank">tryhackme</a>. retired boxes, guided rooms, then eventually live challenges. each one teaches you something different &mdash; sometimes it's a misconfigured service, sometimes it's a forgotten credential, sometimes it's an injection you wouldn't have thought to try.</p>
+
+<p>i set up a home lab for testing. a few virtual machines running vulnerable-by-design applications &mdash; dvwa, metasploitable, juice shop. this made it possible to practice without worrying about breaking anything real, and to repeat attacks until the methodology stuck.</p>
+
+<p>spent a lot of time with the owasp top 10. sql injection, xss, broken authentication, security misconfigurations. the theory is one thing, but actually finding and exploiting these in a controlled environment is where the understanding really forms.</p>
+
+<p>web application security testing became a particular focus. mapping out an application, identifying input points, testing for common vulnerabilities, then documenting findings in a way that someone could actually act on. the reporting side matters just as much as the technical side.</p>
+
+<p>the journey has been from random curiosity to structured security research. learning to think like an attacker to build better defences. still ongoing &mdash; there's always another vector to understand, another technique to practice.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DGWHDZMCF6');
+</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>building dadscloud | Dharun Ashokkumar</title>
+
+    <meta name="description" content="the origin story of dadscloud, an India-based cloud infrastructure alternative built from scratch. why local cloud matters for data sovereignty, latency, and Indian small businesses.">
+    <meta name="keywords" content="cloud infrastructure, India cloud, dadscloud, self-hosted cloud, Raspberry Pi server, data sovereignty, Indian startups, cloud computing, local hosting, infrastructure as a service">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="building dadscloud">
+    <meta property="og:description" content="the origin story of dadscloud, an India-based cloud infrastructure alternative built from scratch.">
+    <meta property="og:url" content="https://dharunashokkumar.com/reflections/building-dadscloud.html">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+  </head>
+  <body>
+    <div id="container" class="post"><div id="header">
+	<h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1><nav>
+	<ul><li>
+				<a href="/projects.html">projects</a>
+			</li><li>
+				<a href="/portfolio.html">portfolio</a>
+			</li><li>
+				<a href="/activities.html">activities</a>
+			</li><li>
+				<a href="/reflections.html">reflections</a>
+			</li></ul>
+</nav>
+</div><div id="content">
+        <h1 class="title">
+	<a href="/reflections/building-dadscloud.html">building dadscloud</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="/reflections.html">reflections</a></span>
+	</small>
+</p>
+
+<h2>why "dadscloud"</h2>
+
+<p>the name is deliberately personal. it's not "nimbus enterprise solutions" or "cloudstrata technologies." it's dadscloud. named that way because the first server literally sat on a shelf in my dad's room, humming away next to a stack of old newspapers. i wanted the name to feel honest about what this is: something built at home, by a person, not a corporation.</p>
+
+<p>there's something powerful about refusing to dress things up. when people hear the name, they either laugh or ask questions. both are good. it sticks in your head, and it tells you immediately that this isn't trying to be the next aws. it's trying to be something else entirely.</p>
+
+<h2>why india needs local cloud</h2>
+
+<p>here's a thing most people outside india don't think about: when an indian startup spins up an ec2 instance on aws, the nearest data centre is usually in mumbai. that's fine if you're in mumbai. but if you're a small business in coimbatore or a student project in chennai, you're still hitting someone else's infrastructure in someone else's city, priced in us dollars.</p>
+
+<p>the costs add up fast for small businesses. a chai shop owner who wants a simple website and maybe a database for inventory doesn't need a global cdn and five nines of uptime. they need something cheap, local, and reliable enough. the big cloud providers aren't built for that market. they're built for scale, and scale means pricing that assumes you're a funded startup or an enterprise.</p>
+
+<p>then there's data sovereignty. indian businesses increasingly want their data to stay in india, on indian hardware, governed by indian law. it's not paranoia, it's just practical. when your data sits on a server you can physically visit, there's a kind of trust that no compliance certificate can replace.</p>
+
+<h2>starting with raspberry pi</h2>
+
+<p>the first version of dadscloud was embarrassingly simple. a raspberry pi 4 with a 128gb sd card, connected to my home broadband, tunnelled through cloudflare. that was the entire infrastructure. i hosted a few static sites on it and offered free hosting to friends who needed somewhere to put their college projects.</p>
+
+<p>it worked, mostly. the pi could handle light traffic without breaking a sweat. i learned about nginx configuration, ssl certificates, process management, and all the small details that separate "i have a server" from "i have a service." the sd card corrupted twice. the power went out during monsoon season and the pi wouldn't come back up cleanly. the isp throttled uploads during peak hours.</p>
+
+<p>every one of those failures taught me something that reading documentation never could. you don't really understand backups until you lose data. you don't understand uptime until your server goes down at 2am and someone messages you about it.</p>
+
+<h2>moving to proper hardware</h2>
+
+<p>the pi was a proof of concept. once i knew the idea had legs, i started thinking about real hardware. not enterprise rack servers, but something in between. used dell optiplex machines, refurbished and cheap, with actual ssds instead of sd cards. a proper ups instead of hoping the power stays on.</p>
+
+<p>the architecture started taking shape: a small cluster of machines, each handling different services. one for compute (running containers for client applications), one for storage (file hosting and databases), one for the web hosting side of things. nothing fancy by industry standards, but solid enough to actually rely on.</p>
+
+<h2>what dadscloud offers</h2>
+
+<p>the services are deliberately simple. basic compute instances for running small applications. file storage with straightforward pricing per gigabyte. web hosting for static sites and simple dynamic applications. database hosting for mysql and postgres. that's it.</p>
+
+<p>i'm not trying to replicate the hundreds of services aws offers. most small businesses use maybe three or four cloud services. they need a place to run their code, a place to store their files, and a database. dadscloud does those things and charges in rupees, with pricing that makes sense for an indian small business, not a silicon valley startup.</p>
+
+<h2>the india-specific challenges</h2>
+
+<p>running infrastructure in india comes with problems that the textbooks don't cover. power is the big one. even in cities, power cuts happen. the ups handles short outages, but extended cuts during storms mean the servers go down. i've learned to design everything around the assumption that the power will fail, and the system needs to come back up cleanly when it returns.</p>
+
+<p>cooling is another thing. indian summers regularly hit 40+ degrees celsius. server rooms in the west assume air conditioning, but running ac 24/7 in india costs a fortune and defeats the purpose of being a low-cost alternative. i've experimented with positioning, ventilation, and thermal throttling to keep things running without dedicated cooling. it's not elegant, but it works.</p>
+
+<p>isp limitations are real too. most indian broadband connections have asymmetric speeds, with upload speeds much lower than download. for a server, upload speed is what matters. i've had to get creative with caching, compression, and content delivery to make the most of limited upstream bandwidth.</p>
+
+<h2>the business side</h2>
+
+<p>pricing dadscloud was an interesting exercise. i looked at what aws and digitalocean charge in india and worked backwards. a small business that currently pays 2000-3000 rupees a month for basic hosting elsewhere can get the same thing on dadscloud for less, with the added benefit of knowing exactly where their data lives.</p>
+
+<p>the target market isn't developers who know how to ssh into a server. it's the shop owner, the tuition centre, the small manufacturer who needs a website and maybe a simple application. that means the interface needs to be simple, the support needs to be personal, and the pricing needs to be transparent. no "estimated charges" that surprise you at the end of the month.</p>
+
+<h2>what i've learned about running infrastructure</h2>
+
+<p>running infrastructure as a service, even at a tiny scale, changes how you think about reliability. when it's your own project, downtime is annoying. when someone else depends on your uptime, downtime is unacceptable. that shift in mindset is huge.</p>
+
+<p>i've learned about monitoring, alerting, capacity planning, and incident response, not from a course but from things actually going wrong. i've learned that documentation matters because future-you is a different person who won't remember why you configured nginx that way. i've learned that the boring parts of infrastructure, backups, updates, security patches, are actually the most important parts.</p>
+
+<h2>where it's heading</h2>
+
+<p>dadscloud is still small. it's not going to replace aws, and it's not trying to. the goal is to serve the local ecosystem: small businesses, students, indie developers who need affordable, local infrastructure without the complexity and cost of the big providers.</p>
+
+<p>i want to expand to a few more machines, maybe set up a second location for redundancy, and build out the management interface so it's genuinely easy for non-technical people to use. the dream is that a small business owner in any indian city can get their digital infrastructure set up in minutes, for a price that doesn't make them think twice.</p>
+
+<p>the name stays. dadscloud. personal, not corporate. built at home, for the neighbourhood, maybe someday for the country. but always honest about what it is and where it came from.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+  </body>
+</html>

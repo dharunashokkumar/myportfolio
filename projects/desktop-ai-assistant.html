@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,55 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Desktop AI Assistant</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/desktop-ai-assistant.html">desktop ai assistant</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="tags"><em>tagged with: </em>ai, automation</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>building a local ai assistant for desktop productivity. the idea was simple &mdash; i wanted something that could help with daily workflows without sending everything to a cloud api.</p>
+
+<p>the backbone is <a href="https://ollama.com/" target="_blank">ollama</a>, running open-source llms locally. tried a few models &mdash; llama, mistral, codellama &mdash; and settled on different ones for different tasks. smaller models for quick lookups and text processing, larger ones when i needed more reasoning.</p>
+
+<p>the interface is built with electron. nothing fancy, just a clean input area that stays out of the way until you need it. global hotkey to summon it, type or speak your request, get a response. voice commands through the web speech api &mdash; surprisingly usable once you get the wake word detection right.</p>
+
+<p>the real value came from task automation. natural language to shell commands. "find all pdfs modified this week" becomes a find command. "summarise this file" reads and processes it locally. file management, quick calculations, text transformation &mdash; all through conversation.</p>
+
+<p>why local instead of cloud apis? three reasons. privacy &mdash; i don't want my file contents and workflows going to external servers. cost &mdash; api calls add up fast when you're using it throughout the day. speed &mdash; for simple tasks, a local model responds faster than a round trip to an api endpoint.</p>
+
+<p>integrated it with system tools. can open applications, manage clipboard content, interact with the file system. the system prompt is tuned to understand my specific setup and common patterns.</p>
+
+<p>it's not as capable as gpt-4 or claude for complex reasoning. but for the 80% of tasks that are routine &mdash; drafting quick messages, reformatting text, searching through files, running common commands &mdash; it handles them well enough. and it runs entirely on my machine.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

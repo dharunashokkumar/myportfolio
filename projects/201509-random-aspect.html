@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -96,9 +97,65 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Random Aspect</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/201509-random-aspect.html">random aspect</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2015</span>
+		<span class="tags"><em>tagged with: </em>software, art</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>what if a projector didn't ask people to get out of its way?</p>
+
+<p>that was the starting question. we're used to projections that treat human bodies as obstacles. step into the beam and you block the image. the assumption baked into most projection systems is that the technology owns the space, and people should accommodate it.</p>
+
+<p>random aspect flipped that. it was a projection system that adapted to human presence instead of ignoring it.</p>
+
+<h2>how it worked</h2>
+
+<p>depth sensors tracked people moving through the projection field in real time. the software took that spatial data and reshaped the projected content around the bodies in the space. walk into the projection and the image flows around you. stand still and it settles. move and it responds.</p>
+
+<p>the technical challenge was latency. for the illusion to work, the system had to respond fast enough that the adaptation felt natural, not delayed. the depth sensor data had to be processed, the content geometry recalculated, and the new frame projected, all within a fraction of a second.</p>
+
+<h2>the installation</h2>
+
+<p>in practice, it created a strange and compelling experience. people would enter the space and realise that the projection was aware of them. some would stand still and watch the image wrap around their silhouette. others would move deliberately, testing the system's responsiveness, playing with it.</p>
+
+<p>that playfulness was the point. the piece questioned the assumption that technology should dominate the spaces it occupies. instead of demanding that humans conform to the machine's requirements, the machine conformed to the humans.</p>
+
+<h2>looking back</h2>
+
+<p>this was an early exploration of what i'd now call human-aware computing. the idea that systems should be designed to accommodate people rather than the other way around. it's a principle that shows up everywhere once you start looking for it, from responsive web design to adaptive interfaces to accessibility.</p>
+
+<p>random aspect was a small project, but the question it asked has stayed with me. who is the technology for, and whose space is it really?</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

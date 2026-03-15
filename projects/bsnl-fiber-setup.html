@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,59 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>BSNL Fiber Setup</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/bsnl-fiber-setup.html">bsnl fiber setup</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="tags"><em>tagged with: </em>networking, system administration</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>setting up and optimising a bsnl ftth (fiber to the home) connection. what should be a straightforward process becomes a proper networking project when you want to self-host services on an indian isp.</p>
+
+<p>the basics first. bsnl provides an ont (optical network terminal) that converts the fiber signal. configuring pppoe authentication &mdash; username, password, vlan id. bsnl uses vlan tagging on their network, and getting the right vlan id for your area is sometimes a matter of trial and error or asking the right technician.</p>
+
+<p>the ont they provide works, but the built-in router is limited. swapped it out for a proper router running in bridge mode. this gave me control over dhcp, dns, firewall rules, and most importantly, port forwarding for self-hosted services.</p>
+
+<p>router optimisation made a noticeable difference. changed dns servers from bsnl's defaults to cloudflare and google dns. adjusted mtu settings to match the pppoe overhead. enabled hardware nat acceleration. configured qos to prioritise certain traffic. small tweaks, but they add up.</p>
+
+<p>port forwarding was essential for running services accessible from outside the network. web servers, ssh, mattermost &mdash; each needed specific ports opened and forwarded to the right internal ip. set up dynamic dns since bsnl doesn't offer static ips on consumer plans. the ip changes occasionally, and ddns keeps everything reachable.</p>
+
+<p>vlan configuration took some figuring out. bsnl's network uses specific vlan ids for internet, iptv, and voip traffic. isolating these properly on the router side meant cleaner traffic separation and fewer weird connectivity issues.</p>
+
+<p>speed testing and optimisation became a recurring activity. bsnl's advertised speeds and actual throughput don't always match. learned to test at different times of day, use iperf for accurate measurements instead of browser-based speed tests, and identify where bottlenecks actually were &mdash; sometimes it's the isp, sometimes it's your own equipment, sometimes it's the server you're connecting to.</p>
+
+<p>network troubleshooting on indian isps has its own character. cgnat sometimes gets in the way of incoming connections. support calls follow a script that doesn't always match your actual problem. but once you understand the network architecture, you can usually diagnose issues faster than waiting for a technician.</p>
+
+<p>making the most of limited bandwidth for hosting meant being smart about what runs where. caching, compression, cdn for static assets, and being realistic about what a consumer fiber connection can actually serve. it's not a data centre, but for personal projects and small-scale services, it works surprisingly well.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>

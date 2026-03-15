@@ -29,6 +29,7 @@
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" type="text/css" href='../css/styles.css'>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -95,9 +96,57 @@
     </script>
 </head>
 <body>
-    <main>
-        <h1>Milk Vending IoT</h1>
-        <p>Project content goes here...</p>
-    </main>
+    <div id="container" class="post"><div id="header">
+	        <h1>
+                <a href="https://dharunashokkumar.com">Dharun Ashokkumar</a>
+            </h1>
+            <nav>
+	            <ul>
+                    <li><a href="../projects.html">projects</a></li>
+                    <li><a href="../portfolio.html">portfolio</a></li>
+                    <li><a href="../activities.html">activities</a></li>
+                    <li><a href="../reflections.html">reflections</a></li>
+                </ul>
+            </nav>
+        </div><div id="content">
+        <h1 class="title">
+	<a href="../projects/milk-vending-iot.html">milk vending iot</a>
+</h1>
+
+<p class="post-meta">
+	<small>
+		<span class="date">2024</span>
+		<span class="tags"><em>tagged with: </em>iot, electronics, arduino</span>
+		<span class="categories"><em>filed under: </em>
+			<a href="../projects.html">projects</a></span>
+	</small>
+</p>
+
+<p>an automated milk dispensing system built around the esp32. the idea came from watching how milk distribution works in local dairy setups &mdash; mostly manual, often inconsistent, hard to track.</p>
+
+<p>the hardware side: flow sensors to measure exactly how much milk gets dispensed, solenoid valves to control the flow, and a small lcd display showing the transaction status. getting food-safe components was harder than expected. most off-the-shelf flow sensors aren't rated for dairy, so finding ones that wouldn't contaminate the product took some research.</p>
+
+<p>payment works through qr codes. customer scans, selects quantity, pays &mdash; and the system dispenses. the backend runs on firebase, handling authentication, transaction logging, and real-time sync between the vending unit and the monitoring dashboard.</p>
+
+<p>the monitoring dashboard shows live data. how much milk has been dispensed, remaining stock, transaction history, any sensor anomalies. built it as a simple web interface that the dairy operator can check from their phone.</p>
+
+<p>connectivity was one of the bigger challenges. these units sit in areas where wifi isn't always reliable. had to implement offline queueing &mdash; the esp32 stores transactions locally and syncs when connection comes back. also dealt with power fluctuations, which meant adding proper voltage regulation and a small ups circuit.</p>
+
+<p>designed a 3d-printed enclosure for the electronics. needed to keep water and dust out while still allowing access to the display and qr scanner. went through three iterations before getting the fit right.</p>
+
+<p>the circuit design went through several revisions too. separating the high-current solenoid control from the sensitive sensor readings, proper grounding, debouncing the flow sensor signal. the kind of things that don't matter on a breadboard prototype but become critical when you're deploying for actual use.</p>
+
+<p>deployed a test unit in a local dairy context. watching real users interact with it taught me more about embedded system design than any tutorial could.</p>
+
+      </div><div id="footer">
+	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
+	<ul><li><a href="/projects.html">projects</a></li><li>
+		<a href="/portfolio.html">portfolio</a></li><li>
+		<a href="/activities.html">activities</a></li><li>
+		<a href="/reflections.html">reflections</a></li></ul>
+</nav>
+</div></div>
+    <script src="/assets/js/responsiveVideo.js"></script>
+    <script src="/assets/js/correctlyFloatMediaElementsLeftOrRight.js"></script>
 </body>
 </html>
