@@ -1110,6 +1110,72 @@ ul.archive.thumblist li:nth-child(3n) {
   }
 }
 
+@media screen and (max-width: 768px) {
+  #container.about-page #content,
+  #container.contact-page #content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #container.about-page .wiki-body,
+  #container.contact-page .contact-content,
+  #container.contact-page #content ul,
+  #container.contact-page #content ol {
+    max-width: 100%;
+  }
+
+  #container.about-page .wiki-toc {
+    display: block;
+    width: auto;
+  }
+
+  #container.about-page .wiki-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #container.about-page .wiki-table th,
+  #container.about-page .wiki-table td {
+    white-space: nowrap;
+  }
+
+  #container.contact-page .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  #container.contact-page #content a,
+  #container.contact-page #content li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  #container.about-page #header nav ul,
+  #container.contact-page #header nav ul,
+  #container.about-page #footer nav ul,
+  #container.contact-page #footer nav ul {
+    gap: 0.35rem 0.6rem;
+  }
+
+  #container.about-page .wiki-infobox {
+    float: none;
+    width: 100%;
+    margin: 0 auto 1rem;
+  }
+
+  #container.about-page .wiki-toc ol {
+    padding-left: 1.1rem;
+  }
+
+  #container.contact-page .contact-card {
+    padding: 0.85rem;
+  }
+}
+
 /* Portfolio Timeline Styles - extends main styles.css */
 
 .timeline {
