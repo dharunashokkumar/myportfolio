@@ -166,11 +166,24 @@
         max-width: 36rem;
         margin: 1.5rem auto;
       }
+      .activity-list {
+        list-style: none;
+        padding: 0;
+        max-width: 36rem;
+        margin: 1.5rem auto;
+      }
       .repo-item {
         border-bottom: 1px solid #eee;
         padding: 1.1rem 0;
       }
+      .activity-item {
+        border-bottom: 1px solid #eee;
+        padding: 0.85rem 0;
+      }
       .repo-item:last-child {
+        border-bottom: none;
+      }
+      .activity-item:last-child {
         border-bottom: none;
       }
       .repo-name {
@@ -214,6 +227,10 @@
       .repo-date {
         font-family: monospace;
         font-size: 0.68rem;
+      }
+      .activity-text {
+        color: #555;
+        font-size: 0.76rem;
       }
 
       /* skeleton loading */
@@ -290,11 +307,19 @@
 
 <div id="profile-link" class="profile-link"></div>
 
-<h1>repositories</h1>
+<h1>recently merged pull requests</h1>
 
-<ul id="repo-list" class="repo-list">
+<ul id="pr-list" class="repo-list">
   <li class="skeleton skeleton-repo"></li>
   <li class="skeleton skeleton-repo"></li>
+  <li class="skeleton skeleton-repo"></li>
+  <li class="skeleton skeleton-repo"></li>
+  <li class="skeleton skeleton-repo"></li>
+</ul>
+
+<h1>recent contribution activity</h1>
+
+<ul id="activity-list" class="activity-list">
   <li class="skeleton skeleton-repo"></li>
   <li class="skeleton skeleton-repo"></li>
   <li class="skeleton skeleton-repo"></li>
@@ -314,34 +339,6 @@
   const GITHUB_USER = 'dharunashokkumar';
   const CACHE_KEY = 'gh_opensource_cache';
   const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
-
-  const LANG_COLORS = {
-    'JavaScript': '#f1e05a',
-    'TypeScript': '#3178c6',
-    'Python': '#3572A5',
-    'Java': '#b07219',
-    'C++': '#f34b7d',
-    'C': '#555555',
-    'C#': '#178600',
-    'HTML': '#e34c26',
-    'CSS': '#563d7c',
-    'Shell': '#89e051',
-    'Go': '#00ADD8',
-    'Rust': '#dea584',
-    'Ruby': '#701516',
-    'PHP': '#4F5D95',
-    'Swift': '#F05138',
-    'Kotlin': '#A97BFF',
-    'Dart': '#00B4AB',
-    'Lua': '#000080',
-    'Vue': '#41b883',
-    'Dockerfile': '#384d54',
-    'Makefile': '#427819',
-    'Jupyter Notebook': '#DA5B0B',
-    'HCL': '#844FBA',
-    'SCSS': '#c6538c',
-    'PowerShell': '#012456'
-  };
 
   function relativeTime(dateStr) {
     const now = new Date();
@@ -386,46 +383,87 @@
     } catch (e) { /* ignore quota errors */ }
   }
 
-  function renderStats(profile, repos) {
+  function renderStats(profile, mergedPrTotal, activeReposCount, events30dCount) {
     var el = document.getElementById('github-stats');
-    var ownedRepos = repos.length;
-    var totalStars = repos.reduce(function(sum, r) { return sum + (r.stargazers_count || 0); }, 0);
-    var totalForks = repos.reduce(function(sum, r) { return sum + (r.forks_count || 0); }, 0);
 
     el.innerHTML =
-      '<div class="stat-card"><span class="stat-value">' + profile.public_repos + '</span><span class="stat-label">public repos</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + totalStars + '</span><span class="stat-label">total stars</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + mergedPrTotal + '</span><span class="stat-label">merged prs</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + events30dCount + '</span><span class="stat-label">events (30d)</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + activeReposCount + '</span><span class="stat-label">active repos</span></div>' +
       '<div class="stat-card"><span class="stat-value">' + profile.followers + '</span><span class="stat-label">followers</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + profile.following + '</span><span class="stat-label">following</span></div>';
+      '<div class="stat-card"><span class="stat-value">' + profile.public_repos + '</span><span class="stat-label">public repos</span></div>';
 
     var linkEl = document.getElementById('profile-link');
     linkEl.innerHTML = '<a href="' + profile.html_url + '" target="_blank" rel="noopener">view full profile on github &rarr;</a>';
   }
 
-  function renderRepos(repos) {
-    var el = document.getElementById('repo-list');
-    if (repos.length === 0) {
-      el.innerHTML = '<li class="repo-item" style="color:#999;text-align:center;">no repositories found.</li>';
+  function extractRepoFromPrUrl(prUrl) {
+    var match = prUrl.match(/github\.com\/([^/]+\/[^/]+)\/pull\/\d+/);
+    return match ? match[1] : '';
+  }
+
+  function renderMergedPrs(prs) {
+    var el = document.getElementById('pr-list');
+    if (prs.length === 0) {
+      el.innerHTML = '<li class="repo-item" style="color:#999;text-align:center;">no merged pull requests found.</li>';
       return;
     }
 
     var html = '';
-    repos.forEach(function(repo) {
-      var langColor = LANG_COLORS[repo.language] || '#ccc';
-      var langHtml = repo.language
-        ? '<span><span class="lang-dot" style="background:' + langColor + '"></span>' + repo.language + '</span>'
-        : '';
-
+    prs.forEach(function(pr) {
+      var repoName = extractRepoFromPrUrl(pr.html_url);
+      var repoLink = repoName ? 'https://github.com/' + repoName : '';
       html += '<li class="repo-item">' +
-        '<div class="repo-name"><a href="' + repo.html_url + '" target="_blank" rel="noopener">' + repo.name + '</a></div>' +
-        (repo.description ? '<div class="repo-desc">' + escapeHtml(repo.description) + '</div>' : '') +
+        '<div class="repo-name"><a href="' + pr.html_url + '" target="_blank" rel="noopener">' + escapeHtml(pr.title) + '</a></div>' +
         '<div class="repo-meta">' +
-          langHtml +
-          (repo.stargazers_count > 0 ? '<span>&#9733; ' + repo.stargazers_count + '</span>' : '') +
-          (repo.forks_count > 0 ? '<span>&#9724; ' + repo.forks_count + ' forks</span>' : '') +
-          '<span class="repo-date">updated ' + relativeTime(repo.updated_at) + '</span>' +
+          (repoName ? '<span><a href="' + repoLink + '" target="_blank" rel="noopener">' + repoName + '</a></span>' : '') +
+          '<span class="repo-date">merged ' + relativeTime(pr.closed_at || pr.updated_at) + '</span>' +
         '</div>' +
         '</li>';
+    });
+
+    el.innerHTML = html;
+  }
+
+  function formatEventAction(event) {
+    var repo = event.repo && event.repo.name ? event.repo.name : 'unknown repo';
+    if (event.type === 'PushEvent') {
+      var commits = event.payload && event.payload.commits ? event.payload.commits.length : 0;
+      return 'pushed ' + commits + ' commit' + (commits === 1 ? '' : 's') + ' to ' + repo;
+    }
+    if (event.type === 'PullRequestEvent') {
+      var action = event.payload && event.payload.action ? event.payload.action : 'updated';
+      return action + ' a pull request in ' + repo;
+    }
+    if (event.type === 'IssuesEvent') {
+      var issueAction = event.payload && event.payload.action ? event.payload.action : 'updated';
+      return issueAction + ' an issue in ' + repo;
+    }
+    if (event.type === 'IssueCommentEvent') {
+      return 'commented on an issue in ' + repo;
+    }
+    if (event.type === 'PullRequestReviewEvent') {
+      return 'reviewed a pull request in ' + repo;
+    }
+    if (event.type === 'CreateEvent') {
+      return 'created a branch or tag in ' + repo;
+    }
+    return event.type.replace('Event', '').toLowerCase() + ' activity in ' + repo;
+  }
+
+  function renderActivity(events) {
+    var el = document.getElementById('activity-list');
+    if (!events.length) {
+      el.innerHTML = '<li class="activity-item" style="color:#999;text-align:center;">no recent contribution activity found.</li>';
+      return;
+    }
+
+    var html = '';
+    events.forEach(function(event) {
+      html += '<li class="activity-item">' +
+        '<div class="activity-text">' + escapeHtml(formatEventAction(event)) + '</div>' +
+        '<div class="repo-meta"><span class="repo-date">' + relativeTime(event.created_at) + '</span></div>' +
+      '</li>';
     });
 
     el.innerHTML = html;
@@ -440,50 +478,86 @@
   function showError(msg) {
     var statsEl = document.getElementById('github-stats');
     statsEl.innerHTML = '';
-    var repoEl = document.getElementById('repo-list');
-    repoEl.innerHTML = '<li class="error-msg">' + msg + '</li>';
+    var prEl = document.getElementById('pr-list');
+    prEl.innerHTML = '<li class="error-msg">' + msg + '</li>';
+    var activityEl = document.getElementById('activity-list');
+    activityEl.innerHTML = '';
   }
 
-  function filterAndSortRepos(repos) {
-    return repos
-      .filter(function(r) {
-        // keep owned repos; keep forks only if they have stars
-        return !r.fork || r.stargazers_count > 0;
-      })
-      .sort(function(a, b) {
-        return new Date(b.updated_at) - new Date(a.updated_at);
-      });
+  function countEventsInLastDays(events, days) {
+    var now = Date.now();
+    var cutoff = now - (days * 24 * 60 * 60 * 1000);
+    return events.filter(function(event) {
+      return new Date(event.created_at).getTime() >= cutoff;
+    }).length;
+  }
+
+  function uniqueReposFromEvents(events) {
+    var seen = {};
+    events.forEach(function(event) {
+      if (event.repo && event.repo.name) {
+        seen[event.repo.name] = true;
+      }
+    });
+    return Object.keys(seen).length;
   }
 
   function loadData() {
     var cached = getCached();
     if (cached) {
-      renderStats(cached.profile, cached.repos);
-      renderRepos(cached.repos);
-      return;
+      if (cached.profile && cached.mergedPrs && cached.events) {
+        renderStats(
+          cached.profile,
+          cached.mergedPrTotal || cached.mergedPrs.length || 0,
+          cached.activeReposCount || uniqueReposFromEvents(cached.events),
+          cached.events30dCount || countEventsInLastDays(cached.events, 30)
+        );
+        renderMergedPrs(cached.mergedPrs);
+        renderActivity(cached.events);
+        return;
+      }
+      sessionStorage.removeItem(CACHE_KEY);
     }
 
     var profileUrl = 'https://api.github.com/users/' + GITHUB_USER;
-    var reposUrl = 'https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=100';
+    var mergedPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:merged&sort=updated&order=desc&per_page=20';
+    var eventsUrl = 'https://api.github.com/users/' + GITHUB_USER + '/events/public?per_page=100';
 
     Promise.all([
       fetch(profileUrl).then(function(r) {
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       }),
-      fetch(reposUrl).then(function(r) {
+      fetch(mergedPrUrl).then(function(r) {
+        if (!r.ok) throw new Error('github api error: ' + r.status);
+        return r.json();
+      }),
+      fetch(eventsUrl).then(function(r) {
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       })
     ])
     .then(function(results) {
       var profile = results[0];
-      var rawRepos = results[1];
-      var repos = filterAndSortRepos(rawRepos);
+      var prData = results[1];
+      var events = results[2] || [];
+      var mergedPrs = prData.items || [];
+      var mergedPrTotal = prData.total_count || mergedPrs.length;
+      var events30dCount = countEventsInLastDays(events, 30);
+      var activeReposCount = uniqueReposFromEvents(events);
+      var recentEvents = events.slice(0, 20);
 
-      setCache({ profile: profile, repos: repos });
-      renderStats(profile, repos);
-      renderRepos(repos);
+      setCache({
+        profile: profile,
+        mergedPrs: mergedPrs,
+        mergedPrTotal: mergedPrTotal,
+        events: recentEvents,
+        events30dCount: events30dCount,
+        activeReposCount: activeReposCount
+      });
+      renderStats(profile, mergedPrTotal, activeReposCount, events30dCount);
+      renderMergedPrs(mergedPrs);
+      renderActivity(recentEvents);
     })
     .catch(function(err) {
       showError('could not load github data. ' + err.message + '. <a href="https://github.com/' + GITHUB_USER + '" target="_blank" rel="noopener">visit github profile directly</a>.');
