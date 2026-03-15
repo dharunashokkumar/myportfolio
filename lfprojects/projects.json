@@ -1,0 +1,7218 @@
+[
+  {
+    "name": "CICN",
+    "slug": "cicn",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cicn.md",
+    "status": "not started"
+  },
+  {
+    "name": "CDEvents",
+    "slug": "cdevents",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "DevOps",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cdevents.md",
+    "status": "not started"
+  },
+  {
+    "name": "Aether Project",
+    "slug": "aether-project",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/aether-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Caliper",
+    "slug": "caliper",
+    "categories": [
+      "Blockchain",
+      "CI/CD & Site Reliability",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "DevOps",
+      "Networking & Edge",
+      "System Administration",
+      "Web App Development"
+    ],
+    "md_file": "projects/caliper.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ceph Foundation",
+    "slug": "ceph-foundation",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Storage",
+      "System Administration",
+      "Web App Development"
+    ],
+    "md_file": "projects/ceph-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Akraino",
+    "slug": "akraino",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "IoT & Embedded",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/akraino.md",
+    "status": "not started"
+  },
+  {
+    "name": "AsyncAPI",
+    "slug": "asyncapi",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Web App Development"
+    ],
+    "md_file": "projects/asyncapi.md",
+    "status": "not started"
+  },
+  {
+    "name": "Accessibility Theme Builder",
+    "slug": "accessibility-theme-builder",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Web App Development"
+    ],
+    "md_file": "projects/accessibility-theme-builder.md",
+    "status": "not started"
+  },
+  {
+    "name": "CLAIMED",
+    "slug": "claimed",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/claimed.md",
+    "status": "not started"
+  },
+  {
+    "name": "CI-Management (CI-Man)",
+    "slug": "ci-management-ci-man",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/ci-management-ci-man.md",
+    "status": "not started"
+  },
+  {
+    "name": "Appium",
+    "slug": "appium",
+    "categories": [
+      "Containers & Virtualization",
+      "Web App Development"
+    ],
+    "md_file": "projects/appium.md",
+    "status": "not started"
+  },
+  {
+    "name": "Antrea",
+    "slug": "antrea",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/antrea.md",
+    "status": "not started"
+  },
+  {
+    "name": "All In",
+    "slug": "all-in",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/all-in.md",
+    "status": "not started"
+  },
+  {
+    "name": "Alliance for Open Media (AOM)",
+    "slug": "alliance-for-open-media-aom",
+    "categories": [
+      "Containers & Virtualization",
+      "IoT & Embedded",
+      "Web App Development"
+    ],
+    "md_file": "projects/alliance-for-open-media-aom.md",
+    "status": "not started"
+  },
+  {
+    "name": "bpfman",
+    "slug": "bpfman",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/bpfman.md",
+    "status": "not started"
+  },
+  {
+    "name": "Backstage",
+    "slug": "backstage",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/backstage.md",
+    "status": "not started"
+  },
+  {
+    "name": "AAA",
+    "slug": "aaa",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/aaa.md",
+    "status": "not started"
+  },
+  {
+    "name": "Baetyl",
+    "slug": "baetyl",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/baetyl.md",
+    "status": "not started"
+  },
+  {
+    "name": "http://AGENTS.md",
+    "slug": "httpagentsmd",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/httpagentsmd.md",
+    "status": "not started"
+  },
+  {
+    "name": "BGP LS PCEP",
+    "slug": "bgp-ls-pcep",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/bgp-ls-pcep.md",
+    "status": "not started"
+  },
+  {
+    "name": "ACRN Project",
+    "slug": "acrn-project",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Safety-Critical Systems",
+      "System Engineering"
+    ],
+    "md_file": "projects/acrn-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Chisel",
+    "slug": "chisel",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Open Hardware",
+      "Web App Development"
+    ],
+    "md_file": "projects/chisel.md",
+    "status": "not started"
+  },
+  {
+    "name": "BFE",
+    "slug": "bfe",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps",
+      "System Administration"
+    ],
+    "md_file": "projects/bfe.md",
+    "status": "not started"
+  },
+  {
+    "name": "Armada",
+    "slug": "armada",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/armada.md",
+    "status": "not started"
+  },
+  {
+    "name": "cert-manager",
+    "slug": "cert-manager",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cert-manager.md",
+    "status": "not started"
+  },
+  {
+    "name": "Battery Data Alliance",
+    "slug": "battery-data-alliance",
+    "categories": [
+      "Containers & Virtualization",
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/battery-data-alliance.md",
+    "status": "not started"
+  },
+  {
+    "name": "Angel",
+    "slug": "angel",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/angel.md",
+    "status": "not started"
+  },
+  {
+    "name": "Airship Installer",
+    "slug": "airship-installer",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/airship-installer.md",
+    "status": "not started"
+  },
+  {
+    "name": "agentgateway",
+    "slug": "agentgateway",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/agentgateway.md",
+    "status": "not started"
+  },
+  {
+    "name": "CLA Bot",
+    "slug": "cla-bot",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Open Source Compliance",
+      "Privacy & Security",
+      "Web App Development"
+    ],
+    "md_file": "projects/cla-bot.md",
+    "status": "not started"
+  },
+  {
+    "name": "AGNTCY",
+    "slug": "agntcy",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/agntcy.md",
+    "status": "not started"
+  },
+  {
+    "name": "Chaos Mesh",
+    "slug": "chaos-mesh",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/chaos-mesh.md",
+    "status": "not started"
+  },
+  {
+    "name": "Carina",
+    "slug": "carina",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/carina.md",
+    "status": "not started"
+  },
+  {
+    "name": "Barometer",
+    "slug": "barometer",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/barometer.md",
+    "status": "not started"
+  },
+  {
+    "name": "Apptainer",
+    "slug": "apptainer",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology"
+    ],
+    "md_file": "projects/apptainer.md",
+    "status": "not started"
+  },
+  {
+    "name": "BabelTrace",
+    "slug": "babeltrace",
+    "categories": [
+      "Containers & Virtualization",
+      "Linux Kernel",
+      "System Administration"
+    ],
+    "md_file": "projects/babeltrace.md",
+    "status": "not started"
+  },
+  {
+    "name": "Active & Available Inventory (AAI)",
+    "slug": "active-available-inventory-aai",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/active-available-inventory-aai.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cloud Custodian",
+    "slug": "cloud-custodian",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cloud-custodian.md",
+    "status": "not started"
+  },
+  {
+    "name": "AI SIG",
+    "slug": "ai-sig",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/ai-sig.md",
+    "status": "not started"
+  },
+  {
+    "name": "CHIPS Alliance Projects",
+    "slug": "chips-alliance-projects",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "IoT & Embedded",
+      "Networking & Edge",
+      "Open Hardware",
+      "Web App Development"
+    ],
+    "md_file": "projects/chips-alliance-projects.md",
+    "status": "not started"
+  },
+  {
+    "name": "Adversarial Robustness Toolbox",
+    "slug": "adversarial-robustness-toolbox",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/adversarial-robustness-toolbox.md",
+    "status": "not started"
+  },
+  {
+    "name": "AI Governance Framework",
+    "slug": "ai-governance-framework",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/ai-governance-framework.md",
+    "status": "not started"
+  },
+  {
+    "name": "Amundsen",
+    "slug": "amundsen",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/amundsen.md",
+    "status": "not started"
+  },
+  {
+    "name": "Athenz",
+    "slug": "athenz",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/athenz.md",
+    "status": "not started"
+  },
+  {
+    "name": "AMReX",
+    "slug": "amrex",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology"
+    ],
+    "md_file": "projects/amrex.md",
+    "status": "not started"
+  },
+  {
+    "name": "AMP",
+    "slug": "amp",
+    "categories": [
+      "Containers & Virtualization",
+      "Web App Development"
+    ],
+    "md_file": "projects/amp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Architect",
+    "slug": "architect",
+    "categories": [
+      "Containers & Virtualization",
+      "Web App Development"
+    ],
+    "md_file": "projects/architect.md",
+    "status": "not started"
+  },
+  {
+    "name": "Besu",
+    "slug": "besu",
+    "categories": [
+      "Blockchain",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/besu.md",
+    "status": "not started"
+  },
+  {
+    "name": "Adlik",
+    "slug": "adlik",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/adlik.md",
+    "status": "not started"
+  },
+  {
+    "name": "AI Explainability 360",
+    "slug": "ai-explainability-360",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/ai-explainability-360.md",
+    "status": "not started"
+  },
+  {
+    "name": "Chapel",
+    "slug": "chapel",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/chapel.md",
+    "status": "not started"
+  },
+  {
+    "name": "CitrineOS",
+    "slug": "citrineos",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/citrineos.md",
+    "status": "not started"
+  },
+  {
+    "name": "Academy Color Encoding System (ACES)",
+    "slug": "academy-color-encoding-system-aces",
+    "categories": [
+      "Containers & Virtualization",
+      "Visual Effects"
+    ],
+    "md_file": "projects/academy-color-encoding-system-aces.md",
+    "status": "not started"
+  },
+  {
+    "name": "Artifact Hub",
+    "slug": "artifact-hub",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/artifact-hub.md",
+    "status": "not started"
+  },
+  {
+    "name": "Automotive Grade Linux (AGL)",
+    "slug": "automotive-grade-linux-agl",
+    "categories": [
+      "Containers & Virtualization",
+      "IoT & Embedded",
+      "Linux Kernel",
+      "Networking & Edge",
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/automotive-grade-linux-agl.md",
+    "status": "not started"
+  },
+  {
+    "name": "Agent2Agent",
+    "slug": "agent2agent",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/agent2agent.md",
+    "status": "not started"
+  },
+  {
+    "name": "AI Fairness 360",
+    "slug": "ai-fairness-360",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/ai-fairness-360.md",
+    "status": "not started"
+  },
+  {
+    "name": "Camara Fund",
+    "slug": "camara-fund",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/camara-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Capsule",
+    "slug": "capsule",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/capsule.md",
+    "status": "not started"
+  },
+  {
+    "name": "BeeAI",
+    "slug": "beeai",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/beeai.md",
+    "status": "not started"
+  },
+  {
+    "name": "Carbyne Stack",
+    "slug": "carbyne-stack",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/carbyne-stack.md",
+    "status": "not started"
+  },
+  {
+    "name": "Augur",
+    "slug": "augur",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/augur.md",
+    "status": "not started"
+  },
+  {
+    "name": "Accord Project",
+    "slug": "accord-project",
+    "categories": [
+      "Blockchain",
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/accord-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Alliance for OpenUSD (AOUSD)",
+    "slug": "alliance-for-openusd-aousd",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology"
+    ],
+    "md_file": "projects/alliance-for-openusd-aousd.md",
+    "status": "not started"
+  },
+  {
+    "name": "CloudEvents",
+    "slug": "cloudevents",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cloudevents.md",
+    "status": "not started"
+  },
+  {
+    "name": "cdk8s",
+    "slug": "cdk8s",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cdk8s.md",
+    "status": "not started"
+  },
+  {
+    "name": "Alliance for OpenUSD Fund (AOUSDF)",
+    "slug": "alliance-for-openusd-fund-aousdf",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology"
+    ],
+    "md_file": "projects/alliance-for-openusd-fund-aousdf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Certifier Framework for Confidential Computing",
+    "slug": "certifier-framework-for-confidential-computing",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Privacy & Security",
+      "Web App Development"
+    ],
+    "md_file": "projects/certifier-framework-for-confidential-computing.md",
+    "status": "not started"
+  },
+  {
+    "name": "Broadband Fund",
+    "slug": "broadband-fund",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/broadband-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Buildpacks",
+    "slug": "buildpacks",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps",
+      "System Administration"
+    ],
+    "md_file": "projects/buildpacks.md",
+    "status": "not started"
+  },
+  {
+    "name": "AgStack",
+    "slug": "agstack",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/agstack.md",
+    "status": "not started"
+  },
+  {
+    "name": "BOSH",
+    "slug": "bosh",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps"
+    ],
+    "md_file": "projects/bosh.md",
+    "status": "not started"
+  },
+  {
+    "name": "Aeraki Mesh",
+    "slug": "aeraki-mesh",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/aeraki-mesh.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cicero",
+    "slug": "cicero",
+    "categories": [
+      "Blockchain",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cicero.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ci-management",
+    "slug": "ci-management",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/ci-management.md",
+    "status": "not started"
+  },
+  {
+    "name": "CHAOSS",
+    "slug": "chaoss",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Blockchain",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Open Source Compliance",
+      "Web App Development"
+    ],
+    "md_file": "projects/chaoss.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ambitus",
+    "slug": "ambitus",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "DevOps",
+      "System Administration",
+      "System Engineering"
+    ],
+    "md_file": "projects/ambitus.md",
+    "status": "not started"
+  },
+  {
+    "name": "5G Super Blueprints",
+    "slug": "5g-super-blueprints",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/5g-super-blueprints.md",
+    "status": "not started"
+  },
+  {
+    "name": "Academy Software Foundation (ASWF)",
+    "slug": "academy-software-foundation-aswf",
+    "categories": [
+      "Containers & Virtualization",
+      "Visual Effects"
+    ],
+    "md_file": "projects/academy-software-foundation-aswf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cloudforet",
+    "slug": "cloudforet",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cloudforet.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cilium",
+    "slug": "cilium",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/cilium.md",
+    "status": "not started"
+  },
+  {
+    "name": "Aether Fund",
+    "slug": "aether-fund",
+    "categories": [
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/aether-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cadence",
+    "slug": "cadence",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/cadence.md",
+    "status": "not started"
+  },
+  {
+    "name": "Call for Code",
+    "slug": "call-for-code",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/call-for-code.md",
+    "status": "not started"
+  },
+  {
+    "name": "CBT Tape",
+    "slug": "cbt-tape",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "System Administration",
+      "Web App Development"
+    ],
+    "md_file": "projects/cbt-tape.md",
+    "status": "not started"
+  },
+  {
+    "name": "Automated Compliance Tooling (ACT)",
+    "slug": "automated-compliance-tooling-act",
+    "categories": [
+      "Containers & Virtualization",
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/automated-compliance-tooling-act.md",
+    "status": "not started"
+  },
+  {
+    "name": "Charliecloud",
+    "slug": "charliecloud",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/charliecloud.md",
+    "status": "not started"
+  },
+  {
+    "name": "CLAMP",
+    "slug": "clamp",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/clamp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Argo",
+    "slug": "argo",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps"
+    ],
+    "md_file": "projects/argo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Centaurus Infrastructure Project",
+    "slug": "centaurus-infrastructure-project",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "System Engineering",
+      "Web App Development"
+    ],
+    "md_file": "projects/centaurus-infrastructure-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "CHIPS Alliance Fund",
+    "slug": "chips-alliance-fund",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Open Hardware",
+      "Web App Development"
+    ],
+    "md_file": "projects/chips-alliance-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Arras",
+    "slug": "arras",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology"
+    ],
+    "md_file": "projects/arras.md",
+    "status": "not started"
+  },
+  {
+    "name": "Civil Infrastructure Platform (CIP)",
+    "slug": "civil-infrastructure-platform-cip",
+    "categories": [
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "IoT & Embedded",
+      "Linux Kernel",
+      "Networking & Edge",
+      "Open Source Compliance",
+      "Safety-Critical Systems",
+      "System Engineering",
+      "Web App Development"
+    ],
+    "md_file": "projects/civil-infrastructure-platform-cip.md",
+    "status": "not started"
+  },
+  {
+    "name": "Carvel",
+    "slug": "carvel",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Cross-Technology",
+      "Networking & Edge",
+      "Web App Development"
+    ],
+    "md_file": "projects/carvel.md",
+    "status": "not started"
+  },
+  {
+    "name": "Anuket",
+    "slug": "anuket",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/anuket.md",
+    "status": "not started"
+  },
+  {
+    "name": "3MF Consortium",
+    "slug": "3mf-consortium",
+    "categories": [
+      "Containers & Virtualization",
+      "IoT & Embedded",
+      "Open Hardware"
+    ],
+    "md_file": "projects/3mf-consortium.md",
+    "status": "not started"
+  },
+  {
+    "name": "ESLint",
+    "slug": "eslint",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/eslint.md",
+    "status": "not started"
+  },
+  {
+    "name": "Falco",
+    "slug": "falco",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/falco.md",
+    "status": "not started"
+  },
+  {
+    "name": "EasyCLA",
+    "slug": "easycla",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/easycla.md",
+    "status": "not started"
+  },
+  {
+    "name": "dstack",
+    "slug": "dstack",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/dstack.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dapr",
+    "slug": "dapr",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/dapr.md",
+    "status": "not started"
+  },
+  {
+    "name": "Coalition for Content Provenance and Authenticity Fund (C2PA)",
+    "slug": "coalition-for-content-provenance-and-authenticity-fund-c2pa",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Web App Development"
+    ],
+    "md_file": "projects/coalition-for-content-provenance-and-authenticity-fund-c2pa.md",
+    "status": "not started"
+  },
+  {
+    "name": "covXtreme",
+    "slug": "covxtreme",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/covxtreme.md",
+    "status": "not started"
+  },
+  {
+    "name": "Essedum",
+    "slug": "essedum",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/essedum.md",
+    "status": "not started"
+  },
+  {
+    "name": "Data Movement as a Platform (DMaaP)",
+    "slug": "data-movement-as-a-platform-dmaap",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/data-movement-as-a-platform-dmaap.md",
+    "status": "not started"
+  },
+  {
+    "name": "Data Plane Development Kit (DPDK)",
+    "slug": "data-plane-development-kit-dpdk",
+    "categories": [
+      "Networking & Edge",
+      "System Engineering"
+    ],
+    "md_file": "projects/data-plane-development-kit-dpdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "Code Aurora Forum (CAF)",
+    "slug": "code-aurora-forum-caf",
+    "categories": [
+      "IoT & Embedded",
+      "Linux Kernel"
+    ],
+    "md_file": "projects/code-aurora-forum-caf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Continuous Integration Working Group",
+    "slug": "continuous-integration-working-group",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "DevOps"
+    ],
+    "md_file": "projects/continuous-integration-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Connected Data Specification - Customer Data Working Group (CDS WG3)",
+    "slug": "connected-data-specification-customer-data-working-group-cds-wg3",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/connected-data-specification-customer-data-working-group-cds-wg3.md",
+    "status": "not started"
+  },
+  {
+    "name": "Connected Data Specification - Power Systems Data Working Group (CDS WG2)",
+    "slug": "connected-data-specification-power-systems-data-working-group-cds-wg2",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/connected-data-specification-power-systems-data-working-group-cds-wg2.md",
+    "status": "not started"
+  },
+  {
+    "name": "Community Data License Agreement (CDLA)",
+    "slug": "community-data-license-agreement-cdla",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/community-data-license-agreement-cdla.md",
+    "status": "not started"
+  },
+  {
+    "name": "Core Infrastructure Initiative (CII)",
+    "slug": "core-infrastructure-initiative-cii",
+    "categories": [
+      "Open Source Compliance",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/core-infrastructure-initiative-cii.md",
+    "status": "not started"
+  },
+  {
+    "name": "FastDataStacks (FDS)",
+    "slug": "fastdatastacks-fds",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/fastdatastacks-fds.md",
+    "status": "not started"
+  },
+  {
+    "name": "DENT Fund",
+    "slug": "dent-fund",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/dent-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Continuous Delivery Foundation (CDF)",
+    "slug": "continuous-delivery-foundation-cdf",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "DevOps"
+    ],
+    "md_file": "projects/continuous-delivery-foundation-cdf.md",
+    "status": "not started"
+  },
+  {
+    "name": "COBOL Programming Course",
+    "slug": "cobol-programming-course",
+    "categories": [
+      "System Administration",
+      "System Engineering",
+      "Web App Development"
+    ],
+    "md_file": "projects/cobol-programming-course.md",
+    "status": "not started"
+  },
+  {
+    "name": "Esprima",
+    "slug": "esprima",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/esprima.md",
+    "status": "not started"
+  },
+  {
+    "name": "Common Print Dialog Backends",
+    "slug": "common-print-dialog-backends",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/common-print-dialog-backends.md",
+    "status": "not started"
+  },
+  {
+    "name": "DeepCausality",
+    "slug": "deepcausality",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/deepcausality.md",
+    "status": "not started"
+  },
+  {
+    "name": "Confidential Computing Consortium (CCC)",
+    "slug": "confidential-computing-consortium-ccc",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/confidential-computing-consortium-ccc.md",
+    "status": "not started"
+  },
+  {
+    "name": "EVerest",
+    "slug": "everest",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/everest.md",
+    "status": "not started"
+  },
+  {
+    "name": "DENT Project",
+    "slug": "dent-project",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/dent-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Enarx",
+    "slug": "enarx",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/enarx.md",
+    "status": "not started"
+  },
+  {
+    "name": "CNI",
+    "slug": "cni",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/cni.md",
+    "status": "not started"
+  },
+  {
+    "name": "Diversity and Inclusion Badging Initiative",
+    "slug": "diversity-and-inclusion-badging-initiative",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/diversity-and-inclusion-badging-initiative.md",
+    "status": "not started"
+  },
+  {
+    "name": "emissary-ingress",
+    "slug": "emissary-ingress",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/emissary-ingress.md",
+    "status": "not started"
+  },
+  {
+    "name": "Digital Production Example Library (DPEL)",
+    "slug": "digital-production-example-library-dpel",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/digital-production-example-library-dpel.md",
+    "status": "not started"
+  },
+  {
+    "name": "Clusternet",
+    "slug": "clusternet",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/clusternet.md",
+    "status": "not started"
+  },
+  {
+    "name": "EdgeLake",
+    "slug": "edgelake",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/edgelake.md",
+    "status": "not started"
+  },
+  {
+    "name": "DataLoader",
+    "slug": "dataloader",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Web App Development"
+    ],
+    "md_file": "projects/dataloader.md",
+    "status": "not started"
+  },
+  {
+    "name": "CoMPAS",
+    "slug": "compas",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "System Administration"
+    ],
+    "md_file": "projects/compas.md",
+    "status": "not started"
+  },
+  {
+    "name": "EdgeX Foundry",
+    "slug": "edgex-foundry",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/edgex-foundry.md",
+    "status": "not started"
+  },
+  {
+    "name": "Express",
+    "slug": "express",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/express.md",
+    "status": "not started"
+  },
+  {
+    "name": "COCONUT-SVSM",
+    "slug": "coconut-svsm",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/coconut-svsm.md",
+    "status": "not started"
+  },
+  {
+    "name": "DocumentDB",
+    "slug": "documentdb",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/documentdb.md",
+    "status": "not started"
+  },
+  {
+    "name": "Coalition for Content Provenance and Authenticity (C2PA)",
+    "slug": "coalition-for-content-provenance-and-authenticity-c2pa",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Web App Development"
+    ],
+    "md_file": "projects/coalition-for-content-provenance-and-authenticity-c2pa.md",
+    "status": "not started"
+  },
+  {
+    "name": "DiaMon Workgroup",
+    "slug": "diamon-workgroup",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/diamon-workgroup.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dovetail",
+    "slug": "dovetail",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/dovetail.md",
+    "status": "not started"
+  },
+  {
+    "name": "CoreDNS",
+    "slug": "coredns",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/coredns.md",
+    "status": "not started"
+  },
+  {
+    "name": "Envoy",
+    "slug": "envoy",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps"
+    ],
+    "md_file": "projects/envoy.md",
+    "status": "not started"
+  },
+  {
+    "name": "Fastify",
+    "slug": "fastify",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/fastify.md",
+    "status": "not started"
+  },
+  {
+    "name": "Delta Lake Project",
+    "slug": "delta-lake-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/delta-lake-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "eBPF Foundation",
+    "slug": "ebpf-foundation",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/ebpf-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "ent",
+    "slug": "ent",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Web App Development"
+    ],
+    "md_file": "projects/ent.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cregit",
+    "slug": "cregit",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/cregit.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dynaωo",
+    "slug": "dynao",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/dynao.md",
+    "status": "not started"
+  },
+  {
+    "name": "Driverless Printing",
+    "slug": "driverless-printing",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/driverless-printing.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dragonfly",
+    "slug": "dragonfly",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/dragonfly.md",
+    "status": "not started"
+  },
+  {
+    "name": "Crossplane",
+    "slug": "crossplane",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/crossplane.md",
+    "status": "not started"
+  },
+  {
+    "name": "DAOS Foundation",
+    "slug": "daos-foundation",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/daos-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Edge Interoperability and Flexibility SIG",
+    "slug": "edge-interoperability-and-flexibility-sig",
+    "categories": [
+      "Cross-Technology",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/edge-interoperability-and-flexibility-sig.md",
+    "status": "not started"
+  },
+  {
+    "name": "FATE Project",
+    "slug": "fate-project",
+    "categories": [
+      "AI / ML / Data Analytics",
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/fate-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "ContainerSSH",
+    "slug": "containerssh",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/containerssh.md",
+    "status": "not started"
+  },
+  {
+    "name": "ELISA Fund",
+    "slug": "elisa-fund",
+    "categories": [
+      "Linux Kernel",
+      "Open Source Compliance",
+      "Safety-Critical Systems",
+      "Web App Development"
+    ],
+    "md_file": "projects/elisa-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "DeepSpeed",
+    "slug": "deepspeed",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/deepspeed.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dojo",
+    "slug": "dojo",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/dojo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Core Toolchain Infrastructure (CTI)",
+    "slug": "core-toolchain-infrastructure-cti",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/core-toolchain-infrastructure-cti.md",
+    "status": "not started"
+  },
+  {
+    "name": "Core Embedded Linux Project (CELP)",
+    "slug": "core-embedded-linux-project-celp",
+    "categories": [
+      "IoT & Embedded",
+      "Linux Kernel"
+    ],
+    "md_file": "projects/core-embedded-linux-project-celp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Credo",
+    "slug": "credo",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/credo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Drasi",
+    "slug": "drasi",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/drasi.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cortex",
+    "slug": "cortex",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/cortex.md",
+    "status": "not started"
+  },
+  {
+    "name": "CubeFS",
+    "slug": "cubefs",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Storage"
+    ],
+    "md_file": "projects/cubefs.md",
+    "status": "not started"
+  },
+  {
+    "name": "CloudNativePG",
+    "slug": "cloudnativepg",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/cloudnativepg.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ergo",
+    "slug": "ergo",
+    "categories": [
+      "Blockchain",
+      "Web App Development"
+    ],
+    "md_file": "projects/ergo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Embedded and Automotive PV Drivers",
+    "slug": "embedded-and-automotive-pv-drivers",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/embedded-and-automotive-pv-drivers.md",
+    "status": "not started"
+  },
+  {
+    "name": "Clusterpedia",
+    "slug": "clusterpedia",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/clusterpedia.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dronecode Project, Inc.",
+    "slug": "dronecode-project-inc",
+    "categories": [
+      "IoT & Embedded",
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/dronecode-project-inc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Datashim",
+    "slug": "datashim",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/datashim.md",
+    "status": "not started"
+  },
+  {
+    "name": "CommonTraceFormat",
+    "slug": "commontraceformat",
+    "categories": [
+      "Linux Kernel",
+      "System Administration"
+    ],
+    "md_file": "projects/commontraceformat.md",
+    "status": "not started"
+  },
+  {
+    "name": "ClusterDuck Protocol",
+    "slug": "clusterduck-protocol",
+    "categories": [
+      "Containers & Virtualization",
+      "IoT & Embedded",
+      "Networking & Edge",
+      "Open Hardware"
+    ],
+    "md_file": "projects/clusterduck-protocol.md",
+    "status": "not started"
+  },
+  {
+    "name": "Egeria",
+    "slug": "egeria",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/egeria.md",
+    "status": "not started"
+  },
+  {
+    "name": "Electron",
+    "slug": "electron",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/electron.md",
+    "status": "not started"
+  },
+  {
+    "name": "DevOps Automation",
+    "slug": "devops-automation",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "DevOps"
+    ],
+    "md_file": "projects/devops-automation.md",
+    "status": "not started"
+  },
+  {
+    "name": "CRI-O",
+    "slug": "cri-o",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/cri-o.md",
+    "status": "not started"
+  },
+  {
+    "name": "EVE",
+    "slug": "eve",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/eve.md",
+    "status": "not started"
+  },
+  {
+    "name": "COBOL Working Group",
+    "slug": "cobol-working-group",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/cobol-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "DLRover",
+    "slug": "dlrover",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/dlrover.md",
+    "status": "not started"
+  },
+  {
+    "name": "Containerd",
+    "slug": "containerd",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/containerd.md",
+    "status": "not started"
+  },
+  {
+    "name": "DAOS Project",
+    "slug": "daos-project",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/daos-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Envoy Mobile",
+    "slug": "envoy-mobile",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/envoy-mobile.md",
+    "status": "not started"
+  },
+  {
+    "name": "External API Framework (ExtAPI)",
+    "slug": "external-api-framework-extapi",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/external-api-framework-extapi.md",
+    "status": "not started"
+  },
+  {
+    "name": "Disaggregated Network Operating System (DANOS)",
+    "slug": "disaggregated-network-operating-system-danos",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/disaggregated-network-operating-system-danos.md",
+    "status": "not started"
+  },
+  {
+    "name": "Etcd",
+    "slug": "etcd",
+    "categories": [
+      "CI/CD & Site Reliability",
+      "Cloud",
+      "Containers & Virtualization",
+      "DevOps"
+    ],
+    "md_file": "projects/etcd.md",
+    "status": "not started"
+  },
+  {
+    "name": "Docling",
+    "slug": "docling",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/docling.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dalec",
+    "slug": "dalec",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/dalec.md",
+    "status": "not started"
+  },
+  {
+    "name": "Cyber Domain Ontology Project",
+    "slug": "cyber-domain-ontology-project",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/cyber-domain-ontology-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Currency Reference Data",
+    "slug": "currency-reference-data",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/currency-reference-data.md",
+    "status": "not started"
+  },
+  {
+    "name": "Decentralized Identity Foundation (DIF)",
+    "slug": "decentralized-identity-foundation-dif",
+    "categories": [
+      "Blockchain",
+      "Privacy & Security"
+    ],
+    "md_file": "projects/decentralized-identity-foundation-dif.md",
+    "status": "not started"
+  },
+  {
+    "name": "Distribution",
+    "slug": "distribution",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/distribution.md",
+    "status": "not started"
+  },
+  {
+    "name": "Diversity & Inclusion Working Group",
+    "slug": "diversity-inclusion-working-group",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/diversity-inclusion-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Dex",
+    "slug": "dex",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/dex.md",
+    "status": "not started"
+  },
+  {
+    "name": "Concerto",
+    "slug": "concerto",
+    "categories": [
+      "Blockchain",
+      "Web App Development"
+    ],
+    "md_file": "projects/concerto.md",
+    "status": "not started"
+  },
+  {
+    "name": "DTS",
+    "slug": "dts",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/dts.md",
+    "status": "not started"
+  },
+  {
+    "name": "Contour",
+    "slug": "contour",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/contour.md",
+    "status": "not started"
+  },
+  {
+    "name": "Common Controller SDK (CCSDK)",
+    "slug": "common-controller-sdk-ccsdk",
+    "categories": [
+      "Cloud",
+      "Containers & Virtualization",
+      "Networking & Edge"
+    ],
+    "md_file": "projects/common-controller-sdk-ccsdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "Connected Data Specification - Registration Working Group (CDS WG1)",
+    "slug": "connected-data-specification-registration-working-group-cds-wg1",
+    "categories": [
+      "Cross-Technology",
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/connected-data-specification-registration-working-group-cds-wg1.md",
+    "status": "not started"
+  },
+  {
+    "name": "Flux",
+    "slug": "flux",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/flux.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grid Vantage",
+    "slug": "grid-vantage",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/grid-vantage.md",
+    "status": "not started"
+  },
+  {
+    "name": "GridFM",
+    "slug": "gridfm",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/gridfm.md",
+    "status": "not started"
+  },
+  {
+    "name": "Gardener",
+    "slug": "gardener",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/gardener.md",
+    "status": "not started"
+  },
+  {
+    "name": "Headlamp",
+    "slug": "headlamp",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/headlamp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Greenhouse",
+    "slug": "greenhouse",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/greenhouse.md",
+    "status": "not started"
+  },
+  {
+    "name": "Fluid Project",
+    "slug": "fluid-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/fluid-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Harbor",
+    "slug": "harbor",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/harbor.md",
+    "status": "not started"
+  },
+  {
+    "name": "Fluentd",
+    "slug": "fluentd",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/fluentd.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Fabric",
+    "slug": "hyperledger-fabric",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-fabric.md",
+    "status": "not started"
+  },
+  {
+    "name": "JDF International",
+    "slug": "jdf-international",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/jdf-international.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL IDE Monorepo",
+    "slug": "graphql-ide-monorepo",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphql-ide-monorepo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grid eXchange Fabric (GXF)",
+    "slug": "grid-exchange-fabric-gxf",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/grid-exchange-fabric-gxf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hardware Standards Working Group",
+    "slug": "hardware-standards-working-group",
+    "categories": [
+      "Open Hardware"
+    ],
+    "md_file": "projects/hardware-standards-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Git Proxy",
+    "slug": "git-proxy",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/git-proxy.md",
+    "status": "not started"
+  },
+  {
+    "name": "Horovod",
+    "slug": "horovod",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/horovod.md",
+    "status": "not started"
+  },
+  {
+    "name": "High Performance Software Foundation (HPSF)",
+    "slug": "high-performance-software-foundation-hpsf",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/high-performance-software-foundation-hpsf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperlight",
+    "slug": "hyperlight",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/hyperlight.md",
+    "status": "not started"
+  },
+  {
+    "name": "Jaeger",
+    "slug": "jaeger",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/jaeger.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Cello",
+    "slug": "hyperledger-cello",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-cello.md",
+    "status": "not started"
+  },
+  {
+    "name": "ForestFlow",
+    "slug": "forestflow",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/forestflow.md",
+    "status": "not started"
+  },
+  {
+    "name": "index-import",
+    "slug": "index-import",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/index-import.md",
+    "status": "not started"
+  },
+  {
+    "name": "Interledger.js",
+    "slug": "interledgerjs",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/interledgerjs.md",
+    "status": "not started"
+  },
+  {
+    "name": "InterUSS Platform",
+    "slug": "interuss-platform",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/interuss-platform.md",
+    "status": "not started"
+  },
+  {
+    "name": "Flyte",
+    "slug": "flyte",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/flyte.md",
+    "status": "not started"
+  },
+  {
+    "name": "http://FD.io",
+    "slug": "httpfdio",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/httpfdio.md",
+    "status": "not started"
+  },
+  {
+    "name": "Infrastructure Utils",
+    "slug": "infrastructure-utils",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/infrastructure-utils.md",
+    "status": "not started"
+  },
+  {
+    "name": "Home Edge",
+    "slug": "home-edge",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/home-edge.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Cacti",
+    "slug": "hyperledger-cacti",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-cacti.md",
+    "status": "not started"
+  },
+  {
+    "name": "HAMi",
+    "slug": "hami",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/hami.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Solang",
+    "slug": "hyperledger-solang",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-solang.md",
+    "status": "not started"
+  },
+  {
+    "name": "Inclusive Naming Initiative Fund (INI)",
+    "slug": "inclusive-naming-initiative-fund-ini",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/inclusive-naming-initiative-fund-ini.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grid Simulation and Modeling SIG",
+    "slug": "grid-simulation-and-modeling-sig",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/grid-simulation-and-modeling-sig.md",
+    "status": "not started"
+  },
+  {
+    "name": "FledgePower",
+    "slug": "fledgepower",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/fledgepower.md",
+    "status": "not started"
+  },
+  {
+    "name": "HVMI",
+    "slug": "hvmi",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/hvmi.md",
+    "status": "not started"
+  },
+  {
+    "name": "InnerSource Special Interest Group",
+    "slug": "innersource-special-interest-group",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/innersource-special-interest-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "interLink",
+    "slug": "interlink",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/interlink.md",
+    "status": "not started"
+  },
+  {
+    "name": "FIDOPower",
+    "slug": "fidopower",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/fidopower.md",
+    "status": "not started"
+  },
+  {
+    "name": "Golang Toolset for VPP (GoVPP)",
+    "slug": "golang-toolset-for-vpp-govpp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/golang-toolset-for-vpp-govpp.md",
+    "status": "not started"
+  },
+  {
+    "name": "FlexMeasures",
+    "slug": "flexmeasures",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/flexmeasures.md",
+    "status": "not started"
+  },
+  {
+    "name": "FIDO Device Onboard",
+    "slug": "fido-device-onboard",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/fido-device-onboard.md",
+    "status": "not started"
+  },
+  {
+    "name": "Genius",
+    "slug": "genius",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/genius.md",
+    "status": "not started"
+  },
+  {
+    "name": "InterUSS Platform Fund",
+    "slug": "interuss-platform-fund",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/interuss-platform-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Globalize",
+    "slug": "globalize",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/globalize.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grid2Op",
+    "slug": "grid2op",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/grid2op.md",
+    "status": "not started"
+  },
+  {
+    "name": "Feilong",
+    "slug": "feilong",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/feilong.md",
+    "status": "not started"
+  },
+  {
+    "name": "FDC3 Conformance Framework",
+    "slug": "fdc3-conformance-framework",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/fdc3-conformance-framework.md",
+    "status": "not started"
+  },
+  {
+    "name": "IREE",
+    "slug": "iree",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/iree.md",
+    "status": "not started"
+  },
+  {
+    "name": "HospitalRun",
+    "slug": "hospitalrun",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/hospitalrun.md",
+    "status": "not started"
+  },
+  {
+    "name": "Islet",
+    "slug": "islet",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/islet.md",
+    "status": "not started"
+  },
+  {
+    "name": "Java APIs for VPP (JVPP)",
+    "slug": "java-apis-for-vpp-jvpp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/java-apis-for-vpp-jvpp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Indy",
+    "slug": "hyperledger-indy",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-indy.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphiQL",
+    "slug": "graphiql",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphiql.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL over HTTP",
+    "slug": "graphql-over-http",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphql-over-http.md",
+    "status": "not started"
+  },
+  {
+    "name": "HPCToolkit",
+    "slug": "hpctoolkit",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/hpctoolkit.md",
+    "status": "not started"
+  },
+  {
+    "name": "Galasa",
+    "slug": "galasa",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/galasa.md",
+    "status": "not started"
+  },
+  {
+    "name": "GenevaERS",
+    "slug": "genevaers",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/genevaers.md",
+    "status": "not started"
+  },
+  {
+    "name": "Honeycomb 2 VPP (Hc2vpp)",
+    "slug": "honeycomb-2-vpp-hc2vpp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/honeycomb-2-vpp-hc2vpp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyphae",
+    "slug": "hyphae",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/hyphae.md",
+    "status": "not started"
+  },
+  {
+    "name": "HPX",
+    "slug": "hpx",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/hpx.md",
+    "status": "not started"
+  },
+  {
+    "name": "JanusGraph",
+    "slug": "janusgraph",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/janusgraph.md",
+    "status": "not started"
+  },
+  {
+    "name": "Feast",
+    "slug": "feast",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/feast.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL Foundation",
+    "slug": "graphql-foundation",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphql-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Identus",
+    "slug": "hyperledger-identus",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-identus.md",
+    "status": "not started"
+  },
+  {
+    "name": "Fossology",
+    "slug": "fossology",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/fossology.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL Working Group",
+    "slug": "graphql-working-group",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphql-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Fledge",
+    "slug": "fledge",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/fledge.md",
+    "status": "not started"
+  },
+  {
+    "name": "gRPC",
+    "slug": "grpc",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/grpc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hexa",
+    "slug": "hexa",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/hexa.md",
+    "status": "not started"
+  },
+  {
+    "name": "IPPUSBXD",
+    "slug": "ippusbxd",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/ippusbxd.md",
+    "status": "not started"
+  },
+  {
+    "name": "Janssen",
+    "slug": "janssen",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/janssen.md",
+    "status": "not started"
+  },
+  {
+    "name": "Flatcar",
+    "slug": "flatcar",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/flatcar.md",
+    "status": "not started"
+  },
+  {
+    "name": "GrimoireLab",
+    "slug": "grimoirelab",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/grimoirelab.md",
+    "status": "not started"
+  },
+  {
+    "name": "Foomatic",
+    "slug": "foomatic",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/foomatic.md",
+    "status": "not started"
+  },
+  {
+    "name": "FinOps FOCUS",
+    "slug": "finops-focus",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/finops-focus.md",
+    "status": "not started"
+  },
+  {
+    "name": "FinOps Foundation",
+    "slug": "finops-foundation",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/finops-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "in-toto",
+    "slug": "in-toto",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/in-toto.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grid Edge Interoperability & Security Alliance (GEISA)",
+    "slug": "grid-edge-interoperability-security-alliance-geisa",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/grid-edge-interoperability-security-alliance-geisa.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL.js",
+    "slug": "graphqljs",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphqljs.md",
+    "status": "not started"
+  },
+  {
+    "name": "GraphQL Specification",
+    "slug": "graphql-specification",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/graphql-specification.md",
+    "status": "not started"
+  },
+  {
+    "name": "Holmes",
+    "slug": "holmes",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/holmes.md",
+    "status": "not started"
+  },
+  {
+    "name": "FRRouting",
+    "slug": "frrouting",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/frrouting.md",
+    "status": "not started"
+  },
+  {
+    "name": "IPDK",
+    "slug": "ipdk",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/ipdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "FINOS (The Fintech Open Source Foundation)",
+    "slug": "finos-the-fintech-open-source-foundation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/finos-the-fintech-open-source-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Functest",
+    "slug": "functest",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/functest.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Iroha",
+    "slug": "hyperledger-iroha",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-iroha.md",
+    "status": "not started"
+  },
+  {
+    "name": "FDC3",
+    "slug": "fdc3",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/fdc3.md",
+    "status": "not started"
+  },
+  {
+    "name": "Green Software Foundation Fund",
+    "slug": "green-software-foundation-fund",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/green-software-foundation-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Financial Objects",
+    "slug": "financial-objects",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/financial-objects.md",
+    "status": "not started"
+  },
+  {
+    "name": "IO Visor Project",
+    "slug": "io-visor-project",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/io-visor-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Gramine Project",
+    "slug": "gramine-project",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/gramine-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "IronCore",
+    "slug": "ironcore",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/ironcore.md",
+    "status": "not started"
+  },
+  {
+    "name": "ISAC-SIMO",
+    "slug": "isac-simo",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/isac-simo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Helm",
+    "slug": "helm",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/helm.md",
+    "status": "not started"
+  },
+  {
+    "name": "iPDS Project",
+    "slug": "ipds-project",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/ipds-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "For Racial Justice",
+    "slug": "for-racial-justice",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/for-racial-justice.md",
+    "status": "not started"
+  },
+  {
+    "name": "Inspektor Gadget",
+    "slug": "inspektor-gadget",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/inspektor-gadget.md",
+    "status": "not started"
+  },
+  {
+    "name": "Grunt",
+    "slug": "grunt",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/grunt.md",
+    "status": "not started"
+  },
+  {
+    "name": "Intern",
+    "slug": "intern",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/intern.md",
+    "status": "not started"
+  },
+  {
+    "name": "Hyperledger Bevel",
+    "slug": "hyperledger-bevel",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/hyperledger-bevel.md",
+    "status": "not started"
+  },
+  {
+    "name": "kagent",
+    "slug": "kagent",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kagent.md",
+    "status": "not started"
+  },
+  {
+    "name": "http://Kepler.GL",
+    "slug": "httpkeplergl",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/httpkeplergl.md",
+    "status": "not started"
+  },
+  {
+    "name": "metal3-io",
+    "slug": "metal3-io",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/metal3-io.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Energy Standards and Specifications (LFESS)",
+    "slug": "lf-energy-standards-and-specifications-lfess",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/lf-energy-standards-and-specifications-lfess.md",
+    "status": "not started"
+  },
+  {
+    "name": "jQuery",
+    "slug": "jquery",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/jquery.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kuberef",
+    "slug": "kuberef",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/kuberef.md",
+    "status": "not started"
+  },
+  {
+    "name": "Joint Development Foundation",
+    "slug": "joint-development-foundation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/joint-development-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "k3s",
+    "slug": "k3s",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/k3s.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Energy (LFE)",
+    "slug": "lf-energy-lfe",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/lf-energy-lfe.md",
+    "status": "not started"
+  },
+  {
+    "name": "Mainframe Open Education",
+    "slug": "mainframe-open-education",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/mainframe-open-education.md",
+    "status": "not started"
+  },
+  {
+    "name": "KernelCI Foundation",
+    "slug": "kernelci-foundation",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/kernelci-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Longhorn",
+    "slug": "longhorn",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/longhorn.md",
+    "status": "not started"
+  },
+  {
+    "name": "LakeSoul",
+    "slug": "lakesoul",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/lakesoul.md",
+    "status": "not started"
+  },
+  {
+    "name": "KubeVirt",
+    "slug": "kubevirt",
+    "categories": [
+      "Containers & Virtualization"
+    ],
+    "md_file": "projects/kubevirt.md",
+    "status": "not started"
+  },
+  {
+    "name": "Linux Distributions Working Group",
+    "slug": "linux-distributions-working-group",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/linux-distributions-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Decentralized Trust Labs",
+    "slug": "lf-decentralized-trust-labs",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/lf-decentralized-trust-labs.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kubernetes AI Toolchain Operator (KAITO)",
+    "slug": "kubernetes-ai-toolchain-operator-kaito",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubernetes-ai-toolchain-operator-kaito.md",
+    "status": "not started"
+  },
+  {
+    "name": "Liquid Prep",
+    "slug": "liquid-prep",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/liquid-prep.md",
+    "status": "not started"
+  },
+  {
+    "name": "Linux Vendor Firmware Service (LVFS)",
+    "slug": "linux-vendor-firmware-service-lvfs",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/linux-vendor-firmware-service-lvfs.md",
+    "status": "not started"
+  },
+  {
+    "name": "K8STARS",
+    "slug": "k8stars",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/k8stars.md",
+    "status": "not started"
+  },
+  {
+    "name": "Machine Learning eXchange (MLX)",
+    "slug": "machine-learning-exchange-mlx",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/machine-learning-exchange-mlx.md",
+    "status": "not started"
+  },
+  {
+    "name": "KubeEdge",
+    "slug": "kubeedge",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubeedge.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Decentralized Trust",
+    "slug": "lf-decentralized-trust",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/lf-decentralized-trust.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kokkos Project",
+    "slug": "kokkos-project",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/kokkos-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "KiCad",
+    "slug": "kicad",
+    "categories": [
+      "Open Hardware"
+    ],
+    "md_file": "projects/kicad.md",
+    "status": "not started"
+  },
+  {
+    "name": "kgateway",
+    "slug": "kgateway",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kgateway.md",
+    "status": "not started"
+  },
+  {
+    "name": "JerryScript",
+    "slug": "jerryscript",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/jerryscript.md",
+    "status": "not started"
+  },
+  {
+    "name": "L3AF",
+    "slug": "l3af",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/l3af.md",
+    "status": "not started"
+  },
+  {
+    "name": "LTTng",
+    "slug": "lttng",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/lttng.md",
+    "status": "not started"
+  },
+  {
+    "name": "JDF Projects LLC",
+    "slug": "jdf-projects-llc",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/jdf-projects-llc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kompute",
+    "slug": "kompute",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/kompute.md",
+    "status": "not started"
+  },
+  {
+    "name": "Keylime",
+    "slug": "keylime",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/keylime.md",
+    "status": "not started"
+  },
+  {
+    "name": "kube-rs",
+    "slug": "kube-rs",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kube-rs.md",
+    "status": "not started"
+  },
+  {
+    "name": "LinuxBoot",
+    "slug": "linuxboot",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/linuxboot.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kuma",
+    "slug": "kuma",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kuma.md",
+    "status": "not started"
+  },
+  {
+    "name": "Konveyor",
+    "slug": "konveyor",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/konveyor.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Projects, LLC",
+    "slug": "lf-projects-llc",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/lf-projects-llc.md",
+    "status": "not started"
+  },
+  {
+    "name": "k0s",
+    "slug": "k0s",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/k0s.md",
+    "status": "not started"
+  },
+  {
+    "name": "kube-vip",
+    "slug": "kube-vip",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kube-vip.md",
+    "status": "not started"
+  },
+  {
+    "name": "Lura Project",
+    "slug": "lura-project",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/lura-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Open Source, LLC",
+    "slug": "lf-open-source-llc",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/lf-open-source-llc.md",
+    "status": "not started"
+  },
+  {
+    "name": "kubewarden",
+    "slug": "kubewarden",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubewarden.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kube-OVN",
+    "slug": "kube-ovn",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kube-ovn.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kured",
+    "slug": "kured",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kured.md",
+    "status": "not started"
+  },
+  {
+    "name": "Jupyter Foundation",
+    "slug": "jupyter-foundation",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/jupyter-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kepler",
+    "slug": "kepler",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kepler.md",
+    "status": "not started"
+  },
+  {
+    "name": "Marquez",
+    "slug": "marquez",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/marquez.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Energy Semantic Energy Framework (LFE-SEF)",
+    "slug": "lf-energy-semantic-energy-framework-lfe-sef",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/lf-energy-semantic-energy-framework-lfe-sef.md",
+    "status": "not started"
+  },
+  {
+    "name": "Loopback",
+    "slug": "loopback",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/loopback.md",
+    "status": "not started"
+  },
+  {
+    "name": "Mainframe Software Hub for Linux",
+    "slug": "mainframe-software-hub-for-linux",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/mainframe-software-hub-for-linux.md",
+    "status": "not started"
+  },
+  {
+    "name": "Let's Encrypt",
+    "slug": "lets-encrypt",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/lets-encrypt.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF AI & Data",
+    "slug": "lf-ai-data",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/lf-ai-data.md",
+    "status": "not started"
+  },
+  {
+    "name": "KubeArmor",
+    "slug": "kubearmor",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubearmor.md",
+    "status": "not started"
+  },
+  {
+    "name": "messageformat",
+    "slug": "messageformat",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/messageformat.md",
+    "status": "not started"
+  },
+  {
+    "name": "Lodash",
+    "slug": "lodash",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/lodash.md",
+    "status": "not started"
+  },
+  {
+    "name": "Laminas",
+    "slug": "laminas",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/laminas.md",
+    "status": "not started"
+  },
+  {
+    "name": "MAVSDK",
+    "slug": "mavsdk",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/mavsdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "MaterialX",
+    "slug": "materialx",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/materialx.md",
+    "status": "not started"
+  },
+  {
+    "name": "k8gb",
+    "slug": "k8gb",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/k8gb.md",
+    "status": "not started"
+  },
+  {
+    "name": "KUDO",
+    "slug": "kudo",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kudo.md",
+    "status": "not started"
+  },
+  {
+    "name": "KEDA",
+    "slug": "keda",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/keda.md",
+    "status": "not started"
+  },
+  {
+    "name": "Jenkins",
+    "slug": "jenkins",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/jenkins.md",
+    "status": "not started"
+  },
+  {
+    "name": "MessageML Utilities",
+    "slug": "messageml-utilities",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/messageml-utilities.md",
+    "status": "not started"
+  },
+  {
+    "name": "Keycloak",
+    "slug": "keycloak",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/keycloak.md",
+    "status": "not started"
+  },
+  {
+    "name": "JSON Schema",
+    "slug": "json-schema",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/json-schema.md",
+    "status": "not started"
+  },
+  {
+    "name": "kernelCI Project",
+    "slug": "kernelci-project",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/kernelci-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Keystone",
+    "slug": "keystone",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/keystone.md",
+    "status": "not started"
+  },
+  {
+    "name": "Legend",
+    "slug": "legend",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/legend.md",
+    "status": "not started"
+  },
+  {
+    "name": "Magma",
+    "slug": "magma",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/magma.md",
+    "status": "not started"
+  },
+  {
+    "name": "LISP Flow Mapping",
+    "slug": "lisp-flow-mapping",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/lisp-flow-mapping.md",
+    "status": "not started"
+  },
+  {
+    "name": "Jenkins X",
+    "slug": "jenkins-x",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/jenkins-x.md",
+    "status": "not started"
+  },
+  {
+    "name": "Margo",
+    "slug": "margo",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/margo.md",
+    "status": "not started"
+  },
+  {
+    "name": "kdb+",
+    "slug": "kdb",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/kdb.md",
+    "status": "not started"
+  },
+  {
+    "name": "Linux Foundation Europe",
+    "slug": "linux-foundation-europe",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/linux-foundation-europe.md",
+    "status": "not started"
+  },
+  {
+    "name": "MedCreds",
+    "slug": "medcreds",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/medcreds.md",
+    "status": "not started"
+  },
+  {
+    "name": "Linkerd",
+    "slug": "linkerd",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/linkerd.md",
+    "status": "not started"
+  },
+  {
+    "name": "Long-Term Support Initiative (LTSI)",
+    "slug": "long-term-support-initiative-ltsi",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/long-term-support-initiative-ltsi.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Networking (LFN)",
+    "slug": "lf-networking-lfn",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/lf-networking-lfn.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kronos",
+    "slug": "kronos",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/kronos.md",
+    "status": "not started"
+  },
+  {
+    "name": "Logging Enhancements",
+    "slug": "logging-enhancements",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/logging-enhancements.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kyverno",
+    "slug": "kyverno",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kyverno.md",
+    "status": "not started"
+  },
+  {
+    "name": "KitOps",
+    "slug": "kitops",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kitops.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kedro Project",
+    "slug": "kedro-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/kedro-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Let",
+    "slug": "let",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/let.md",
+    "status": "not started"
+  },
+  {
+    "name": "Meshery",
+    "slug": "meshery",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/meshery.md",
+    "status": "not started"
+  },
+  {
+    "name": "Lima",
+    "slug": "lima",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/lima.md",
+    "status": "not started"
+  },
+  {
+    "name": "Knative",
+    "slug": "knative",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/knative.md",
+    "status": "not started"
+  },
+  {
+    "name": "KusionStack",
+    "slug": "kusionstack",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kusionstack.md",
+    "status": "not started"
+  },
+  {
+    "name": "MD-SAL",
+    "slug": "md-sal",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/md-sal.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ludwig",
+    "slug": "ludwig",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/ludwig.md",
+    "status": "not started"
+  },
+  {
+    "name": "K8up",
+    "slug": "k8up",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/k8up.md",
+    "status": "not started"
+  },
+  {
+    "name": "Luigi",
+    "slug": "luigi",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/luigi.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kubescape",
+    "slug": "kubescape",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubescape.md",
+    "status": "not started"
+  },
+  {
+    "name": "Marko",
+    "slug": "marko",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/marko.md",
+    "status": "not started"
+  },
+  {
+    "name": "LF Edge",
+    "slug": "lf-edge",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/lf-edge.md",
+    "status": "not started"
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubernetes.md",
+    "status": "not started"
+  },
+  {
+    "name": "Magma Fund",
+    "slug": "magma-fund",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/magma-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "MAVLink",
+    "slug": "mavlink",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/mavlink.md",
+    "status": "not started"
+  },
+  {
+    "name": "LitmusChaos",
+    "slug": "litmuschaos",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/litmuschaos.md",
+    "status": "not started"
+  },
+  {
+    "name": "KubeVela",
+    "slug": "kubevela",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/kubevela.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Alliance for Cloud Adoption (OACA)",
+    "slug": "open-alliance-for-cloud-adoption-oaca",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/open-alliance-for-cloud-adoption-oaca.md",
+    "status": "not started"
+  },
+  {
+    "name": "Node.js",
+    "slug": "nodejs",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/nodejs.md",
+    "status": "not started"
+  },
+  {
+    "name": "MOJA Global Project",
+    "slug": "moja-global-project",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/moja-global-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenBao",
+    "slug": "openbao",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/openbao.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Mobile Hub",
+    "slug": "open-mobile-hub",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-mobile-hub.md",
+    "status": "not started"
+  },
+  {
+    "name": "Moment",
+    "slug": "moment",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/moment.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Data Product Specification",
+    "slug": "open-data-product-specification",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/open-data-product-specification.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Software Community",
+    "slug": "o-ran-software-community",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-software-community.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Central Unit (OCU)",
+    "slug": "o-ran-central-unit-ocu",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-central-unit-ocu.md",
+    "status": "not started"
+  },
+  {
+    "name": "OAAX",
+    "slug": "oaax",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/oaax.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Near Realtime RAN Intelligent Controller (RIC)",
+    "slug": "o-ran-near-realtime-ran-intelligent-controller-ric",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-near-realtime-ran-intelligent-controller-ric.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Distributed Unit Low Layers (ODULOW)",
+    "slug": "o-ran-distributed-unit-low-layers-odulow",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-distributed-unit-low-layers-odulow.md",
+    "status": "not started"
+  },
+  {
+    "name": "Minicoredumper",
+    "slug": "minicoredumper",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/minicoredumper.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Operations Manager (OOM)",
+    "slug": "onap-operations-manager-oom",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-operations-manager-oom.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Lineage",
+    "slug": "open-lineage",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/open-lineage.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Programmable Infrastructure",
+    "slug": "open-programmable-infrastructure",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-programmable-infrastructure.md",
+    "status": "not started"
+  },
+  {
+    "name": "Nexoedge",
+    "slug": "nexoedge",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/nexoedge.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Service Abstraction Framework (SAF)",
+    "slug": "odl-service-abstraction-framework-saf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-service-abstraction-framework-saf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Voice Network Trustmark Initiative",
+    "slug": "open-voice-network-trustmark-initiative",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/open-voice-network-trustmark-initiative.md",
+    "status": "not started"
+  },
+  {
+    "name": "NetVirt",
+    "slug": "netvirt",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/netvirt.md",
+    "status": "not started"
+  },
+  {
+    "name": "Notary",
+    "slug": "notary",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/notary.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Container Initiative (OCI)",
+    "slug": "open-container-initiative-oci",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-container-initiative-oci.md",
+    "status": "not started"
+  },
+  {
+    "name": "Moon",
+    "slug": "moon",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/moon.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Root Parent",
+    "slug": "odl-root-parent",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-root-parent.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Distributed Unit High Layers (ODUHIGH)",
+    "slug": "o-ran-distributed-unit-high-layers-oduhigh",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-distributed-unit-high-layers-oduhigh.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Micro",
+    "slug": "odl-micro",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-micro.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Developer Platform",
+    "slug": "open-developer-platform",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/open-developer-platform.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Command Line Interface (CLI)",
+    "slug": "onap-command-line-interface-cli",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-command-line-interface-cli.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Infrastructure (INF)",
+    "slug": "o-ran-infrastructure-inf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-infrastructure-inf.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONMI Project",
+    "slug": "onmi-project",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onmi-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Non-Realtime RAN Intelligent Controller (NONRTRIC)",
+    "slug": "o-ran-non-realtime-ran-intelligent-controller-nonrtric",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-non-realtime-ran-intelligent-controller-nonrtric.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenAPI Initiative",
+    "slug": "openapi-initiative",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/openapi-initiative.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open 3D Engine Project (O3DE)",
+    "slug": "open-3d-engine-project-o3de",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-3d-engine-project-o3de.md",
+    "status": "not started"
+  },
+  {
+    "name": "NFF-Go",
+    "slug": "nff-go",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/nff-go.md",
+    "status": "not started"
+  },
+  {
+    "name": "Milvus",
+    "slug": "milvus",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/milvus.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Enclave SDK",
+    "slug": "open-enclave-sdk",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/open-enclave-sdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Integration",
+    "slug": "onap-integration",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-integration.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Documentation",
+    "slug": "onap-documentation",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-documentation.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP University",
+    "slug": "onap-university",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-university.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Policy Agent",
+    "slug": "open-policy-agent",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-policy-agent.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Documentation (DOC)",
+    "slug": "o-ran-documentation-doc",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-documentation-doc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Mobile Native Foundation",
+    "slug": "mobile-native-foundation",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/mobile-native-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "NODE Collective",
+    "slug": "node-collective",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/node-collective.md",
+    "status": "not started"
+  },
+  {
+    "name": "Mocha",
+    "slug": "mocha",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/mocha.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Simulations (SIM)",
+    "slug": "o-ran-simulations-sim",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/o-ran-simulations-sim.md",
+    "status": "not started"
+  },
+  {
+    "name": "OAuth2 Proxy",
+    "slug": "oauth2-proxy",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/oauth2-proxy.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Radio Unit (ORU)",
+    "slug": "o-ran-radio-unit-oru",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-radio-unit-oru.md",
+    "status": "not started"
+  },
+  {
+    "name": "monocle",
+    "slug": "monocle",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/monocle.md",
+    "status": "not started"
+  },
+  {
+    "name": "Nephio Project",
+    "slug": "nephio-project",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/nephio-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Shading Language",
+    "slug": "open-shading-language",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/open-shading-language.md",
+    "status": "not started"
+  },
+  {
+    "name": "NFVbench",
+    "slug": "nfvbench",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/nfvbench.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Glossary for Edge Computing",
+    "slug": "open-glossary-for-edge-computing",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/open-glossary-for-edge-computing.md",
+    "status": "not started"
+  },
+  {
+    "name": "Microservices Bus (MSB)",
+    "slug": "microservices-bus-msb",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/microservices-bus-msb.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Key Chain Manager (openKCM)",
+    "slug": "open-key-chain-manager-openkcm",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/open-key-chain-manager-openkcm.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Review Initiative",
+    "slug": "open-review-initiative",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/open-review-initiative.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open vSwitch (OVS)",
+    "slug": "open-vswitch-ovs",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/open-vswitch-ovs.md",
+    "status": "not started"
+  },
+  {
+    "name": "nvm",
+    "slug": "nvm",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/nvm.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Service Management and Orchestration (SMO)",
+    "slug": "o-ran-service-management-and-orchestration-smo",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-service-management-and-orchestration-smo.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Source Readiness Special Interest Group",
+    "slug": "open-source-readiness-special-interest-group",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/open-source-readiness-special-interest-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "NeoNephos Foundation",
+    "slug": "neonephos-foundation",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/neonephos-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "MLflow",
+    "slug": "mlflow",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/mlflow.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Guice",
+    "slug": "odl-guice",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-guice.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Mainframe Project (OMP)",
+    "slug": "open-mainframe-project-omp",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/open-mainframe-project-omp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Occlum",
+    "slug": "occlum",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/occlum.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Source Security Foundation (OpenSSF)",
+    "slug": "open-source-security-foundation-openssf",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/open-source-security-foundation-openssf.md",
+    "status": "not started"
+  },
+  {
+    "name": "NETCONF",
+    "slug": "netconf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/netconf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Service Broker API PMC",
+    "slug": "open-service-broker-api-pmc",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-service-broker-api-pmc.md",
+    "status": "not started"
+  },
+  {
+    "name": "NATS",
+    "slug": "nats",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/nats.md",
+    "status": "not started"
+  },
+  {
+    "name": "Neutron Northbound",
+    "slug": "neutron-northbound",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/neutron-northbound.md",
+    "status": "not started"
+  },
+  {
+    "name": "Multi VIM/Cloud",
+    "slug": "multi-vimcloud",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/multi-vimcloud.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Policy Registry (OPCR)",
+    "slug": "open-policy-registry-opcr",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-policy-registry-opcr.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Compliance Program",
+    "slug": "open-compliance-program",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/open-compliance-program.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Controller",
+    "slug": "odl-controller",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-controller.md",
+    "status": "not started"
+  },
+  {
+    "name": "Network Service Mesh",
+    "slug": "network-service-mesh",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/network-service-mesh.md",
+    "status": "not started"
+  },
+  {
+    "name": "Node-RED",
+    "slug": "node-red",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/node-red.md",
+    "status": "not started"
+  },
+  {
+    "name": "Mirage OS",
+    "slug": "mirage-os",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/mirage-os.md",
+    "status": "not started"
+  },
+  {
+    "name": "Modules",
+    "slug": "modules",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/modules.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenAPV",
+    "slug": "openapv",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openapv.md",
+    "status": "not started"
+  },
+  {
+    "name": "ODL Tools",
+    "slug": "odl-tools",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/odl-tools.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONNX",
+    "slug": "onnx",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/onnx.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Micro Frontend Platform",
+    "slug": "open-micro-frontend-platform",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-micro-frontend-platform.md",
+    "status": "not started"
+  },
+  {
+    "name": "Neural Network (NN) Streamer",
+    "slug": "neural-network-nn-streamer",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/neural-network-nn-streamer.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open 3D Foundation",
+    "slug": "open-3d-foundation",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-3d-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Source Talent Acceleration Special Interest Group",
+    "slug": "open-source-talent-acceleration-special-interest-group",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/open-source-talent-acceleration-special-interest-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN AI/ML Framework",
+    "slug": "o-ran-aiml-framework",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-aiml-framework.md",
+    "status": "not started"
+  },
+  {
+    "name": "NativeScript",
+    "slug": "nativescript",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/nativescript.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Security Controller Project (OSC)",
+    "slug": "open-security-controller-project-osc",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/open-security-controller-project-osc.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Operations and Maintenance (OAM)",
+    "slug": "o-ran-operations-and-maintenance-oam",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-operations-and-maintenance-oam.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Horizon",
+    "slug": "open-horizon",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/open-horizon.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP",
+    "slug": "onap",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap.md",
+    "status": "not started"
+  },
+  {
+    "name": "Morphir",
+    "slug": "morphir",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/morphir.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Programmable Infrastructure Fund",
+    "slug": "open-programmable-infrastructure-fund",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-programmable-infrastructure-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Modelling",
+    "slug": "onap-modelling",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-modelling.md",
+    "status": "not started"
+  },
+  {
+    "name": "ONAP Policy Framework",
+    "slug": "onap-policy-framework",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/onap-policy-framework.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN RIC Applications (RICAPP)",
+    "slug": "o-ran-ric-applications-ricapp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-ric-applications-ricapp.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Cluster Management",
+    "slug": "open-cluster-management",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/open-cluster-management.md",
+    "status": "not started"
+  },
+  {
+    "name": "O-RAN Integration and Testing (INT)",
+    "slug": "o-ran-integration-and-testing-int",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/o-ran-integration-and-testing-int.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Accessibility",
+    "slug": "open-accessibility",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/open-accessibility.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenAssetIO",
+    "slug": "openassetio",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openassetio.md",
+    "status": "not started"
+  },
+  {
+    "name": "Open Voice Network Interoperability Initiative",
+    "slug": "open-voice-network-interoperability-initiative",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/open-voice-network-interoperability-initiative.md",
+    "status": "not started"
+  },
+  {
+    "name": "OSS Review Toolkit (ORT)",
+    "slug": "oss-review-toolkit-ort",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/oss-review-toolkit-ort.md",
+    "status": "not started"
+  },
+  {
+    "name": "OS-Climate",
+    "slug": "os-climate",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/os-climate.md",
+    "status": "not started"
+  },
+  {
+    "name": "Overture Maps Foundation",
+    "slug": "overture-maps-foundation",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/overture-maps-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Perses",
+    "slug": "perses",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/perses.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDaylight Integration/Packaging",
+    "slug": "opendaylight-integrationpackaging",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/opendaylight-integrationpackaging.md",
+    "status": "not started"
+  },
+  {
+    "name": "PARSEC",
+    "slug": "parsec",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/parsec.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenHPC Project",
+    "slug": "openhpc-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/openhpc-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenSTX Foundation",
+    "slug": "openstx-foundation",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/openstx-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Post-Quantum Cryptography Alliance",
+    "slug": "post-quantum-cryptography-alliance",
+    "categories": [
+      "Quantum Computing"
+    ],
+    "md_file": "projects/post-quantum-cryptography-alliance.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenTimelineIO",
+    "slug": "opentimelineio",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/opentimelineio.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenEXR",
+    "slug": "openexr",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openexr.md",
+    "status": "not started"
+  },
+  {
+    "name": "ORES (Open Renewal Energy Systems)",
+    "slug": "ores-open-renewal-energy-systems",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/ores-open-renewal-energy-systems.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ortelius",
+    "slug": "ortelius",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/ortelius.md",
+    "status": "not started"
+  },
+  {
+    "name": "OPS-5G",
+    "slug": "ops-5g",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/ops-5g.md",
+    "status": "not started"
+  },
+  {
+    "name": "OSV Schema",
+    "slug": "osv-schema",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/osv-schema.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenPrinting CUPS Filters",
+    "slug": "openprinting-cups-filters",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/openprinting-cups-filters.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenJS Foundation",
+    "slug": "openjs-foundation",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/openjs-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenCue",
+    "slug": "opencue",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/opencue.md",
+    "status": "not started"
+  },
+  {
+    "name": "Plastic",
+    "slug": "plastic",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/plastic.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenLEADR",
+    "slug": "openleadr",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/openleadr.md",
+    "status": "not started"
+  },
+  {
+    "name": "QGroundControl",
+    "slug": "qgroundcontrol",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/qgroundcontrol.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenChain Project",
+    "slug": "openchain-project",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/openchain-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OS-Climate Data Commons",
+    "slug": "os-climate-data-commons",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/os-climate-data-commons.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDaylight Documentation",
+    "slug": "opendaylight-documentation",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/opendaylight-documentation.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenCHAMI",
+    "slug": "openchami",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openchami.md",
+    "status": "not started"
+  },
+  {
+    "name": "Porter",
+    "slug": "porter",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/porter.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDaylight Integration/Test",
+    "slug": "opendaylight-integrationtest",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/opendaylight-integrationtest.md",
+    "status": "not started"
+  },
+  {
+    "name": "Quartermaster (QMSTR)",
+    "slug": "quartermaster-qmstr",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/quartermaster-qmstr.md",
+    "status": "not started"
+  },
+  {
+    "name": "Pktgen",
+    "slug": "pktgen",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/pktgen.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenPrinting",
+    "slug": "openprinting",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/openprinting.md",
+    "status": "not started"
+  },
+  {
+    "name": "Prometheus",
+    "slug": "prometheus",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/prometheus.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenMAMA Project",
+    "slug": "openmama-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/openmama-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OperatorFabric",
+    "slug": "operatorfabric",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/operatorfabric.md",
+    "status": "not started"
+  },
+  {
+    "name": "Pyrrha",
+    "slug": "pyrrha",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/pyrrha.md",
+    "status": "not started"
+  },
+  {
+    "name": "PX4",
+    "slug": "px4",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/px4.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenPOWER Foundation",
+    "slug": "openpower-foundation",
+    "categories": [
+      "Open Hardware"
+    ],
+    "md_file": "projects/openpower-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Pixie",
+    "slug": "pixie",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/pixie.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenFunction",
+    "slug": "openfunction",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openfunction.md",
+    "status": "not started"
+  },
+  {
+    "name": "Podman Container Tools",
+    "slug": "podman-container-tools",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/podman-container-tools.md",
+    "status": "not started"
+  },
+  {
+    "name": "Power Stability Wide Area Monitoring Protection (p-SWAMP)",
+    "slug": "power-stability-wide-area-monitoring-protection-p-swamp",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/power-stability-wide-area-monitoring-protection-p-swamp.md",
+    "status": "not started"
+  },
+  {
+    "name": "R Community",
+    "slug": "r-community",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/r-community.md",
+    "status": "not started"
+  },
+  {
+    "name": "osquery",
+    "slug": "osquery",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/osquery.md",
+    "status": "not started"
+  },
+  {
+    "name": "Podman Desktop",
+    "slug": "podman-desktop",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/podman-desktop.md",
+    "status": "not started"
+  },
+  {
+    "name": "Piraeus-Datastore",
+    "slug": "piraeus-datastore",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/piraeus-datastore.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenVDB",
+    "slug": "openvdb",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openvdb.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDS4All",
+    "slug": "opends4all",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/opends4all.md",
+    "status": "not started"
+  },
+  {
+    "name": "OSLC Handbook",
+    "slug": "oslc-handbook",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/oslc-handbook.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenKruise",
+    "slug": "openkruise",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openkruise.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenQMC",
+    "slug": "openqmc",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openqmc.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenEBS",
+    "slug": "openebs",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/openebs.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDaylight",
+    "slug": "opendaylight",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/opendaylight.md",
+    "status": "not started"
+  },
+  {
+    "name": "Paralus",
+    "slug": "paralus",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/paralus.md",
+    "status": "not started"
+  },
+  {
+    "name": "OVSDB Integration",
+    "slug": "ovsdb-integration",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/ovsdb-integration.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenMAMA Fund",
+    "slug": "openmama-fund",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/openmama-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenSTEF",
+    "slug": "openstef",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/openstef.md",
+    "status": "not started"
+  },
+  {
+    "name": "PyTorch Foundation",
+    "slug": "pytorch-foundation",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/pytorch-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenMessaging",
+    "slug": "openmessaging",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openmessaging.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenSSF Scorecard",
+    "slug": "openssf-scorecard",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/openssf-scorecard.md",
+    "status": "not started"
+  },
+  {
+    "name": "Presto Project",
+    "slug": "presto-project",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/presto-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenFX",
+    "slug": "openfx",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/openfx.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenHarvest",
+    "slug": "openharvest",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/openharvest.md",
+    "status": "not started"
+  },
+  {
+    "name": "openIDL",
+    "slug": "openidl",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/openidl.md",
+    "status": "not started"
+  },
+  {
+    "name": "Pharos",
+    "slug": "pharos",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/pharos.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenTofu",
+    "slug": "opentofu",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/opentofu.md",
+    "status": "not started"
+  },
+  {
+    "name": "Product Control Common Template",
+    "slug": "product-control-common-template",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/product-control-common-template.md",
+    "status": "not started"
+  },
+  {
+    "name": "Overture Maps Foundation Fund",
+    "slug": "overture-maps-foundation-fund",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/overture-maps-foundation-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "RareCamp Foundation",
+    "slug": "rarecamp-foundation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/rarecamp-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Perspective",
+    "slug": "perspective",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/perspective.md",
+    "status": "not started"
+  },
+  {
+    "name": "R-Ladies",
+    "slug": "r-ladies",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/r-ladies.md",
+    "status": "not started"
+  },
+  {
+    "name": "R Validation Hub",
+    "slug": "r-validation-hub",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/r-validation-hub.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenGitOps",
+    "slug": "opengitops",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/opengitops.md",
+    "status": "not started"
+  },
+  {
+    "name": "OPNFV Doctor",
+    "slug": "opnfv-doctor",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/opnfv-doctor.md",
+    "status": "not started"
+  },
+  {
+    "name": "Oxia",
+    "slug": "oxia",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/oxia.md",
+    "status": "not started"
+  },
+  {
+    "name": "Operator Framework",
+    "slug": "operator-framework",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/operator-framework.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenEEW",
+    "slug": "openeew",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/openeew.md",
+    "status": "not started"
+  },
+  {
+    "name": "P4 Fund",
+    "slug": "p4-fund",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/p4-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "PowSyBL",
+    "slug": "powsybl",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/powsybl.md",
+    "status": "not started"
+  },
+  {
+    "name": "ORAS (OCI Registry as Storage)",
+    "slug": "oras-oci-registry-as-storage",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/oras-oci-registry-as-storage.md",
+    "status": "not started"
+  },
+  {
+    "name": "R2DBC",
+    "slug": "r2dbc",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/r2dbc.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenPrinting CUPS",
+    "slug": "openprinting-cups",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/openprinting-cups.md",
+    "status": "not started"
+  },
+  {
+    "name": "PipeCD",
+    "slug": "pipecd",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/pipecd.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenTelemetry",
+    "slug": "opentelemetry",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/opentelemetry.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenFGA",
+    "slug": "openfga",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openfga.md",
+    "status": "not started"
+  },
+  {
+    "name": "Pyro",
+    "slug": "pyro",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/pyro.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenYurt",
+    "slug": "openyurt",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/openyurt.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenBMC",
+    "slug": "openbmc",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/openbmc.md",
+    "status": "not started"
+  },
+  {
+    "name": "openIDL Project",
+    "slug": "openidl-project",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/openidl-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenWallet Foundation",
+    "slug": "openwallet-foundation",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/openwallet-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Platform Mesh",
+    "slug": "platform-mesh",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/platform-mesh.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenSearch Software Foundation",
+    "slug": "opensearch-software-foundation",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/opensearch-software-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Project Alvarium",
+    "slug": "project-alvarium",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/project-alvarium.md",
+    "status": "not started"
+  },
+  {
+    "name": "QUnit",
+    "slug": "qunit",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/qunit.md",
+    "status": "not started"
+  },
+  {
+    "name": "Portal Platform",
+    "slug": "portal-platform",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/portal-platform.md",
+    "status": "not started"
+  },
+  {
+    "name": "R Consortium",
+    "slug": "r-consortium",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/r-consortium.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenColorIO",
+    "slug": "opencolorio",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/opencolorio.md",
+    "status": "not started"
+  },
+  {
+    "name": "PaSh",
+    "slug": "pash",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/pash.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenDSM",
+    "slug": "opendsm",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/opendsm.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenFlow Plugin",
+    "slug": "openflow-plugin",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/openflow-plugin.md",
+    "status": "not started"
+  },
+  {
+    "name": "Paketo Buildpacks",
+    "slug": "paketo-buildpacks",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/paketo-buildpacks.md",
+    "status": "not started"
+  },
+  {
+    "name": "OpenImageIO",
+    "slug": "openimageio",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/openimageio.md",
+    "status": "not started"
+  },
+  {
+    "name": "Service Design & Creation (SDC)",
+    "slug": "service-design-creation-sdc",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/service-design-creation-sdc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Security Reference Data",
+    "slug": "security-reference-data",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/security-reference-data.md",
+    "status": "not started"
+  },
+  {
+    "name": "SPIFFE",
+    "slug": "spiffe",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/spiffe.md",
+    "status": "not started"
+  },
+  {
+    "name": "SLSA",
+    "slug": "slsa",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/slsa.md",
+    "status": "not started"
+  },
+  {
+    "name": "Symphony Electron",
+    "slug": "symphony-electron",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/symphony-electron.md",
+    "status": "not started"
+  },
+  {
+    "name": "RethinkDB",
+    "slug": "rethinkdb",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/rethinkdb.md",
+    "status": "not started"
+  },
+  {
+    "name": "Regulation Innovation Special Interest Group",
+    "slug": "regulation-innovation-special-interest-group",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/regulation-innovation-special-interest-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "StackStorm Project",
+    "slug": "stackstorm-project",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/stackstorm-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "sigstore Bootstrap Phase",
+    "slug": "sigstore-bootstrap-phase",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sigstore-bootstrap-phase.md",
+    "status": "not started"
+  },
+  {
+    "name": "SONiC Foundation",
+    "slug": "sonic-foundation",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/sonic-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Service Utils",
+    "slug": "service-utils",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/service-utils.md",
+    "status": "not started"
+  },
+  {
+    "name": "Reference Model (RM)",
+    "slug": "reference-model-rm",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/reference-model-rm.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tazama Project",
+    "slug": "tazama-project",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/tazama-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "TerseDecompress",
+    "slug": "tersedecompress",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/tersedecompress.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tern",
+    "slug": "tern",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/tern.md",
+    "status": "not started"
+  },
+  {
+    "name": "rawtoaces",
+    "slug": "rawtoaces",
+    "categories": [
+      "Visual Effects"
+    ],
+    "md_file": "projects/rawtoaces.md",
+    "status": "not started"
+  },
+  {
+    "name": "Rez",
+    "slug": "rez",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/rez.md",
+    "status": "not started"
+  },
+  {
+    "name": "Service Orchestrator (SO)",
+    "slug": "service-orchestrator-so",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/service-orchestrator-so.md",
+    "status": "not started"
+  },
+  {
+    "name": "Spring Bot",
+    "slug": "spring-bot",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/spring-bot.md",
+    "status": "not started"
+  },
+  {
+    "name": "sparklyr",
+    "slug": "sparklyr",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/sparklyr.md",
+    "status": "not started"
+  },
+  {
+    "name": "Telepresence",
+    "slug": "telepresence",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/telepresence.md",
+    "status": "not started"
+  },
+  {
+    "name": "Rend-o-matic",
+    "slug": "rend-o-matic",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/rend-o-matic.md",
+    "status": "not started"
+  },
+  {
+    "name": "Rook",
+    "slug": "rook",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/rook.md",
+    "status": "not started"
+  },
+  {
+    "name": "SchemaHero",
+    "slug": "schemahero",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/schemahero.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsGateway",
+    "slug": "tarsgateway",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarsgateway.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsBenchmark",
+    "slug": "tarsbenchmark",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarsbenchmark.md",
+    "status": "not started"
+  },
+  {
+    "name": "RUGS (R User Groups)",
+    "slug": "rugs-r-user-groups",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/rugs-r-user-groups.md",
+    "status": "not started"
+  },
+  {
+    "name": "SPDM-RS",
+    "slug": "spdm-rs",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/spdm-rs.md",
+    "status": "not started"
+  },
+  {
+    "name": "Software Discovery Tool",
+    "slug": "software-discovery-tool",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/software-discovery-tool.md",
+    "status": "not started"
+  },
+  {
+    "name": "Secure Open Source Rewards",
+    "slug": "secure-open-source-rewards",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/secure-open-source-rewards.md",
+    "status": "not started"
+  },
+  {
+    "name": "Servo Project",
+    "slug": "servo-project",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/servo-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Thanos",
+    "slug": "thanos",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/thanos.md",
+    "status": "not started"
+  },
+  {
+    "name": "Reactive Streams",
+    "slug": "reactive-streams",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/reactive-streams.md",
+    "status": "not started"
+  },
+  {
+    "name": "seL4 Foundation",
+    "slug": "sel4-foundation",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/sel4-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "The Linux Kernel Organization",
+    "slug": "the-linux-kernel-organization",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/the-linux-kernel-organization.md",
+    "status": "not started"
+  },
+  {
+    "name": "Test Project IT",
+    "slug": "test-project-it",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/test-project-it.md",
+    "status": "not started"
+  },
+  {
+    "name": "SOAJS",
+    "slug": "soajs",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/soajs.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ratify",
+    "slug": "ratify",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/ratify.md",
+    "status": "not started"
+  },
+  {
+    "name": "RSocket",
+    "slug": "rsocket",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/rsocket.md",
+    "status": "not started"
+  },
+  {
+    "name": "Real-Time Linux (RTL)",
+    "slug": "real-time-linux-rtl",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/real-time-linux-rtl.md",
+    "status": "not started"
+  },
+  {
+    "name": "State of the Edge",
+    "slug": "state-of-the-edge",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/state-of-the-edge.md",
+    "status": "not started"
+  },
+  {
+    "name": "SampleVNF",
+    "slug": "samplevnf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/samplevnf.md",
+    "status": "not started"
+  },
+  {
+    "name": "SEAPATH",
+    "slug": "seapath",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/seapath.md",
+    "status": "not started"
+  },
+  {
+    "name": "Spinnaker",
+    "slug": "spinnaker",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/spinnaker.md",
+    "status": "not started"
+  },
+  {
+    "name": "REST API Specification",
+    "slug": "rest-api-specification",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/rest-api-specification.md",
+    "status": "not started"
+  },
+  {
+    "name": "SONiC Fund",
+    "slug": "sonic-fund",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/sonic-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "SBOMit",
+    "slug": "sbomit",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sbomit.md",
+    "status": "not started"
+  },
+  {
+    "name": "SPIRE",
+    "slug": "spire",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/spire.md",
+    "status": "not started"
+  },
+  {
+    "name": "RISC-V International",
+    "slug": "risc-v-international",
+    "categories": [
+      "Open Hardware"
+    ],
+    "md_file": "projects/risc-v-international.md",
+    "status": "not started"
+  },
+  {
+    "name": "sigstore",
+    "slug": "sigstore",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sigstore.md",
+    "status": "not started"
+  },
+  {
+    "name": "SlimToolkit",
+    "slug": "slimtoolkit",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/slimtoolkit.md",
+    "status": "not started"
+  },
+  {
+    "name": "Serverless Workflow Specification",
+    "slug": "serverless-workflow-specification",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/serverless-workflow-specification.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsTools",
+    "slug": "tarstools",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarstools.md",
+    "status": "not started"
+  },
+  {
+    "name": "Submariner",
+    "slug": "submariner",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/submariner.md",
+    "status": "not started"
+  },
+  {
+    "name": "Software-Enabled Flash",
+    "slug": "software-enabled-flash",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/software-enabled-flash.md",
+    "status": "not started"
+  },
+  {
+    "name": "Spack",
+    "slug": "spack",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/spack.md",
+    "status": "not started"
+  },
+  {
+    "name": "Releng",
+    "slug": "releng",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/releng.md",
+    "status": "not started"
+  },
+  {
+    "name": "TARS Project",
+    "slug": "tars-project",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tars-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsPHP",
+    "slug": "tarsphp",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarsphp.md",
+    "status": "not started"
+  },
+  {
+    "name": "TARS Foundation",
+    "slug": "tars-foundation",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/tars-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "RISE Project",
+    "slug": "rise-project",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/rise-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Stor4NFV",
+    "slug": "stor4nfv",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/stor4nfv.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tessia",
+    "slug": "tessia",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/tessia.md",
+    "status": "not started"
+  },
+  {
+    "name": "The Hypervisor",
+    "slug": "the-hypervisor",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/the-hypervisor.md",
+    "status": "not started"
+  },
+  {
+    "name": "SOGNO",
+    "slug": "sogno",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sogno.md",
+    "status": "not started"
+  },
+  {
+    "name": "set-simulator-location",
+    "slug": "set-simulator-location",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/set-simulator-location.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tekton",
+    "slug": "tekton",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/tekton.md",
+    "status": "not started"
+  },
+  {
+    "name": "Strimzi",
+    "slug": "strimzi",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/strimzi.md",
+    "status": "not started"
+  },
+  {
+    "name": "Shipwright",
+    "slug": "shipwright",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/shipwright.md",
+    "status": "not started"
+  },
+  {
+    "name": "Symphony BDK Java",
+    "slug": "symphony-bdk-java",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/symphony-bdk-java.md",
+    "status": "not started"
+  },
+  {
+    "name": "Salus",
+    "slug": "salus",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/salus.md",
+    "status": "not started"
+  },
+  {
+    "name": "SPDX",
+    "slug": "spdx",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/spdx.md",
+    "status": "not started"
+  },
+  {
+    "name": "Service Mesh Performance",
+    "slug": "service-mesh-performance",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/service-mesh-performance.md",
+    "status": "not started"
+  },
+  {
+    "name": "SD-JWT Rust Reference Implementation",
+    "slug": "sd-jwt-rust-reference-implementation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sd-jwt-rust-reference-implementation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Serverless Devs",
+    "slug": "serverless-devs",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/serverless-devs.md",
+    "status": "not started"
+  },
+  {
+    "name": "SPP",
+    "slug": "spp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/spp.md",
+    "status": "not started"
+  },
+  {
+    "name": "SC Decarbonisation Hub",
+    "slug": "sc-decarbonisation-hub",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sc-decarbonisation-hub.md",
+    "status": "not started"
+  },
+  {
+    "name": "RareCamp Project",
+    "slug": "rarecamp-project",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/rarecamp-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "The Linux Foundation",
+    "slug": "the-linux-foundation",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/the-linux-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "SODA Foundation",
+    "slug": "soda-foundation",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/soda-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "sel4 Project",
+    "slug": "sel4-project",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/sel4-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Software Defined Network Controller (SDNC)",
+    "slug": "software-defined-network-controller-sdnc",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/software-defined-network-controller-sdnc.md",
+    "status": "not started"
+  },
+  {
+    "name": "StarRocks",
+    "slug": "starrocks",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/starrocks.md",
+    "status": "not started"
+  },
+  {
+    "name": "Sylva Fund",
+    "slug": "sylva-fund",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/sylva-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Sound Open Firmware (SOF)",
+    "slug": "sound-open-firmware-sof",
+    "categories": [
+      "Open Hardware"
+    ],
+    "md_file": "projects/sound-open-firmware-sof.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsJs",
+    "slug": "tarsjs",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarsjs.md",
+    "status": "not started"
+  },
+  {
+    "name": "RTC-Tools",
+    "slug": "rtc-tools",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/rtc-tools.md",
+    "status": "not started"
+  },
+  {
+    "name": "RelEng/Autorelease",
+    "slug": "relengautorelease",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/relengautorelease.md",
+    "status": "not started"
+  },
+  {
+    "name": "Ryoma",
+    "slug": "ryoma",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/ryoma.md",
+    "status": "not started"
+  },
+  {
+    "name": "Sidetree Development & Operating Group",
+    "slug": "sidetree-development-operating-group",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/sidetree-development-operating-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Runme Notebooks",
+    "slug": "runme-notebooks",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/runme-notebooks.md",
+    "status": "not started"
+  },
+  {
+    "name": "runc",
+    "slug": "runc",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/runc.md",
+    "status": "not started"
+  },
+  {
+    "name": "TarsJMeter",
+    "slug": "tarsjmeter",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tarsjmeter.md",
+    "status": "not started"
+  },
+  {
+    "name": "RelEng/Builder",
+    "slug": "relengbuilder",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/relengbuilder.md",
+    "status": "not started"
+  },
+  {
+    "name": "SD-JWT Javascript Reference Implementation",
+    "slug": "sd-jwt-javascript-reference-implementation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/sd-jwt-javascript-reference-implementation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Real Time Data Ingestion Platform (RTDIP)",
+    "slug": "real-time-data-ingestion-platform-rtdip",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/real-time-data-ingestion-platform-rtdip.md",
+    "status": "not started"
+  },
+  {
+    "name": "Shapeshifter",
+    "slug": "shapeshifter",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/shapeshifter.md",
+    "status": "not started"
+  },
+  {
+    "name": "Screwdriver",
+    "slug": "screwdriver",
+    "categories": [
+      "DevOps"
+    ],
+    "md_file": "projects/screwdriver.md",
+    "status": "not started"
+  },
+  {
+    "name": "Template Studio",
+    "slug": "template-studio",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/template-studio.md",
+    "status": "not started"
+  },
+  {
+    "name": "StorPerf",
+    "slug": "storperf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/storperf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Zero Trust Working Group",
+    "slug": "zero-trust-working-group",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/zero-trust-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "TransportPCE",
+    "slug": "transportpce",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/transportpce.md",
+    "status": "not started"
+  },
+  {
+    "name": "TLA+ Foundation",
+    "slug": "tla-foundation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/tla-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "Trust Over IP Project (ToIP)",
+    "slug": "trust-over-ip-project-toip",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/trust-over-ip-project-toip.md",
+    "status": "not started"
+  },
+  {
+    "name": "Veraison",
+    "slug": "veraison",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/veraison.md",
+    "status": "not started"
+  },
+  {
+    "name": "TRAC d.a.p.",
+    "slug": "trac-dap",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/trac-dap.md",
+    "status": "not started"
+  },
+  {
+    "name": "UniMatrix Project",
+    "slug": "unimatrix-project",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/unimatrix-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "WasmEdge Runtime",
+    "slug": "wasmedge-runtime",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/wasmedge-runtime.md",
+    "status": "not started"
+  },
+  {
+    "name": "vLLM",
+    "slug": "vllm",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/vllm.md",
+    "status": "not started"
+  },
+  {
+    "name": "TROLIE",
+    "slug": "trolie",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/trolie.md",
+    "status": "not started"
+  },
+  {
+    "name": "Volcano",
+    "slug": "volcano",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/volcano.md",
+    "status": "not started"
+  },
+  {
+    "name": "TSeer",
+    "slug": "tseer",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/tseer.md",
+    "status": "not started"
+  },
+  {
+    "name": "UniMatrix Governance Project",
+    "slug": "unimatrix-governance-project",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/unimatrix-governance-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Yocto Project Fund",
+    "slug": "yocto-project-fund",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/yocto-project-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "TSTerm",
+    "slug": "tsterm",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/tsterm.md",
+    "status": "not started"
+  },
+  {
+    "name": "WarpX",
+    "slug": "warpx",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/warpx.md",
+    "status": "not started"
+  },
+  {
+    "name": "Vitess",
+    "slug": "vitess",
+    "categories": [
+      "Storage"
+    ],
+    "md_file": "projects/vitess.md",
+    "status": "not started"
+  },
+  {
+    "name": "WebdriverIO",
+    "slug": "webdriverio",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/webdriverio.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tokenetes",
+    "slug": "tokenetes",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tokenetes.md",
+    "status": "not started"
+  },
+  {
+    "name": "Waltz",
+    "slug": "waltz",
+    "categories": [
+      "System Engineering"
+    ],
+    "md_file": "projects/waltz.md",
+    "status": "not started"
+  },
+  {
+    "name": "TraderX",
+    "slug": "traderx",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/traderx.md",
+    "status": "not started"
+  },
+  {
+    "name": "XAPI",
+    "slug": "xapi",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/xapi.md",
+    "status": "not started"
+  },
+  {
+    "name": "umoci",
+    "slug": "umoci",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/umoci.md",
+    "status": "not started"
+  },
+  {
+    "name": "Unified Acceleration Foundation",
+    "slug": "unified-acceleration-foundation",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/unified-acceleration-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "xRegistry",
+    "slug": "xregistry",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/xregistry.md",
+    "status": "not started"
+  },
+  {
+    "name": "Usecase UI (UUI)",
+    "slug": "usecase-ui-uui",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/usecase-ui-uui.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tizen Project",
+    "slug": "tizen-project",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/tizen-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Web3j",
+    "slug": "web3j",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/web3j.md",
+    "status": "not started"
+  },
+  {
+    "name": "Zopen",
+    "slug": "zopen",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/zopen.md",
+    "status": "not started"
+  },
+  {
+    "name": "Utility Rate Plan Exchange",
+    "slug": "utility-rate-plan-exchange",
+    "categories": [
+      "IoT & Embedded"
+    ],
+    "md_file": "projects/utility-rate-plan-exchange.md",
+    "status": "not started"
+  },
+  {
+    "name": "VSPerf",
+    "slug": "vsperf",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/vsperf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Uptane",
+    "slug": "uptane",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/uptane.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tinkerbell",
+    "slug": "tinkerbell",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tinkerbell.md",
+    "status": "not started"
+  },
+  {
+    "name": "Tremor",
+    "slug": "tremor",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tremor.md",
+    "status": "not started"
+  },
+  {
+    "name": "YANG Tools",
+    "slug": "yang-tools",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/yang-tools.md",
+    "status": "not started"
+  },
+  {
+    "name": "urunc",
+    "slug": "urunc",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/urunc.md",
+    "status": "not started"
+  },
+  {
+    "name": "Wallet Framework for .NET",
+    "slug": "wallet-framework-for-net",
+    "categories": [
+      "Blockchain"
+    ],
+    "md_file": "projects/wallet-framework-for-net.md",
+    "status": "not started"
+  },
+  {
+    "name": "TODO Group",
+    "slug": "todo-group",
+    "categories": [
+      "Open Source Compliance"
+    ],
+    "md_file": "projects/todo-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "Unikraft",
+    "slug": "unikraft",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/unikraft.md",
+    "status": "not started"
+  },
+  {
+    "name": "Vineyard",
+    "slug": "vineyard",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/vineyard.md",
+    "status": "not started"
+  },
+  {
+    "name": "TiKV",
+    "slug": "tikv",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/tikv.md",
+    "status": "not started"
+  },
+  {
+    "name": "Urban Computing Foundation (UCF)",
+    "slug": "urban-computing-foundation-ucf",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/urban-computing-foundation-ucf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Trilinos",
+    "slug": "trilinos",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/trilinos.md",
+    "status": "not started"
+  },
+  {
+    "name": "http://vis.gl",
+    "slug": "httpvisgl",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/httpvisgl.md",
+    "status": "not started"
+  },
+  {
+    "name": "webhint",
+    "slug": "webhint",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/webhint.md",
+    "status": "not started"
+  },
+  {
+    "name": "Unified Acceleration Foundation Fund",
+    "slug": "unified-acceleration-foundation-fund",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/unified-acceleration-foundation-fund.md",
+    "status": "not started"
+  },
+  {
+    "name": "Universal Deep Packet Inspection Project (UDPI)",
+    "slug": "universal-deep-packet-inspection-project-udpi",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/universal-deep-packet-inspection-project-udpi.md",
+    "status": "not started"
+  },
+  {
+    "name": "XCP-ng",
+    "slug": "xcp-ng",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/xcp-ng.md",
+    "status": "not started"
+  },
+  {
+    "name": "Valkey",
+    "slug": "valkey",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/valkey.md",
+    "status": "not started"
+  },
+  {
+    "name": "Xen Project",
+    "slug": "xen-project",
+    "categories": [
+      "Linux Kernel"
+    ],
+    "md_file": "projects/xen-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "wasmCloud",
+    "slug": "wasmcloud",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/wasmcloud.md",
+    "status": "not started"
+  },
+  {
+    "name": "VNF Validation Program (VVP)",
+    "slug": "vnf-validation-program-vvp",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/vnf-validation-program-vvp.md",
+    "status": "not started"
+  },
+  {
+    "name": "z/VM Community Tools",
+    "slug": "zvm-community-tools",
+    "categories": [
+      "System Administration"
+    ],
+    "md_file": "projects/zvm-community-tools.md",
+    "status": "not started"
+  },
+  {
+    "name": "werf",
+    "slug": "werf",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/werf.md",
+    "status": "not started"
+  },
+  {
+    "name": "US GOV OPS",
+    "slug": "us-gov-ops",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/us-gov-ops.md",
+    "status": "not started"
+  },
+  {
+    "name": "zot",
+    "slug": "zot",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/zot.md",
+    "status": "not started"
+  },
+  {
+    "name": "Webpack",
+    "slug": "webpack",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/webpack.md",
+    "status": "not started"
+  },
+  {
+    "name": "Zowe",
+    "slug": "zowe",
+    "categories": [
+      "Cross-Technology"
+    ],
+    "md_file": "projects/zowe.md",
+    "status": "not started"
+  },
+  {
+    "name": "Universal Scene Description Working Group",
+    "slug": "universal-scene-description-working-group",
+    "categories": [
+      "Web App Development"
+    ],
+    "md_file": "projects/universal-scene-description-working-group.md",
+    "status": "not started"
+  },
+  {
+    "name": "VNF Requirements",
+    "slug": "vnf-requirements",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/vnf-requirements.md",
+    "status": "not started"
+  },
+  {
+    "name": "The Update Framework (TUF)",
+    "slug": "the-update-framework-tuf",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/the-update-framework-tuf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Zephyr Project",
+    "slug": "zephyr-project",
+    "categories": [
+      "Safety-Critical Systems"
+    ],
+    "md_file": "projects/zephyr-project.md",
+    "status": "not started"
+  },
+  {
+    "name": "Windows PV Drivers",
+    "slug": "windows-pv-drivers",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/windows-pv-drivers.md",
+    "status": "not started"
+  },
+  {
+    "name": "Unimgr",
+    "slug": "unimgr",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/unimgr.md",
+    "status": "not started"
+  },
+  {
+    "name": "Zarf",
+    "slug": "zarf",
+    "categories": [
+      "Privacy & Security"
+    ],
+    "md_file": "projects/zarf.md",
+    "status": "not started"
+  },
+  {
+    "name": "Virtual Kubelet",
+    "slug": "virtual-kubelet",
+    "categories": [
+      "Cloud"
+    ],
+    "md_file": "projects/virtual-kubelet.md",
+    "status": "not started"
+  },
+  {
+    "name": "The Presto Foundation",
+    "slug": "the-presto-foundation",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/the-presto-foundation.md",
+    "status": "not started"
+  },
+  {
+    "name": "VNF SDK",
+    "slug": "vnf-sdk",
+    "categories": [
+      "Networking & Edge"
+    ],
+    "md_file": "projects/vnf-sdk.md",
+    "status": "not started"
+  },
+  {
+    "name": "Unity Catalog",
+    "slug": "unity-catalog",
+    "categories": [
+      "AI / ML / Data Analytics"
+    ],
+    "md_file": "projects/unity-catalog.md",
+    "status": "not started"
+  }
+]

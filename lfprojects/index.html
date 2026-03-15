@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>linux foundation projects | dharun ashokkumar</title>
+
+    <meta name="description" content="exploring all linux foundation projects before graduation. a documented journey through open source infrastructure.">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    <style>
+      /* lf projects page styles */
+      .lf-intro {
+        max-width: 36rem;
+        margin: 0 auto 2rem;
+        text-align: left;
+        color: #555;
+        font-size: 0.81rem;
+        line-height: 1.395rem;
+      }
+
+      .stats-bar {
+        max-width: 36rem;
+        margin: 0 auto 2rem;
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        text-align: left;
+        font-size: 0.75rem;
+        color: #555;
+      }
+
+      .stat-item {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        padding: 0.5rem 0.9rem;
+        line-height: 1.3;
+      }
+
+      .stat-item .stat-number {
+        font-weight: 900;
+        font-size: 1.1rem;
+        display: block;
+        color: #333;
+      }
+
+      .stat-item .stat-label {
+        font-size: 0.68rem;
+        color: #888;
+      }
+
+      /* search */
+      .search-container {
+        max-width: 36rem;
+        margin: 0 auto 1.5rem;
+        text-align: left;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.6rem 0.8rem;
+        font-family: "Merriweather", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 300;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #555;
+        text-transform: lowercase;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      .search-input:focus {
+        border-color: #888;
+      }
+
+      .search-input::placeholder {
+        color: #bbb;
+        font-style: italic;
+      }
+
+      .search-suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-top: none;
+        max-height: 220px;
+        overflow-y: auto;
+        z-index: 100;
+        display: none;
+        font-size: 0.75rem;
+        color: #555;
+      }
+
+      .search-suggestions.visible {
+        display: block;
+      }
+
+      .suggestion-item {
+        padding: 0.45rem 0.8rem;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        line-height: 1.3;
+      }
+
+      .suggestion-item:last-child {
+        border-bottom: none;
+      }
+
+      .suggestion-item:hover,
+      .suggestion-item.active {
+        background: #f5f5f5;
+      }
+
+      .suggestion-item .match-highlight {
+        background: #fe9;
+        padding: 0 1px;
+      }
+
+      .suggestion-item .suggestion-cats {
+        font-size: 0.65rem;
+        color: #aaa;
+        font-style: italic;
+        margin-left: 0.3rem;
+      }
+
+      /* category filters */
+      .category-filters {
+        max-width: 36rem;
+        margin: 0 auto 2rem;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .category-pill {
+        display: inline-block;
+        padding: 0.25rem 0.55rem;
+        font-family: "Merriweather", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 300;
+        color: #666;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-transform: lowercase;
+        line-height: 1.3;
+        user-select: none;
+      }
+
+      .category-pill:hover {
+        background: #e8e8e8;
+        border-color: #bbb;
+      }
+
+      .category-pill.active {
+        background: #555;
+        color: #fff;
+        border-color: #555;
+      }
+
+      .category-pill .cat-count {
+        font-size: 0.58rem;
+        opacity: 0.6;
+        margin-left: 0.2rem;
+      }
+
+      .category-pill.active .cat-count {
+        opacity: 0.8;
+      }
+
+      /* project grid */
+      .projects-grid {
+        max-width: 36rem;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.9rem;
+        text-align: left;
+      }
+
+      .project-card {
+        border: 1px solid #e0e0e0;
+        padding: 0.75rem 0.85rem;
+        transition: border-color 0.2s;
+        background: #fff;
+      }
+
+      .project-card:hover {
+        border-color: #999;
+      }
+
+      .project-card a {
+        text-decoration: none;
+        border-bottom: none;
+        display: block;
+        padding: 0;
+      }
+
+      .project-card a:hover {
+        background: none;
+      }
+
+      .project-card .project-name {
+        font-weight: 900;
+        font-size: 0.78rem;
+        color: #333;
+        margin-bottom: 0.4rem;
+        line-height: 1.25;
+      }
+
+      .project-card .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+
+      .project-card .project-tag {
+        font-size: 0.58rem;
+        color: #999;
+        background: #f5f5f5;
+        padding: 0.1rem 0.35rem;
+        border-radius: 3px;
+        line-height: 1.3;
+      }
+
+      /* status badges */
+      .project-status {
+        display: inline-block;
+        padding: 0.1rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.58rem;
+        font-weight: 900;
+        line-height: 1.3;
+        margin-bottom: 0.35rem;
+      }
+
+      .status-not-started {
+        background: #e0e0e0;
+        color: #555;
+      }
+
+      .status-exploring {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .status-completed {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      /* status filters */
+      .status-filters {
+        max-width: 36rem;
+        margin: 0 auto 0.8rem;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .status-pill {
+        display: inline-block;
+        padding: 0.25rem 0.55rem;
+        font-family: "Merriweather", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 300;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-transform: lowercase;
+        line-height: 1.3;
+        user-select: none;
+        border: 1px solid;
+      }
+
+      .status-pill.s-not-started {
+        color: #555;
+        background: #f5f5f5;
+        border-color: #ddd;
+      }
+
+      .status-pill.s-not-started.active {
+        background: #e0e0e0;
+        border-color: #999;
+        font-weight: 900;
+      }
+
+      .status-pill.s-exploring {
+        color: #856404;
+        background: #fffdf5;
+        border-color: #f0e0a0;
+      }
+
+      .status-pill.s-exploring.active {
+        background: #fff3cd;
+        border-color: #856404;
+        font-weight: 900;
+      }
+
+      .status-pill.s-completed {
+        color: #155724;
+        background: #f5faf6;
+        border-color: #b0d8b8;
+      }
+
+      .status-pill.s-completed.active {
+        background: #d4edda;
+        border-color: #155724;
+        font-weight: 900;
+      }
+
+      .status-pill .cat-count {
+        font-size: 0.58rem;
+        opacity: 0.6;
+        margin-left: 0.2rem;
+      }
+
+      .status-pill.active .cat-count {
+        opacity: 0.8;
+      }
+
+      .results-info {
+        max-width: 36rem;
+        margin: 0 auto 1rem;
+        text-align: left;
+        font-size: 0.7rem;
+        color: #aaa;
+        font-style: italic;
+      }
+
+      .no-results {
+        max-width: 36rem;
+        margin: 2rem auto;
+        text-align: left;
+        font-size: 0.78rem;
+        color: #aaa;
+      }
+
+      /* responsive */
+      @media screen and (max-width: 540px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-bar {
+          gap: 0.8rem;
+        }
+
+        .stat-item {
+          flex: 1;
+          min-width: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="../index.html">home</a></li>
+            <li><a href="../projects.html">projects</a></li>
+            <li><a href="../reflections.html">reflections</a></li>
+            <li><a href="../portfolio.html">portfolio</a></li>
+            <li><a href="../resume.html">resume</a></li>
+            <li><a href="../about.html">about</a></li>
+            <li><a href="../contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <h2>linux foundation projects</h2>
+
+        <div class="lf-intro">
+          <p>my goal is to experience every linux foundation project before i graduate — a 4-year journey through the breadth of open source infrastructure. this page tracks all lf projects, what i have explored, and my notes along the way. it is a living document, updated as i work through each project.</p>
+        </div>
+
+        <div class="stats-bar" id="stats-bar">
+          <div class="stat-item">
+            <span class="stat-number" id="stat-total">—</span>
+            <span class="stat-label">total projects</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-explored">—</span>
+            <span class="stat-label">explored</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-categories">—</span>
+            <span class="stat-label">categories</span>
+          </div>
+        </div>
+
+        <div class="search-container">
+          <input type="text" class="search-input" id="search-input" placeholder="search projects (typo-tolerant)..." autocomplete="off">
+          <div class="search-suggestions" id="search-suggestions"></div>
+        </div>
+
+        <div class="category-filters" id="category-filters"></div>
+
+        <div class="status-filters" id="status-filters"></div>
+
+        <div class="results-info" id="results-info"></div>
+
+        <div class="projects-grid" id="projects-grid"></div>
+
+        <div class="no-results" id="no-results" style="display:none;">
+          no projects match your search.
+        </div>
+      </div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script>
+    (function () {
+      'use strict';
+
+      let allProjects = [];
+      let activeCategories = new Set();
+      let activeStatuses = new Set();
+      let currentQuery = '';
+
+      // --- fuzzy search engine ---
+
+      function levenshtein(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+        // optimised single-row dp
+        const len = b.length;
+        let prev = new Array(len + 1);
+        let curr = new Array(len + 1);
+        for (let j = 0; j <= len; j++) prev[j] = j;
+        for (let i = 1; i <= a.length; i++) {
+          curr[0] = i;
+          for (let j = 1; j <= len; j++) {
+            const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+            curr[j] = Math.min(
+              curr[j - 1] + 1,
+              prev[j] + 1,
+              prev[j - 1] + cost
+            );
+          }
+          [prev, curr] = [curr, prev];
+        }
+        return prev[len];
+      }
+
+      function bigrams(str) {
+        const s = new Set();
+        for (let i = 0; i < str.length - 1; i++) {
+          s.add(str.slice(i, i + 2));
+        }
+        return s;
+      }
+
+      function bigramSimilarity(a, b) {
+        const ba = bigrams(a);
+        const bb = bigrams(b);
+        if (ba.size === 0 && bb.size === 0) return 1;
+        if (ba.size === 0 || bb.size === 0) return 0;
+        let intersection = 0;
+        for (const g of ba) {
+          if (bb.has(g)) intersection++;
+        }
+        return (2 * intersection) / (ba.size + bb.size);
+      }
+
+      function fuzzyScore(query, text) {
+        const q = query.toLowerCase().trim();
+        const t = text.toLowerCase();
+
+        if (!q) return 0;
+
+        // exact match
+        if (t === q) return 100;
+
+        // starts with
+        if (t.startsWith(q)) return 90;
+
+        // contains as substring
+        const idx = t.indexOf(q);
+        if (idx >= 0) return 80 - idx * 0.1;
+
+        // word-start match: query matches start of any word
+        const words = t.split(/[\s\/&,\-]+/);
+        for (const w of words) {
+          if (w.startsWith(q)) return 75;
+        }
+
+        // check if all query characters appear in order (subsequence)
+        let qi = 0;
+        for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+          if (t[ti] === q[qi]) qi++;
+        }
+        const subseqScore = qi === q.length ? 50 + (q.length / t.length) * 20 : 0;
+
+        // bigram similarity
+        const bgSim = bigramSimilarity(q, t) * 60;
+
+        // levenshtein on shorter comparison
+        const compareText = t.length > q.length * 2 ? t.slice(0, q.length * 2) : t;
+        const dist = levenshtein(q, compareText);
+        const maxLen = Math.max(q.length, compareText.length);
+        const levScore = maxLen > 0 ? (1 - dist / maxLen) * 55 : 0;
+
+        // also check individual words for levenshtein
+        let bestWordLev = 0;
+        for (const w of words) {
+          if (w.length === 0) continue;
+          const d = levenshtein(q, w);
+          const m = Math.max(q.length, w.length);
+          const s = m > 0 ? (1 - d / m) * 65 : 0;
+          if (s > bestWordLev) bestWordLev = s;
+        }
+
+        return Math.max(subseqScore, bgSim, levScore, bestWordLev);
+      }
+
+      function highlightMatch(text, query) {
+        if (!query) return escapeHtml(text);
+        const q = query.toLowerCase().trim();
+        const tLower = text.toLowerCase();
+
+        // try substring highlight
+        const idx = tLower.indexOf(q);
+        if (idx >= 0) {
+          const before = escapeHtml(text.slice(0, idx));
+          const match = escapeHtml(text.slice(idx, idx + q.length));
+          const after = escapeHtml(text.slice(idx + q.length));
+          return before + '<span class="match-highlight">' + match + '</span>' + after;
+        }
+
+        // try subsequence highlight
+        let result = '';
+        let qi = 0;
+        for (let i = 0; i < text.length; i++) {
+          if (qi < q.length && text[i].toLowerCase() === q[qi]) {
+            result += '<span class="match-highlight">' + escapeHtml(text[i]) + '</span>';
+            qi++;
+          } else {
+            result += escapeHtml(text[i]);
+          }
+        }
+        return result;
+      }
+
+      function escapeHtml(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      // --- rendering ---
+
+      function renderCategories() {
+        const counts = {};
+        for (const p of allProjects) {
+          for (const c of p.categories) {
+            counts[c] = (counts[c] || 0) + 1;
+          }
+        }
+
+        const sorted = Object.keys(counts).sort();
+        const container = document.getElementById('category-filters');
+        container.innerHTML = '';
+
+        for (const cat of sorted) {
+          const pill = document.createElement('span');
+          pill.className = 'category-pill' + (activeCategories.has(cat) ? ' active' : '');
+          pill.innerHTML = escapeHtml(cat.toLowerCase()) + ' <span class="cat-count">' + counts[cat] + '</span>';
+          pill.addEventListener('click', function () {
+            if (activeCategories.has(cat)) {
+              activeCategories.delete(cat);
+            } else {
+              activeCategories.add(cat);
+            }
+            renderCategories();
+            renderProjects();
+          });
+          container.appendChild(pill);
+        }
+      }
+
+      function statusCssClass(status) {
+        if (status === 'completed') return 'status-completed';
+        if (status === 'exploring') return 'status-exploring';
+        return 'status-not-started';
+      }
+
+      function statusPillClass(status) {
+        if (status === 'completed') return 's-completed';
+        if (status === 'exploring') return 's-exploring';
+        return 's-not-started';
+      }
+
+      function renderStatusFilters() {
+        const counts = {};
+        const order = ['not started', 'exploring', 'completed'];
+        for (const p of allProjects) {
+          const s = p.status || 'not started';
+          counts[s] = (counts[s] || 0) + 1;
+        }
+
+        const container = document.getElementById('status-filters');
+        container.innerHTML = '';
+
+        for (const s of order) {
+          if (!counts[s]) continue;
+          const pill = document.createElement('span');
+          pill.className = 'status-pill ' + statusPillClass(s) + (activeStatuses.has(s) ? ' active' : '');
+          pill.innerHTML = escapeHtml(s) + ' <span class="cat-count">' + counts[s] + '</span>';
+          pill.addEventListener('click', function () {
+            if (activeStatuses.has(s)) {
+              activeStatuses.delete(s);
+            } else {
+              activeStatuses.add(s);
+            }
+            renderStatusFilters();
+            renderProjects();
+          });
+          container.appendChild(pill);
+        }
+      }
+
+      function getFilteredProjects() {
+        let projects = allProjects;
+
+        // category filter
+        if (activeCategories.size > 0) {
+          projects = projects.filter(function (p) {
+            for (const c of activeCategories) {
+              if (p.categories.indexOf(c) >= 0) return true;
+            }
+            return false;
+          });
+        }
+
+        // status filter
+        if (activeStatuses.size > 0) {
+          projects = projects.filter(function (p) {
+            return activeStatuses.has(p.status || 'not started');
+          });
+        }
+
+        // search filter and sort
+        if (currentQuery.trim()) {
+          const scored = [];
+          for (const p of projects) {
+            // score against name and categories
+            let score = fuzzyScore(currentQuery, p.name);
+            for (const c of p.categories) {
+              const cs = fuzzyScore(currentQuery, c) * 0.5;
+              if (cs > score) score = cs;
+            }
+            if (score > 20) {
+              scored.push({ project: p, score: score });
+            }
+          }
+          scored.sort(function (a, b) { return b.score - a.score; });
+          return scored.map(function (s) { return s.project; });
+        }
+
+        // default: alphabetical
+        return projects.slice().sort(function (a, b) {
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        });
+      }
+
+      function renderProjects() {
+        const filtered = getFilteredProjects();
+        const grid = document.getElementById('projects-grid');
+        const noResults = document.getElementById('no-results');
+        const info = document.getElementById('results-info');
+
+        grid.innerHTML = '';
+
+        if (filtered.length === 0) {
+          noResults.style.display = 'block';
+          info.textContent = '';
+        } else {
+          noResults.style.display = 'none';
+          const showing = (currentQuery.trim() || activeCategories.size > 0 || activeStatuses.size > 0)
+            ? 'showing ' + filtered.length + ' of ' + allProjects.length + ' projects'
+            : filtered.length + ' projects';
+          info.textContent = showing;
+        }
+
+        for (const p of filtered) {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+
+          const nameHtml = currentQuery.trim()
+            ? highlightMatch(p.name, currentQuery)
+            : escapeHtml(p.name);
+
+          const status = p.status || 'not started';
+          const statusBadge = '<span class="project-status ' + statusCssClass(status) + '">' + escapeHtml(status) + '</span>';
+
+          let tagsHtml = '';
+          for (const c of p.categories) {
+            tagsHtml += '<span class="project-tag">' + escapeHtml(c.toLowerCase()) + '</span>';
+          }
+
+          card.innerHTML =
+            '<a href="project.html?slug=' + encodeURIComponent(p.slug) + '">' +
+              statusBadge +
+              '<div class="project-name">' + nameHtml + '</div>' +
+              '<div class="project-tags">' + tagsHtml + '</div>' +
+            '</a>';
+
+          grid.appendChild(card);
+        }
+      }
+
+      function renderSuggestions() {
+        const container = document.getElementById('search-suggestions');
+        const q = currentQuery.trim();
+
+        if (!q) {
+          container.classList.remove('visible');
+          container.innerHTML = '';
+          return;
+        }
+
+        const scored = [];
+        for (const p of allProjects) {
+          const score = fuzzyScore(q, p.name);
+          if (score > 25) {
+            scored.push({ project: p, score: score });
+          }
+        }
+        scored.sort(function (a, b) { return b.score - a.score; });
+        const top = scored.slice(0, 8);
+
+        if (top.length === 0) {
+          container.classList.remove('visible');
+          container.innerHTML = '';
+          return;
+        }
+
+        container.innerHTML = '';
+        for (const item of top) {
+          const div = document.createElement('div');
+          div.className = 'suggestion-item';
+          const nameHtml = highlightMatch(item.project.name, q);
+          const catsStr = item.project.categories.slice(0, 2).join(', ').toLowerCase();
+          div.innerHTML = nameHtml + '<span class="suggestion-cats">' + escapeHtml(catsStr) + '</span>';
+          div.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+            document.getElementById('search-input').value = item.project.name;
+            currentQuery = item.project.name;
+            container.classList.remove('visible');
+            renderProjects();
+          });
+          container.appendChild(div);
+        }
+        container.classList.add('visible');
+      }
+
+      function updateStats() {
+        document.getElementById('stat-total').textContent = allProjects.length;
+
+        let explored = 0;
+        for (const p of allProjects) {
+          if (p.status && p.status !== 'not started') explored++;
+        }
+        document.getElementById('stat-explored').textContent = explored;
+
+        const cats = new Set();
+        for (const p of allProjects) {
+          for (const c of p.categories) cats.add(c);
+        }
+        document.getElementById('stat-categories').textContent = cats.size;
+      }
+
+      // --- init ---
+
+      function init() {
+        fetch('projects.json')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            allProjects = data;
+            updateStats();
+            renderCategories();
+            renderStatusFilters();
+            renderProjects();
+          })
+          .catch(function (err) {
+            console.error('failed to load projects.json:', err);
+            document.getElementById('no-results').style.display = 'block';
+            document.getElementById('no-results').textContent = 'failed to load projects data.';
+          });
+
+        const searchInput = document.getElementById('search-input');
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function () {
+          currentQuery = this.value;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(function () {
+            renderProjects();
+            renderSuggestions();
+          }, 150);
+        });
+
+        searchInput.addEventListener('focus', function () {
+          if (currentQuery.trim()) renderSuggestions();
+        });
+
+        searchInput.addEventListener('blur', function () {
+          // small delay so mousedown on suggestion works
+          setTimeout(function () {
+            document.getElementById('search-suggestions').classList.remove('visible');
+          }, 200);
+        });
+
+        // keyboard nav for suggestions
+        searchInput.addEventListener('keydown', function (e) {
+          const suggestions = document.getElementById('search-suggestions');
+          const items = suggestions.querySelectorAll('.suggestion-item');
+          if (items.length === 0) return;
+
+          let activeIdx = -1;
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].classList.contains('active')) { activeIdx = i; break; }
+          }
+
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (activeIdx >= 0) items[activeIdx].classList.remove('active');
+            activeIdx = (activeIdx + 1) % items.length;
+            items[activeIdx].classList.add('active');
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (activeIdx >= 0) items[activeIdx].classList.remove('active');
+            activeIdx = activeIdx <= 0 ? items.length - 1 : activeIdx - 1;
+            items[activeIdx].classList.add('active');
+          } else if (e.key === 'Enter' && activeIdx >= 0) {
+            e.preventDefault();
+            items[activeIdx].dispatchEvent(new MouseEvent('mousedown'));
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>project | linux foundation projects</title>
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <!-- google analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DGWHDZMCF6');
+  </script>
+
+  <style>
+    .project-container {
+      max-width: 36rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      text-align: left;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+      color: #666;
+    }
+
+    .breadcrumb a {
+      color: #666;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      margin: 0 0.3rem;
+    }
+
+    .project-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .project-meta {
+      margin-bottom: 2rem;
+    }
+
+    .category-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .category-tag {
+      display: inline-block;
+      background: #f0f0f0;
+      color: #333;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      border: 1px solid #ddd;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.15rem 0.6rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    .status-not-started {
+      background: #e0e0e0;
+      color: #555;
+    }
+
+    .status-exploring {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-completed {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .project-content h1 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .project-content h2 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .project-content h3 {
+      font-size: 1rem;
+      font-weight: 900;
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    .project-content p {
+      margin: 0.75rem 0;
+      line-height: 1.6;
+    }
+
+    .project-content ul,
+    .project-content ol {
+      margin: 0.75rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .project-content li {
+      margin: 0.3rem 0;
+      line-height: 1.6;
+    }
+
+    .project-content blockquote {
+      border-left: 3px solid #ccc;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      color: #555;
+      background: #f9f9f9;
+    }
+
+    .project-content code {
+      background: #f4f4f4;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-size: 0.85em;
+      font-family: monospace;
+    }
+
+    .project-content pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+
+    .project-content pre code {
+      background: none;
+      padding: 0;
+      font-size: 0.85em;
+    }
+
+    .project-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+
+    .project-content hr {
+      border: none;
+      border-top: black solid 3px;
+      margin: 2rem 0;
+    }
+
+    .project-content a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    .project-content a:hover {
+      background: #fe9;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: #666;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      text-align: center;
+      margin: 3rem auto;
+      color: #555;
+    }
+
+    .error-message h2 {
+      font-weight: 900;
+    }
+
+    .error-message p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header">
+    <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">home</a></li>
+        <li><a href="../projects.html">projects</a></li>
+        <li><a href="../reflections.html">reflections</a></li>
+        <li><a href="../portfolio.html">portfolio</a></li>
+        <li><a href="../resume.html">resume</a></li>
+        <li><a href="../about.html">about</a></li>
+        <li><a href="../contact.html">contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="project-container" id="project-container">
+    <p>loading...</p>
+  </div>
+
+  <script>
+    // --- simple markdown parser ---
+    function parseMarkdown(md) {
+      var lines = md.split('\n');
+      var html = '';
+      var inCodeBlock = false;
+      var codeBlockContent = '';
+      var inList = false;
+      var listType = '';
+      var inBlockquote = false;
+      var blockquoteContent = '';
+      var paragraph = '';
+
+      function flushParagraph() {
+        if (paragraph.trim()) {
+          html += '<p>' + inlineFormat(paragraph.trim()) + '</p>\n';
+          paragraph = '';
+        }
+      }
+
+      function flushList() {
+        if (inList) {
+          html += '</' + listType + '>\n';
+          inList = false;
+          listType = '';
+        }
+      }
+
+      function flushBlockquote() {
+        if (inBlockquote) {
+          html += '<blockquote><p>' + inlineFormat(blockquoteContent.trim()) + '</p></blockquote>\n';
+          inBlockquote = false;
+          blockquoteContent = '';
+        }
+      }
+
+      function inlineFormat(text) {
+        // images (before links so ![alt](url) is caught first)
+        text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+        // links
+        text = text.replace(/\[([^\]]+)\]\(([^)]*)\)/g, '<a href="$2">$1</a>');
+        // bold
+        text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        // italic (underscore)
+        text = text.replace(/(?<!\w)_(.+?)_(?!\w)/g, '<em>$1</em>');
+        // italic (asterisk)
+        text = text.replace(/(?<!\w)\*(.+?)\*(?!\w)/g, '<em>$1</em>');
+        // strikethrough
+        text = text.replace(/~~(.+?)~~/g, '<del>$1</del>');
+        // inline code
+        text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+        return text;
+      }
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+
+        // code blocks
+        if (line.trim().startsWith('```')) {
+          if (inCodeBlock) {
+            html += '<pre><code>' + codeBlockContent.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code></pre>\n';
+            codeBlockContent = '';
+            inCodeBlock = false;
+          } else {
+            flushParagraph();
+            flushList();
+            flushBlockquote();
+            inCodeBlock = true;
+          }
+          continue;
+        }
+
+        if (inCodeBlock) {
+          codeBlockContent += (codeBlockContent ? '\n' : '') + line;
+          continue;
+        }
+
+        // horizontal rule
+        if (/^---+\s*$/.test(line.trim())) {
+          flushParagraph();
+          flushList();
+          flushBlockquote();
+          html += '<hr>\n';
+          continue;
+        }
+
+        // headings
+        var headingMatch = line.match(/^(#{1,3})\s+(.+)$/);
+        if (headingMatch) {
+          flushParagraph();
+          flushList();
+          flushBlockquote();
+          var level = headingMatch[1].length;
+          html += '<h' + level + '>' + inlineFormat(headingMatch[2]) + '</h' + level + '>\n';
+          continue;
+        }
+
+        // blockquote
+        if (line.trim().startsWith('> ')) {
+          flushParagraph();
+          flushList();
+          if (!inBlockquote) {
+            inBlockquote = true;
+            blockquoteContent = '';
+          }
+          blockquoteContent += (blockquoteContent ? ' ' : '') + line.trim().substring(2);
+          continue;
+        } else if (inBlockquote) {
+          flushBlockquote();
+        }
+
+        // unordered list
+        if (/^\s*[-*]\s+/.test(line)) {
+          flushParagraph();
+          flushBlockquote();
+          if (!inList || listType !== 'ul') {
+            flushList();
+            listType = 'ul';
+            inList = true;
+            html += '<ul>\n';
+          }
+          html += '<li>' + inlineFormat(line.replace(/^\s*[-*]\s+/, '')) + '</li>\n';
+          continue;
+        }
+
+        // ordered list
+        if (/^\s*\d+\.\s+/.test(line)) {
+          flushParagraph();
+          flushBlockquote();
+          if (!inList || listType !== 'ol') {
+            flushList();
+            listType = 'ol';
+            inList = true;
+            html += '<ol>\n';
+          }
+          html += '<li>' + inlineFormat(line.replace(/^\s*\d+\.\s+/, '')) + '</li>\n';
+          continue;
+        }
+
+        // if we were in a list but this line isn't a list item, close the list
+        if (inList && line.trim() === '') {
+          flushList();
+        }
+
+        // empty line = paragraph break
+        if (line.trim() === '') {
+          flushParagraph();
+          flushList();
+          continue;
+        }
+
+        // accumulate paragraph text
+        paragraph += (paragraph ? ' ' : '') + line;
+      }
+
+      // flush remaining
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      if (inCodeBlock) {
+        html += '<pre><code>' + codeBlockContent.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code></pre>\n';
+      }
+
+      return html;
+    }
+
+    // --- strip frontmatter sections (title, category) for cleaner rendering ---
+    function stripFrontmatter(md) {
+      // remove the top-level title (# Project Name) since we show it separately
+      md = md.replace(/^#\s+.+\n*/, '');
+      // remove category section
+      md = md.replace(/^##\s+category\s*\n.+\n*/mi, '');
+      return md.trim();
+    }
+
+    // --- status badge class ---
+    function statusClass(status) {
+      if (status === 'completed') return 'status-completed';
+      if (status === 'exploring') return 'status-exploring';
+      return 'status-not-started';
+    }
+
+    // --- main ---
+    (function() {
+      var container = document.getElementById('project-container');
+      var params = new URLSearchParams(window.location.search);
+      var slug = params.get('slug');
+
+      if (!slug) {
+        container.innerHTML = '<div class="error-message"><h2>project not found</h2><p>no project slug specified.</p><a class="back-link" href="index.html">&larr; back to all projects</a></div>';
+        return;
+      }
+
+      fetch('projects.json')
+        .then(function(res) { return res.json(); })
+        .then(function(projects) {
+          var project = null;
+          for (var i = 0; i < projects.length; i++) {
+            if (projects[i].slug === slug) {
+              project = projects[i];
+              break;
+            }
+          }
+
+          if (!project) {
+            container.innerHTML = '<div class="error-message"><h2>project not found</h2><p>"' + slug + '" does not match any project in the directory.</p><a class="back-link" href="index.html">&larr; back to all projects</a></div>';
+            document.title = 'not found | linux foundation projects';
+            return;
+          }
+
+          document.title = project.name.toLowerCase() + ' | linux foundation projects';
+
+          var projectStatus = project.status || 'not started';
+
+          // fetch the markdown file
+          fetch(project.md_file)
+            .then(function(res) {
+              if (!res.ok) throw new Error('not found');
+              return res.text();
+            })
+            .then(function(md) {
+              var content = stripFrontmatter(md);
+              var renderedContent = parseMarkdown(content);
+              render(project, projectStatus, renderedContent);
+            })
+            .catch(function() {
+              render(project, projectStatus, '<div class="error-message"><p>no content yet.</p><p>add a markdown file at <code>projects/' + slug + '.md</code> to get started.</p></div>');
+            });
+        })
+        .catch(function() {
+          container.innerHTML = '<div class="error-message"><h2>error loading projects</h2><p>could not load projects.json.</p><a class="back-link" href="index.html">&larr; back to all projects</a></div>';
+        });
+
+      function render(project, status, contentHtml) {
+        var categoriesHtml = '';
+        if (project.categories && project.categories.length) {
+          for (var i = 0; i < project.categories.length; i++) {
+            categoriesHtml += '<span class="category-tag">' + project.categories[i].toLowerCase() + '</span>';
+          }
+        }
+
+        container.innerHTML =
+          '<div class="breadcrumb">' +
+            '<a href="index.html">linux foundation projects</a>' +
+            '<span>&rsaquo;</span>' +
+            '<span>' + project.name.toLowerCase() + '</span>' +
+          '</div>' +
+          '<div class="project-title">' + project.name.toLowerCase() + '</div>' +
+          '<div class="project-meta">' +
+            '<div class="category-tags">' + categoriesHtml + '</div>' +
+            '<span class="status-badge ' + statusClass(status) + '">' + status + '</span>' +
+          '</div>' +
+          '<div class="project-content">' + contentHtml + '</div>' +
+          '<a class="back-link" href="index.html">&larr; back to all projects</a>';
+      }
+    })();
+  </script>
+
+</body>
+</html>
