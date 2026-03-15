@@ -166,29 +166,40 @@
         max-width: 36rem;
         margin: 1.5rem auto;
       }
-      .activity-list {
-        list-style: none;
-        padding: 0;
-        max-width: 36rem;
-        margin: 1.5rem auto;
-      }
       .repo-item {
         border-bottom: 1px solid #eee;
         padding: 1.1rem 0;
       }
-      .activity-item {
-        border-bottom: 1px solid #eee;
-        padding: 0.85rem 0;
-      }
       .repo-item:last-child {
-        border-bottom: none;
-      }
-      .activity-item:last-child {
         border-bottom: none;
       }
       .repo-name {
         font-weight: 900;
         color: #333;
+      }
+      .pr-title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .pr-icon {
+        width: 14px;
+        height: 14px;
+        display: inline-flex;
+        flex-shrink: 0;
+      }
+      .pr-state {
+        font-size: 0.68rem;
+        text-transform: lowercase;
+      }
+      .pr-state-merged {
+        color: #7c3aed;
+      }
+      .pr-state-open {
+        color: #1a7f37;
+      }
+      .pr-state-closed {
+        color: #cf222e;
       }
       .repo-name a {
         color: #333;
@@ -228,11 +239,6 @@
         font-family: monospace;
         font-size: 0.68rem;
       }
-      .activity-text {
-        color: #555;
-        font-size: 0.76rem;
-      }
-
       /* skeleton loading */
       .skeleton {
         background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -317,14 +323,6 @@
   <li class="skeleton skeleton-repo"></li>
 </ul>
 
-<h1>recent contribution activity</h1>
-
-<ul id="activity-list" class="activity-list">
-  <li class="skeleton skeleton-repo"></li>
-  <li class="skeleton skeleton-repo"></li>
-  <li class="skeleton skeleton-repo"></li>
-</ul>
-
 </div><div id="footer">
 	<h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1><nav>
 	<ul><li><a href="/projects.html">projects</a></li><li>
@@ -383,13 +381,13 @@
     } catch (e) { /* ignore quota errors */ }
   }
 
-  function renderStats(profile, mergedPrTotal, activeReposCount, events30dCount) {
+  function renderStats(profile, mergedPrTotal, openPrTotal, closedPrTotal) {
     var el = document.getElementById('github-stats');
 
     el.innerHTML =
       '<div class="stat-card"><span class="stat-value">' + mergedPrTotal + '</span><span class="stat-label">merged prs</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + events30dCount + '</span><span class="stat-label">events (30d)</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + activeReposCount + '</span><span class="stat-label">active repos</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + openPrTotal + '</span><span class="stat-label">open prs</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + closedPrTotal + '</span><span class="stat-label">closed prs</span></div>' +
       '<div class="stat-card"><span class="stat-value">' + profile.followers + '</span><span class="stat-label">followers</span></div>' +
       '<div class="stat-card"><span class="stat-value">' + profile.public_repos + '</span><span class="stat-label">public repos</span></div>';
 
@@ -402,10 +400,20 @@
     return match ? match[1] : '';
   }
 
-  function renderMergedPrs(prs) {
+  function getStatusIcon(status) {
+    if (status === 'merged') {
+      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="#7c3aed" d="M5 3.5a2.5 2.5 0 1 1 1 2v2.086a2.5 2.5 0 1 1-1 0V5.5a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 1.5-1.5V8h3.586a2.5 2.5 0 1 1 0 1H6.5v1.586a2.5 2.5 0 1 1-1 0V8.5A2.5 2.5 0 0 1 5 3.5Zm6.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>';
+    }
+    if (status === 'open') {
+      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#1a7f37"/></svg>';
+    }
+    return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#cf222e"/></svg>';
+  }
+
+  function renderPullRequests(prs) {
     var el = document.getElementById('pr-list');
     if (prs.length === 0) {
-      el.innerHTML = '<li class="repo-item" style="color:#999;text-align:center;">no merged pull requests found.</li>';
+      el.innerHTML = '<li class="repo-item" style="color:#999;text-align:center;">no pull requests found.</li>';
       return;
     }
 
@@ -413,57 +421,19 @@
     prs.forEach(function(pr) {
       var repoName = extractRepoFromPrUrl(pr.html_url);
       var repoLink = repoName ? 'https://github.com/' + repoName : '';
+      var status = pr.pr_status || pr.state || 'closed';
+      var stateClass = status === 'merged' ? 'pr-state-merged' : (status === 'open' ? 'pr-state-open' : 'pr-state-closed');
       html += '<li class="repo-item">' +
-        '<div class="repo-name"><a href="' + pr.html_url + '" target="_blank" rel="noopener">' + escapeHtml(pr.title) + '</a></div>' +
+        '<div class="repo-name pr-title-row">' +
+          getStatusIcon(status) +
+          '<a href="' + pr.html_url + '" target="_blank" rel="noopener">' + escapeHtml(pr.title) + '</a>' +
+        '</div>' +
         '<div class="repo-meta">' +
           (repoName ? '<span><a href="' + repoLink + '" target="_blank" rel="noopener">' + repoName + '</a></span>' : '') +
-          '<span class="repo-date">merged ' + relativeTime(pr.closed_at || pr.updated_at) + '</span>' +
+          '<span class="pr-state ' + stateClass + '">' + status + '</span>' +
+          '<span class="repo-date">updated ' + relativeTime(pr.updated_at) + '</span>' +
         '</div>' +
         '</li>';
-    });
-
-    el.innerHTML = html;
-  }
-
-  function formatEventAction(event) {
-    var repo = event.repo && event.repo.name ? event.repo.name : 'unknown repo';
-    if (event.type === 'PushEvent') {
-      var commits = event.payload && event.payload.commits ? event.payload.commits.length : 0;
-      return 'pushed ' + commits + ' commit' + (commits === 1 ? '' : 's') + ' to ' + repo;
-    }
-    if (event.type === 'PullRequestEvent') {
-      var action = event.payload && event.payload.action ? event.payload.action : 'updated';
-      return action + ' a pull request in ' + repo;
-    }
-    if (event.type === 'IssuesEvent') {
-      var issueAction = event.payload && event.payload.action ? event.payload.action : 'updated';
-      return issueAction + ' an issue in ' + repo;
-    }
-    if (event.type === 'IssueCommentEvent') {
-      return 'commented on an issue in ' + repo;
-    }
-    if (event.type === 'PullRequestReviewEvent') {
-      return 'reviewed a pull request in ' + repo;
-    }
-    if (event.type === 'CreateEvent') {
-      return 'created a branch or tag in ' + repo;
-    }
-    return event.type.replace('Event', '').toLowerCase() + ' activity in ' + repo;
-  }
-
-  function renderActivity(events) {
-    var el = document.getElementById('activity-list');
-    if (!events.length) {
-      el.innerHTML = '<li class="activity-item" style="color:#999;text-align:center;">no recent contribution activity found.</li>';
-      return;
-    }
-
-    var html = '';
-    events.forEach(function(event) {
-      html += '<li class="activity-item">' +
-        '<div class="activity-text">' + escapeHtml(formatEventAction(event)) + '</div>' +
-        '<div class="repo-meta"><span class="repo-date">' + relativeTime(event.created_at) + '</span></div>' +
-      '</li>';
     });
 
     el.innerHTML = html;
@@ -480,40 +450,19 @@
     statsEl.innerHTML = '';
     var prEl = document.getElementById('pr-list');
     prEl.innerHTML = '<li class="error-msg">' + msg + '</li>';
-    var activityEl = document.getElementById('activity-list');
-    activityEl.innerHTML = '';
-  }
-
-  function countEventsInLastDays(events, days) {
-    var now = Date.now();
-    var cutoff = now - (days * 24 * 60 * 60 * 1000);
-    return events.filter(function(event) {
-      return new Date(event.created_at).getTime() >= cutoff;
-    }).length;
-  }
-
-  function uniqueReposFromEvents(events) {
-    var seen = {};
-    events.forEach(function(event) {
-      if (event.repo && event.repo.name) {
-        seen[event.repo.name] = true;
-      }
-    });
-    return Object.keys(seen).length;
   }
 
   function loadData() {
     var cached = getCached();
     if (cached) {
-      if (cached.profile && cached.mergedPrs && cached.events) {
+      if (cached.profile && cached.pullRequests) {
         renderStats(
           cached.profile,
-          cached.mergedPrTotal || cached.mergedPrs.length || 0,
-          cached.activeReposCount || uniqueReposFromEvents(cached.events),
-          cached.events30dCount || countEventsInLastDays(cached.events, 30)
+          cached.mergedPrTotal || 0,
+          cached.openPrTotal || 0,
+          cached.closedPrTotal || 0
         );
-        renderMergedPrs(cached.mergedPrs);
-        renderActivity(cached.events);
+        renderPullRequests(cached.pullRequests);
         return;
       }
       sessionStorage.removeItem(CACHE_KEY);
@@ -521,7 +470,8 @@
 
     var profileUrl = 'https://api.github.com/users/' + GITHUB_USER;
     var mergedPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:merged&sort=updated&order=desc&per_page=20';
-    var eventsUrl = 'https://api.github.com/users/' + GITHUB_USER + '/events/public?per_page=100';
+    var openPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:open&sort=updated&order=desc&per_page=20';
+    var closedPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:closed+-is:merged&sort=updated&order=desc&per_page=20';
 
     Promise.all([
       fetch(profileUrl).then(function(r) {
@@ -532,32 +482,55 @@
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       }),
-      fetch(eventsUrl).then(function(r) {
+      fetch(openPrUrl).then(function(r) {
+        if (!r.ok) throw new Error('github api error: ' + r.status);
+        return r.json();
+      }),
+      fetch(closedPrUrl).then(function(r) {
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       })
     ])
     .then(function(results) {
       var profile = results[0];
-      var prData = results[1];
-      var events = results[2] || [];
-      var mergedPrs = prData.items || [];
-      var mergedPrTotal = prData.total_count || mergedPrs.length;
-      var events30dCount = countEventsInLastDays(events, 30);
-      var activeReposCount = uniqueReposFromEvents(events);
-      var recentEvents = events.slice(0, 20);
+      var mergedData = results[1] || {};
+      var openData = results[2] || {};
+      var closedData = results[3] || {};
+
+      var mergedPrs = (mergedData.items || []).map(function(pr) {
+        pr.pr_status = 'merged';
+        return pr;
+      });
+      var openPrs = (openData.items || []).map(function(pr) {
+        pr.pr_status = 'open';
+        return pr;
+      });
+      var closedPrs = (closedData.items || []).map(function(pr) {
+        pr.pr_status = 'closed';
+        return pr;
+      });
+
+      var pullRequests = mergedPrs
+        .concat(openPrs)
+        .concat(closedPrs)
+        .sort(function(a, b) {
+          return new Date(b.updated_at) - new Date(a.updated_at);
+        })
+        .slice(0, 30);
+
+      var mergedPrTotal = mergedData.total_count || mergedPrs.length;
+      var openPrTotal = openData.total_count || openPrs.length;
+      var closedPrTotal = closedData.total_count || closedPrs.length;
 
       setCache({
         profile: profile,
-        mergedPrs: mergedPrs,
+        pullRequests: pullRequests,
         mergedPrTotal: mergedPrTotal,
-        events: recentEvents,
-        events30dCount: events30dCount,
-        activeReposCount: activeReposCount
+        openPrTotal: openPrTotal,
+        closedPrTotal: closedPrTotal
       });
-      renderStats(profile, mergedPrTotal, activeReposCount, events30dCount);
-      renderMergedPrs(mergedPrs);
-      renderActivity(recentEvents);
+      renderStats(profile, mergedPrTotal, openPrTotal, closedPrTotal);
+      renderPullRequests(pullRequests);
     })
     .catch(function(err) {
       showError('could not load github data. ' + err.message + '. <a href="https://github.com/' + GITHUB_USER + '" target="_blank" rel="noopener">visit github profile directly</a>.');
