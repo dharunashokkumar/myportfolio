@@ -1401,3 +1401,104 @@ ul.archive.thumblist li:nth-child(3n) {
 .vault-back a:hover {
   color: #333;
 }
+
+/* Top Slider Tab */
+.top-slider {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 10000;
+  width: 280px;
+}
+
+.top-slider-drawer {
+  background: #e8e8e8;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+
+.top-slider.open .top-slider-drawer {
+  max-height: 260px;
+}
+
+.top-slider-panel {
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+
+.top-slider-panel p {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 auto 1rem;
+}
+
+.top-slider-panel .slider-btn {
+  display: inline-block;
+  font-family: "Merriweather", sans-serif;
+  font-size: 0.72rem;
+  color: #555;
+  background: none;
+  border: 1px solid #555 !important;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.top-slider-panel .slider-btn:hover {
+  background: #555;
+  color: #fff;
+}
+
+.top-slider-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem 0.25rem;
+  background: #e8e8e8;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.top-slider.open .top-slider-tab {
+  border-radius: 0;
+  background: #e8e8e8;
+}
+
+.top-slider-tab:hover {
+  background: #d5d5d5;
+}
+
+.tab-tux {
+  position: absolute;
+  left: -30px;
+  top: -2px;
+  width: 28px;
+  height: 38px;
+}
+
+.tab-label {
+  font-family: "Merriweather", sans-serif;
+  font-size: 0.62rem;
+  color: #666;
+  text-transform: lowercase;
+}
+
+.tab-arrow {
+  font-size: 0.55rem;
+  color: #666;
+  line-height: 1;
+}
