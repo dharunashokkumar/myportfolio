@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cpu architecture explorer — dharun ashokkumar</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap");
+
+    html {
+      text-transform: lowercase;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+      background: #ffffff;
+      font-family: "Merriweather", serif;
+      font-weight: 300;
+      font-size: 0.81rem;
+      line-height: 1.395rem;
+      color: #555;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    strong, b { font-weight: 900; }
+    em { font-style: italic; }
+
+    #container {
+      margin: 0 auto;
+      max-width: 1280px;
+      text-align: center;
+      padding: 3.6rem 1px;
+    }
+
+    #header, #content, #footer {
+      margin: 3.6rem auto;
+    }
+
+    #footer {
+      margin-top: 5.4rem;
+      opacity: 0.25;
+      transition: opacity 0.6s;
+    }
+    #footer:hover { opacity: 1; }
+
+    h1, h2, h3, p, nav, blockquote, ul, ol, .footnotes {
+      text-align: left;
+      color: #555;
+      margin: 1.395rem auto;
+      max-width: 36rem;
+      font-size: 0.81rem;
+    }
+
+    h1, h2, h3 {
+      margin-top: 2.79rem;
+      font-weight: 900;
+    }
+
+    h3 { font-style: italic; }
+
+    a {
+      color: inherit;
+      padding: 0 0.1125rem;
+      border-bottom: #555 dotted 1px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:hover {
+      background: #ccc;
+      transition: background 0.3s;
+      color: #555;
+      border-bottom-style: solid;
+    }
+    a:link#active_page {
+      background: none;
+      font-weight: 900;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.9rem;
+      justify-content: flex-start;
+      padding-inline-start: 0;
+    }
+    nav ul li { display: block; }
+    nav { font-style: italic; }
+
+    h1 + nav { margin-top: -1.395rem; }
+
+    hr {
+      display: block;
+      clear: both;
+      border: none;
+      border-top: black solid 6px;
+      margin: 2.7rem auto;
+      padding: 0;
+      max-width: 36rem;
+    }
+
+    p span.highlight {
+      background-color: #fe9;
+      padding: 0.1125rem;
+    }
+
+    blockquote {
+      border-left: 1px solid #ccc;
+    }
+    blockquote > p {
+      margin-left: 1rem;
+    }
+
+    /* === tabs === */
+    .arch-tabs {
+      max-width: 36rem;
+      margin: 1.395rem auto;
+      text-align: left;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-bottom: 1px solid #a2a9b1;
+      padding-inline-start: 0;
+      list-style: none;
+    }
+
+    .arch-tab {
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      font-family: "Merriweather", serif;
+      font-size: 0.81rem;
+      font-weight: 300;
+      color: #555;
+      border: 1px solid transparent;
+      border-bottom: none;
+      margin-bottom: -1px;
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    .arch-tab:hover {
+      background: #f8f9fa;
+    }
+
+    .arch-tab.active {
+      font-weight: 900;
+      background: #fff;
+      border-color: #a2a9b1;
+      border-bottom: 1px solid #fff;
+    }
+
+    /* === panels === */
+    .arch-panel {
+      display: none;
+    }
+    .arch-panel.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* === wiki infobox === */
+    .wiki-infobox {
+      float: right;
+      width: 240px;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+      margin: 0 0 1.5rem 1.5rem;
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .wiki-infobox .infobox-header {
+      background: #ddd;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .wiki-infobox table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .wiki-infobox td {
+      padding: 0.35rem 0.5rem;
+      border-top: 1px solid #e0e0e0;
+      vertical-align: top;
+      color: #555;
+    }
+
+    .wiki-infobox .infobox-label {
+      font-weight: 900;
+      width: 80px;
+      color: #333;
+    }
+
+    /* === wiki table === */
+    .wiki-table {
+      max-width: 36rem;
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.395rem auto;
+      font-size: 0.78rem;
+    }
+
+    .wiki-table th,
+    .wiki-table td {
+      border: 1px solid #a2a9b1;
+      padding: 0.4rem 0.6rem;
+      text-align: left;
+      color: #555;
+    }
+
+    .wiki-table th {
+      background: #eaecf0;
+      font-weight: 900;
+    }
+
+    .wiki-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    /* === isa simulator === */
+    .isa-sim {
+      max-width: 36rem;
+      margin: 1.395rem auto;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+    }
+
+    .isa-sim-header {
+      background: #ddd;
+      padding: 0.4rem 0.6rem;
+      font-weight: 900;
+      font-size: 0.78rem;
+      text-align: left;
+      color: #333;
+    }
+
+    .isa-code {
+      padding: 0.5rem;
+    }
+
+    .isa-line {
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 0.78rem;
+      text-transform: none;
+      transition: background 0.15s;
+      text-align: left;
+    }
+
+    .isa-line:hover {
+      background: #eaecf0;
+    }
+
+    .isa-line.active {
+      background: #fe9;
+    }
+
+    .isa-line .opcode {
+      font-weight: 900;
+      min-width: 55px;
+      color: #333;
+    }
+
+    .isa-line .operands {
+      color: #555;
+    }
+
+    .isa-line .comment {
+      margin-left: auto;
+      color: #999;
+      font-style: italic;
+    }
+
+    .isa-explain {
+      padding: 0.6rem 0.75rem;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #555;
+      text-align: left;
+      text-transform: none;
+      min-height: 2rem;
+    }
+
+    /* === pipeline === */
+    .pipeline-row {
+      max-width: 36rem;
+      margin: 1.395rem auto;
+      display: flex;
+      gap: 0;
+      text-align: left;
+      flex-wrap: wrap;
+    }
+
+    .pipe-stage {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      padding: 0.6rem 0.4rem;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+      margin-right: -1px;
+      transition: background 0.2s;
+    }
+
+    .pipe-stage:hover {
+      background: #fe9;
+    }
+
+    .pipe-stage:first-child {
+      border-radius: 0;
+    }
+
+    .pipe-stage .stage-name {
+      font-weight: 900;
+      font-size: 0.7rem;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pipe-stage .stage-desc {
+      font-size: 0.65rem;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .pipe-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 0.3rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    /* === register viz === */
+    .reg-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 3px;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .reg-label {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: #555;
+      min-width: 36px;
+      text-align: right;
+      padding-right: 6px;
+      font-weight: 900;
+      text-transform: none;
+    }
+
+    .reg-bit {
+      flex: 1;
+      height: 22px;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 0.55rem;
+      color: #999;
+      margin-right: -1px;
+      text-transform: none;
+    }
+
+    .reg-bit.filled {
+      background: #eaecf0;
+    }
+
+    /* === timeline === */
+    .tl-container {
+      max-width: 36rem;
+      margin: 1.395rem auto;
+      text-align: left;
+    }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .tl-item .tl-year {
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: #999;
+      text-align: right;
+      padding-top: 0.1rem;
+      text-transform: none;
+    }
+
+    .tl-item .tl-content {
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .tl-item .tl-content strong {
+      color: #333;
+    }
+
+    .tl-item.highlight-row {
+      background: #fe9;
+      padding: 0.4rem 0.6rem;
+      margin-left: -0.6rem;
+      margin-right: -0.6rem;
+    }
+
+    /* === extensions grid === */
+    .ext-grid {
+      max-width: 36rem;
+      margin: 1.395rem auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid #a2a9b1;
+    }
+
+    .ext-cell {
+      padding: 0.5rem 0.6rem;
+      border: 1px solid #a2a9b1;
+      margin: -1px 0 0 -1px;
+      text-align: left;
+    }
+
+    .ext-cell .ext-name {
+      font-weight: 900;
+      font-size: 0.72rem;
+      color: #333;
+      text-transform: none;
+    }
+
+    .ext-cell .ext-desc {
+      font-size: 0.68rem;
+      color: #888;
+      margin-top: 0.15rem;
+    }
+
+    /* responsive */
+    @media screen and (max-width: 540px) {
+      #container { max-width: 90vw; }
+      .wiki-infobox {
+        float: none;
+        width: 100%;
+        margin: 0 auto 1.5rem;
+      }
+      .ext-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pipeline-row {
+        flex-direction: column;
+      }
+      .pipe-arrow {
+        transform: rotate(90deg);
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container" class="post">
+
+    <div id="header">
+      <h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1>
+      <nav>
+        <ul>
+          <li><a href="https://dharunashokkumar.com/index.html">home</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="content">
+
+      <h1 class="title">cpu architecture explorer</h1>
+      <p class="post-meta" style="opacity:0.4; font-size:0.7425rem;"><small><em>an interactive guide to x86, x64, arm, risc-v, and amd</em></small></p>
+
+      <p>processors speak different <strong>instruction set architectures (ISAs)</strong> — the fundamental language between software and silicon. this page covers the five you'll encounter most: x86, x86-64, arm, risc-v, and amd's role in all of it.</p>
+
+      <!-- === TABS === -->
+      <ul class="arch-tabs">
+        <li class="arch-tab active" data-arch="x86" onclick="show('x86')">x86</li>
+        <li class="arch-tab" data-arch="x64" onclick="show('x64')">x86-64</li>
+        <li class="arch-tab" data-arch="arm" onclick="show('arm')">arm</li>
+        <li class="arch-tab" data-arch="riscv" onclick="show('riscv')">risc-v</li>
+        <li class="arch-tab" data-arch="amd" onclick="show('amd')">amd</li>
+        <li class="arch-tab" data-arch="compare" onclick="show('compare')">compare</li>
+      </ul>
+
+      <!-- ========== x86 ========== -->
+      <div class="arch-panel visible" id="panel-x86">
+
+        <div class="wiki-infobox">
+          <div class="infobox-header">x86</div>
+          <table>
+            <tr><td class="infobox-label">type</td><td>cisc</td></tr>
+            <tr><td class="infobox-label">bits</td><td>32</td></tr>
+            <tr><td class="infobox-label">registers</td><td>8 general-purpose</td></tr>
+            <tr><td class="infobox-label">instr. size</td><td>1–15 bytes (variable)</td></tr>
+            <tr><td class="infobox-label">endianness</td><td>little-endian</td></tr>
+            <tr><td class="infobox-label">address space</td><td>4 gb max</td></tr>
+            <tr><td class="infobox-label">introduced</td><td>1978 (intel 8086)</td></tr>
+            <tr><td class="infobox-label">used in</td><td>legacy pcs, embedded</td></tr>
+          </table>
+        </div>
+
+        <h2>x86 — the og of desktop computing</h2>
+
+        <p>x86 is a <strong>cisc (complex instruction set computer)</strong> architecture created by intel in 1978 with the 8086 processor. each instruction can do a lot of work in a single command — like a swiss army knife where one tool does many things.</p>
+
+        <blockquote>
+          <p><strong>analogy:</strong> x86 is like a language with huge compound words (like german). one word = one complex idea. efficient for humans to write, but the cpu has to internally break it down into simpler steps.</p>
+        </blockquote>
+
+        <p>key trait: <strong>variable-length instructions</strong> (1 to 15 bytes). this makes decoding complex but allows very dense code. the processor has a dedicated decoder that translates cisc instructions into internal micro-ops (tiny risc-like operations) before executing them.</p>
+
+        <h3>32-bit register set</h3>
+
+        <div id="reg-x86"></div>
+
+        <h3>pipeline stages</h3>
+
+        <div class="pipeline-row" id="pipe-x86"></div>
+
+        <h3>try it — click any instruction</h3>
+
+        <div class="isa-sim">
+          <div class="isa-sim-header">x86 assembly</div>
+          <div class="isa-code">
+            <div class="isa-line" onclick="explain(this, 'copies the value 10 into the eax register (a general-purpose 32-bit register). like assigning a variable: eax = 10.')">
+              <span class="opcode">MOV</span><span class="operands">EAX, 10</span><span class="comment">; load 10</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'adds 5 to whatever is in eax. so if eax was 10, now it\'s 15. note: add modifies the flags register too (zero flag, carry flag, etc).')">
+              <span class="opcode">ADD</span><span class="operands">EAX, 5</span><span class="comment">; eax += 5</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'pushes eax onto the stack (memory). the stack pointer esp decreases by 4 bytes. this single instruction does TWO things: decrement esp AND write to memory. that\'s cisc for you.')">
+              <span class="opcode">PUSH</span><span class="operands">EAX</span><span class="comment">; save to stack</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'software interrupt — calls the operating system. in linux, int 0x80 triggers a syscall. the syscall number is in eax. this is how x86 programs talk to the kernel.')">
+              <span class="opcode">INT</span><span class="operands">0x80</span><span class="comment">; syscall</span>
+            </div>
+          </div>
+          <div class="isa-explain">← click any instruction above</div>
+        </div>
+
+      </div>
+
+      <!-- ========== x64 ========== -->
+      <div class="arch-panel" id="panel-x64">
+
+        <div class="wiki-infobox">
+          <div class="infobox-header">x86-64</div>
+          <table>
+            <tr><td class="infobox-label">type</td><td>cisc</td></tr>
+            <tr><td class="infobox-label">bits</td><td>64</td></tr>
+            <tr><td class="infobox-label">registers</td><td>16 general-purpose</td></tr>
+            <tr><td class="infobox-label">instr. size</td><td>1–15 bytes (variable)</td></tr>
+            <tr><td class="infobox-label">address space</td><td>256 tb (practical)</td></tr>
+            <tr><td class="infobox-label">designed by</td><td>amd (2003)</td></tr>
+            <tr><td class="infobox-label">compat</td><td>full x86 support</td></tr>
+            <tr><td class="infobox-label">used in</td><td>all modern pcs & servers</td></tr>
+          </table>
+        </div>
+
+        <h2>x86-64 — the 64-bit world</h2>
+
+        <p>x86-64 (also called <strong>x64, amd64, or intel 64</strong>) is the 64-bit evolution of x86. here's the plot twist: <strong>amd designed it, not intel.</strong> amd created amd64 in 2003, and intel was forced to adopt it (calling it intel 64 / em64t). this is why you see "amd64" in linux packages even on intel cpus.</p>
+
+        <blockquote>
+          <p><strong>analogy:</strong> x86 → x64 is like upgrading from a 4-lane highway (32-bit) to a 16-lane superhighway (64-bit). same road rules (backward compatible), but way more capacity.</p>
+        </blockquote>
+
+        <p>the big upgrades: registers doubled from 8 to 16 and widened to 64 bits, addressable memory jumped from 4 gb to a theoretical 16 exabytes, and it added new instructions like sse2 mandatory support. crucially, it runs old 32-bit x86 code natively.</p>
+
+        <h3>64-bit register set (expanded)</h3>
+
+        <div id="reg-x64"></div>
+
+        <h3>try it — click any instruction</h3>
+
+        <div class="isa-sim">
+          <div class="isa-sim-header">x86-64 assembly</div>
+          <div class="isa-code">
+            <div class="isa-line" onclick="explain(this, 'moves value into rax — the 64-bit version of eax. the R prefix means 64-bit. you can still use eax (lower 32 bits), ax (lower 16), al (lower 8).')">
+              <span class="opcode">MOV</span><span class="operands">RAX, 0x1</span><span class="comment">; 64-bit register</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'uses r8 — one of the 8 NEW registers added in x64 (r8-r15). x86 only had eax,ebx,ecx,edx,esi,edi,ebp,esp. more registers = fewer memory accesses = faster code.')">
+              <span class="opcode">MOV</span><span class="operands">R8, RDI</span><span class="comment">; new register r8</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'syscall replaces the old int 0x80. it\'s faster because it doesn\'t go through the interrupt descriptor table. x64 linux syscalls use rdi, rsi, rdx for arguments instead of the stack.')">
+              <span class="opcode">SYSCALL</span><span class="operands"></span><span class="comment">; fast system call</span>
+            </div>
+          </div>
+          <div class="isa-explain">← click any instruction above</div>
+        </div>
+
+      </div>
+
+      <!-- ========== ARM ========== -->
+      <div class="arch-panel" id="panel-arm">
+
+        <div class="wiki-infobox">
+          <div class="infobox-header">arm</div>
+          <table>
+            <tr><td class="infobox-label">type</td><td>risc</td></tr>
+            <tr><td class="infobox-label">bits</td><td>32 / 64 (aarch64)</td></tr>
+            <tr><td class="infobox-label">registers</td><td>16 (32-bit) / 31 (64-bit)</td></tr>
+            <tr><td class="infobox-label">instr. size</td><td>fixed 32-bit (16-bit thumb)</td></tr>
+            <tr><td class="infobox-label">model</td><td>ip licensing</td></tr>
+            <tr><td class="infobox-label">power</td><td>ultra-low consumption</td></tr>
+            <tr><td class="infobox-label">used in</td><td>phones, iot, apple m-series, rpi</td></tr>
+          </table>
+        </div>
+
+        <h2>arm — efficiency king</h2>
+
+        <p>arm is a <strong>risc (reduced instruction set computer)</strong> architecture. unlike cisc, each instruction does one simple thing — but does it blazingly fast. arm doesn't manufacture chips itself; it <strong>licenses the design</strong> to companies like apple, qualcomm, samsung, and mediatek.</p>
+
+        <blockquote>
+          <p><strong>analogy:</strong> if cisc (x86) is a swiss army knife, arm (risc) is a set of sharp, specialized tools. each tool does one thing perfectly. you need more steps to complete a task, but each step is lightning-fast.</p>
+        </blockquote>
+
+        <p>arm's killer feature is <strong>power efficiency</strong>. fixed-length 32-bit instructions make the decoder simple and energy-cheap. the latest armv9 powers everything from ₹500 microcontrollers to apple's m4 chip that beats many intel desktop processors.</p>
+
+        <h3>pipeline (classic 3-stage)</h3>
+
+        <div class="pipeline-row" id="pipe-arm"></div>
+
+        <h3>try it — click any instruction</h3>
+
+        <div class="isa-sim">
+          <div class="isa-sim-header">arm assembly</div>
+          <div class="isa-code">
+            <div class="isa-line" onclick="explain(this, 'moves the immediate value 10 into register r0. in arm, mov can only load small constants. for large values, you need ldr with a literal pool. that\'s the risc tradeoff — simple instructions, sometimes more of them.')">
+              <span class="opcode">MOV</span><span class="operands">R0, #10</span><span class="comment">; r0 = 10</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'adds r0 and r1, stores result in r2. classic 3-operand format: destination, source1, source2. x86 only has 2-operand (add eax, ebx overwrites eax). arm\'s 3-operand keeps both source values intact.')">
+              <span class="opcode">ADD</span><span class="operands">R2, R0, R1</span><span class="comment">; r2 = r0 + r1</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'branch with link — arm\'s version of a function call. saves return address in the link register (lr), then jumps. no stack push needed! faster than x86\'s call which pushes to memory.')">
+              <span class="opcode">BL</span><span class="operands">my_function</span><span class="comment">; call function</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'addeq = add but only if the zero flag is set (previous comparison was equal). this is conditional execution — arm\'s unique feature. instead of branch-if-not-equal + add, one instruction. avoids pipeline flushes.')">
+              <span class="opcode">ADDEQ</span><span class="operands">R0, R0, #1</span><span class="comment">; add only if equal</span>
+            </div>
+          </div>
+          <div class="isa-explain">← click any instruction above</div>
+        </div>
+
+      </div>
+
+      <!-- ========== RISC-V ========== -->
+      <div class="arch-panel" id="panel-riscv">
+
+        <div class="wiki-infobox">
+          <div class="infobox-header">risc-v</div>
+          <table>
+            <tr><td class="infobox-label">type</td><td>risc (open)</td></tr>
+            <tr><td class="infobox-label">bits</td><td>32 / 64 / 128</td></tr>
+            <tr><td class="infobox-label">registers</td><td>32 (x0 = hardwired 0)</td></tr>
+            <tr><td class="infobox-label">instr. size</td><td>fixed 32-bit (16 w/ c ext)</td></tr>
+            <tr><td class="infobox-label">license</td><td>open source / royalty-free</td></tr>
+            <tr><td class="infobox-label">origin</td><td>uc berkeley, 2010</td></tr>
+            <tr><td class="infobox-label">used in</td><td>sifive, esp32-c3, research</td></tr>
+          </table>
+        </div>
+
+        <h2>risc-v — the linux of cpu architectures</h2>
+
+        <p>risc-v (pronounced "risk-five") is an <strong>open-source, royalty-free instruction set architecture</strong>. unlike arm (you pay licensing fees) or x86 (proprietary to intel/amd), <strong>anyone can build a risc-v chip</strong> without paying a penny. born at uc berkeley in 2010.</p>
+
+        <blockquote>
+          <p><strong>analogy:</strong> arm is like android (open-ish, but google controls it). risc-v is like a truly open linux kernel — anyone can fork it, modify it, and build custom silicon with zero licensing fees.</p>
+        </blockquote>
+
+        <p>the design is <strong>modular</strong>. the base integer isa (rv32i/rv64i) is tiny — only 47 instructions. then you add extensions like a plugin system. you pick exactly what you need.</p>
+
+        <h3>modular extension system</h3>
+
+        <div class="ext-grid">
+          <div class="ext-cell"><div class="ext-name">RV32I / RV64I</div><div class="ext-desc">base integer (47 instr)</div></div>
+          <div class="ext-cell"><div class="ext-name">M extension</div><div class="ext-desc">multiply & divide</div></div>
+          <div class="ext-cell"><div class="ext-name">A extension</div><div class="ext-desc">atomic operations</div></div>
+          <div class="ext-cell"><div class="ext-name">F / D extension</div><div class="ext-desc">float / double</div></div>
+          <div class="ext-cell"><div class="ext-name">C extension</div><div class="ext-desc">compressed 16-bit instr</div></div>
+          <div class="ext-cell"><div class="ext-name">V extension</div><div class="ext-desc">vector (simd)</div></div>
+        </div>
+
+        <h3>try it — click any instruction</h3>
+
+        <div class="isa-sim">
+          <div class="isa-sim-header">risc-v assembly</div>
+          <div class="isa-code">
+            <div class="isa-line" onclick="explain(this, 'add immediate: adds 10 to register x0 (which is ALWAYS zero in risc-v, hardwired) and stores in x1. so x1 = 0 + 10 = 10. risc-v has no mov instruction — you just addi with x0. elegant!')">
+              <span class="opcode">ADDI</span><span class="operands">x1, x0, 10</span><span class="comment"># x1 = 10 (no mov needed)</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'load word: loads a 32-bit value from memory address (x2 + 0 offset) into x3. risc-v is a load-store architecture — you MUST load data into registers before operating on it. no add-from-memory like x86.')">
+              <span class="opcode">LW</span><span class="operands">x3, 0(x2)</span><span class="comment"># load word from mem</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'branch if equal: if x1 == x2, jump to the label. risc-v has no flags register! comparisons happen inline with the branch instruction. avoids the dependency chain of cmp then je in x86.')">
+              <span class="opcode">BEQ</span><span class="operands">x1, x2, label</span><span class="comment"># branch if equal</span>
+            </div>
+            <div class="isa-line" onclick="explain(this, 'environment call — risc-v\'s syscall instruction. the syscall number goes in a7, arguments in a0-a5. similar to x86\'s int 0x80 or x64\'s syscall, but cleaner encoding.')">
+              <span class="opcode">ECALL</span><span class="operands"></span><span class="comment"># system call</span>
+            </div>
+          </div>
+          <div class="isa-explain">← click any instruction above</div>
+        </div>
+
+      </div>
+
+      <!-- ========== AMD ========== -->
+      <div class="arch-panel" id="panel-amd">
+
+        <div class="wiki-infobox">
+          <div class="infobox-header">amd</div>
+          <table>
+            <tr><td class="infobox-label">type</td><td>company (not an isa)</td></tr>
+            <tr><td class="infobox-label">isa used</td><td>x86 / x86-64</td></tr>
+            <tr><td class="infobox-label">key innovation</td><td>invented x86-64</td></tr>
+            <tr><td class="infobox-label">latest arch</td><td>zen 5 (ryzen 9000)</td></tr>
+            <tr><td class="infobox-label">cpu brands</td><td>ryzen, epyc, threadripper</td></tr>
+            <tr><td class="infobox-label">gpu brand</td><td>radeon (rdna)</td></tr>
+            <tr><td class="infobox-label">fab</td><td>fabless (uses tsmc)</td></tr>
+          </table>
+        </div>
+
+        <h2>amd — the company that shaped the architecture</h2>
+
+        <p><strong>important distinction:</strong> amd is a <strong>company</strong>, not a cpu architecture. but it has hugely influenced cpu architecture history. amd makes chips that use the x86 and x86-64 instruction sets.</p>
+
+        <blockquote>
+          <p><strong>analogy:</strong> think of x86 as a language. both intel and amd "speak" x86, but with different accents (microarchitectures). amd's zen accent turned out to be incredibly good.</p>
+        </blockquote>
+
+        <p>amd's biggest flex: they invented <strong>amd64 (x86-64)</strong> — the 64-bit extension that every modern pc uses. intel tried their own 64-bit (itanium/ia-64) and it flopped. intel had to license amd's design. also, amd's <strong>zen architecture</strong> (2017–present) ended intel's decade-long monopoly.</p>
+
+        <h3>architecture timeline</h3>
+
+        <div class="tl-container" id="amd-timeline"></div>
+
+        <p>both intel and amd make x86-64 chips, but the internal <strong>microarchitecture</strong> is completely different. amd went fabless and uses tsmc. amd's chiplet design (multiple small dies connected together) was a breakthrough — cheaper to manufacture, better yields, and easier to scale.</p>
+
+        <p>your <strong>lenovo loq with rtx 3050</strong> runs the x86-64 instruction set. the performance difference between amd and intel comes from the microarchitecture underneath, not the isa.</p>
+
+      </div>
+
+      <!-- ========== COMPARE ========== -->
+      <div class="arch-panel" id="panel-compare">
+
+        <h2>comparison table</h2>
+
+        <table class="wiki-table">
+          <thead>
+            <tr>
+              <th>feature</th>
+              <th>x86</th>
+              <th>x86-64</th>
+              <th>arm</th>
+              <th>risc-v</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>type</strong></td><td>cisc</td><td>cisc</td><td>risc</td><td>risc</td></tr>
+            <tr><td><strong>bits</strong></td><td>32</td><td>64</td><td>32 / 64</td><td>32 / 64 / 128</td></tr>
+            <tr><td><strong>registers</strong></td><td>8 gp</td><td>16 gp</td><td>16 / 31 gp</td><td>32 gp</td></tr>
+            <tr><td><strong>instr. size</strong></td><td>1–15 bytes</td><td>1–15 bytes</td><td>fixed 32-bit</td><td>fixed 32-bit</td></tr>
+            <tr><td><strong>license</strong></td><td>proprietary (intel)</td><td>proprietary</td><td>licensed (arm ltd)</td><td>open source / free</td></tr>
+            <tr><td><strong>power</strong></td><td>high</td><td>high</td><td>very low</td><td>very low</td></tr>
+            <tr><td><strong>best for</strong></td><td>legacy systems</td><td>desktops, servers</td><td>mobile, iot, mac</td><td>iot, custom silicon</td></tr>
+            <tr><td><strong>example</strong></td><td>pentium iii</td><td>ryzen 9, core i9</td><td>apple m4, snapdragon</td><td>sifive, esp32-c3</td></tr>
+          </tbody>
+        </table>
+
+        <blockquote>
+          <p><strong>tl;dr:</strong> x86 = old 32-bit standard. x64 = modern 64-bit (what your pc runs). arm = power-efficient, rules mobile and is taking over laptops. risc-v = the open-source future. amd = the company that made x64 possible and competes with intel.</p>
+        </blockquote>
+
+      </div>
+
+      <hr>
+
+      <p><em>last updated march 2026. built as a study reference. see also: <a href="https://dharunashokkumar.com/reflections.html">other reflections</a>.</em></p>
+
+    </div>
+
+    <div id="footer">
+      <h1><a href="https://dharunashokkumar.com">dharun ashokkumar</a></h1>
+      <nav>
+        <ul>
+          <li><a href="https://dharunashokkumar.com/index.html">home</a></li>
+          <li><a href="https://dharunashokkumar.com/projects.html">projects</a></li>
+          <li><a href="https://dharunashokkumar.com/reflections.html">reflections</a></li>
+          <li><a href="https://dharunashokkumar.com/portfolio.html">portfolio</a></li>
+          <li><a href="https://dharunashokkumar.com/resume.html">resume</a></li>
+          <li><a href="https://dharunashokkumar.com/about.html">about</a></li>
+          <li><a href="https://dharunashokkumar.com/contact.html">contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+
+  <script>
+    function show(arch) {
+      document.querySelectorAll('.arch-panel').forEach(p => p.classList.remove('visible'));
+      document.querySelectorAll('.arch-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + arch).classList.add('visible');
+      document.querySelector('.arch-tab[data-arch="' + arch + '"]').classList.add('active');
+    }
+
+    function explain(el, text) {
+      var sim = el.closest('.isa-sim');
+      sim.querySelectorAll('.isa-line').forEach(function(l) { l.classList.remove('active'); });
+      el.classList.add('active');
+      sim.querySelector('.isa-explain').textContent = text;
+    }
+
+    // registers
+    function buildRegs(id, regs, width) {
+      var container = document.getElementById(id);
+      regs.forEach(function(name) {
+        var row = document.createElement('div');
+        row.className = 'reg-row';
+
+        var label = document.createElement('span');
+        label.className = 'reg-label';
+        label.textContent = name;
+        row.appendChild(label);
+
+        for (var i = 0; i < width; i++) {
+          var bit = document.createElement('div');
+          bit.className = 'reg-bit' + (i % 8 < 4 ? ' filled' : '');
+          if (i === 0) bit.textContent = (width - 1);
+          else if (i === width - 1) bit.textContent = '0';
+          row.appendChild(bit);
+        }
+        container.appendChild(row);
+      });
+    }
+
+    buildRegs('reg-x86', ['EAX', 'EBX', 'ECX', 'EDX'], 32);
+    buildRegs('reg-x64', ['RAX', 'RBX', 'R8', 'R15'], 64);
+
+    // pipelines
+    function buildPipeline(id, stages) {
+      var container = document.getElementById(id);
+      stages.forEach(function(s, i) {
+        var stage = document.createElement('div');
+        stage.className = 'pipe-stage';
+        stage.innerHTML = '<div class="stage-name">' + s.name + '</div><div class="stage-desc">' + s.desc + '</div>';
+        container.appendChild(stage);
+        if (i < stages.length - 1) {
+          var arrow = document.createElement('div');
+          arrow.className = 'pipe-arrow';
+          arrow.textContent = '→';
+          container.appendChild(arrow);
+        }
+      });
+    }
+
+    buildPipeline('pipe-x86', [
+      {name: 'fetch', desc: 'get instruction'},
+      {name: 'decode', desc: 'variable-length'},
+      {name: 'μ-op', desc: 'break into micro-ops'},
+      {name: 'execute', desc: 'run in alu/fpu'},
+      {name: 'writeback', desc: 'store results'}
+    ]);
+
+    buildPipeline('pipe-arm', [
+      {name: 'fetch', desc: 'fixed 32-bit'},
+      {name: 'decode', desc: 'simple, fast'},
+      {name: 'execute', desc: 'single-cycle'}
+    ]);
+
+    // amd timeline
+    var tlData = [
+      {year: '1969', text: '<strong>amd founded</strong> — started as an intel second-source manufacturer'},
+      {year: '1991', text: '<strong>am386</strong> — first successful x86 clone'},
+      {year: '1999', text: '<strong>athlon (k7)</strong> — first cpu to hit 1 ghz'},
+      {year: '2003', text: '<strong>amd64 invented</strong> — the 64-bit extension everyone uses today', highlight: true},
+      {year: '2011', text: '<strong>bulldozer</strong> — a rough era for amd, intel dominated'},
+      {year: '2017', text: '<strong>zen 1 (ryzen)</strong> — the legendary comeback begins'},
+      {year: '2020', text: '<strong>zen 3 (ryzen 5000)</strong> — takes single-thread crown from intel'},
+      {year: '2024', text: '<strong>zen 5 (ryzen 9000)</strong> — latest generation'}
+    ];
+
+    var tlContainer = document.getElementById('amd-timeline');
+    tlData.forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'tl-item' + (item.highlight ? ' highlight-row' : '');
+      el.innerHTML = '<div class="tl-year">' + item.year + '</div><div class="tl-content">' + item.text + '</div>';
+      tlContainer.appendChild(el);
+    });
+  </script>
+
+</body>
+</html>
