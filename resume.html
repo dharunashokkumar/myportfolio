@@ -63,7 +63,7 @@
       "description": "Interactive resume of Dharun Ashokkumar showcasing professional experience at Pantech Prolabs, technical skills in Python, JavaScript, React, Docker, Linux, IoT, and open source contributions. Education at Lovely Professional University.",
       "url": "https://dharunashokkumar.com/resume.html",
       "datePublished": "2024-01-01",
-      "dateModified": "2026-03-15",
+      "dateModified": "2026-03-20",
       "inLanguage": "en-GB",
       "isPartOf": {
         "@type": "WebSite",
@@ -169,344 +169,654 @@
     </script>
 
     <link rel="stylesheet" type="text/css" href='css/styles.css'>
+
+    <!-- Fonts for editorial typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-      /* resume-specific styles extending the main design system */
-      .resume-header {
-        max-width: 36rem;
-        margin: 0 auto 3.6rem auto;
+      :root {
+        --cr-ink: #333;
+        --cr-muted: #888;
+        --cr-accent: #555;
+        --cr-border: rgba(0, 0, 0, 0.1);
+        --cr-serif: 'Instrument Serif', serif;
+        --cr-sans: 'Inter', sans-serif;
+        --cr-hand: 'Caveat', cursive;
+      }
+
+      .cr-wrap {
+        color: var(--cr-ink);
+        font-family: var(--cr-sans);
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: left;
+        -webkit-font-smoothing: antialiased;
+        padding: 3rem 0;
+        margin-top: 1rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .cr-wrap h1,
+      .cr-wrap h2,
+      .cr-wrap h3,
+      .cr-wrap h4,
+      .cr-wrap p,
+      .cr-wrap ul,
+      .cr-wrap li,
+      .cr-wrap div,
+      .cr-wrap span {
+        text-transform: none;
+        color: inherit;
+        margin: 0;
+        padding: 0;
+        max-width: none;
+        letter-spacing: normal;
+        font-weight: normal;
+        font-style: normal;
         text-align: left;
       }
 
-      .resume-header h1 {
-        font-size: 1.2em;
-        font-weight: 900;
-        margin: 0;
+      .cr-wrap ul { list-style: none; }
+
+      .cr-wrap a {
+        border-bottom: none;
+        background: none;
+        color: inherit;
+        padding: 0;
+        text-decoration: none;
       }
 
-      .resume-header .tagline {
-        font-size: 0.81rem;
-        opacity: 0.8;
-        margin: 0.5em 0;
+      .cr-wrap a:hover {
+        background: none;
+        color: inherit;
       }
 
-      .resume-header .contact-info {
-        margin-top: 1.395rem;
-        font-size: 0.81rem;
+      /* Hero */
+      .cr-header {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 4rem;
+        margin-bottom: 5rem;
+        align-items: end;
+        position: relative;
       }
 
-      .resume-header .contact-info a {
-        margin-right: 1em;
+      .cr-hero-title {
+        font-family: var(--cr-serif);
+        font-size: clamp(3.5rem, 7vw, 7rem);
+        line-height: 0.88;
+        margin: 0 !important;
+        letter-spacing: -0.01em !important;
+        color: var(--cr-ink);
       }
 
-      .resume-section {
-        max-width: 36rem;
-        margin: 3.6rem auto;
+      .cr-hero-title i {
+        color: var(--cr-accent);
+        padding-right: 0.05em;
       }
 
-      .resume-section h2 {
-        font-size: 1em;
-        font-weight: 900;
-        margin-bottom: 1.395rem;
-        padding-bottom: 0.5em;
-        border-bottom: 1px solid #ccc;
+      .cr-hero-title .cr-offset {
+        display: block;
+        margin-left: 12%;
       }
 
-      /* skills with animated bars */
-      .skills-category {
-        margin-bottom: 2.7rem;
+      .cr-hero-info {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem !important;
+        position: relative;
+        padding-left: 1.5rem !important;
+        border-left: 1px solid var(--cr-accent);
       }
 
-      .skills-category h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 1em 0;
+      .cr-hero-info p { margin: 0 !important; }
+
+      .cr-annotation {
+        position: absolute;
+        font-family: var(--cr-hand);
+        color: var(--cr-muted) !important;
+        font-size: 1.8rem;
+        transform: rotate(-8deg);
+        top: -2.5rem;
+        right: 0;
+      }
+
+      /* Marquee */
+      .cr-marquee-wrapper {
+        border-top: 1px solid var(--cr-border);
+        border-bottom: 1px solid var(--cr-border);
+        padding: 1.2rem 0 !important;
+        overflow: hidden;
+        white-space: nowrap;
+        display: flex;
+        margin: 5rem -4vw !important;
+      }
+
+      .cr-marquee {
+        display: flex;
+        animation: cr-scroll 25s linear infinite;
+      }
+
+      .cr-marquee span {
+        font-family: var(--cr-serif);
+        font-size: 1.5rem;
+        font-style: italic !important;
+        padding: 0 3rem !important;
+        display: inline-block;
+        letter-spacing: 0.02em !important;
+      }
+
+      .cr-marquee span::after {
+        content: "\00b7";
+        padding-left: 3rem;
         font-style: normal;
+        font-size: 1.2rem;
+        vertical-align: middle;
+        color: var(--cr-muted);
+        font-family: var(--cr-sans);
       }
 
-      .skill-item {
-        margin-bottom: 1.395rem;
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: opacity 0.6s, transform 0.6s;
+      @keyframes cr-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
 
-      .skill-item.visible {
-        opacity: 1;
-        transform: translateX(0);
+      /* Asymmetric section layout */
+      .cr-section {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 3rem;
+        margin-bottom: 6rem !important;
+        align-items: start;
       }
 
-      .skill-name {
-        font-size: 0.81rem;
-        margin-bottom: 0.3em;
+      .cr-section-label {
+        font-family: var(--cr-sans);
+        font-size: 0.75rem;
+        text-transform: uppercase !important;
+        letter-spacing: 0.12em !important;
+        margin: 0 !important;
+        position: sticky;
+        top: 2rem;
+        font-weight: 500 !important;
+        color: var(--cr-muted) !important;
+      }
+
+      .cr-section-label::before {
+        content: '\2193';
+        display: block;
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+        color: var(--cr-accent);
+        font-family: var(--cr-serif);
+        font-style: italic;
+      }
+
+      /* Experience */
+      .cr-exp {
+        margin-bottom: 3.5rem !important;
+      }
+
+      .cr-exp:last-child { margin-bottom: 0 !important; }
+
+      .cr-exp-head {
         display: flex;
         justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.4rem !important;
       }
 
-      .skill-level {
-        font-family: monospace;
-        opacity: 0.5;
-        font-size: 0.7425rem;
+      .cr-exp-head h3 {
+        font-family: var(--cr-serif);
+        font-size: 2.2rem;
+        margin: 0 !important;
+        font-weight: 400 !important;
+        line-height: 1.1;
       }
 
-      .skill-bar {
-        height: 4px;
-        background: #eee;
+      .cr-exp-date {
+        font-family: var(--cr-hand);
+        font-size: 1.4rem;
+        color: var(--cr-muted) !important;
+        flex-shrink: 0;
+        margin-left: 1rem;
+      }
+
+      .cr-exp-company {
+        font-family: var(--cr-sans);
+        font-weight: 500 !important;
+        font-size: 0.8rem;
+        margin-bottom: 1.2rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        color: var(--cr-accent) !important;
+        display: inline-block;
+        border-bottom: 1px dashed var(--cr-muted) !important;
+        padding-bottom: 2px !important;
+      }
+
+      .cr-exp-list li {
         position: relative;
-        overflow: hidden;
-      }
-
-      .skill-bar-fill {
-        height: 100%;
-        background: #555;
-        width: 0;
-        transition: width 1s ease-out;
-        transition-delay: 0.3s;
-      }
-
-      .skill-item.visible .skill-bar-fill {
-        width: var(--skill-level);
-      }
-
-      /* experience timeline */
-      .experience-item {
-        margin-bottom: 2.7rem;
-        padding-left: 1.5em;
-        border-left: 2px solid #eee;
-        position: relative;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s, transform 0.6s;
-      }
-
-      .experience-item.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .experience-item::before {
-        content: '';
-        position: absolute;
-        left: -5px;
-        top: 0.3em;
-        width: 8px;
-        height: 8px;
-        background: #555;
-        border-radius: 50%;
-      }
-
-      .experience-item .period {
-        font-family: monospace;
-        font-size: 0.7425rem;
-        opacity: 0.5;
-        margin-bottom: 0.3em;
-      }
-
-      .experience-item h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 0.3em 0;
-        font-style: normal;
-      }
-
-      .experience-item .company {
-        font-size: 0.81rem;
-        margin-bottom: 0.5em;
-      }
-
-      .experience-item ul {
-        margin: 0.5em 0;
-        padding-left: 1.5em;
-      }
-
-      .experience-item li {
-        font-size: 0.81rem;
-        line-height: 1.395rem;
-        margin-bottom: 0.3em;
-      }
-
-      /* project cards */
-      .projects-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.395rem;
-        margin-top: 1.395rem;
-      }
-
-      .project-card {
-        border: 1px solid #eee;
-        padding: 1.395rem;
-        transition: all 0.3s;
-        opacity: 0;
-        transform: scale(0.95);
-        transition: opacity 0.6s, transform 0.6s, background 0.3s, border-color 0.3s;
-      }
-
-      .project-card.visible {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      .project-card:hover {
-        background: #f5f5f5;
-        border-color: #555;
-        transform: scale(1.02);
-      }
-
-      .project-card h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 0.5em 0;
-        font-style: normal;
-      }
-
-      .project-card .tech-stack {
-        font-family: monospace;
-        font-size: 0.7425rem;
-        opacity: 0.5;
-        margin-bottom: 0.5em;
-      }
-
-      .project-card p {
-        font-size: 0.81rem;
-        line-height: 1.395rem;
-        margin: 0.5em 0;
-      }
-
-      /* achievements grid */
-      .achievements-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.395rem;
-        margin-top: 1.395rem;
-      }
-
-      .achievement-card {
-        border-left: 3px solid #555;
-        padding-left: 1em;
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: opacity 0.6s, transform 0.6s;
-      }
-
-      .achievement-card.visible {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
-      .achievement-card h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 0.3em 0;
-        font-style: normal;
-      }
-
-      .achievement-card .year {
-        font-family: monospace;
-        font-size: 0.7425rem;
-        opacity: 0.5;
-      }
-
-      .achievement-card p {
-        font-size: 0.81rem;
-        line-height: 1.395rem;
-        margin: 0.5em 0;
-      }
-
-      /* certificates list */
-      .certificates-list {
-        margin-top: 1.395rem;
-      }
-
-      .certificate-item {
-        padding: 1em 0;
-        border-bottom: 1px dotted #ccc;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.6s, transform 0.6s;
-      }
-
-      .certificate-item.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .certificate-item:last-child {
-        border-bottom: none;
-      }
-
-      .certificate-item h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 0.3em 0;
-        font-style: normal;
-      }
-
-      .certificate-item .issuer {
-        font-size: 0.81rem;
+        padding-left: 1.2rem !important;
+        margin-bottom: 0.8rem !important;
+        font-size: 0.95rem;
         opacity: 0.8;
       }
 
-      .certificate-item .status {
-        font-family: monospace;
-        font-size: 0.7425rem;
-        opacity: 0.5;
-        margin-top: 0.3em;
+      .cr-exp-list li::before {
+        content: "\2014";
+        position: absolute;
+        left: 0;
+        font-size: 0.8rem;
+        color: var(--cr-muted);
+        top: 0;
       }
 
-      /* education */
-      .education-item {
-        margin-bottom: 2.7rem;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s, transform 0.6s;
+      /* Skills */
+      .cr-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
       }
 
-      .education-item.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .cr-skill {
+        font-family: var(--cr-serif);
+        font-size: 1.6rem;
+        padding: 0.15rem 1rem !important;
+        border: 1px solid var(--cr-border) !important;
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        cursor: default;
+        background: transparent;
       }
 
-      .education-item .period {
-        font-family: monospace;
-        font-size: 0.7425rem;
-        opacity: 0.5;
-        margin-bottom: 0.3em;
+      .cr-skill:hover {
+        border-color: var(--cr-ink) !important;
+        background: var(--cr-ink) !important;
+        color: #fff !important;
+        transform: translateY(-2px);
       }
 
-      .education-item h3 {
-        font-size: 0.81rem;
-        font-weight: 900;
-        margin: 0 0 0.3em 0;
-        font-style: normal;
+      /* Projects */
+      .cr-projects {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
       }
 
-      .education-item p {
-        font-size: 0.81rem;
-        margin: 0.3em 0;
+      .cr-proj {
+        padding: 2rem 0 !important;
+        border-top: 1px solid var(--cr-border) !important;
+        position: relative;
+        transition: all 0.3s ease;
       }
 
-      /* download button */
-      .download-resume {
+      .cr-proj:nth-child(even) {
+        margin-top: 3rem !important;
+      }
+
+      .cr-proj-title {
+        font-family: var(--cr-serif);
+        font-size: 1.8rem;
+        margin: 0 0 0.6rem 0 !important;
+        line-height: 1.1;
+      }
+
+      .cr-proj-tech {
+        font-family: var(--cr-sans);
+        font-size: 0.65rem;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        margin-bottom: 1.2rem !important;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .cr-proj-tech span {
+        border: 1px solid var(--cr-border) !important;
+        padding: 0.15em 0.6em !important;
+      }
+
+      .cr-proj-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        opacity: 0.75;
+        margin: 0 !important;
+      }
+
+      /* Education & Certs */
+      .cr-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-top: 1px solid var(--cr-border) !important;
+      }
+
+      .cr-list-row {
+        padding: 1.5rem 0 !important;
+        border-bottom: 1px solid var(--cr-border) !important;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
+        align-items: baseline;
+        transition: padding-left 0.3s ease;
+      }
+
+      .cr-list-row:hover {
+        padding-left: 0.8rem !important;
+      }
+
+      .cr-list-row h4 {
+        font-family: var(--cr-serif);
+        font-size: 1.5rem;
+        margin: 0 0 0.3rem 0 !important;
+        font-weight: 400 !important;
+      }
+
+      .cr-list-row p {
+        margin: 0 !important;
+        font-size: 0.85rem;
+        opacity: 0.6;
+      }
+
+      .cr-list-meta {
+        text-align: right;
+        font-family: var(--cr-sans);
+        font-size: 0.75rem;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        color: var(--cr-muted) !important;
+      }
+
+      /* Footer CTA */
+      .cr-cta {
+        margin-top: 6rem !important;
+        padding: 4rem 0 !important;
+        text-align: center;
+        border-top: 1px solid var(--cr-border) !important;
+        position: relative;
+      }
+
+      .cr-cta-link {
         display: inline-block;
-        padding: 0.5em 1em;
-        border: 1px solid #555;
-        margin-top: 1.395rem;
-        font-size: 0.81rem;
-        transition: background 0.3s, color 0.3s;
+        font-family: var(--cr-serif);
+        font-size: 2rem;
+        color: var(--cr-ink) !important;
+        text-decoration: none;
+        font-style: italic !important;
+        position: relative;
+        padding: 0.4rem 0.8rem !important;
+        z-index: 1;
       }
 
-      .download-resume:hover {
-        background: #555;
-        color: #fff;
+      .cr-cta-link::before {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        width: 100%;
+        height: 12px;
+        background: var(--cr-accent);
+        opacity: 0.15;
+        z-index: -1;
+        transform: skewX(-12deg);
+        transition: all 0.3s ease;
       }
 
-      @media (max-width: 540px) {
-        .achievements-grid {
+      .cr-cta-link:hover::before {
+        height: 100%;
+        bottom: 0;
+        opacity: 0.08;
+        transform: skewX(0);
+      }
+
+      .cr-stamp {
+        position: absolute;
+        right: 5vw;
+        top: -1.5rem;
+        width: 80px;
+        height: 80px;
+        border: 1px dashed var(--cr-muted) !important;
+        border-radius: 50% !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--cr-sans);
+        font-size: 0.55rem;
+        text-transform: uppercase !important;
+        letter-spacing: 1.5px !important;
+        text-align: center;
+        color: var(--cr-muted) !important;
+        transform: rotate(15deg);
+        animation: cr-spin 30s linear infinite;
+      }
+
+      @keyframes cr-spin {
+        100% { transform: rotate(375deg); }
+      }
+
+      .cr-links {
+        margin-top: 2.5rem !important;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase !important;
+      }
+
+      .cr-links a {
+        color: var(--cr-muted) !important;
+        text-decoration: none !important;
+        margin: 0 0.8rem !important;
+        transition: color 0.2s;
+      }
+
+      .cr-links a:hover {
+        color: var(--cr-ink) !important;
+      }
+
+      /* Tablet */
+      @media (max-width: 900px) {
+        .cr-header,
+        .cr-section {
           grid-template-columns: 1fr;
+          gap: 1.5rem;
         }
 
-        .projects-grid {
+        .cr-hero-title .cr-offset { margin-left: 0; }
+
+        .cr-section-label {
+          position: relative;
+          top: 0;
+        }
+
+        .cr-projects { grid-template-columns: 1fr; }
+
+        .cr-proj:nth-child(even) { margin-top: 0 !important; }
+
+        .cr-list-row {
           grid-template-columns: 1fr;
+          text-align: left;
+        }
+
+        .cr-list-meta {
+          text-align: left;
+          margin-top: 0.3rem !important;
+        }
+
+        .cr-marquee span {
+          font-size: 1.2rem;
+          padding: 0 2rem !important;
+        }
+
+        .cr-marquee span::after { padding-left: 2rem !important; }
+
+        .cr-exp-head { flex-direction: column; }
+        .cr-exp-date { margin-left: 0; }
+
+        .cr-stamp {
+          right: 2vw;
+          width: 65px;
+          height: 65px;
+          font-size: 0.5rem;
+        }
+      }
+
+      /* Mobile */
+      @media (max-width: 600px) {
+        .cr-wrap {
+          padding: 1.5rem 0;
+        }
+
+        .cr-header {
+          margin-bottom: 3rem;
+        }
+
+        .cr-hero-title {
+          font-size: clamp(2.2rem, 12vw, 3.5rem);
+          line-height: 0.92;
+        }
+
+        .cr-annotation {
+          font-size: 1.3rem;
+          top: -1.8rem;
+          right: auto;
+          left: 0;
+        }
+
+        .cr-hero-info {
+          font-size: 0.85rem;
+          padding-left: 1rem !important;
+        }
+
+        .cr-marquee-wrapper {
+          margin: 3rem -4vw !important;
+          padding: 0.8rem 0 !important;
+        }
+
+        .cr-marquee span {
+          font-size: 1rem;
+          padding: 0 1.5rem !important;
+        }
+
+        .cr-marquee span::after { padding-left: 1.5rem !important; }
+
+        .cr-section {
+          margin-bottom: 4rem !important;
+          gap: 1rem;
+        }
+
+        .cr-section-label {
+          font-size: 0.65rem;
+          margin-bottom: 0.5rem !important;
+        }
+
+        .cr-skill {
+          font-size: 1.2rem;
+          padding: 0.1rem 0.7rem !important;
+        }
+
+        .cr-skills {
+          gap: 0.5rem;
+        }
+
+        .cr-exp {
+          margin-bottom: 2.5rem !important;
+        }
+
+        .cr-exp-head h3 {
+          font-size: 1.6rem;
+        }
+
+        .cr-exp-date {
+          font-size: 1.1rem;
+        }
+
+        .cr-exp-list li {
+          font-size: 0.85rem;
+          padding-left: 1rem !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        .cr-proj-title {
+          font-size: 1.4rem;
+        }
+
+        .cr-proj-desc {
+          font-size: 0.85rem;
+        }
+
+        .cr-proj {
+          padding: 1.5rem 0 !important;
+        }
+
+        .cr-list-row h4 {
+          font-size: 1.2rem;
+        }
+
+        .cr-list-row p {
+          font-size: 0.78rem;
+        }
+
+        .cr-list-row {
+          padding: 1.2rem 0 !important;
+        }
+
+        .cr-cta {
+          margin-top: 4rem !important;
+          padding: 3rem 0 !important;
+        }
+
+        .cr-cta-link {
+          font-size: 1.4rem;
+        }
+
+        .cr-stamp {
+          position: relative;
+          right: auto;
+          top: auto;
+          margin: 0 auto 2rem;
+          width: 70px;
+          height: 70px;
+          font-size: 0.5rem;
+        }
+
+        .cr-links {
+          margin-top: 2rem !important;
+          font-size: 0.65rem;
+        }
+
+        .cr-links a {
+          margin: 0 0.5rem !important;
+        }
+      }
+
+      /* Small mobile */
+      @media (max-width: 380px) {
+        .cr-hero-title {
+          font-size: 2rem;
+        }
+
+        .cr-skill {
+          font-size: 1rem;
+          padding: 0.1rem 0.5rem !important;
+        }
+
+        .cr-exp-head h3 {
+          font-size: 1.3rem;
+        }
+
+        .cr-proj-title {
+          font-size: 1.2rem;
+        }
+
+        .cr-list-row h4 {
+          font-size: 1rem;
+        }
+
+        .cr-cta-link {
+          font-size: 1.2rem;
         }
       }
     </style>
@@ -519,353 +829,235 @@
         </h1>
         <nav>
           <ul>
-            <li>
-              <a href="index.html">home</a>
-            </li>
-            <li>
-              <a href="projects.html">projects</a>
-            </li>
-            <li>
-              <a href="reflections.html">reflections</a>
-            </li>
-            <li>
-              <a href="/portfolio.html">portfolio</a>
-            </li>
-            <li>
-              <a href="resume.html" id="active_page">resume</a>
-            </li>
-            <li>
-              <a href="about.html">about</a>
-            </li>
-            <li>
-              <a href="contact.html">contact</a>
-            </li>
+            <li><a href="index.html">home</a></li>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="reflections.html">reflections</a></li>
+            <li><a href="/portfolio.html">portfolio</a></li>
+            <li><a href="resume.html" id="active_page">resume</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="contact.html">contact</a></li>
           </ul>
         </nav>
       </div>
 
       <div id="content">
-        <div class="resume-header">
-          <h1>dharun ashokkumar</h1>
-          <p class="tagline">software developer · open source contributor · btech cs at lpu · india</p>
-          <div class="contact-info">
-            <a href="mailto:dharuna457@gmail.com">email</a>
-            <a href="https://github.com/dharunashokkumar" target="_blank">github</a>
-            <a href="https://linkedin.com/in/dharunashokkumar" target="_blank">linkedin</a>
+        <div class="cr-wrap">
+
+          <div class="cr-header">
+            <div>
+              <div class="cr-annotation">hello, world!</div>
+              <h1 class="cr-hero-title">
+                software <i>developer</i><br>
+                <span class="cr-offset">& open <i>source</i></span>
+              </h1>
+            </div>
+            <div class="cr-hero-info">
+              <p>BTech Computer Science Student<br>at Lovely Professional University, India.</p>
+              <p style="margin-top: 0.8rem !important; opacity: 0.6; font-size: 0.9rem;">Building hybrid cloud, IoT, and high-quality web solutions.</p>
+            </div>
           </div>
+
+          <div class="cr-marquee-wrapper">
+            <div class="cr-marquee">
+              <span>Web Development</span>
+              <span>Infrastructure & DevOps</span>
+              <span>Hardware & IoT</span>
+              <span>Linux System Admin</span>
+              <span>Cybersecurity</span>
+              <span>Open Source Contributor</span>
+            </div>
+            <div class="cr-marquee">
+              <span>Web Development</span>
+              <span>Infrastructure & DevOps</span>
+              <span>Hardware & IoT</span>
+              <span>Linux System Admin</span>
+              <span>Cybersecurity</span>
+              <span>Open Source Contributor</span>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="cr-section">
+            <h2 class="cr-section-label">Capabilities</h2>
+            <div class="cr-skills">
+              <div class="cr-skill">Python</div>
+              <div class="cr-skill">JavaScript / Node.js</div>
+              <div class="cr-skill">React</div>
+              <div class="cr-skill">C / C++</div>
+              <div class="cr-skill">HTML / CSS</div>
+              <div class="cr-skill">Linux Administration</div>
+              <div class="cr-skill">Docker</div>
+              <div class="cr-skill">Nginx</div>
+              <div class="cr-skill">Cloudflare & DNS</div>
+              <div class="cr-skill">Raspberry Pi</div>
+              <div class="cr-skill">Arduino / ESP32</div>
+              <div class="cr-skill">Electronics</div>
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div class="cr-section">
+            <h2 class="cr-section-label">Experience</h2>
+            <div>
+              <div class="cr-exp">
+                <div class="cr-exp-head">
+                  <h3>Development Intern</h3>
+                  <div class="cr-exp-date">Oct 2024 — Jan 2025</div>
+                </div>
+                <div class="cr-exp-company">Pantech Prolabs India Pvt Ltd · Remote</div>
+                <ul class="cr-exp-list">
+                  <li>Contributed to production codebase with code reviews and quality assurance</li>
+                  <li>Learned professional development practices and team workflows</li>
+                  <li>Experienced agile methodology and sprint planning</li>
+                </ul>
+              </div>
+
+              <div class="cr-exp">
+                <div class="cr-exp-head">
+                  <h3>Founder & Infrastructure Eng.</h3>
+                  <div class="cr-exp-date">2023 — Present</div>
+                </div>
+                <div class="cr-exp-company">Dadscloud · Hybrid Cloud Platform</div>
+                <ul class="cr-exp-list">
+                  <li>Building hybrid cloud infrastructure platform as an alternative to major providers</li>
+                  <li>Focusing on reliability, security, and making hosting highly accessible</li>
+                </ul>
+              </div>
+
+              <div class="cr-exp">
+                <div class="cr-exp-head">
+                  <h3>Founder</h3>
+                  <div class="cr-exp-date">2020 — Present</div>
+                </div>
+                <div class="cr-exp-company">TripleeTech · Tech Solutions</div>
+                <ul class="cr-exp-list">
+                  <li>Web development, cybersecurity consulting, custom software solutions</li>
+                  <li>Delivered projects for local businesses and startups</li>
+                </ul>
+              </div>
+
+              <div class="cr-exp">
+                <div class="cr-exp-head">
+                  <h3>Freelance Developer</h3>
+                  <div class="cr-exp-date">2021 — 2024</div>
+                </div>
+                <div class="cr-exp-company">Various Clients · Remote</div>
+                <ul class="cr-exp-list">
+                  <li>Built websites and applications using WordPress, React, and custom solutions</li>
+                  <li>Managed deployment, hosting, domains, and core client communication</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects -->
+          <div class="cr-section">
+            <h2 class="cr-section-label">Selected Works</h2>
+            <div class="cr-projects">
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">Dadscloud</h3>
+                <div class="cr-proj-tech">
+                  <span>Infrastructure</span><span>Docker</span><span>Linux</span>
+                </div>
+                <p class="cr-proj-desc">India-based hybrid cloud infrastructure platform. Learning system design, reliability engineering, and democratizing hosting.</p>
+              </div>
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">College Life Simulator</h3>
+                <div class="cr-proj-tech">
+                  <span>Unity</span><span>C#</span><span>Game Dev</span>
+                </div>
+                <p class="cr-proj-desc">Unity-based interactive game simulating actual college life at LPU. Exploring game mechanics, physics, and player journey.</p>
+              </div>
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">IoT Milk Vending</h3>
+                <div class="cr-proj-tech">
+                  <span>ESP32</span><span>Arduino</span><span>Hardware</span>
+                </div>
+                <p class="cr-proj-desc">Automated milk dispensing system featuring RFID authentication and payment integration. Where hardware meets software.</p>
+              </div>
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">School Management</h3>
+                <div class="cr-proj-tech">
+                  <span>Web App</span><span>Distributed Architecture</span>
+                </div>
+                <p class="cr-proj-desc">Complete distributed web application for educational institutions, handling database design and scalable micro-services.</p>
+              </div>
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">Desktop AI Assistant</h3>
+                <div class="cr-proj-tech">
+                  <span>Electron</span><span>Python</span><span>AI</span>
+                </div>
+                <p class="cr-proj-desc">Local AI model integration for productivity automation. Exploring LLM capabilities and cross-platform desktop development.</p>
+              </div>
+
+              <div class="cr-proj">
+                <h3 class="cr-proj-title">Mattermost Custom</h3>
+                <div class="cr-proj-tech">
+                  <span>Docker</span><span>Self-Hosting</span>
+                </div>
+                <p class="cr-proj-desc">Complete rebuilding and customization of a self-hosted communication platform tailored to specific client needs.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Education & Certs -->
+          <div class="cr-section">
+            <h2 class="cr-section-label">Education<br>& Honors</h2>
+            <div>
+              <div class="cr-list">
+                <div class="cr-list-row">
+                  <div>
+                    <h4>BTech Computer Science Engineering</h4>
+                    <p>Lovely Professional University, Punjab</p>
+                  </div>
+                  <div class="cr-list-meta">2024 — 2029</div>
+                </div>
+
+                <div class="cr-list-row">
+                  <div>
+                    <h4>Intermediate (Class XII) - PCM</h4>
+                    <p>Sri Abhida Junior College, Hyderabad · 90%</p>
+                  </div>
+                  <div class="cr-list-meta">2023 — 2024</div>
+                </div>
+
+                <div class="cr-list-row">
+                  <div>
+                    <h4>Meta Front-End Development</h4>
+                    <p>Meta (Coursera) · Certificate</p>
+                  </div>
+                  <div class="cr-list-meta">In Progress</div>
+                </div>
+
+                <div class="cr-list-row">
+                  <div>
+                    <h4>Google Cybersecurity</h4>
+                    <p>Google (Coursera) · Certificate</p>
+                  </div>
+                  <div class="cr-list-meta">In Progress</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="cr-cta">
+            <div class="cr-stamp">Available<br>For Hire</div>
+            <a href="mailto:dharuna457@gmail.com" class="cr-cta-link">Let's build something together.</a>
+            <div class="cr-links">
+              <a href="https://github.com/dharunashokkumar">Github</a>
+              <a href="https://linkedin.com/in/dharunashokkumar">LinkedIn</a>
+              <a href="#">Download PDF</a>
+            </div>
+          </div>
+
         </div>
-
-        <!-- Skills Section -->
-        <div class="resume-section">
-          <h2>technical skills</h2>
-
-          <div class="skills-category">
-            <h3>languages & frameworks</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>python</span>
-                <span class="skill-level">advanced</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 90%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>javascript / node.js</span>
-                <span class="skill-level">advanced</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>react</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>c / c++</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 70%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>html / css</span>
-                <span class="skill-level">advanced</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 90%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-category">
-            <h3>infrastructure & devops</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>linux system administration</span>
-                <span class="skill-level">advanced</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>docker & containerization</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>nginx / web servers</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 80%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>cloudflare / dns</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="skills-category">
-            <h3>hardware & iot</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>raspberry pi</span>
-                <span class="skill-level">advanced</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>arduino / esp32</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 75%"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>electronics & circuits</span>
-                <span class="skill-level">intermediate</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-fill" style="--skill-level: 70%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Experience Section -->
-        <div class="resume-section">
-          <h2>experience</h2>
-
-          <div class="experience-item">
-            <div class="period">oct 2024 – jan 2025</div>
-            <h3>development intern</h3>
-            <p class="company">pantech prolabs india pvt ltd · remote</p>
-            <ul>
-              <li>contributed to production codebase with code reviews and quality assurance</li>
-              <li>learned professional development practices and team workflows</li>
-              <li>experienced agile methodology and sprint planning</li>
-            </ul>
-          </div>
-
-          <div class="experience-item">
-            <div class="period">2023 – present</div>
-            <h3>founder & infrastructure engineer</h3>
-            <p class="company">dadscloud · india-based cloud platform</p>
-            <ul>
-              <li>building hybrid cloud infrastructure platform as alternative to aws/gcp/azure</li>
-              <li>focusing on reliability, security, and making hosting accessible</li>
-              <li>learning infrastructure design, system architecture, and scalability</li>
-            </ul>
-          </div>
-
-          <div class="experience-item">
-            <div class="period">2020 – present</div>
-            <h3>founder</h3>
-            <p class="company">tripleetech · technology solutions</p>
-            <ul>
-              <li>web development, cybersecurity consulting, custom software solutions</li>
-              <li>delivered projects for local businesses and startups</li>
-              <li>learned client communication, project management, business operations</li>
-            </ul>
-          </div>
-
-          <div class="experience-item">
-            <div class="period">2021 – 2024</div>
-            <h3>freelance developer</h3>
-            <p class="company">various clients · remote</p>
-            <ul>
-              <li>built websites and applications using wordpress, react, and custom solutions</li>
-              <li>learned deployment, hosting, domain management, and client communication</li>
-              <li>delivered mobile repair service sites, job portals, business websites</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Education Section -->
-        <div class="resume-section">
-          <h2>education</h2>
-
-          <div class="education-item">
-            <div class="period">2024 – 2029</div>
-            <h3>btech computer science engineering</h3>
-            <p>lovely professional university, punjab</p>
-            <p>first semester student. coursework in programming fundamentals, data structures, and mathematics.</p>
-          </div>
-
-          <div class="education-item">
-            <div class="period">2023 – 2024</div>
-            <h3>intermediate (class xii) - pcm</h3>
-            <p>sri abhida junior college, hyderabad · 90%</p>
-          </div>
-        </div>
-
-        <!-- Projects Section -->
-        <div class="resume-section">
-          <h2>featured projects</h2>
-
-          <div class="projects-grid">
-            <div class="project-card">
-              <h3>dadscloud</h3>
-              <p class="tech-stack">infrastructure · docker · linux · networking</p>
-              <p>india-based hybrid cloud infrastructure platform. learning system design, reliability engineering, and making hosting accessible to everyone.</p>
-            </div>
-
-            <div class="project-card">
-              <h3>college life simulator</h3>
-              <p class="tech-stack">unity · c# · game development</p>
-              <p>unity-based game simulating actual college life at lpu. learning game mechanics, physics, and player experience design.</p>
-            </div>
-
-            <div class="project-card">
-              <h3>iot milk vending machine</h3>
-              <p class="tech-stack">esp32 · arduino · iot · sensors</p>
-              <p>automated milk dispensing system with rfid authentication and payment integration. hardware meets software.</p>
-            </div>
-
-            <div class="project-card">
-              <h3>distributed school management</h3>
-              <p class="tech-stack">web application · distributed architecture</p>
-              <p>complete web application for educational institutions. learned distributed systems and database design.</p>
-            </div>
-
-            <div class="project-card">
-              <h3>desktop ai assistant</h3>
-              <p class="tech-stack">electron · python · ai integration</p>
-              <p>local ai model integration for productivity automation. exploring llm capabilities and desktop development.</p>
-            </div>
-
-            <div class="project-card">
-              <h3>mattermost customization</h3>
-              <p class="tech-stack">docker · web development · self-hosting</p>
-              <p>complete rebranding and customization of self-hosted communication platform for specific client needs.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Achievements Section -->
-        <div class="resume-section">
-          <h2>achievements</h2>
-
-          <div class="achievements-grid">
-            <div class="achievement-card">
-              <h3>first raspberry pi server</h3>
-              <span class="year">2022</span>
-              <p>deployed first self-hosted services on raspberry pi. discovered infrastructure can be tangible.</p>
-            </div>
-
-            <div class="achievement-card">
-              <h3>first client website live</h3>
-              <span class="year">2021</span>
-              <p>deployed first production website for paying client. learned deployment and real-world constraints.</p>
-            </div>
-
-            <div class="achievement-card">
-              <h3>started tripleetech</h3>
-              <span class="year">2020</span>
-              <p>founded technology consulting company while learning business fundamentals.</p>
-            </div>
-
-            <div class="achievement-card">
-              <h3>first working code</h3>
-              <span class="year">2020</span>
-              <p>wrote first python program that made an led blink. that feeling never gets old.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Certificates Section -->
-        <div class="resume-section">
-          <h2>certificates & learning</h2>
-
-          <div class="certificates-list">
-            <div class="certificate-item">
-              <h3>meta front-end development certificate</h3>
-              <p class="issuer">meta (coursera)</p>
-              <p class="status">in progress</p>
-            </div>
-
-            <div class="certificate-item">
-              <h3>google cybersecurity certificate</h3>
-              <p class="issuer">google (coursera)</p>
-              <p class="status">in progress</p>
-            </div>
-
-            <div class="certificate-item">
-              <h3>machine learning fundamentals</h3>
-              <p class="issuer">self-study</p>
-              <p class="status">ongoing</p>
-            </div>
-
-            <div class="certificate-item">
-              <h3>data structures & algorithms</h3>
-              <p class="issuer">university coursework + self-study</p>
-              <p class="status">in progress</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Download Resume -->
-        <div class="resume-section">
-          <a href="#" class="download-resume">download pdf version</a>
-        </div>
-
       </div>
 
       <div id="footer"></div>
@@ -873,29 +1065,5 @@
 
     <script src="js/rv.js"></script>
     <script src="js/cfme.js"></script>
-    <script>
-      // intersection observer for animated elements
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('visible');
-            }, index * 50);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-
-      // observe all animated elements
-      document.addEventListener('DOMContentLoaded', () => {
-        const items = document.querySelectorAll(
-          '.skill-item, .experience-item, .education-item, ' +
-          '.project-card, .achievement-card, .certificate-item'
-        );
-        items.forEach(item => observer.observe(item));
-      });
-    </script>
   </body>
 </html>
