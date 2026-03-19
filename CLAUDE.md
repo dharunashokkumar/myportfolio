@@ -14,7 +14,7 @@ There is no build step, no linter, and no test suite.
 
 ## Architecture
 
-- **Root HTML pages** — top-level site sections: `index.html`, `projects.html`, `reflections.html`, `portfolio.html`, `resume.html`, `about.html`, `contact.html`, `opensource.html`, `vault.html` (PIN-protected)
+- **Root HTML pages** — top-level site sections: `index.html`, `projects.html`, `reflections.html`, `resume.html`, `about.html`, `contact.html`, `opensource.html`, `vault.html` (PIN-protected). `portfolio.html` exists only as a redirect to `resume.html`.
 - **`projects/`** — individual project write-up pages (standalone HTML files)
 - **`reflections/`** — individual blog/reflection pages (standalone HTML files)
 - **`lfprojects/`** — Linux Foundation projects explorer, a self-contained sub-app:
