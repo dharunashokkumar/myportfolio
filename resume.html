@@ -327,10 +327,67 @@
       /* Asymmetric section layout */
       .cr-section {
         display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 1.25rem 0 !important;
+        border-top: 1px solid var(--cr-border) !important;
+        align-items: start;
+      }
+
+      .cr-section[open] {
         grid-template-columns: 1fr 3fr;
         gap: 3rem;
-        margin-bottom: 6rem !important;
-        align-items: start;
+        padding-bottom: 2.5rem !important;
+        margin-bottom: 3.5rem !important;
+      }
+
+      .cr-section:last-of-type {
+        border-bottom: 1px solid var(--cr-border) !important;
+      }
+
+      .cr-section-summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+      }
+
+      .cr-section-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .cr-section-summary::marker {
+        content: '';
+      }
+
+      .cr-section-summary::after {
+        content: 'Open';
+        font-family: var(--cr-sans);
+        font-size: 0.68rem;
+        text-transform: uppercase !important;
+        letter-spacing: 0.12em !important;
+        color: var(--cr-muted);
+        flex-shrink: 0;
+        padding-top: 0.1rem;
+      }
+
+      .cr-section[open] .cr-section-summary {
+        position: sticky;
+        top: 2rem;
+        align-self: start;
+      }
+
+      .cr-section[open] .cr-section-summary::after {
+        content: 'Close';
+        color: var(--cr-accent);
+      }
+
+      .cr-section-summary:focus-visible {
+        outline: 2px solid rgba(0, 0, 0, 0.12);
+        outline-offset: 0.35rem;
       }
 
       .cr-section-label {
@@ -339,20 +396,52 @@
         text-transform: uppercase !important;
         letter-spacing: 0.12em !important;
         margin: 0 !important;
-        position: sticky;
-        top: 2rem;
         font-weight: 500 !important;
         color: var(--cr-muted) !important;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+
+      .cr-section-summary:hover .cr-section-label,
+      .cr-section-summary:focus-visible .cr-section-label {
+        color: var(--cr-ink) !important;
       }
 
       .cr-section-label::before {
         content: '\2193';
         display: block;
-        margin-bottom: 0.8rem;
         font-size: 1rem;
         color: var(--cr-accent);
         font-family: var(--cr-serif);
         font-style: italic;
+        line-height: 1;
+        transform-origin: center;
+        transition: transform 0.25s ease;
+      }
+
+      .cr-section[open] .cr-section-label::before {
+        transform: rotate(180deg);
+      }
+
+      .cr-section-content {
+        min-width: 0;
+      }
+
+      .cr-section[open] .cr-section-content {
+        animation: cr-panel-in 0.35s ease;
+      }
+
+      @keyframes cr-panel-in {
+        from {
+          opacity: 0;
+          transform: translateY(-0.4rem);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* Experience */
@@ -626,7 +715,7 @@
 
         .cr-hero-title .cr-offset { margin-left: 0; }
 
-        .cr-section-label {
+        .cr-section[open] .cr-section-summary {
           position: relative;
           top: 0;
         }
@@ -703,13 +792,16 @@
         .cr-marquee span::after { padding-left: 1.5rem !important; }
 
         .cr-section {
-          margin-bottom: 4rem !important;
           gap: 1rem;
+          padding: 1rem 0 !important;
+        }
+
+        .cr-section[open] {
+          margin-bottom: 2.5rem !important;
         }
 
         .cr-section-label {
           font-size: 0.65rem;
-          margin-bottom: 0.5rem !important;
         }
 
         .cr-skill {
@@ -876,9 +968,11 @@
           </div>
 
           <!-- Skills -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Capabilities</h2>
-            <div class="cr-skills">
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Capabilities</h2>
+            </summary>
+            <div class="cr-skills cr-section-content">
               <div class="cr-skill">Python</div>
               <div class="cr-skill">JavaScript / Node.js</div>
               <div class="cr-skill">React</div>
@@ -892,12 +986,14 @@
               <div class="cr-skill">Arduino / ESP32</div>
               <div class="cr-skill">Electronics</div>
             </div>
-          </div>
+          </details>
 
           <!-- Experience -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Experience</h2>
-            <div>
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Experience</h2>
+            </summary>
+            <div class="cr-section-content">
               <div class="cr-exp">
                 <div class="cr-exp-head">
                   <h3>Development Intern</h3>
@@ -947,12 +1043,14 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </details>
 
           <!-- Projects -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Selected Works</h2>
-            <div class="cr-projects">
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Selected Works</h2>
+            </summary>
+            <div class="cr-projects cr-section-content">
 
               <div class="cr-proj">
                 <h3 class="cr-proj-title">Dadscloud</h3>
@@ -1003,12 +1101,14 @@
               </div>
 
             </div>
-          </div>
+          </details>
 
           <!-- Education & Certs -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Education<br>& Honors</h2>
-            <div>
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Education<br>& Honors</h2>
+            </summary>
+            <div class="cr-section-content">
               <div class="cr-list">
                 <div class="cr-list-row">
                   <div>
@@ -1043,12 +1143,14 @@
                 </div>
               </div>
             </div>
-          </div>
+          </details>
 
           <!-- Journey -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Journey</h2>
-            <div class="cr-list">
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Journey</h2>
+            </summary>
+            <div class="cr-list cr-section-content">
               <div class="cr-list-row">
                 <div>
                   <h4>Started with Code & Circuits</h4>
@@ -1092,12 +1194,14 @@
                 <div class="cr-list-meta">2025</div>
               </div>
             </div>
-          </div>
+          </details>
 
           <!-- Vision -->
-          <div class="cr-section">
-            <h2 class="cr-section-label">Vision</h2>
-            <div>
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Vision</h2>
+            </summary>
+            <div class="cr-section-content">
               <p style="font-family: var(--cr-serif); font-size: 1.8rem; line-height: 1.4; margin-bottom: 1.5rem !important;">
                 Build technology that actually helps people. Create tools and infrastructure that enable others to build their ideas.
               </p>
@@ -1105,7 +1209,7 @@
                 Focus on learning continuously, building consistently, and helping others along the way. Keep learning. Keep building. Keep improving.
               </p>
             </div>
-          </div>
+          </details>
 
           <!-- Footer CTA -->
           <div class="cr-cta">
