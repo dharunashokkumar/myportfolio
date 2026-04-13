@@ -1,65 +1,22 @@
 # robots.txt for dharunashokkumar.com
-# Updated: 2025-01-13
+# Updated: 2026-04-13
 
-# Allow all search engines to crawl the entire site
 User-agent: *
 Allow: /
 Disallow: /vault.html
 
-# Sitemap location
-Sitemap: https://dharunashokkumar.com/sitemap.xml
-
-# Specific directives for major search engines
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Googlebot-Mobile
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 0
-
-User-agent: DuckDuckBot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Baiduspider
-Allow: /
-Crawl-delay: 1
-
-# Block specific directories that don't need indexing (if any exist)
-# Disallow: /private/
-# Disallow: /temp/
-# Disallow: /admin/
-
-# Allow CSS and JS files for proper rendering
-User-agent: *
+# Keep static assets crawlable for rendering and rich results
 Allow: /css/
 Allow: /js/
 Allow: /img/
-Allow: /assets/
 Allow: /favicon/
 
-# Explicitly allow key pages
-Allow: /index.html
-Allow: /projects.html
-Allow: /portfolio.html
-Allow: /reflections.html
-Allow: /resume.html
-Allow: /activities.html
-Allow: /museum.html
-Allow: /timeline.html
+# Keep public content areas crawlable
 Allow: /projects/
 Allow: /reflections/
+Allow: /lfprojects/
 
-# Host directive (for Yandex)
-Host: https://dharunashokkumar.com
+# Avoid indexing raw markdown source files used by lfprojects renderer
+Disallow: /lfprojects/projects/
+
+Sitemap: https://dharunashokkumar.com/sitemap.xml
