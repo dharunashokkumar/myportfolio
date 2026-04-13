@@ -47,6 +47,34 @@ p a.highlight {
   padding: 0.1125rem;
 }
 
+.lpu-inline-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12rem;
+  vertical-align: baseline;
+}
+
+.lpu-inline-logo {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: inline-block;
+  object-fit: contain;
+  opacity: 0.70;
+  flex-shrink: 0;
+  position: relative;
+  top: 0.05em;
+}
+
+a.lpu-inline-link,
+a.lpu-inline-link[href*="//"] {
+  padding-left: 0.02rem;
+  border-bottom-style: dotted;
+}
+
+a.lpu-inline-link:hover {
+  border-bottom-style: solid;
+}
+
 hr {
   display: block;
   clear: both;
