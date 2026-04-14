@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LPU Labs — On-Demand Isolated Development & Learning Environments</title>
+    <meta name="description" content="LPU Labs is a self-hosted container orchestration platform providing on-demand, isolated, browser-accessible development and learning environments with persistent storage and multi-tenant network isolation.">
+    <meta name="author" content="Dharun Ashokkumar">
+
+    <link rel="icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png" type="image/png" />
+
+    <!-- Same base font as portfolio -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap">
+
+    <style>
+      /* ── reset & base (mirrors portfolio styles.css) ── */
+      html {
+        text-transform: lowercase;
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        background: #ffffff;
+        font-family: "Merriweather", sans-serif;
+        font-weight: 300;
+        line-height: 1.395rem;
+        color: #555;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+      }
+      em { font-style: italic; }
+      strong, b { font-weight: 900; }
+      small { font-size: 67%; }
+
+      /* ── links (mirrored) ── */
+      a {
+        color: inherit;
+        padding: 0 0.1125rem;
+        border-bottom: #555 dotted 1px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      a:hover {
+        background: #ccc;
+        transition: background 0.3s;
+        color: #555;
+        border-bottom-style: solid;
+      }
+      a:active {
+        background-color: #ccc;
+        color: black;
+      }
+
+      /* ── container ── */
+      #container {
+        margin: 0 auto;
+        max-width: 1280px;
+        text-align: center;
+        padding: 3.6rem 1rem;
+      }
+      #header, #content, #footer {
+        margin: 3.6rem auto;
+      }
+      #footer {
+        margin-top: 5.4rem;
+        opacity: 0.25;
+        transition: opacity 0.6s;
+      }
+      #footer:hover { opacity: 1; }
+
+      /* ── typography ── */
+      nav, p, h1, h2, h3, h6, ul, ol {
+        font-size: 0.95rem;
+        text-align: left;
+        color: #555;
+        margin: 1.395rem auto;
+        max-width: 36rem;
+      }
+      h1, h2, h3 {
+        margin-top: 2.79rem;
+        font-weight: 900;
+      }
+      h3 { font-style: italic; }
+
+      hr {
+        display: block;
+        clear: both;
+        overflow: hidden;
+        border: none;
+        border-top: black solid 6px;
+        margin: 2.7rem auto;
+        padding: 0;
+        max-width: 36rem;
+      }
+      hr.dotted { border-top-style: dotted; }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      /* ── hero area ── */
+      .labs-hero {
+        max-width: 36rem;
+        margin: 0 auto 2rem;
+        text-align: left;
+      }
+      .labs-hero .badge {
+        display: inline-block;
+        background: #555;
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08rem;
+        padding: 0.25rem 0.6rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+      .labs-hero h1 {
+        font-size: 1.6rem;
+        line-height: 2rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .labs-hero .tagline {
+        font-size: 0.95rem;
+        opacity: 0.7;
+        margin-top: 0;
+      }
+
+      /* ── image placeholder with loading spinner ── */
+      .img-placeholder {
+        position: relative;
+        width: 100%;
+        background: #f5f5f5;
+        border: 1px solid #eee;
+        overflow: hidden;
+        margin: 1.395rem auto;
+        max-width: 100%;
+      }
+      /* maintain aspect ratio via padding-bottom on a wrapper */
+      .img-placeholder.ratio-16-9 { padding-bottom: 56.25%; }
+      .img-placeholder.ratio-4-3  { padding-bottom: 75%; }
+      .img-placeholder.ratio-3-2  { padding-bottom: 66.67%; }
+      .img-placeholder.ratio-1-1  { padding-bottom: 100%; }
+
+      .img-placeholder .spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .img-placeholder .spinner .ring {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #ddd;
+        border-top-color: #555;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      .img-placeholder .spinner .label {
+        font-size: 0.7rem;
+        color: #999;
+        text-transform: lowercase;
+        letter-spacing: 0.04rem;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* once image loads, hide spinner */
+      .img-placeholder img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .img-placeholder img.loaded {
+        opacity: 1;
+      }
+
+      .img-caption {
+        font-size: 0.85rem;
+        opacity: 0.67;
+        text-align: left;
+        max-width: 36rem;
+        margin: 0.35rem auto 0;
+        line-height: 1.35rem;
+      }
+      .img-caption::before {
+        content: "↑ ";
+      }
+
+      /* ── full-width media block (like portfolio's div.media) ── */
+      .media-full {
+        width: 100%;
+        max-width: 80rem;
+        margin: 2.4rem auto;
+      }
+      .media-full .img-placeholder {
+        max-width: 100%;
+      }
+      .media-full .img-caption {
+        max-width: 80rem;
+        padding-left: 0.5rem;
+      }
+
+      /* ── side-by-side images ── */
+      .media-row {
+        display: flex;
+        gap: 1rem;
+        max-width: 80rem;
+        margin: 2.4rem auto;
+      }
+      .media-row .media-col {
+        flex: 1;
+        min-width: 0;
+      }
+      .media-row .img-placeholder {
+        margin: 0;
+      }
+      .media-row .img-caption {
+        max-width: 100%;
+        padding-left: 0.5rem;
+      }
+
+      /* ── feature grid ── */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.8rem;
+        max-width: 54rem;
+        margin: 2rem auto;
+        text-align: left;
+      }
+      .feature-card {
+        padding: 1.2rem;
+        background: #fafafa;
+        border: 1px solid #eee;
+      }
+      .feature-card .icon {
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+        display: block;
+      }
+      .feature-card h3 {
+        font-size: 0.95rem;
+        font-weight: 900;
+        font-style: normal;
+        margin: 0.4rem 0 0.3rem;
+        max-width: 100%;
+      }
+      .feature-card p {
+        margin: 0;
+        max-width: 100%;
+        font-size: 0.88rem;
+        line-height: 1.4rem;
+        opacity: 0.8;
+      }
+
+      /* ── tech stack tags ── */
+      .tech-stack {
+        max-width: 36rem;
+        margin: 1.5rem auto;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .tech-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        border: 1px solid #ccc;
+        padding: 0.2rem 0.5rem;
+        color: #555;
+        letter-spacing: 0.02rem;
+      }
+
+      /* ── workflow steps ── */
+      .workflow {
+        max-width: 36rem;
+        margin: 2rem auto;
+        text-align: left;
+      }
+      .workflow-step {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+        align-items: flex-start;
+      }
+      .workflow-step .step-num {
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        background: #555;
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.15rem;
+      }
+      .workflow-step .step-text {
+        font-size: 0.95rem;
+        line-height: 1.55rem;
+      }
+      .workflow-step .step-text strong {
+        font-weight: 900;
+      }
+
+      /* ── domains listing ── */
+      .domains {
+        max-width: 36rem;
+        margin: 1.5rem auto;
+        text-align: left;
+      }
+      .domain-item {
+        display: flex;
+        gap: 0.6rem;
+        margin-bottom: 0.6rem;
+        font-size: 0.95rem;
+        align-items: baseline;
+      }
+      .domain-item .check {
+        color: #555;
+        flex-shrink: 0;
+      }
+      .domain-item span:last-child {
+        opacity: 0.75;
+      }
+
+      /* ── image overlay for small images ── */
+      .img-placeholder.small-img {
+        cursor: pointer;
+        position: relative;
+      }
+      .img-placeholder.small-img::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 3;
+        transition: opacity 0.3s ease;
+      }
+      .img-placeholder.small-img::after {
+        content: 'click to view big';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+        background: rgba(85, 85, 85, 0.95);
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        font-weight: 900;
+        letter-spacing: 0.05rem;
+        text-transform: lowercase;
+        pointer-events: none;
+        border: 2px solid #fff;
+        transition: all 0.3s ease;
+      }
+      .img-placeholder.small-img:hover::before {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+      }
+      .img-placeholder.small-img:hover::after {
+        background: #555;
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+
+      /* ── lightbox modal ── */
+      .lightbox-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .lightbox-modal.active {
+        display: flex;
+        opacity: 1;
+      }
+      .lightbox-content {
+        position: relative;
+        max-width: 95vw;
+        max-height: 95vh;
+        animation: zoomIn 0.3s ease;
+      }
+      .lightbox-content img {
+        width: auto;
+        height: auto;
+        max-width: 95vw;
+        max-height: 95vh;
+        object-fit: contain;
+        display: block;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: #fff;
+        color: #000;
+        font-size: 1.4rem;
+        font-weight: 900;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+      .lightbox-close:hover {
+        background: #555;
+        color: #fff;
+        transform: rotate(90deg);
+      }
+      .lightbox-caption {
+        position: absolute;
+        bottom: -35px;
+        left: 0;
+        right: 0;
+        color: #fff;
+        font-size: 0.85rem;
+        text-align: center;
+        opacity: 0.8;
+      }
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* ── responsive ── */
+      @media screen and (max-device-width: 960px) {
+        #container {
+          max-width: 95vw;
+          padding-top: 1.8rem;
+          padding-bottom: 1.8rem;
+        }
+        #header, #content, #footer {
+          margin-top: 1.8rem;
+          margin-bottom: 3.6rem;
+        }
+      }
+      @media screen and (max-device-width: 720px) {
+        .media-row {
+          flex-direction: column;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media screen and (max-device-width: 540px) {
+        #container { max-width: 90vw; }
+        nav, h1, h2, h3, ul, p { font-size: 0.88rem; }
+        .labs-hero h1 { font-size: 1.3rem; line-height: 1.7rem; }
+        a { border-bottom-style: solid; }
+      }
+
+      @media print {
+        @page { size: A4; margin: 2cm; }
+        #container { width: 100%; margin: 0; padding: 0; }
+        .img-placeholder .spinner { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <img src="logo.png" alt="LPU Labs Logo" style="width: 280px; max-width: 36rem; margin: 0 auto 0.5rem; display: block; align:left;">
+        <h1><a href="/" style="border:none;">LPU labs</a></h1>
+        <nav>
+          <p style="font-style:italic; opacity:0.6; margin-top:-1rem;">tools orchestration platform</p>
+        </nav>
+      </div>
+
+      <div id="content">
+
+        <!-- ── hero ── -->
+        <div class="labs-hero">
+          <span class="badge">product overview</span>
+          <h1>on-demand, isolated, browser-accessible development & learning environments</h1>
+          <p class="tagline">persistent storage · multi-tenant network isolation · zero local setup</p>
+        </div>
+
+        <!-- ── hero screenshot ── -->
+        <div class="media-full">
+          <div class="img-placeholder ratio-16-9">
+            <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+            <img data-src="imgs\image copy 5.png" alt="lpu labs — dashboard overview" />
+          </div>
+          <p class="img-caption">lpu labs dashboard — main interface</p>
+        </div>
+
+        <hr class="dotted">
+
+        <!-- ── what is lpu labs ── -->
+        <h2>what is lpu labs?</h2>
+        <p>lpu labs is a <strong>platform-as-a-service (paas)</strong> layer above docker, abstracting container complexity into a web-based interface. users authenticate via oauth2 or email/password, then provision pre-configured lab environments — ubuntu desktop, kali linux, devops toolchains, data science stacks — or database services through a react frontend.</p>
+        <p>the platform enforces isolation at the network layer — each user receives a dedicated docker network, preventing cross-user traffic. persistent volumes ensure data survives container restarts.</p>
+
+        <!-- ── interface screenshots ── -->
+        <div class="media-row">
+          <div class="media-col">
+            <div class="img-placeholder ratio-16-9 small-img" data-lightbox="labselection">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\image copy 6.png" alt="lpu labs — lab selection interface" />
+            </div>
+            <p class="img-caption">lab environment selection — choose from 20+ pre-built environments</p>
+          </div>
+          <div class="media-col">
+            <div class="img-placeholder ratio-16-9 small-img" data-lightbox="terminal">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\Screenshot 2026-02-11 182952.png" alt="lpu labs — browser-based terminal" />
+            </div>
+            <p class="img-caption">browser-based access via kasmvnc / code-server — no local install needed</p>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <!-- ── how it works ── -->
+        <h2>how it works</h2>
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>authenticate</strong> — user logs in via google/github oauth or email</div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>select environment</strong> — pick a lab, database, or devops toolchain from the catalog</div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>provision</strong> — backend creates isolated docker network + persistent volume + spawns container with resource limits</div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>access via browser</strong> — user connects through kasmvnc or code-server, fully in-browser</div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">5</div>
+            <div class="step-text"><strong>auto-cleanup</strong> — idle environments auto-terminate after 30 minutes, data persists in volumes</div>
+          </div>
+        </div>
+
+        <!-- ── architecture diagram placeholder ── -->
+        <div class="media-full">
+          <div class="img-placeholder ratio-3-2 small-img" data-lightbox="architecture">
+            <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+            <img data-src="imgs\image copy 4.png" alt="lpu labs — login page" />
+          </div>
+          <p class="img-caption">Login page to platform</p>
+        </div>
+
+        <hr class="dotted">
+
+        <!-- ── core features ── -->
+        <h2>core features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="icon">⬡</span>
+            <h3>container orchestration</h3>
+            <p>docker sdk integration, lifecycle management, image building patterns, resource limits (cpu/memory)</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⊞</span>
+            <h3>network isolation</h3>
+            <p>user-specific overlay networks, multi-tenant segmentation, bridge networking — zero cross-user traffic</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">↻</span>
+            <h3>persistent storage</h3>
+            <p>docker volumes per user, bind mounts, data retention across container lifecycles and restarts</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">◎</span>
+            <h3>browser-based access</h3>
+            <p>kasmvnc for full desktop environments, code-server for vs code — nothing to install locally</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⚷</span>
+            <h3>auth & security</h3>
+            <p>oauth2 (google/github), jwt with refresh tokens, rate limiting, session management</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⏱</span>
+            <h3>auto-cleanup</h3>
+            <p>background schedulers (apscheduler) handle idle container termination, resource cleanup, health checks</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">⚡</span>
+            <h3>real-time updates</h3>
+            <p>websocket connections for live notifications, container status broadcasts, resource monitoring</p>
+          </div>
+          <div class="feature-card">
+            <span class="icon">📊</span>
+            <h3>observability</h3>
+            <p>prometheus metrics integration, structured logging with rotation, usage tracking, audit trails</p>
+          </div>
+        </div>
+
+        <!-- ── feature screenshots ── -->
+        <div class="media-row">
+          <div class="media-col">
+            <div class="img-placeholder ratio-16-9 small-img" data-lightbox="container">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\Screenshot 2026-02-11 182859.png" alt="lpu labs — container management panel" />
+            </div>
+            <p class="img-caption">container management — start, stop, monitor running environments</p>
+          </div>
+          <div class="media-col">
+            <div class="img-placeholder ratio-16-9 small-img" data-lightbox="monitoring">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\Screenshot 2026-02-11 182948.png" alt="lpu labs — resource monitoring dashboard" />
+            </div>
+            <p class="img-caption">resource monitoring — cpu, memory, network usage per container</p>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <!-- ── available environments ── -->
+        <h2>20+ pre-built environments</h2>
+        <p>lpu labs ships with ready-to-use environments covering development, cybersecurity, data science, and devops:</p>
+
+        <div class="media-full">
+          <div class="img-placeholder ratio-16-9">
+            <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+            <img data-src="imgs\Screenshot 2026-02-11 182834.png" alt="lpu labs — lab catalog showing available environments" />
+          </div>
+          <p class="img-caption">lab catalog — ubuntu desktop, kali linux, jupyter notebooks, jenkins, gitlab, ansible, terraform, and more</p>
+        </div>
+
+        <div class="domains">
+          <div class="domain-item"><span class="check">✓</span><span><strong>development</strong> — ubuntu desktop, code-server, python/node.js/go stacks, static site hosting</span></div>
+          <div class="domain-item"><span class="check">✓</span><span><strong>cybersecurity</strong> — kali linux, ctf challenges (gcc3-exploit, owasp juice shop), penetration testing</span></div>
+          <div class="domain-item"><span class="check">✓</span><span><strong>data science</strong> — jupyter notebooks, data science stacks, ml environments</span></div>
+          <div class="domain-item"><span class="check">✓</span><span><strong>devops</strong> — jenkins, gitlab, ansible, terraform toolchains</span></div>
+          <div class="domain-item"><span class="check">✓</span><span><strong>databases</strong> — shared or isolated database services (mongodb, postgresql, mysql)</span></div>
+          <div class="domain-item"><span class="check">✓</span><span><strong>embedded</strong> — buildroot embedded systems environments</span></div>
+        </div>
+
+        <!-- ── more demo screenshots ── -->
+        <div class="media-row">
+          <div class="media-col">
+            <div class="img-placeholder ratio-4-3 small-img" data-lightbox="kali">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\Screenshot 2026-02-11 182952.png" alt="lpu labs — ubuntu server" />
+            </div>
+            <p class="img-caption">ubuntu server — browser-based terminal access</p>
+          </div>
+          <div class="media-col">
+            <div class="img-placeholder ratio-4-3 small-img" data-lightbox="jupyter">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\image copy.png" alt="lpu labs — jupyter notebook in browser" />
+            </div>
+            <p class="img-caption">n8n — automation workflows</p>
+          </div>
+        </div>
+
+        <div class="media-row">
+          <div class="media-col">
+            <div class="img-placeholder ratio-4-3 small-img" data-lightbox="codeserver">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\image copy 2.png" alt="lpu labs — minio" />
+            </div>
+            <p class="img-caption">minio — object storage service</p>
+          </div>
+          <div class="media-col">
+            <div class="img-placeholder ratio-4-3 small-img" data-lightbox="ctf">
+              <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+              <img data-src="imgs\image copy 3.png" alt="lpu labs — Apache Airflow" />
+            </div>
+            <p class="img-caption">Apache Airflow — workflow automation and scheduling</p>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <!-- ── tech stack ── -->
+        <h2>technology stack</h2>
+        <p>built with production-grade patterns — async architecture, restful api design, jwt auth, rate limiting, structured logging, and separation of concerns (controllers → services → core modules).</p>
+
+        <div class="tech-stack">
+          <span class="tech-tag">fastapi</span>
+          <span class="tech-tag">react</span>
+          <span class="tech-tag">docker sdk</span>
+          <span class="tech-tag">mongodb (motor)</span>
+          <span class="tech-tag">websockets</span>
+          <span class="tech-tag">jwt / oauth2</span>
+          <span class="tech-tag">kasmvnc</span>
+          <span class="tech-tag">code-server</span>
+          <span class="tech-tag">apscheduler</span>
+          <span class="tech-tag">prometheus</span>
+          <span class="tech-tag">openapi / swagger</span>
+          <span class="tech-tag">python</span>
+          <span class="tech-tag">docker</span>
+          <span class="tech-tag">nginx</span>
+        </div>
+
+        
+
+        <hr class="dotted">
+
+        <!-- ── academic context ── -->
+        <h2>project scope</h2>
+        <p>lpu labs spans multiple engineering domains — demonstrating real-world application of <strong>cloud computing</strong>, <strong>educational technology</strong>, <strong>devops automation</strong>, <strong>cybersecurity training infrastructure</strong>, and <strong>distributed systems architecture</strong>.</p>
+        <p>the platform serves practical use cases in cybersecurity training, software development education, and computer science labs — while exhibiting advanced concepts in network engineering, async web architecture, and multi-tenant resource management.</p>
+
+        <!-- ── final wide screenshot ── -->
+        <div class="media-full">
+          <div class="img-placeholder ratio-16-9">
+            <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
+            <img data-src="imgs\image.png" alt="lpu labs — full platform overview" />
+          </div>
+          <p class="img-caption">lpu labs — the complete platform in action</p>
+        </div>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharunashokkumar.com">dharun ashokkumar</a></p>
+
+      </div>
+
+      <div id="footer">
+        <p style="text-align:center;">lpu labs · 2025</p>
+      </div>
+    </div>
+
+    <!-- ── lightbox modal ── -->
+    <div class="lightbox-modal" id="lightboxModal">
+      <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <img id="lightboxImg" src="" alt="" />
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+      </div>
+    </div>
+
+    <!-- ── image lazy-load + spinner logic ── -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const images = document.querySelectorAll('.img-placeholder img[data-src]');
+
+        images.forEach(function (img) {
+          const src = img.getAttribute('data-src');
+
+          // If src is empty, keep showing spinner as placeholder
+          if (!src) return;
+
+          // Start loading
+          img.setAttribute('src', src);
+
+          img.addEventListener('load', function () {
+            img.classList.add('loaded');
+            // Hide spinner after image loads
+            const spinner = img.parentElement.querySelector('.spinner');
+            if (spinner) {
+              spinner.style.opacity = '0';
+              spinner.style.transition = 'opacity 0.3s ease';
+              setTimeout(function () { spinner.style.display = 'none'; }, 300);
+            }
+          });
+
+          img.addEventListener('error', function () {
+            // On error, keep spinner visible as a fallback
+          });
+        });
+
+        // ── lightbox functionality ── 
+        const smallImages = document.querySelectorAll('.img-placeholder.small-img');
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        smallImages.forEach(function(placeholder) {
+          placeholder.addEventListener('click', function() {
+            const img = placeholder.querySelector('img');
+            const caption = placeholder.parentElement.querySelector('.img-caption');
+            
+            if (img && img.src && img.src !== window.location.href) {
+              lightboxImg.src = img.src;
+              lightboxImg.alt = img.alt;
+              lightboxCaption.textContent = caption ? caption.textContent.replace('↑ ', '') : img.alt;
+              lightboxModal.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        });
+
+        // Close lightbox
+        window.closeLightbox = function() {
+          lightboxModal.classList.remove('active');
+          document.body.style.overflow = '';
+        };
+
+        // Close on background click
+        lightboxModal.addEventListener('click', function(e) {
+          if (e.target === lightboxModal) {
+            closeLightbox();
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+            closeLightbox();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
