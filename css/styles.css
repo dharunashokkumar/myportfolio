@@ -895,13 +895,13 @@ h6 {
   }
 
   ul.archive.thumblist li {
-    width: 30vw;
+    width: calc(50% - 1rem);
     max-width: 384px;
-    height: 30.5vw;
+    height: auto;
   }
 
   ul.archive.thumblist li a .thumbnail {
-    height: 20vw;
+    height: auto;
     max-height: 256px;
   }
 
@@ -918,7 +918,7 @@ h6 {
 
 @media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
   ul.archive.thumblist li {
-    height: 28.5vw;
+    height: auto;
   }
 }
 
@@ -973,15 +973,14 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 720px) {
+@media screen and (max-width: 720px) {
   ul.archive.thumblist li {
-    width: 45vw;
-    padding: 0;
-    height: 41vw;
+    width: calc(50% - 1rem);
+    height: auto;
   }
 
   ul.archive.thumblist li a .thumbnail {
-    height: 28vw;
+    height: auto;
   }
 }
 
@@ -997,7 +996,7 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 540px) {
+@media screen and (max-width: 540px) {
   #container {
     max-width: 90vw;
   }
@@ -1020,8 +1019,8 @@ h6 {
   }
 
   ul.archive.thumblist li {
-    width: 42.5vw;
-    height: 46.5vw;
+    width: 100%;
+    height: auto;
   }
 
   ul.archive.thumblist li a p .excerpt {
@@ -1042,14 +1041,14 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 360px) {
+@media screen and (max-width: 360px) {
   ul.archive.thumblist li {
     width: 100%;
-    height: fit-content;
+    height: auto;
   }
 
   ul.archive.thumblist li a .thumbnail {
-    height: 60vw;
+    height: auto;
   }
 }
 
