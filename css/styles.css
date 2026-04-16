@@ -9,24 +9,28 @@ html {
 
 body {
   margin: 0;
-  padding: 0; /* ?because defaults may not be consistent across browsers */
+  padding: 0;
+  /* ?because defaults may not be consistent across browsers */
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  text-align: center; /* to centre the content (PS. need ALL these specifications) */
+  text-align: center;
+  /* to centre the content (PS. need ALL these specifications) */
   height: 100%;
   background: #ffffff;
   font-family: "Merriweather", sans-serif;
   font-weight: 300;
   line-height: 1.395rem;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* to remove grey background/box that appears when you tap the screen on a iPad, etc. */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* to remove grey background/box that appears when you tap the screen on a iPad, etc. */
 }
 
 em {
   font-style: italic;
 }
 
-strong, b {
+strong,
+b {
   font-weight: 900;
 }
 
@@ -78,12 +82,15 @@ a.lpu-inline-link:hover {
 hr {
   display: block;
   clear: both;
-  overflow: hidden; /* i don't quite know why these are required. i copied them off stacey's default css stylesheet. i think they can be gotten rid of */
-  border: none; /* "border:none;" to eliminate the default "border: 1px inset;" attribute, as explained in: http://www.w3.org/TR/CSS2/sample.html */
+  overflow: hidden;
+  /* i don't quite know why these are required. i copied them off stacey's default css stylesheet. i think they can be gotten rid of */
+  border: none;
+  /* "border:none;" to eliminate the default "border: 1px inset;" attribute, as explained in: http://www.w3.org/TR/CSS2/sample.html */
   border-top: black solid 6px;
   margin: 2.7rem auto;
   padding: 0;
-  max-width: 36rem; /* mirrors the value of max-width from <p> */
+  max-width: 36rem;
+  /* mirrors the value of max-width from <p> */
 }
 
 hr.solid {
@@ -98,18 +105,44 @@ hr.fullwidth {
   max-width: inherit;
 }
 
-nav, p, h1, h2, h3, h6, ul, .footnotes {
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+ul,
+.footnotes {
   font-size: 0.81rem;
 }
 
-nav, p, h1, h2, h3, h6, blockquote, .footnotes, ul, ol {
-  text-align: left; /* to counter the "text-align:center;" in its parent div(s) */
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+blockquote,
+.footnotes,
+ul,
+ol {
+  text-align: left;
+  /* to counter the "text-align:center;" in its parent div(s) */
   color: #555;
-  margin: 1.395rem auto; /* use formula: {{ margin * font-size = 1.5em }} */
+  margin: 1.395rem auto;
+  /* use formula: {{ margin * font-size = 1.5em }} */
 }
 
-nav, p, h1, h2, h3, h6, blockquote, .footnotes,
-#container.post #content ul, #container.post #content ol {
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+blockquote,
+.footnotes,
+#container.post #content ul,
+#container.post #content ol {
   max-width: 36rem;
 }
 
@@ -118,12 +151,14 @@ nav, p, h1, h2, h3, h6, blockquote, .footnotes,
   max-width: 36rem;
 }
 
-ul, ol {
-  padding-inline-start: 0; /* remove paddings by converting all values to 0 */
+ul,
+ol {
+  padding-inline-start: 0;
+  /* remove paddings by converting all values to 0 */
   /*list-style-type: none;*/
 }
 
-p + ul {
+p+ul {
   margin-top: -1.2rem;
 }
 
@@ -131,11 +166,14 @@ p + ul {
   padding-inline-start: 0.9rem;
 }
 
-ul > li > p, ol > li > p {
+ul>li>p,
+ol>li>p {
   margin-left: 0.45rem;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 2.79rem;
   font-weight: 900;
 }
@@ -147,15 +185,21 @@ h3 {
 blockquote {
   border-left: 1px solid #ccc;
 }
-blockquote p + p, blockquote ul + p {
+
+blockquote p+p,
+blockquote ul+p {
   margin-top: -0.6975rem;
 }
 
-blockquote > p, blockquote > ul, blockquote > img {
+blockquote>p,
+blockquote>ul,
+blockquote>img {
   margin-left: 1rem;
 }
 
-select, select > option { /* this is done to override the user-agent-stylesheet's styles that were overriding the text's appearance. */
+select,
+select>option {
+  /* this is done to override the user-agent-stylesheet's styles that were overriding the text's appearance. */
   font-size: inherit;
   font-family: inherit;
   font-weight: inherit;
@@ -171,9 +215,11 @@ select, select > option { /* this is done to override the user-agent-stylesheet'
 #container {
   margin: 0 auto;
   width: 1280px;
-  text-align: center; /* to centre the content (PS. yes, we need ALL these specifications) */
+  text-align: center;
+  /* to centre the content (PS. yes, we need ALL these specifications) */
   padding: 3.6rem 1px;
 }
+
 #container #content ul:not(.archive) li {
   margin-left: 1rem;
   list-style-type: circle;
@@ -190,20 +236,23 @@ select, select > option { /* this is done to override the user-agent-stylesheet'
     margin-top: 5.4rem;
   }
 }
+
 #header nav,
 #footer nav {
   font-style: italic;
 }
+
 #header nav ul li,
 #footer nav ul li {
   display: inline;
 }
-#header h1 + nav,
-#header h2 + nav,
-#header h3 + nav,
-#footer h1 + nav,
-#footer h2 + nav,
-#footer h3 + nav {
+
+#header h1+nav,
+#header h2+nav,
+#header h3+nav,
+#footer h1+nav,
+#footer h2+nav,
+#footer h3+nav {
   /* remove space between website title and navigation menu items */
   margin-top: -1.395rem;
 }
@@ -220,8 +269,10 @@ select, select > option { /* this is done to override the user-agent-stylesheet'
 #header ul,
 #footer ul,
 ul.archive {
-  list-style-type: none; /* remove bullets */
-  display: block; /* this is as default */
+  list-style-type: none;
+  /* remove bullets */
+  display: block;
+  /* this is as default */
 }
 
 .show-only-in-print {
@@ -273,21 +324,27 @@ img {
   /* videos shot in landscape mode */
   /* videos shot in portrait mode */
 }
+
 .video.videoDimensions5625 {
   padding-bottom: 56.25%;
 }
+
 .video.videoDimensions6667 {
   padding-bottom: 66.67%;
 }
+
 .video.videoDimensions5000 {
   padding-bottom: 100%;
 }
+
 .video.videoDimensions1point5 {
   padding-bottom: 854px;
 }
+
 .video.videoDimensions1point25 {
   padding-bottom: 1024px;
 }
+
 .video iframe.videoFrame {
   position: absolute;
   top: 0;
@@ -331,42 +388,52 @@ div.media {
   	- (and when you're lazy) directly onto an img
   	*/
 }
-div.media > * {
+
+div.media>* {
   margin-bottom: 1.395rem;
 }
+
 div.media *:last-child {
   margin-bottom: 0;
 }
+
 div.media .narrow {
   /* equal in width to a p-tag */
   max-width: 36rem;
   margin-left: auto;
   margin-right: auto;
 }
+
 div.media .item audio,
 div.media .item-halfwidth audio {
   display: block;
   /*max-*/
   width: 100%;
 }
-div.media .item p > audio,
-div.media .item-halfwidth p > audio {
+
+div.media .item p>audio,
+div.media .item-halfwidth p>audio {
   margin-top: 0.6975rem;
   margin-bottom: 0.6975rem;
 }
-div.media .item img, div.media .item .video,
+
+div.media .item img,
+div.media .item .video,
 div.media .item-halfwidth img,
 div.media .item-halfwidth .video {
   margin-bottom: 0;
 }
-div.media .item img + img,
-div.media .item-halfwidth img + img {
+
+div.media .item img+img,
+div.media .item-halfwidth img+img {
   margin-top: 1.395rem;
 }
+
 div.media .item .video.videoDimensions1point25,
 div.media .item-halfwidth .video.videoDimensions1point25 {
   padding-bottom: 1024px;
 }
+
 div.media .item .caption,
 div.media .item-halfwidth .caption {
   opacity: 0.67;
@@ -379,10 +446,12 @@ div.media .item-halfwidth .caption {
   text-indent: -0.7rem;
   width: calc(100% - 0.7rem);
 }
+
 div.media .item .caption::before,
 div.media .item-halfwidth .caption::before {
   content: "↑ ";
 }
+
 div.media .item-halfwidth {
   display: inline-block;
   width: 39.3025rem;
@@ -404,31 +473,40 @@ div.media .item-halfwidth {
   	to override the automatic "nth-of-type" css-styling,
   	and do a better job at making the correct items float left or right. */
 }
-div.media .item-halfwidth > * {
+
+div.media .item-halfwidth>* {
   width: 100%;
 }
+
 div.media .item-halfwidth .narrow {
   max-width: 100%;
 }
+
 div.media .item-halfwidth.empty {
   margin: 0;
   height: 0;
 }
+
 div.media .item-halfwidth.floatleft {
   float: left;
 }
+
 div.media .item-halfwidth.floatright {
   float: right;
 }
+
 div.media .item-halfwidth.floatnone {
   float: none;
 }
+
 div.media .item-halfwidth .caption {
   margin-left: 0;
 }
+
 div.media .item.narrow .caption {
   margin-left: 0;
 }
+
 div.media::after {
   /* 	if there are any float elements inside, then they won't overlap any content that comes after the div.
   	as seen in 202002 on https://www.w3schools.com/howto/howto_css_clearfix.asp (search for "modern clearfix hack" on that page) 
@@ -439,15 +517,15 @@ div.media::after {
 }
 
 /* to help me quickly type an image instead of nesting it in media>item>etcetc */
-p > img:first-child {
+p>img:first-child {
   margin-top: 0;
 }
 
-p > img {
+p>img {
   margin: 1.395rem auto;
 }
 
-p > img:last-child {
+p>img:last-child {
   margin-bottom: 0;
 }
 
@@ -482,35 +560,36 @@ a:link#active_page {
   background: none;
   font-weight: 900;
 }
+
 .social-links {
-    display: flex;
-    gap: 32px;
-    margin-top: 40px;
-    justify-content: left;
-    max-width: 36rem;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+  justify-content: left;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .social-links a {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    color: #7e7a7afb;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    border: none;
-    padding: 0;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  color: #7e7a7afb;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  border: none;
+  padding: 0;
 }
 
 .social-links a:hover {
-    opacity: 2;
-    background: none;
+  opacity: 2;
+  background: none;
 }
 
 .social-links svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .quick-nav,
@@ -573,36 +652,50 @@ ul.archive {
   margin-bottom: 3.6em;
   /* remove space between post title and subtext */
 }
+
 ul.archive li {
   display: block;
   width: 100%;
 }
+
 ul.archive li p {
   margin: 0.775rem auto;
 }
+
 ul.archive li p a {
   display: block;
   overflow: hidden;
 }
+
 ul.archive li p .title {
   font-weight: 900;
 }
+
 ul.archive li p .date {
   float: right;
   font-size: 85%;
   opacity: 0.5;
 }
+
 ul.archive li p .excerpt {
   display: none;
 }
-ul.archive li p .tags, ul.archive li p .categories {
+
+ul.archive li p .tags,
+ul.archive li p .categories {
   font-style: italic;
   opacity: 0.5;
 }
-ul.archive h1, ul.archive h2, ul.archive h3 {
+
+ul.archive h1,
+ul.archive h2,
+ul.archive h3 {
   margin: 0 auto;
 }
-ul.archive h1 + p, ul.archive h2 + p, ul.archive h3 + p {
+
+ul.archive h1+p,
+ul.archive h2+p,
+ul.archive h3+p {
   margin-top: 0;
 }
 
@@ -610,45 +703,88 @@ ul.archive h1 + p, ul.archive h2 + p, ul.archive h3 + p {
 	(like on the reflections and activities pages),
 	let there be a padding between the title of the post 
 	and the the categories/tags that show up next to it */
-ul.archive:not(.thumblist) li p a .tags, ul.archive:not(.thumblist) li p a .categories {
+ul.archive:not(.thumblist) li p a .tags,
+ul.archive:not(.thumblist) li p a .categories {
   padding-left: 0.25rem;
 }
 
 /* project thumbnails on project-archive pages */
 ul.archive.thumblist {
   overflow: auto;
-  width: 100%; /* divs that include only floating elements used to need a last child div with clear:both. this is an alternate, cleaner solution. based on: http://quirksmode.org/css/clearing.html */
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
+
 ul.archive.thumblist li {
   position: relative;
   display: block;
-  float: left;
-  border: 1px solid #fff;
-  width: 32%;
+  width: 31%;
   max-width: 409.6px;
-  height: 380px;
-  padding: 0;
-  border: none;
+  height: auto;
+  padding: 0.5rem;
   overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
+
+ul.archive.thumblist li a::after {
+  content: "↗";
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 1.1rem;
+  color: #888;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.archive.thumblist li a:hover::after {
+  color: #555;
+}
+
 ul.archive.thumblist li a {
   text-decoration: none;
   margin: 0;
   padding: 0;
+  border-bottom: none;
+  display: block;
+  position: relative;
 }
+
 ul.archive.thumblist li a .thumbnail {
   /* pattern visible when there's no thumbnail image */
   background: url("/assets/css/slash-ccc-4px.gif");
   background-repeat: repeat;
   width: 100%;
-  height: 71.5%; /* thumbnail imgaes should have a 3:2 aspect ratio, and so this should have been 66.67%. but, for some reason, 71.5% is closer to keeping the thumbnail-images at 2/3 aspect ratio */
+  height: 71.5%;
+  /* thumbnail imgaes should have a 3:2 aspect ratio, and so this should have been 66.67%. but, for some reason, 71.5% is closer to keeping the thumbnail-images at 2/3 aspect ratio */
   max-height: 272px;
   overflow: hidden;
+  border-radius: 8px;
 }
-ul.archive.thumblist li a img, ul.archive.thumblist li a p {
+
+ul.archive.thumblist li a .thumbnail img {
+  border-radius: 8px;
+}
+
+ul.archive.thumblist li a img,
+ul.archive.thumblist li a p {
   margin-top: 0;
   margin-bottom: 0;
 }
+
 ul.archive.thumblist li a p {
   background: #fff;
   position: initial;
@@ -660,37 +796,34 @@ ul.archive.thumblist li a p {
   background: none;
   line-height: 1.17rem;
 }
+
 ul.archive.thumblist li a p .title {
   max-width: 10ch;
   overflow: hidden;
 }
+
 ul.archive.thumblist li a p .date {
   float: none;
 }
+
 ul.archive.thumblist li a p .date::before {
   content: "(";
 }
+
 ul.archive.thumblist li a p .date::after {
   content: ")";
 }
+
 ul.archive.thumblist li a p .excerpt {
   display: block;
 }
-ul.archive.thumblist li a p .tags, ul.archive.thumblist li a p .categories {
+
+ul.archive.thumblist li a p .tags,
+ul.archive.thumblist li a p .categories {
   display: block;
 }
-ul.archive.thumblist li:nth-child(3n+1) {
-  margin-left: 0;
-  margin-right: 0;
-}
-ul.archive.thumblist li:nth-child(3n+2) {
-  margin-left: 2%;
-  margin-right: 2%;
-}
-ul.archive.thumblist li:nth-child(3n) {
-  margin-left: 0;
-  margin-right: 0%;
-}
+
+/* nth-child margins removed — flexbox gap handles spacing */
 
 .home-page ul.archive.thumblist li a p .date {
   display: none;
@@ -703,20 +836,25 @@ ul.archive.thumblist li:nth-child(3n) {
   opacity: 0.5;
   line-height: 1em;
 }
-.post .post-meta small > * { /* applies to immediate children of `.postmeta small` only */
+
+.post .post-meta small>* {
+  /* applies to immediate children of `.postmeta small` only */
   display: block;
 }
 
-.inline-meta, h6 {
+.inline-meta,
+h6 {
   /* 
   used in places like "about", 
   where the date above entry 
   is in smaller font and is grey.
   */
-  font-weight: 300; /* this is to make sure that h6 doesn't show up as bold */
+  font-weight: 300;
+  /* this is to make sure that h6 doesn't show up as bold */
   opacity: 0.4;
   font-size: 0.7425rem;
 }
+
 /*	************************************************** 
 	media queries
 	************************************************** */
@@ -724,160 +862,197 @@ ul.archive.thumblist li:nth-child(3n) {
   .video.videoDimensions5625.item-halfwidth {
     padding-bottom: 28.125%;
   }
+
   .video.videoDimensions6667.item-halfwidth {
     padding-bottom: 33.335%;
   }
+
   .video.videoDimensions5000.item-halfwidth {
     padding-bottom: 50%;
   }
+
   p.video {
     /* assume a default video to have 2:3 aspect ratio */
     padding-bottom: 24.0012rem;
   }
+
   p.video.videoDimensions5625 {
     padding-bottom: 20.25rem;
   }
+
   p.video.videoDimensions6667 {
     padding-bottom: 24.0012rem;
   }
+
   p.video.videoDimensions5000 {
     padding-bottom: 36rem;
   }
 }
+
 @media screen and (max-device-width: 1280px) {
   #container {
     max-width: 95vw;
   }
+
   ul.archive.thumblist li {
     width: 30vw;
     max-width: 384px;
     height: 30.5vw;
   }
+
   ul.archive.thumblist li a .thumbnail {
     height: 20vw;
     max-height: 256px;
   }
+
   ul.archive.thumblist li a p .excerpt {
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; /* see: https://www.w3schools.com/cssref/css3_pr_text-overflow.php */
+    overflow: hidden;
   }
-  ul.archive.thumblist li:nth-child(3n+1) {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  ul.archive.thumblist li:nth-child(3n+2) {
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-  }
-  ul.archive.thumblist li:nth-child(3n) {
-    margin-left: 0;
-    margin-right: 0;
-  }
+
   div.media .item-halfwidth {
     width: 46.5vw;
   }
 }
+
 @media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
   ul.archive.thumblist li {
     height: 28.5vw;
   }
 }
+
 @media screen and (min-device-width: 720px) and (max-device-width: 1280px) {
-  nav, p, h1, h2, h3, ul, .footnotes {
+
+  nav,
+  p,
+  h1,
+  h2,
+  h3,
+  ul,
+  .footnotes {
     font-size: 0.74997rem;
   }
 }
+
 @media screen and (max-device-width: 960px) {
-  hr, hr.dotted {
+
+  hr,
+  hr.dotted {
     border-top-width: 3px;
     margin: 1.35rem auto;
   }
+
   #container {
     /*max-width: 90vw; */
     padding-top: 1.8rem;
     padding-bottom: 1.8rem;
   }
-  #header, #content, ul.archive, #footer {
+
+  #header,
+  #content,
+  ul.archive,
+  #footer {
     margin-top: 1.8rem;
     margin-bottom: 3.6rem;
   }
-  nav, h1, h2, h3, ul, p {
+
+  nav,
+  h1,
+  h2,
+  h3,
+  ul,
+  p {
     margin-left: auto;
     margin-right: auto;
   }
+
   ul {
-    margin-left: 0; /* on jen's phone, all ul's were indented for some unknown reason. so, this is an explicit style to prevent such an indent. */
+    margin-left: 0;
+    /* on jen's phone, all ul's were indented for some unknown reason. so, this is an explicit style to prevent such an indent. */
   }
 }
+
 @media screen and (max-device-width: 720px) {
   ul.archive.thumblist li {
     width: 45vw;
-    margin: 0;
     padding: 0;
     height: 41vw;
   }
-  ul.archive.thumblist li:nth-child(2n+1) {
-    margin: 0;
-    margin-right: 2.5vw;
-  }
-  ul.archive.thumblist li:nth-child(2n) {
-    margin: 0;
-    margin-left: 2.5vw;
-  }
+
   ul.archive.thumblist li a .thumbnail {
     height: 28vw;
   }
 }
+
 @media screen and (max-device-width: 640px) {
+
   /* videos shot in portrait mode */
   .video.videoDimensions1point5 {
     padding-bottom: 150%;
   }
+
   .video.videoDimensions1point25 {
     padding-bottom: 175%;
   }
 }
+
 @media screen and (max-device-width: 540px) {
   #container {
     max-width: 90vw;
   }
-  nav, h1, h2, h3, ul, p {
+
+  nav,
+  h1,
+  h2,
+  h3,
+  ul,
+  p {
     font-size: 0.765rem;
   }
+
   a {
     border-bottom-style: solid;
   }
+
   ul.archive li a {
     border-bottom-color: #ccc;
   }
+
   ul.archive.thumblist li {
     width: 42.5vw;
     height: 46.5vw;
   }
+
   ul.archive.thumblist li a p .excerpt {
     display: none;
   }
+
   div.media .item-halfwidth:nth-last-child(2) {
     margin-bottom: inherit;
   }
-  div.media .item-halfwidth:nth-last-child(2), div.media .item-halfwidth:nth-of-type(2n+1), div.media .item-halfwidth:nth-of-type(2n), div.media .item-halfwidth.floatleft, div.media .item-halfwidth.floatright {
+
+  div.media .item-halfwidth:nth-last-child(2),
+  div.media .item-halfwidth:nth-of-type(2n+1),
+  div.media .item-halfwidth:nth-of-type(2n),
+  div.media .item-halfwidth.floatleft,
+  div.media .item-halfwidth.floatright {
     float: none;
     width: 100%;
   }
 }
+
 @media screen and (max-device-width: 360px) {
-  ul.archive.thumblist li:nth-child(n) {
-    margin-left: 0;
-    margin-right: 0;
+  ul.archive.thumblist li {
     width: 100%;
     height: fit-content;
-    margin-bottom: 1rem;
   }
+
   ul.archive.thumblist li a .thumbnail {
     height: 60vw;
   }
 }
+
 /*	************************************************** 
 	media queries for print
 
@@ -906,18 +1081,28 @@ ul.archive.thumblist li:nth-child(3n) {
     margin: 2cm;
     padding: 0;
   }
+
   #container {
     width: 100%;
     margin: 0;
     margin-top: -1rem;
     padding-top: 0;
-    padding-bottom: 0; /* override settings set in the default stylesheet */
+    padding-bottom: 0;
+    /* override settings set in the default stylesheet */
   }
+
   #container.post #content,
   #container.home-page #content {
     margin-top: 0;
   }
-  #container.post nav, #container.post p, #container.post h1, #container.post h2, #container.post h3, #container.post ul, #container.post blockquote,
+
+  #container.post nav,
+  #container.post p,
+  #container.post h1,
+  #container.post h2,
+  #container.post h3,
+  #container.post ul,
+  #container.post blockquote,
   #container.home-page nav,
   #container.home-page p,
   #container.home-page h1,
@@ -929,15 +1114,19 @@ ul.archive.thumblist li:nth-child(3n) {
     width: 40rem;
     page-break-inside: avoid;
   }
+
   #container.post .media,
   #container.home-page .media {
     width: 40rem;
   }
-  #container.post .media .floatleft, #container.post .media .floatright,
+
+  #container.post .media .floatleft,
+  #container.post .media .floatright,
   #container.home-page .media .floatleft,
   #container.home-page .media .floatright {
     float: none;
   }
+
   #container.post a,
   #container.post a[href^="/"],
   #container.post a[href*=mailto],
@@ -947,21 +1136,27 @@ ul.archive.thumblist li:nth-child(3n) {
     border-bottom-color: #ccc;
     border-bottom-style: solid;
   }
+
   #container.post a[href*="//"],
-  #container.home-page a[href*="//"] { /* links that "contain //" are generally external links ///// reference link: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors; */
+  #container.home-page a[href*="//"] {
+    /* links that "contain //" are generally external links ///// reference link: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors; */
     border-bottom-style: solid;
   }
+
   #container.post #footer,
   #container.home-page #footer {
     display: none;
   }
+
   .hide-in-print {
     display: none;
   }
+
   .show-only-in-print {
     display: initial;
   }
 }
+
 /*
 	featured post marker for archive pages
 */
@@ -1139,6 +1334,7 @@ ul.archive.thumblist li:nth-child(3n) {
 }
 
 @media screen and (max-width: 768px) {
+
   #container.about-page #content,
   #container.contact-page #content {
     margin-left: 0;
@@ -1182,6 +1378,7 @@ ul.archive.thumblist li:nth-child(3n) {
 }
 
 @media screen and (max-width: 540px) {
+
   #container.about-page #header nav ul,
   #container.contact-page #header nav ul,
   #container.about-page #footer nav ul,
@@ -1207,155 +1404,161 @@ ul.archive.thumblist li:nth-child(3n) {
 /* Portfolio Timeline Styles - extends main styles.css */
 
 .timeline {
-    max-width: 800px;
-    margin: 2em auto;  /* Change from "2em 0" to "2em auto" */
-    position: relative;
+  max-width: 800px;
+  margin: 2em auto;
+  /* Change from "2em 0" to "2em auto" */
+  position: relative;
 }
 
 /* Timeline Sections */
 .timeline-section {
-    margin-bottom: 4em;
+  margin-bottom: 4em;
 }
 
 .timeline-section h2 {
-    font-size: 1.2em;
-    font-weight: normal;
-    margin-bottom: 2em;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #000;
+  font-size: 1.2em;
+  font-weight: normal;
+  margin-bottom: 2em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #000;
 }
 
 /* Timeline Items */
 .timeline-item {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 2em;
-    margin-bottom: 2.5em;
-    margin-left: auto;    /* Add this */
-    margin-right: auto;   /* Add this */
-    position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 2em;
+  margin-bottom: 2.5em;
+  margin-left: auto;
+  /* Add this */
+  margin-right: auto;
+  /* Add this */
+  position: relative;
 }
 
 .timeline-item .year {
-    font-family: monospace;
-    font-size: 0.9em;
-    color: #666;
-    text-align: right;
-    padding-top: 0.2em;
+  font-family: monospace;
+  font-size: 0.9em;
+  color: #666;
+  text-align: right;
+  padding-top: 0.2em;
 }
 
 .timeline-content h3 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0 0 0.3em 0;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0 0 0.3em 0;
 }
 
 .timeline-content p {
-    margin: 0.5em 0;
-    line-height: 1.6;
+  margin: 0.5em 0;
+  line-height: 1.6;
 }
 
 .timeline-content p.detail {
-    color: #333;
-    font-size: 0.95em;
+  color: #333;
+  font-size: 0.95em;
 }
 
 .timeline-content a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Featured Items */
 .timeline-item.featured {
-    background: #f5f5f5;
-    padding: 1.5em;
-    margin-left: auto;      /* Change from "-1.5em" */
-    margin-right: auto;     /* Change from "-1.5em" */
-    width: calc(100% + 3em); /* Add this to maintain width */
+  background: #f5f5f5;
+  padding: 1.5em;
+  margin-left: auto;
+  /* Change from "-1.5em" */
+  margin-right: auto;
+  /* Change from "-1.5em" */
+  width: calc(100% + 3em);
+  /* Add this to maintain width */
 }
 
 .timeline-item.featured .year {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 /* Achievements List */
 .timeline-content ul.achievements {
-    list-style: none;
-    padding: 0;
-    margin: 1em 0 0 0;
+  list-style: none;
+  padding: 0;
+  margin: 1em 0 0 0;
 }
 
 .timeline-content ul.achievements li {
-    padding-left: 1.5em;
-    margin-bottom: 0.5em;
-    position: relative;
-    font-size: 0.9em;
-    line-height: 1.5;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+  position: relative;
+  font-size: 0.9em;
+  line-height: 1.5;
 }
 
 .timeline-content ul.achievements li:before {
-    content: '→';
-    position: absolute;
-    left: 0;
+  content: '→';
+  position: absolute;
+  left: 0;
 }
 
 /* Skills Grid */
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2em;
-    margin-top: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2em;
+  margin-top: 1.5em;
 }
 
 .skill-category h3 {
-    font-size: 0.9em;
-    font-weight: bold;
-    margin: 0 0 0.5em 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0 0 0.5em 0;
 }
 
 .skill-category p {
-    margin: 0;
-    font-size: 0.9em;
-    line-height: 1.6;
-    color: #333;
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: #333;
 }
 
 /* Tooltips from disclaimer style */
 .timeline-content span[title] {
-    text-decoration: none;
-    border-bottom: 1px dotted #999;
-    cursor: help;
+  text-decoration: none;
+  border-bottom: 1px dotted #999;
+  cursor: help;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-    .timeline-item {
-        grid-template-columns: 80px 1fr;
-        gap: 1em;
-    }
-    
-    .timeline-item .year {
-        font-size: 0.85em;
-    }
-    
-    .timeline-item.featured {
-        margin-left: -1em;
-        margin-right: -1em;
-        padding: 1em;
-    }
-    
-    .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5em;
-    }
+  .timeline-item {
+    grid-template-columns: 80px 1fr;
+    gap: 1em;
+  }
+
+  .timeline-item .year {
+    font-size: 0.85em;
+  }
+
+  .timeline-item.featured {
+    margin-left: -1em;
+    margin-right: -1em;
+    padding: 1em;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
 }
 
 /* Print Styles */
 @media print {
-    .timeline-item.featured {
-        background: none;
-        border-left: 3px solid #000;
-        padding-left: 1em;
-    }
+  .timeline-item.featured {
+    background: none;
+    border-left: 3px solid #000;
+    padding-left: 1em;
+  }
 }
 
 /* Secret Lock Icon */
@@ -1370,6 +1573,7 @@ ul.archive.thumblist li:nth-child(3n) {
   text-decoration: none;
   line-height: 0;
 }
+
 #secret-lock:hover {
   opacity: 0.6;
 }
@@ -1381,6 +1585,7 @@ ul.archive.thumblist li:nth-child(3n) {
   padding: 2rem;
   text-align: left;
 }
+
 .vault-container h2 {
   font-size: 1rem;
   font-weight: 900;
@@ -1389,43 +1594,53 @@ ul.archive.thumblist li:nth-child(3n) {
   border-bottom: 3px solid #333;
   padding-bottom: 0.5rem;
 }
+
 .vault-links {
   list-style: none;
   padding: 0;
 }
+
 .vault-links li {
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
 }
+
 .vault-links li:last-child {
   border-bottom: none;
 }
+
 .vault-links a {
   color: #555;
   text-decoration: none;
   font-size: 0.81rem;
   display: block;
 }
+
 .vault-links a:hover {
   color: #000;
 }
+
 .vault-links .link-label {
   font-weight: 900;
   display: block;
   margin-bottom: 0.2rem;
 }
+
 .vault-links .link-url {
   font-size: 0.7rem;
   color: #999;
   word-break: break-all;
 }
+
 .vault-back {
   margin-top: 2rem;
   font-size: 0.81rem;
 }
+
 .vault-back a {
   color: #999;
 }
+
 .vault-back a:hover {
   color: #333;
 }
@@ -1446,7 +1661,7 @@ ul.archive.thumblist li:nth-child(3n) {
   background: #e8e8e8;
   border-radius: 0 0 10px 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   max-height: 0;
   transition: max-height 0.4s ease;
 }
