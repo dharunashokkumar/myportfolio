@@ -858,7 +858,7 @@ h6 {
 /*	************************************************** 
 	media queries
 	************************************************** */
-@media screen and (min-device-width: 720px) {
+@media screen and (min-width: 720px) {
   .video.videoDimensions5625.item-halfwidth {
     padding-bottom: 28.125%;
   }
@@ -889,7 +889,7 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 1280px) {
+@media screen and (max-width: 1280px) {
   #container {
     max-width: 95vw;
   }
@@ -916,13 +916,13 @@ h6 {
   }
 }
 
-@media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
+@media screen and (min-width: 960px) and (max-width: 1280px) {
   ul.archive.thumblist li {
     height: auto;
   }
 }
 
-@media screen and (min-device-width: 720px) and (max-device-width: 1280px) {
+@media screen and (min-width: 720px) and (max-width: 1280px) {
 
   nav,
   p,
@@ -935,7 +935,7 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 960px) {
+@media screen and (max-width: 960px) {
 
   hr,
   hr.dotted {
@@ -984,7 +984,7 @@ h6 {
   }
 }
 
-@media screen and (max-device-width: 640px) {
+@media screen and (max-width: 640px) {
 
   /* videos shot in portrait mode */
   .video.videoDimensions1point5 {
@@ -1280,7 +1280,7 @@ h6 {
   background: #f8f9fa;
 }
 
-@media screen and (max-device-width: 540px) {
+@media screen and (max-width: 540px) {
   .wiki-infobox {
     float: none;
     width: 100%;
@@ -1326,7 +1326,7 @@ h6 {
   font-size: 0.75rem;
 }
 
-@media screen and (max-device-width: 540px) {
+@media screen and (max-width: 540px) {
   .contact-grid {
     grid-template-columns: 1fr;
   }
