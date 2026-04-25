@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Thumblist card</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:18px 24px;background:#fff;text-align:left;font-family:"Merriweather",serif;color:#555}
+  .sub{font-weight:300;color:#777;font-size:11px;margin:0 0 12px;text-transform:none}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+  .tile{position:relative;padding:.5rem;border:1px solid #ddd;border-radius:10px;box-sizing:border-box}
+  .thumb{background:repeating-linear-gradient(-45deg,#eee 0 3px,#fff 3px 6px);height:105px;border-radius:8px}
+  .tile p{margin:.45rem 0 0;line-height:1.17rem;font-size:.81rem;text-transform:lowercase}
+  .title{font-weight:900;display:block}
+  .date{opacity:.5;font-size:85%}
+  .excerpt{display:block;margin-top:.2rem}
+  .tags{font-style:italic;opacity:.5;display:block;margin-top:.1rem}
+  .arrow{position:absolute;top:.6rem;right:.6rem;width:1.5rem;height:1.5rem;border-radius:50%;background:rgba(255,255,255,.85);color:#888;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+</style></head>
+<body>
+<p class="sub">archive.thumblist — the canonical project tile. 1px border + 10px radius + inner 8px thumbnail.</p>
+<div class="grid">
+  <div class="tile"><div class="thumb"></div><span class="arrow">↗</span>
+    <p><span class="title">linux sysadmin</span><span class="excerpt">managing and maintaining linux servers (<span class="date">2026</span>)</span><span class="tags">web development, docker</span></p>
+  </div>
+  <div class="tile"><div class="thumb"></div><span class="arrow">↗</span>
+    <p><span class="title">lpu labs</span><span class="excerpt">cloud lab platform for students (<span class="date">2026</span>)</span><span class="tags">web development, docker</span></p>
+  </div>
+  <div class="tile"><div class="thumb"></div><span class="arrow">↗</span>
+    <p><span class="title">dadscloud</span><span class="excerpt">india-based alternative to aws/gcp (<span class="date">2024</span>)</span><span class="tags">infrastructure</span></p>
+  </div>
+</div>
+</body></html>

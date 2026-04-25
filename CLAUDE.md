@@ -25,6 +25,23 @@ There is no build step, no linter, and no test suite.
 - **`css/styles.css`** — single shared stylesheet (Merriweather font, lowercase text-transform globally)
 - **`js/rv.js`** — responsive video iframe height adjustment
 - **`js/cfme.js`** — float correction for `.media` containers with `.item-halfwidth` children; runs on load and resize
+- **`design-system/`** — the canonical brand/design-system bundle for this portfolio. Read this before making any visual change. Key files:
+  - `design-system/README.md` — handoff bundle overview
+  - `design-system/project/README.md` — full visual + content rules (colors, type, spacing, voice, iconography)
+  - `design-system/project/colors_and_type.css` — design tokens (CSS custom properties)
+  - `design-system/project/SKILL.md` — fast-orientation summary
+  - `design-system/project/reference/` — read-only snapshot of upstream pages; **do not edit**, treat as ground truth
+  - `design-system/project/ui_kits/portfolio/` — JSX recreation of the components
+
+## Design system rules (summary)
+
+- Greyscale only. The only chromatic accents allowed are `#fe9` (highlighter yellow, `.highlight`) and `#fb0` (gold, `.featured_post`). **No blue, green, red, or gradient anywhere.**
+- No emoji in rendered copy. Use Unicode arrows (`→`, `↗`, `↑`, `▼`/`▲`) and the inline SVGs in `design-system/project/ui_kits/portfolio/Icons.jsx`.
+- `border-radius` only at `0`, `8px` (thumbnail image), `10px` (thumblist tile / drawer bottom), or `50%` (lock badge). Use `0` by default.
+- Animation: almost none. Drawer `max-height 0.4s`, footer fade `0.6s`, link hover `0.3s`, thumblist arrow `0.2s`. **No shimmer, parallax, or scroll-driven effects.**
+- One shadow exists: `0 2px 8px rgba(0,0,0,.08)` on the top-slider drawer only.
+- Body ink is `#555`, never `#000` or `#333` (those are reserved for `:active` and infobox labels).
+- The resume page (`resume.html`) is the **one** page allowed its own micro-system (Instrument Serif + Inter + Caveat). Do not extend that escape hatch elsewhere.
 
 ## Conventions
 

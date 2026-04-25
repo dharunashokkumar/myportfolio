@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Borders & rules</title>
+<style>
+  body{margin:0;padding:18px 24px;background:#fff;text-transform:none;text-align:left;font-family:"Merriweather",serif;color:#555}
+  .sub{font-weight:300;color:#777;font-size:11px;margin:0 0 14px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .ex{padding:0 0 10px}
+  .ex h4{font-family:monospace;font-size:10px;color:#999;margin:0 0 8px;letter-spacing:.04em}
+  hr{margin:0;border:none}
+  .hr-solid{border-top:6px solid #000}
+  .hr-dotted{border-top:6px dotted #000}
+  .hr-hair{border-top:1px solid #ddd}
+  .hr-quote{border-left:1px solid #ccc;padding-left:1rem;font-weight:300;font-size:12px;font-style:italic}
+  a.lnk{color:#555;border-bottom:1px dotted #555;text-decoration:none;padding:0 2px}
+  a.ext{border-bottom:1px solid #555}
+</style></head>
+<body>
+<p class="sub">hairline borders + thick rules. the 6px hr is the most graphic element in the system.</p>
+<div class="row">
+  <div class="ex"><h4>hr · 6px solid black</h4><hr class="hr-solid"></div>
+  <div class="ex"><h4>hr.dotted · 6px dotted black</h4><hr class="hr-dotted"></div>
+  <div class="ex"><h4>card border · 1px solid #ddd</h4><hr class="hr-hair"></div>
+  <div class="ex"><h4>blockquote · 1px left #ccc</h4><div class="hr-quote">restraint is the rule.</div></div>
+  <div class="ex"><h4>a · 1px dotted #555</h4><a class="lnk" href="#">internal link</a></div>
+  <div class="ex"><h4>a[href*="//"] · 1px solid #555</h4><a class="lnk ext" href="https://x">external link</a></div>
+</div>
+</body></html>

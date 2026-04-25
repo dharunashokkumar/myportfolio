@@ -1,0 +1,126 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Top-slider drawer</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; text-transform: lowercase; }
+  body {
+    font-family: "Merriweather", serif;
+    color: #555;
+    font-weight: 300;
+    font-size: .81rem;
+    line-height: 1.395rem;
+    min-height: 340px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+  }
+
+  /* faint in-page page so the drawer reads in context, not floating */
+  .page {
+    max-width: 36rem;
+    margin: 3.2rem auto 0;
+    text-align: left;
+    padding: 0 2rem;
+  }
+  .page h1 { font-size: .81rem; font-weight: 900; margin: 0 0 .9rem; text-align: center; color:#555;}
+  .page p  { margin: 1rem 0; font-size: .81rem; line-height: 1.395rem; color:#555; }
+  .page a  { color: inherit; padding: 0 .1125rem; border-bottom: 1px dotted #555; text-decoration: none; }
+
+  /* the slider itself — open, docked */
+  .top-slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    font-family: "Merriweather", serif;
+  }
+  .slider-content {
+    background: #e8e8e8;
+    padding: 1.1rem 1.5rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    text-align: center;
+  }
+  .slider-content p {
+    font-size: .78rem;
+    line-height: 1.5;
+    color: #555;
+    margin: 0 auto .9rem;
+    font-weight: 300;
+  }
+  .slider-btn {
+    display: inline-block;
+    font-family: "Merriweather", serif;
+    font-size: .72rem;
+    color: #555;
+    background: none;
+    border: 1px solid #555;
+    padding: .4rem 1rem;
+    text-transform: lowercase;
+  }
+  .slider-tab {
+    position: relative;
+    background: #e8e8e8;
+    padding: .28rem 1rem .3rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    border-radius: 0 0 10px 10px;
+    font-size: .62rem;
+    color: #666;
+    margin-top: -1px;
+  }
+  .tab-tux {
+    position: absolute;
+    left: .25rem;
+    top: -7px;
+    width: 22px;
+    height: 32px;
+  }
+  .tab-arrow { font-size: .55rem; color: #888; }
+
+  /* annotation — kept tiny + offset so it doesn't compete */
+  .annot {
+    position: absolute;
+    right: 1rem;
+    bottom: .6rem;
+    font-family: monospace;
+    font-size: 9.5px;
+    color: #999;
+    letter-spacing: .04em;
+    text-transform: none;
+  }
+</style></head>
+<body>
+  <div class="top-slider">
+    <div class="slider-content">
+      <p>i am currently exploring all 765 linux foundation projects. want to see what i've found so far?</p>
+      <a class="slider-btn">explore it</a>
+    </div>
+    <div class="slider-tab">
+      <svg class="tab-tux" viewBox="0 0 100 140">
+        <ellipse cx="50" cy="90" rx="32" ry="38" fill="#222"/>
+        <ellipse cx="50" cy="96" rx="22" ry="26" fill="#f6f6f4"/>
+        <circle  cx="50" cy="48" r="24" fill="#222"/>
+        <ellipse cx="50" cy="52" rx="16" ry="14" fill="#f6f6f4"/>
+        <circle  cx="43" cy="45" r="4" fill="#fff"/>
+        <circle  cx="44" cy="45" r="2" fill="#111"/>
+        <circle  cx="57" cy="45" r="4" fill="#fff"/>
+        <circle  cx="58" cy="45" r="2" fill="#111"/>
+        <path    d="M44 55 Q50 64 56 55 Q50 61 44 55Z" fill="#f4a623"/>
+        <ellipse cx="38" cy="128" rx="11" ry="5" fill="#f4a623"/>
+        <ellipse cx="62" cy="128" rx="11" ry="5" fill="#f4a623"/>
+      </svg>
+      <span>push me up!</span>
+      <span class="tab-arrow">▲</span>
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>dharun ashokkumar</h1>
+    <p>software developer and open source contributor from india. i build things that solve real problems — from <a>cloud lab platforms</a> to <a>linux system administration</a>.</p>
+    <p>see my <span style="background:#fe9;padding:.1125rem"><a>open source contributions</a></span> here.....</p>
+  </div>
+
+  <span class="annot">.top-slider · open state · merriweather 300 / 13px · #e8e8e8</span>
+</body></html>

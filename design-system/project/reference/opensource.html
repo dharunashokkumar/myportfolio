@@ -191,21 +191,15 @@
       .pr-state {
         font-size: 0.68rem;
         text-transform: lowercase;
-        padding: 0.05rem 0.35rem;
-        color: #555;
-        background: #eee;
       }
       .pr-state-merged {
-        background: #fb0;
-        color: #fff;
+        color: #7c3aed;
       }
       .pr-state-open {
-        background: #fe9;
-        color: #555;
+        color: #1a7f37;
       }
       .pr-state-closed {
-        background: #eee;
-        color: #555;
+        color: #cf222e;
       }
       .repo-name a {
         color: #333;
@@ -242,12 +236,19 @@
         flex-shrink: 0;
       }
       .repo-date {
+        font-family: monospace;
         font-size: 0.68rem;
-        opacity: 0.5;
       }
-      /* skeleton loading — solid placeholder, no gradient/animation */
+      /* skeleton loading */
       .skeleton {
-        background: #eee;
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        border-radius: 3px;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
       }
       .skeleton-stat {
         height: 3.5rem;
@@ -262,9 +263,9 @@
         max-width: 36rem;
         margin: 2rem auto;
         padding: 1rem;
-        border: 1px solid #ccc;
-        background: #eee;
-        color: #555;
+        border: 1px solid #e8c4c4;
+        background: #fef5f5;
+        color: #944;
         font-size: 0.78rem;
         text-align: center;
       }
@@ -407,12 +408,12 @@
 
   function getStatusIcon(status) {
     if (status === 'merged') {
-      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M5 3.5a2.5 2.5 0 1 1 1 2v2.086a2.5 2.5 0 1 1-1 0V5.5a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 1.5-1.5V8h3.586a2.5 2.5 0 1 1 0 1H6.5v1.586a2.5 2.5 0 1 1-1 0V8.5A2.5 2.5 0 0 1 5 3.5Zm6.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>';
+      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="#7c3aed" d="M5 3.5a2.5 2.5 0 1 1 1 2v2.086a2.5 2.5 0 1 1-1 0V5.5a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 1.5-1.5V8h3.586a2.5 2.5 0 1 1 0 1H6.5v1.586a2.5 2.5 0 1 1-1 0V8.5A2.5 2.5 0 0 1 5 3.5Zm6.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>';
     }
     if (status === 'open') {
-      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>';
+      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#1a7f37"/></svg>';
     }
-    return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>';
+    return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#cf222e"/></svg>';
   }
 
   function renderPullRequests(prs) {

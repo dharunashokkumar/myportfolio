@@ -1,0 +1,224 @@
+/*
+ * Dharun Ashokkumar Portfolio — foundational design tokens
+ * ------------------------------------------------------------------
+ * Sourced from css/styles.css and resume.html in the portfolio repo.
+ * Every value here traces back to a literal value in the source;
+ * nothing is invented. see README.md for usage notes.
+ * ------------------------------------------------------------------
+ */
+
+/* ---- Webfonts --------------------------------------------------- */
+/* Merriweather is used site-wide for body + navigation. */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap");
+
+/* Instrument Serif, Inter, and Caveat are used only by the
+ * editorial "creative resume" page (resume.html).
+ * Keep them out of the base bundle unless you're replicating that page. */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap");
+
+:root {
+  /* ------------------------------------------------------------ */
+  /* COLOR — neutral-only, greyscale world.                       */
+  /* There is no brand "accent" colour; character is carried by   */
+  /* type, layout and imagery, not hue.                           */
+  /* ------------------------------------------------------------ */
+
+  /* surfaces */
+  --bg:            #ffffff;  /* page background. pure white.      */
+  --bg-soft:       #f8f9fa;  /* wiki infobox + contact cards.     */
+  --bg-muted:      #eee;     /* .quick-nav / .disclaimer panels.  */
+  --bg-dim:        #e8e8e8;  /* top-slider drawer + tab.          */
+  --bg-shade:      #ddd;     /* infobox header row.               */
+
+  /* foreground (text + icon) */
+  --fg:            #000;     /* :active / vault h2 heading ink.   */
+  --fg-strong:     #333;     /* wiki infobox label / vault ink.   */
+  --fg:            #555;     /* DEFAULT body copy + nav + link.   */
+  --fg-muted:      #777;     /* contact card sub-copy.            */
+  --fg-dim:        #999;     /* vault link-url, back link grey.   */
+  --fg-ghost:      #bbb;     /* secret-lock icon (heavy opacity). */
+
+  /* borders / rules */
+  --rule:          #000;     /* hr default (6px solid black).     */
+  --rule-soft:     #555;     /* rule-under-headings (timeline).   */
+  --line-strong:   #a2a9b1;  /* wikipedia-style table border.     */
+  --line:          #ccc;     /* blockquote + body links.          */
+  --line-soft:     #ddd;     /* thumblist tile border.            */
+  --line-faint:    #e0e0e0;  /* wiki infobox row seam.            */
+  --line-ghost:    #eee;     /* vault list seam.                  */
+
+  /* accents used as "highlighter" marks only */
+  --hl-yellow:     #fe9;     /* .highlight — marker-pen callout.  */
+  --hl-gold:       #fb0;     /* .featured_post archive flag.      */
+  --ink-tint:      #7e7a7a;  /* social icon default fill.         */
+
+  /* ------------------------------------------------------------ */
+  /* TYPE — Merriweather in two weights: 300 body + 900 heads.    */
+  /* Everything is lowercased by inherited text-transform.        */
+  /* ------------------------------------------------------------ */
+
+  --font-sans:      "Merriweather", sans-serif;  /* yes, it's serif — this is the exact fallback used in source */
+  --font-serif:     "Merriweather", serif;
+  --font-editorial: "Instrument Serif", serif;   /* resume-only */
+  --font-ui:        "Inter", sans-serif;          /* resume-only */
+  --font-hand:      "Caveat", cursive;            /* resume-only, annotations */
+  --font-mono:      monospace;                    /* timeline year column */
+
+  --weight-light: 300;
+  --weight-bold:  900;  /* Merriweather Black — used for h1/h2/h3 + .title */
+
+  /* body size = 0.81rem (≈ 13px at root 16px) */
+  --size-base:    0.81rem;      /* default nav/p/h1/h2/h3/h6/ul  */
+  --size-small:   0.7425rem;    /* .inline-meta, .caption, h6    */
+  --size-micro:   0.72rem;      /* contact card .p               */
+  --size-hero:    clamp(3.5rem, 7vw, 7rem); /* resume hero only  */
+
+  --leading:      1.395rem;     /* locked body line-height       */
+  --leading-tight: 1.17rem;     /* thumblist paragraph           */
+  --rhythm:       1.395rem;     /* vertical rhythm unit          */
+
+  --indent-text:  36rem;        /* measure: <p>, h1, h2, blockquote, ul */
+  --container:    1280px;       /* #container max width          */
+  --container-narrow: 40rem;    /* vault container               */
+
+  /* ------------------------------------------------------------ */
+  /* SPACING — multiples of the line-height (1.395rem).           */
+  /* Note: the codebase barely uses a spacing SCALE. Margins are  */
+  /* tied directly to the line-height so vertical rhythm holds.   */
+  /* ------------------------------------------------------------ */
+  --space-0: 0;
+  --space-1: 0.45rem;   /*  ~ rhythm / 3                    */
+  --space-2: 0.6975rem; /*  ~ rhythm / 2                    */
+  --space-3: 1rem;
+  --space-4: 1.395rem;  /*  one line of rhythm              */
+  --space-5: 1.8rem;
+  --space-6: 2.79rem;   /*  h1/h2/h3 margin-top             */
+  --space-7: 3.6rem;    /*  #content / #header block margin */
+  --space-8: 5.4rem;    /*  #footer top margin              */
+
+  /* ------------------------------------------------------------ */
+  /* RADII — the site is almost entirely orthogonal.              */
+  /* Rounded corners appear in three specific places only.        */
+  /* ------------------------------------------------------------ */
+  --radius-0:   0;         /* default — no radius              */
+  --radius-sm:  8px;        /* thumbnail image inside thumblist */
+  --radius-md:  10px;       /* outer thumblist tile             */
+  --radius-lg:  0 0 10px 10px; /* top-slider drawer curve only  */
+  --radius-circle: 50%;     /* lock badge                       */
+
+  /* ------------------------------------------------------------ */
+  /* EFFECTS — very, very light touch.                            */
+  /* ------------------------------------------------------------ */
+  --shadow-card:  0 2px 8px rgba(0, 0, 0, 0.08); /* top-slider */
+  --hover-bg:     #ccc;           /* link hover swatch          */
+  --opacity-ghost: 0.18;          /* lock icon idle             */
+  --opacity-faint: 0.25;          /* footer idle                */
+  --opacity-soft:  0.5;           /* archive meta / post meta   */
+  --opacity-medium:0.67;          /* caption text               */
+
+  --transition-slow: 0.6s;        /* footer fade                */
+  --transition-base: 0.3s;        /* link hover                 */
+  --transition-fast: 0.2s;        /* thumblist arrow            */
+
+  /* ------------------------------------------------------------ */
+  /* BORDERS — rule weights used in the codebase                  */
+  /* ------------------------------------------------------------ */
+  --border-hr:      6px solid #000;       /* hr default           */
+  --border-hr-thin: 3px solid #000;       /* mobile hr            */
+  --border-link:    1px dotted #555;      /* body link underline  */
+  --border-link-ext:1px solid #555;       /* external link bottom */
+  --border-quote:   1px solid #ccc;       /* blockquote left bar  */
+}
+
+/* ----------------------------------------------------------------
+ * SEMANTIC / ELEMENT BASELINES
+ * ----------------------------------------------------------------
+ * This is the reduced set Dharun's site leans on. Consume via
+ * `@import url("colors_and_type.css");` at the top of your stylesheet.
+ * ---------------------------------------------------------------- */
+html {
+  text-transform: lowercase;   /* non-negotiable site convention */
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-light);
+  font-size: var(--size-base);
+  line-height: var(--leading);
+  margin: 0;
+  text-align: center;  /* yes, centered. the site is a single narrow column. */
+}
+
+em { font-style: italic; }
+strong, b { font-weight: var(--weight-bold); }
+small { font-size: 67%; }
+
+nav, p, h1, h2, h3, h6, ul, ol, blockquote {
+  text-align: left;
+  color: var(--fg);
+  margin: var(--rhythm) auto;
+  max-width: var(--indent-text);
+  font-size: var(--size-base);
+}
+
+h1, h2, h3 {
+  margin-top: var(--space-6);
+  font-weight: var(--weight-bold);
+}
+h3 { font-style: italic; }
+h6, .inline-meta {
+  font-weight: var(--weight-light);
+  opacity: 0.4;
+  font-size: var(--size-small);
+}
+
+blockquote { border-left: var(--border-quote); }
+
+/* text-column callouts */
+.highlight {
+  background-color: var(--hl-yellow);
+  padding: 0.1125rem;
+}
+.featured_post {
+  background-color: var(--hl-gold);
+  color: #fff;
+}
+
+/* link treatment — the *defining* pattern: dotted underline for
+ * internal, solid for external, grey hover wash. */
+a {
+  color: inherit;
+  padding: 0 0.1125rem;
+  border-bottom: var(--border-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+a[href*="//"] { border-bottom-style: solid; }
+a:hover {
+  background: var(--hover-bg);
+  transition: background var(--transition-base);
+  color: var(--fg);
+  border-bottom-style: solid;
+}
+a:active {
+  background-color: var(--hover-bg);
+  color: var(--fg);
+}
+a:link#active_page {
+  background: none;
+  font-weight: var(--weight-bold);
+}
+
+hr {
+  display: block;
+  border: none;
+  border-top: var(--border-hr);
+  margin: 2.7rem auto;
+  max-width: var(--indent-text);
+}
+hr.solid  { border-top-style: solid; }
+hr.dotted { border-top-style: dotted; }
+hr.fullwidth { max-width: inherit; }
