@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Iridescent Tarot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-0: #07080a;
+    --bg-1: #0d0f12;
+    --ink: #d6d8db;
+    --ink-dim: #7a7d83;
+    --silver: #c8cad0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-0); color: var(--ink); font-family: "Cormorant Garamond", serif; min-height: 100vh; }
+  body {
+    background:
+      radial-gradient(ellipse at 50% 0%, #14161a 0%, #08090c 55%, #04050700 100%),
+      radial-gradient(ellipse at 50% 110%, #101216 0%, #06070900 60%),
+      #050608;
+    overflow-x: hidden;
+  }
+
+  header {
+    text-align: center;
+    padding: 56px 24px 24px;
+    position: relative;
+  }
+  header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 44px;
+    letter-spacing: 0.18em;
+    margin: 0;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+  header .rule {
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--silver), transparent);
+    margin: 18px auto;
+    opacity: 0.5;
+  }
+  header p {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  /* —— GRID —— */
+  .deck {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 28px;
+    padding: 40px clamp(24px, 5vw, 96px) 96px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1200px) { .deck { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 820px)  { .deck { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 540px)  { .deck { grid-template-columns: repeat(2, 1fr); gap: 18px; } }
+
+  /* —— CARD —— */
+  .card {
+    aspect-ratio: 5 / 8;
+    perspective: 1400px;
+    position: relative;
+    cursor: pointer;
+    --mx: 50%;
+    --my: 50%;
+    --shimmer: 0;
+  }
+  .card-inner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+    will-change: transform;
+  }
+  .card.flipped .card-inner { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: linear-gradient(160deg, #15171b 0%, #0a0b0e 60%, #07080a 100%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.05) inset,
+      0 0 0 1px rgba(180,184,196,0.08),
+      0 22px 40px -18px rgba(0,0,0,0.9),
+      0 6px 14px -8px rgba(0,0,0,0.6);
+  }
+  .face.back { transform: rotateY(180deg); }
+
+  /* Opacity-based face culling — mix-blend-mode children break backface-visibility
+     in Chromium, so we swap opacity at the midpoint of the 900ms flip. */
+  .face.front { opacity: 1; transition: opacity 1ms 450ms; }
+  .face.back  { opacity: 0; transition: opacity 1ms 450ms; }
+  .card.flipped .face.front { opacity: 0; }
+  .card.flipped .face.back  { opacity: 1; }
+
+  /* —— SHIMMER STACK (front) —— */
+  .face .iridescence,
+  .face .noise,
+  .face .specular,
+  .face .vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  /* iridescent conic, revealed by shimmer */
+  .face .iridescence {
+    background:
+      conic-gradient(
+        from calc(var(--mx) * 1.4) at var(--mx) var(--my),
+        #ff5fd2 0deg,
+        #5fd8ff 60deg,
+        #c4ff5f 120deg,
+        #ffb35f 180deg,
+        #b25fff 240deg,
+        #5fffd1 300deg,
+        #ff5fd2 360deg
+      );
+    mix-blend-mode: color-dodge;
+    opacity: calc(var(--shimmer) * 0.55);
+    filter: blur(2px) saturate(1.1);
+    transition: opacity 280ms ease;
+  }
+  /* thin sheen band — vertical sweep */
+  .face .sheen {
+    position: absolute;
+    inset: -10%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255,255,255,0.18) 48%,
+      rgba(255,255,255,0.32) 50%,
+      rgba(255,255,255,0.18) 52%,
+      transparent 65%
+    );
+    transform: translateX(calc(-30% + var(--mx) * 0.6));
+    mix-blend-mode: screen;
+    opacity: calc(var(--shimmer) * 0.9);
+    transition: opacity 280ms ease;
+  }
+  /* SVG turbulence noise */
+  .face .noise {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 240px 240px;
+    mix-blend-mode: overlay;
+    opacity: calc(0.07 + var(--shimmer) * 0.18);
+    transition: opacity 280ms ease;
+  }
+  /* specular highlight that tracks mouse */
+  .face .specular {
+    background: radial-gradient(
+      circle 140px at var(--mx) var(--my),
+      rgba(255,255,255,0.55) 0%,
+      rgba(255,255,255,0.18) 22%,
+      rgba(255,255,255,0) 55%
+    );
+    mix-blend-mode: soft-light;
+    opacity: calc(var(--shimmer) * 1);
+    transition: opacity 240ms ease;
+  }
+  /* permanent inner vignette and edge */
+  .face .vignette {
+    background:
+      radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0,0,0,0.5) 100%),
+      linear-gradient(180deg, rgba(255,255,255,0.04), transparent 12%, transparent 88%, rgba(0,0,0,0.35));
+    z-index: 6;
+  }
+
+  /* —— FRONT CONTENT —— */
+  .face .content {
+    position: absolute;
+    inset: 0;
+    padding: 14px 14px 16px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    z-index: 2;
+    color: var(--silver);
+  }
+  .border-frame {
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(200,202,208,0.22);
+    border-radius: 4px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .border-frame::before, .border-frame::after {
+    content: "";
+    position: absolute;
+    width: 8px; height: 8px;
+    border: 1px solid rgba(200,202,208,0.45);
+  }
+  .border-frame::before { top: -4px; left: -4px; border-right: 0; border-bottom: 0; }
+  .border-frame::after  { bottom: -4px; right: -4px; border-left: 0; border-top: 0; }
+
+  .roman {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-align: center;
+    color: rgba(200,202,208,0.7);
+  }
+  .illus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+  }
+  .illus svg {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: visible;
+  }
+  .illus svg * {
+    stroke: var(--silver);
+    fill: none;
+    stroke-width: 0.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .illus svg .fill { fill: var(--silver); stroke: none; }
+  .illus svg .dim  { stroke: rgba(200,202,208,0.45); }
+  .illus svg .faint { stroke: rgba(200,202,208,0.25); }
+
+  .name {
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1.4vw, 20px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--silver);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .name .the {
+    display: block;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.55em;
+    letter-spacing: 0.4em;
+    color: rgba(200,202,208,0.6);
+    margin-bottom: 4px;
+  }
+
+  /* —— BACK FACE —— */
+  .face.back {
+    background: linear-gradient(160deg, #0d0f12 0%, #07080a 100%);
+  }
+  .back .back-content {
+    position: absolute;
+    inset: 0;
+    padding: 22px 20px;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 12px;
+    color: var(--ink);
+    z-index: 2;
+  }
+  .back .roman { padding-top: 4px; }
+  .back .name { font-size: clamp(15px, 1.5vw, 22px); }
+  .back .reading {
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(9px, 0.78vw, 11px);
+    line-height: 1.65;
+    letter-spacing: 0.02em;
+    color: rgba(214,216,219,0.78);
+    align-self: start;
+    margin-top: 6px;
+    text-align: left;
+  }
+  .back .reading::first-line { color: rgba(214,216,219,1); }
+  .back .keywords {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(200,202,208,0.5);
+    align-self: end;
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(200,202,208,0.12);
+  }
+
+  /* shared shimmer on back too, dimmer */
+  .face.back .iridescence { opacity: calc(var(--shimmer) * 0.35); }
+  .face.back .specular    { opacity: calc(var(--shimmer) * 0.6); }
+  .face.back .sheen       { opacity: calc(var(--shimmer) * 0.5); }
+
+  /* hover lift */
+  .card:hover .card-inner { transform: translateY(-4px) rotateY(0); }
+  .card.flipped:hover .card-inner { transform: translateY(-4px) rotateY(180deg); }
+
+  footer {
+    text-align: center;
+    padding: 0 24px 60px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  footer button {
+    background: transparent;
+    border: 1px solid rgba(200,202,208,0.2);
+    color: var(--ink);
+    padding: 10px 22px;
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 200ms, border-color 200ms;
+  }
+  footer button:hover {
+    background: rgba(200,202,208,0.06);
+    border-color: rgba(200,202,208,0.4);
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Iridescent Tarot</h1>
+    <span class="rule"></span>
+    <p>twelve cards · click to draw</p>
+  </header>
+
+  <main class="deck" id="deck"></main>
+
+  <footer>
+    <button id="reset">Reset deck</button>
+  </footer>
+
+<script>
+const CARDS = [
+  {
+    roman: "I",
+    name: "The Mirror",
+    keywords: "reflection · self · echo",
+    reading: "What you see, sees you. The Mirror asks for honest looking. Nothing it returns is invented — only sharpened. Sit with what reflects, even briefly. The image will not last, but the recognition can.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="50" cy="70" rx="28" ry="40"/>
+        <ellipse cx="50" cy="70" rx="22" ry="34" class="dim"/>
+        <path d="M50 30 v80" class="faint"/>
+        <circle cx="50" cy="50" r="2" class="fill"/>
+        <circle cx="50" cy="90" r="2" class="fill"/>
+        <path d="M22 70 q28 -22 56 0" class="faint"/>
+        <path d="M22 70 q28 22 56 0" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "II",
+    name: "The Thread",
+    keywords: "fate · connection · pull",
+    reading: "A single line runs through every choice you made today. Follow it back and it has no beginning; follow it forward and it has no end. The Thread is not destiny — it is continuity. You are tethered to someone right now.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M20 20 C 30 60, 70 60, 80 20 C 70 80, 30 80, 20 120 C 30 100, 70 100, 80 120"/>
+        <circle cx="20" cy="20" r="2.4" class="fill"/>
+        <circle cx="80" cy="120" r="2.4" class="fill"/>
+        <circle cx="50" cy="70" r="1.6" class="fill"/>
+        <path d="M50 25 v90" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "III",
+    name: "The Tide",
+    keywords: "change · feeling · return",
+    reading: "The Tide does not ask permission. It removes what was loose and leaves what was rooted. Whatever feeling has crested this week, expect its opposite by next. Both are accurate. Neither is final.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M10 60 Q 25 50, 40 60 T 70 60 T 100 60"/>
+        <path d="M10 75 Q 25 65, 40 75 T 70 75 T 100 75" class="dim"/>
+        <path d="M10 90 Q 25 80, 40 90 T 70 90 T 100 90" class="faint"/>
+        <circle cx="74" cy="30" r="14"/>
+        <circle cx="78" cy="26" r="11" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "IV",
+    name: "The Spire",
+    keywords: "ambition · solitude · height",
+    reading: "You have built taller than you are willing to live. The view is real. So is the wind. The Spire warns that to climb further you must consent to be smaller, alone, and visible. Choose two.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M50 15 L 38 115 L 62 115 Z"/>
+        <path d="M44 60 L 56 60" class="dim"/>
+        <path d="M42 80 L 58 80" class="dim"/>
+        <path d="M40 100 L 60 100" class="dim"/>
+        <circle cx="50" cy="20" r="2" class="fill"/>
+        <path d="M20 115 L 80 115"/>
+        <path d="M28 122 L 72 122" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "V",
+    name: "The Hollow",
+    keywords: "void · capacity · listening",
+    reading: "Emptiness here is not absence — it is room. The Hollow appears when you have been carrying too much to receive anything new. Set something down. The next thing will not arrive into a full hand.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <circle cx="50" cy="70" r="34"/>
+        <circle cx="50" cy="70" r="26" class="dim"/>
+        <circle cx="50" cy="70" r="18" class="faint"/>
+        <circle cx="50" cy="70" r="10" class="faint"/>
+        <circle cx="50" cy="70" r="3" class="fill"/>
+      </svg>`
+  },
+  {
+    roman: "VI",
+    name: "The Lantern",
+    keywords: "guidance · solitude · small light",
+    reading: "Not enough to see the road — only enough to see the next step. The Lantern is patient with that. It does not promise the destination. It promises that you will not move in total darkness.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M50 18 L 50 32" />
+        <rect x="36" y="32" width="28" height="6"/>
+        <path d="M38 38 L 38 88 L 62 88 L 62 38"/>
+        <path d="M44 38 L 44 88" class="faint"/>
+        <path d="M56 38 L 56 88" class="faint"/>
+        <rect x="36" y="88" width="28" height="6"/>
+        <circle cx="50" cy="63" r="6" class="fill"/>
+        <circle cx="50" cy="63" r="14" class="faint"/>
+        <circle cx="50" cy="63" r="22" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "VII",
+    name: "The Knot",
+    keywords: "tension · pause · untying",
+    reading: "What is tangled was once two clean lines. The Knot is not punishment for haste; it is evidence of effort. Pull gently. The opposite of patience here is not speed — it is severance.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M30 50 C 30 70, 70 70, 70 50 C 70 30, 30 30, 30 50 Z"/>
+        <path d="M30 90 C 30 70, 70 70, 70 90 C 70 110, 30 110, 30 90 Z"/>
+        <path d="M30 50 L 70 90" />
+        <path d="M70 50 L 30 90" />
+        <circle cx="50" cy="70" r="2" class="fill"/>
+      </svg>`
+  },
+  {
+    roman: "VIII",
+    name: "The Veil",
+    keywords: "threshold · mystery · between",
+    reading: "Something has been kept from you, and not unkindly. The Veil is the courtesy of unfinished knowing. When it lifts you will not be surprised — only confirmed. Until then, stop pressing on the fabric.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M20 20 Q 35 30 50 22 Q 65 30 80 20 L 80 115 L 20 115 Z"/>
+        <path d="M30 28 L 30 115" class="faint"/>
+        <path d="M40 26 L 40 115" class="faint"/>
+        <path d="M50 22 L 50 115" class="dim"/>
+        <path d="M60 26 L 60 115" class="faint"/>
+        <path d="M70 28 L 70 115" class="faint"/>
+        <circle cx="50" cy="70" r="6" class="fill"/>
+      </svg>`
+  },
+  {
+    roman: "IX",
+    name: "The Crown",
+    keywords: "authority · weight · choice",
+    reading: "Sovereignty is the agreement to be the one who decides. The Crown does not arrive as a gift — it arrives as a question. If you answer yes, the next room you walk into will be quieter than expected.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M22 80 L 30 50 L 42 72 L 50 42 L 58 72 L 70 50 L 78 80 Z"/>
+        <path d="M22 80 L 78 80 L 78 92 L 22 92 Z"/>
+        <circle cx="30" cy="50" r="2.4" class="fill"/>
+        <circle cx="50" cy="42" r="2.8" class="fill"/>
+        <circle cx="70" cy="50" r="2.4" class="fill"/>
+        <path d="M28 86 L 72 86" class="faint"/>
+      </svg>`
+  },
+  {
+    roman: "X",
+    name: "The Seed",
+    keywords: "latency · trust · slow",
+    reading: "Buried things keep working. The Seed has no proof to offer you — only its own stubborn arithmetic of patience. Water it on days you don't believe in it. Especially those days.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <ellipse cx="50" cy="65" rx="14" ry="22"/>
+        <path d="M50 87 L 50 115" class="dim"/>
+        <path d="M50 100 Q 40 105 35 115" class="faint"/>
+        <path d="M50 100 Q 60 105 65 115" class="faint"/>
+        <path d="M50 43 L 50 53" class="faint"/>
+        <path d="M50 65 Q 56 60 56 50" class="dim"/>
+      </svg>`
+  },
+  {
+    roman: "XI",
+    name: "The Compass",
+    keywords: "direction · north · choosing",
+    reading: "The needle is not lying. You have simply been hoping it would point somewhere easier. The Compass is direction without distance — it tells you where, not how far. Step once. Recheck.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <circle cx="50" cy="70" r="32"/>
+        <circle cx="50" cy="70" r="26" class="dim"/>
+        <path d="M50 44 L 54 70 L 50 96 L 46 70 Z" class="fill"/>
+        <path d="M50 38 L 50 44" />
+        <path d="M50 96 L 50 102" />
+        <path d="M18 70 L 24 70" />
+        <path d="M76 70 L 82 70" />
+        <circle cx="50" cy="70" r="2" class="fill"/>
+      </svg>`
+  },
+  {
+    roman: "XII",
+    name: "The Wound",
+    keywords: "vulnerability · entry · healing",
+    reading: "It is also a door. The Wound is where the world got in and where, eventually, you will get out. Do not rush to close it. Light has been using it. So have you.",
+    svg: `
+      <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet">
+        <path d="M50 25 Q 40 70 50 115" />
+        <path d="M50 25 Q 60 70 50 115" />
+        <path d="M50 40 Q 42 50 50 60" class="dim"/>
+        <path d="M50 60 Q 58 70 50 80" class="dim"/>
+        <path d="M50 80 Q 42 90 50 100" class="dim"/>
+        <circle cx="50" cy="70" r="2" class="fill"/>
+      </svg>`
+  },
+];
+
+const deck = document.getElementById("deck");
+
+CARDS.forEach((c, i) => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.idx = i;
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="face front">
+        <div class="border-frame"></div>
+        <div class="content">
+          <div class="roman">${c.roman}</div>
+          <div class="illus">${c.svg}</div>
+          <div class="name"><span class="the">The</span>${c.name.replace(/^The\s+/, '')}</div>
+        </div>
+        <div class="iridescence"></div>
+        <div class="sheen"></div>
+        <div class="noise"></div>
+        <div class="specular"></div>
+        <div class="vignette"></div>
+      </div>
+      <div class="face back">
+        <div class="border-frame"></div>
+        <div class="back-content">
+          <div class="roman">${c.roman}</div>
+          <div class="name"><span class="the">The</span>${c.name.replace(/^The\s+/, '')}</div>
+          <div class="reading">${c.reading}</div>
+          <div class="keywords">${c.keywords}</div>
+        </div>
+        <div class="iridescence"></div>
+        <div class="sheen"></div>
+        <div class="noise"></div>
+        <div class="specular"></div>
+        <div class="vignette"></div>
+      </div>
+    </div>
+  `;
+
+  card.addEventListener("click", () => {
+    card.classList.toggle("flipped");
+  });
+
+  // mouse tracking for shimmer
+  card.addEventListener("pointerenter", () => {
+    card.style.setProperty("--shimmer", "1");
+  });
+  card.addEventListener("pointerleave", () => {
+    card.style.setProperty("--shimmer", "0");
+    card.style.setProperty("--mx", "50%");
+    card.style.setProperty("--my", "50%");
+  });
+  card.addEventListener("pointermove", (e) => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top)  / r.height) * 100;
+    card.style.setProperty("--mx", x + "%");
+    card.style.setProperty("--my", y + "%");
+  });
+
+  deck.appendChild(card);
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  document.querySelectorAll(".card.flipped").forEach(c => c.classList.remove("flipped"));
+});
+</script>
+</body>
+</html>

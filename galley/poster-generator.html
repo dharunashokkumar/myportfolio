@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Gig Poster Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=DM+Serif+Display&family=Abril+Fatface&family=Bungee&family=Rubik+Mono+One&family=Orbitron:wght@500;800&family=Audiowide&family=VT323&family=Major+Mono+Display&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: #111014;
+    color: #e8e7e3;
+    font-family: "Space Mono", ui-monospace, monospace;
+    min-height: 100vh;
+  }
+  .app {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 28px 32px 40px;
+    gap: 28px;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 18px;
+  }
+  header .brand {
+    font: 700 12px/1 "Space Mono", monospace;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e8e7e3;
+  }
+  header .brand small {
+    display: block;
+    margin-top: 6px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.18em;
+    font-size: 10px;
+  }
+  header .crumbs {
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .stage {
+    display: grid;
+    place-items: center;
+  }
+  .poster {
+    width: 620px;
+    height: 868px; /* ~ A2 ratio-ish */
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.05),
+      0 40px 80px rgba(0,0,0,0.55),
+      0 8px 16px rgba(0,0,0,0.4);
+    isolation: isolate;
+  }
+  /* paper grain via SVG filter, applied to children of moods that want it */
+  .grain::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+  .controls {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  button.gen {
+    appearance: none;
+    border: none;
+    background: #e8e7e3;
+    color: #0a0a0a;
+    padding: 16px 30px;
+    font: 700 13px/1 "Space Mono", monospace;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    transition: transform .1s ease;
+  }
+  button.gen:hover { background: #fff; }
+  button.gen:active { transform: translateY(1px); }
+  .tag {
+    font: 500 11px/1 "Space Mono", monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .tag b { color: #fff; font-weight: 700; }
+  .hint {
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* spinning/anim utilities used by some templates */
+  @keyframes slowspin { to { transform: rotate(360deg); } }
+  @keyframes hue { to { filter: hue-rotate(360deg); } }
+  @keyframes drift { 50% { transform: translateY(-3px); } }
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">UNTITLED POSTER LAB<small>v.026 · GIG GENERATOR</small></div>
+    <div class="crumbs" id="crumbs">— · — · —</div>
+  </header>
+
+  <div class="stage">
+    <div class="poster" id="poster"></div>
+  </div>
+
+  <div>
+    <div class="controls">
+      <button class="gen" id="gen">Generate</button>
+      <div class="tag">Layout <b id="tagLayout">—</b></div>
+      <div class="tag">Vibe <b id="tagVibe">—</b></div>
+      <div class="tag">Seed <b id="tagSeed">—</b></div>
+    </div>
+    <p class="hint">each click randomly remixes brutalist, swiss, psychedelic, and y2k tropes</p>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   GIG POSTER GENERATOR
+   - Mixes brutalist, swiss, psychedelic, y2k.
+   - Eight layout TEMPLATES x several VIBES (palette+font+decor) x random copy.
+   ========================================================================= */
+
+const rand = (n) => Math.floor(Math.random() * n);
+const pick = (arr) => arr[rand(arr.length)];
+const chance = (p) => Math.random() < p;
+const between = (a, b) => a + Math.random() * (b - a);
+const shuf = (a) => a.slice().sort(() => Math.random() - 0.5);
+
+/* -------------------- Copy generators -------------------- */
+
+const NAME_A = ['Dead','Holy','Velvet','Toxic','Glass','Iron','Wet','Cold','Lunar','Plastic','Neon','Crystal','Sacred','Raw','Soft','Hard','Wax','Acid','Gold','Black','Future','Eternal','Ghost','Saint','Total','Marble','Concrete','Quiet','Loud','Cherry','Static','Brutal','Tender','False','Slow','Damp','Silent','Bright'];
+const NAME_B = ['Mirror','Saints','Pixel','Engine','Worship','Cathedral','Static','Hymn','Bloom','Ritual','Computer','Mountain','Saturn','Tongue','Witness','Cinema','Ocean','Decade','Magnet','Carnival','Forecast','Garden','Hotel','Mother','Forest','Channel','Wedding','Boyhood','Dialect','Theatre','Stadium','Cassette','Forecast','Vinegar'];
+const NAME_SOLO = ['CASSETTE','VESPER','POLAROID','HALOGEN','TUNDRA','SATURN V','MOTHWING','BICEPS','PEARLDUST','M0THER','GLITTERSPINE','VOX MACHINA','BLUE PERIOD','SEVENTEEN'];
+const VENUES = ['THE BUNKER','CINEMA 4','ELECTRIC BALLROOM','WAREHOUSE 9','THE GARAGE','CAFE OTO','BAR ITALIA','NEW RIVER STUDIOS','THE SHACKLEWELL','CORSICA STUDIOS','MOTH CLUB','THE WAITING ROOM','THE LEXINGTON','MUTUAL AID HALL','PRINTWORKS','HOLLOW PONDS','UNIT 17','RADIO STAR'];
+const CITIES = ['LONDON','BERLIN','BROOKLYN','TOKYO','PARIS','OSAKA','OAKLAND','LISBON','GLASGOW','MARSEILLE','MELBOURNE','MEXICO CITY','SEOUL'];
+const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const MONTHS_RM = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+const DOW = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+const PRESENTERS = ['DIY COLLECTIVE','LATE NIGHT TALES','WET CONCRETE PRESENTS','UNDERWATER FM','SOFT POWER BOOKING','NIGHT ECHO','GHOST CHANNEL','BIG SMOKE','BLANK FORMS'];
+const PRINTERS = ['RISO ED. OF 80','SCREENPRINT / 2 COL','OFFSET / 1 COL','RISO ED. OF 50','DUPLICATOR PRINT'];
+
+function makeBandName() {
+  const k = rand(10);
+  if (k < 4) return (pick(NAME_A) + ' ' + pick(NAME_B)).toUpperCase();
+  if (k < 6) return pick(NAME_SOLO);
+  if (k < 8) return 'THE ' + (pick(NAME_A) + ' ' + pick(NAME_B)).toUpperCase();
+  return (pick(NAME_A) + pick(NAME_B)).toUpperCase();
+}
+function makeSupport(n) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const sk = rand(4);
+    if (sk === 0) out.push(pick(NAME_SOLO));
+    else if (sk === 1) out.push((pick(NAME_A) + ' ' + pick(NAME_B)).toUpperCase());
+    else if (sk === 2) out.push('DJ ' + pick(NAME_SOLO));
+    else out.push((pick(NAME_A) + pick(NAME_B)).toUpperCase());
+  }
+  return out;
+}
+function makeDate() {
+  const d = 1 + rand(28);
+  const m = rand(12);
+  const dow = pick(DOW);
+  return { d, m, dow,
+    iso: '20' + (26 + rand(2)) + '.' + String(m+1).padStart(2,'0') + '.' + String(d).padStart(2,'0'),
+    pretty: dow + ' ' + String(d).padStart(2,'0') + ' ' + MONTHS[m],
+    rm: String(d).padStart(2,'0') + ' ' + MONTHS_RM[m],
+    d2: String(d).padStart(2,'0'),
+    mShort: MONTHS[m],
+    dow,
+  };
+}
+
+/* -------------------- Vibes (palette + font + decor mood) -------------------- */
+
+const VIBES = [
+  /* SWISS */
+  { id:'SWISS·RED',     bg:'#f3efe6', fg:'#0a0a0a', accent:'#d61f1f', sec:'#0a0a0a', sans:'"Inter", system-ui', display:'"Inter", system-ui', mood:'swiss', grain:0.18 },
+  { id:'SWISS·INK',     bg:'#eeeae0', fg:'#111', accent:'#1a3d8f', sec:'#111', sans:'"Space Grotesk"', display:'"Space Grotesk"', mood:'swiss', grain:0.14 },
+  { id:'SWISS·ASH',     bg:'#dcdcd6', fg:'#0d0d0d', accent:'#0d0d0d', sec:'#7a7a72', sans:'"Inter"', display:'"DM Serif Display"', mood:'swiss', grain:0.2 },
+  /* BRUTALIST */
+  { id:'BRUT·XEROX',    bg:'#e8e6df', fg:'#0a0a0a', accent:'#0a0a0a', sec:'#a83a3a', sans:'"Space Mono"', display:'"Space Mono"', mood:'brutal', grain:0.7 },
+  { id:'BRUT·OBSIDIAN', bg:'#0d0d0d', fg:'#ededed', accent:'#ffea00', sec:'#ededed', sans:'"JetBrains Mono"', display:'"JetBrains Mono"', mood:'brutal', grain:0.55 },
+  { id:'BRUT·RED-TAPE', bg:'#f0ebe0', fg:'#0d0d0d', accent:'#c83228', sec:'#0d0d0d', sans:'"VT323"', display:'"VT323"', mood:'brutal', grain:0.6 },
+  /* PSYCH */
+  { id:'PSYCH·SUN',     bg:'#fde4b8', fg:'#3a0f0a', accent:'#e5491a', sec:'#7a216e', sans:'"Abril Fatface"', display:'"Abril Fatface"', mood:'psych', palette:['#e5491a','#7a216e','#f4c430','#1a3d6e','#3a0f0a'], grain:0.25 },
+  { id:'PSYCH·LIME',    bg:'#1a0b2e', fg:'#f7e9c3', accent:'#a8ff3d', sec:'#ff3df0', sans:'"Bungee"', display:'"Bungee"', mood:'psych', palette:['#a8ff3d','#ff3df0','#3dffe5','#f7e9c3'], grain:0.2 },
+  { id:'PSYCH·PEACH',   bg:'#ffd6b8', fg:'#3a0e3a', accent:'#9a1a6e', sec:'#ff7a2a', sans:'"Rubik Mono One"', display:'"Rubik Mono One"', mood:'psych', palette:['#9a1a6e','#ff7a2a','#1a4d8f','#f4c430'], grain:0.3 },
+  /* Y2K */
+  { id:'Y2K·CHROME',    bg:'#070a1a', fg:'#e8f0ff', accent:'#ff3df0', sec:'#3df0ff', sans:'"Orbitron"', display:'"Orbitron"', mood:'y2k' },
+  { id:'Y2K·CANDY',     bg:'#0a1a3f', fg:'#fff', accent:'#ff66cc', sec:'#66e0ff', sans:'"Audiowide"', display:'"Audiowide"', mood:'y2k' },
+  { id:'Y2K·HOLO',      bg:'#0e0014', fg:'#fff', accent:'#b4ffec', sec:'#ff9ee5', sans:'"Major Mono Display"', display:'"Major Mono Display"', mood:'y2k' },
+];
+
+/* -------------------- helpers for poster construction -------------------- */
+
+const escapeHtml = (s) => String(s).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+/* CSS variables block stamped onto every poster */
+function vibeVars(v) {
+  return `
+    --bg:${v.bg};--fg:${v.fg};--ac:${v.accent};--sec:${v.sec};
+    --sans:${v.sans};--display:${v.display};
+  `;
+}
+
+/* SVG curved text */
+function ringText(text, opts={}) {
+  const {r=180, font='inherit', size=22, fill='currentColor', letter=4, cx=200, cy=200, rev=false} = opts;
+  const id = 'p' + Math.random().toString(36).slice(2,8);
+  const sweep = rev ? 0 : 1;
+  const d = `M ${cx-r},${cy} A ${r},${r} 0 1,${sweep} ${cx+r},${cy} A ${r},${r} 0 1,${sweep} ${cx-r},${cy}`;
+  return `
+    <svg viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%;color:${fill};pointer-events:none;">
+      <defs><path id="${id}" d="${d}"/></defs>
+      <text font-family='${font}' font-size="${size}" letter-spacing="${letter}" fill="${fill}">
+        <textPath href="#${id}" startOffset="0">${escapeHtml(text)}</textPath>
+      </text>
+    </svg>`;
+}
+
+/* -------------------- TEMPLATES -------------------- */
+
+const TEMPLATES = [];
+
+/* T1 SWISS STACK ----------------------------------------------------------- */
+TEMPLATES.push({ id:'SWISS·STACK', render(c, v) {
+  const nameParts = c.name.split(' ');
+  const big = nameParts.length === 1
+    ? `<div class="bn">${c.name}</div>`
+    : nameParts.map((w,i)=>`<div class="bn">${w}</div>`).join('');
+  const support = c.support.length
+    ? `<div class="sup">w/ ${c.support.join(' · ')}</div>` : '';
+  const align = chance(0.4) ? 'right' : 'left';
+  return `
+  <style>
+    .swiss-stack { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      padding:54px 48px 40px; font-family:var(--sans); display:grid;
+      grid-template-rows:auto 1fr auto; }
+    .swiss-stack .rule { height:1px; background:var(--fg); }
+    .swiss-stack .top { display:flex; justify-content:space-between; padding-bottom:14px; border-bottom:1px solid var(--fg); font:700 10px/1 var(--sans); letter-spacing:.22em; text-transform:uppercase; }
+    .swiss-stack .top em { color:var(--ac); font-style:normal; }
+    .swiss-stack .main { display:flex; flex-direction:column; justify-content:center; padding:36px 0; text-align:${align}; }
+    .swiss-stack .bn { font:900 ${nameParts.length>2?108:128}px/0.88 var(--display);
+      letter-spacing:-0.04em; text-transform:uppercase; }
+    .swiss-stack .bn:nth-child(2) { color:var(--ac); }
+    .swiss-stack .sup { margin-top:30px; font:700 14px/1.3 var(--sans); letter-spacing:.18em; text-transform:uppercase; max-width:80%; ${align==='right'?'margin-left:auto;':''} }
+    .swiss-stack .bot { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; padding-top:14px; border-top:1px solid var(--fg); font:500 11px/1.45 var(--sans); letter-spacing:.16em; text-transform:uppercase; }
+    .swiss-stack .bot b { display:block; font-weight:900; font-size:13px; margin-top:4px; color:var(--ac); }
+    .swiss-stack .num { position:absolute; right:48px; top:54px; font:900 64px/1 var(--display); color:var(--ac); }
+  </style>
+  <div class="swiss-stack">
+    <div class="top"><span>${c.presenter}</span><span>NO. <em>${c.catalog}</em></span></div>
+    <div class="main">${big}${support}</div>
+    <div class="bot">
+      <div>Date<b>${c.date.pretty}</b></div>
+      <div>Venue<b>${c.venue}</b></div>
+      <div>Doors<b>${c.time}</b></div>
+      <div>Tickets<b>${c.price} · ${c.age}</b></div>
+    </div>
+  </div>`;
+}});
+
+/* T2 BRUTALIST BLOCK ------------------------------------------------------- */
+TEMPLATES.push({ id:'BRUT·BLOCK', render(c, v) {
+  const redact = (s) => s.split(' ').map(w => chance(0.18) ? `<span class="rd">${w}</span>` : w).join(' ');
+  const supList = c.support.map(s => `<li>+ ${s}</li>`).join('');
+  return `
+  <style>
+    .brut-block { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); padding:36px; display:grid; grid-template-rows:auto auto 1fr auto; gap:18px; }
+    .brut-block .stamp { display:inline-block; padding:6px 10px; background:var(--fg); color:var(--bg); font:700 11px/1 var(--sans); letter-spacing:.2em; text-transform:uppercase; }
+    .brut-block .row1 { display:flex; justify-content:space-between; align-items:center; }
+    .brut-block .row1 .meta { font:700 10px/1.3 var(--sans); letter-spacing:.18em; text-transform:uppercase; text-align:right; }
+    .brut-block .name { font:700 ${c.name.length>14?80:104}px/0.92 var(--display); letter-spacing:-0.02em; text-transform:uppercase; word-break:break-word; }
+    .brut-block .name .rd { background:var(--fg); color:var(--fg); user-select:none; }
+    .brut-block .ghost { font:700 200px/0.85 var(--display); color:var(--ac); position:absolute; right:-20px; bottom:160px; opacity:.18; transform:rotate(-4deg); pointer-events:none; }
+    .brut-block .info { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; border-top:3px solid var(--fg); border-bottom:3px solid var(--fg); padding:14px 0; font:700 12px/1.3 var(--sans); letter-spacing:.16em; text-transform:uppercase; }
+    .brut-block .info i { font-style:normal; color:var(--sec); }
+    .brut-block ul { list-style:none; padding:0; margin:0; font:700 14px/1.6 var(--sans); letter-spacing:.12em; text-transform:uppercase; }
+    .brut-block ul li::before { content:""; display:inline-block; width:10px; height:10px; background:var(--ac); margin-right:10px; vertical-align:1px; }
+    .brut-block .stripes { position:absolute; right:24px; top:24px; width:90px; height:90px;
+      background: repeating-linear-gradient(45deg, var(--fg) 0 6px, transparent 6px 12px);
+      mix-blend-mode:multiply; opacity:.9; }
+    .brut-block .bar { background:var(--fg); color:var(--bg); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; font:700 14px/1 var(--sans); letter-spacing:.2em; text-transform:uppercase; }
+    .brut-block .bar em { background:var(--ac); color:var(--fg); padding:6px 10px; font-style:normal; }
+    .brut-block .photocopy { position:absolute; inset:18px; border:2px solid var(--fg); pointer-events:none; }
+  </style>
+  <div class="brut-block grain">
+    <div class="photocopy"></div>
+    <div class="stripes"></div>
+    <div class="ghost">${c.date.d2}</div>
+    <div class="row1">
+      <span class="stamp">DO NOT FOLD</span>
+      <div class="meta">${c.presenter}<br/>${c.printer}</div>
+    </div>
+    <div class="name">${redact(c.name)}</div>
+    <ul>${supList}</ul>
+    <div class="info">
+      <div>Date<br/><i>${c.date.iso}</i></div>
+      <div>Venue<br/><i>${c.venue}, ${c.city}</i></div>
+      <div>Doors<br/><i>${c.time}</i></div>
+      <div>Adm<br/><i>${c.price} / ${c.age}</i></div>
+    </div>
+    <div class="bar"><span>ONE NIGHT ONLY</span><em>${c.catalog}</em></div>
+  </div>`;
+}});
+
+/* T3 PSYCH RADIAL ---------------------------------------------------------- */
+TEMPLATES.push({ id:'PSYCH·RADIAL', render(c, v) {
+  const pal = v.palette || [v.accent, v.sec, v.fg];
+  const sun = pal[0], halo = pal[1] || pal[0], spoke = pal[2] || v.fg;
+  const ring1 = ringText(`${c.name} · ${c.name} · ${c.name} · `, {r:268, size:22, fill:v.fg, letter:6, cx:310, cy:434});
+  const ring2 = ringText(`${c.venue} · ${c.date.pretty} · ${c.time} · ${c.price} · `, {r:200, size:16, fill:v.fg, letter:5, cx:310, cy:434, rev:true});
+  const supText = c.support.length ? `<div class="sup">with ${c.support.join(' & ')}</div>` : '';
+  return `
+  <style>
+    .psych-radial { position:absolute; inset:0; background:
+      radial-gradient(circle at 50% 50%, ${halo} 0%, ${sun} 35%, var(--bg) 75%);
+      color:var(--fg); font-family:var(--display); overflow:hidden; }
+    .psych-radial .sun { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:520px; height:520px; border-radius:50%;
+      background:
+        conic-gradient(from 0deg, ${pal.map((p,i)=>`${p} ${i*60}deg, ${spoke} ${i*60+30}deg`).join(', ')}, ${pal[0]} 360deg);
+      filter:saturate(1.05);
+      animation: slowspin 60s linear infinite;
+      mask: radial-gradient(circle, black 60%, transparent 62%);
+    }
+    .psych-radial .core { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:240px; height:240px; border-radius:50%;
+      background: radial-gradient(circle, ${pal[3]||v.fg} 0%, ${sun} 70%);
+      box-shadow: 0 0 0 6px ${v.bg}, 0 0 0 10px ${spoke};
+    }
+    .psych-radial .center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:240px; height:240px; display:grid; place-items:center; text-align:center; padding:24px; }
+    .psych-radial .center .bn { font:400 28px/1 var(--display); color:${v.bg}; text-transform:uppercase; letter-spacing:.04em; }
+    .psych-radial .center .meta { margin-top:8px; font:700 10px/1.4 "Space Mono",monospace; color:${v.bg}; letter-spacing:.2em; text-transform:uppercase; opacity:.8; }
+    .psych-radial .ring { position:absolute; left:50%; top:50%; width:700px; height:700px; transform:translate(-50%,-50%); }
+    .psych-radial .ring.r2 { width:520px; height:520px; }
+    .psych-radial .top { position:absolute; top:30px; left:0; right:0; text-align:center; font:700 11px/1 "Space Mono",monospace; letter-spacing:.3em; text-transform:uppercase; color:var(--fg); }
+    .psych-radial .bot { position:absolute; bottom:30px; left:0; right:0; text-align:center; font:700 11px/1 "Space Mono",monospace; letter-spacing:.3em; text-transform:uppercase; color:var(--fg); }
+    .psych-radial .sup { position:absolute; bottom:62px; left:0; right:0; text-align:center; font:400 18px/1.2 var(--display); color:${v.bg}; text-transform:uppercase; letter-spacing:.06em; }
+    .psych-radial .star {
+      position:absolute; width:22px; height:22px;
+      background: radial-gradient(circle, ${v.bg} 0 30%, transparent 32%),
+                  conic-gradient(from 0deg, transparent 0 22.5deg, ${v.bg} 22.5deg 67.5deg, transparent 67.5deg 112.5deg, ${v.bg} 112.5deg 157.5deg, transparent 157.5deg 202.5deg, ${v.bg} 202.5deg 247.5deg, transparent 247.5deg 292.5deg, ${v.bg} 292.5deg 337.5deg, transparent 337.5deg 360deg);
+      mask: radial-gradient(circle, black 0 60%, transparent 62%);
+      opacity:.7;
+    }
+  </style>
+  <div class="psych-radial grain">
+    <div class="top">⟡ ${c.presenter} ⟡ ${c.printer} ⟡</div>
+    <div class="sun"></div>
+    <div class="ring r1">${ring1}</div>
+    <div class="ring r2">${ring2}</div>
+    <div class="core"></div>
+    <div class="center">
+      <div>
+        <div class="bn">${c.name}</div>
+        <div class="meta">${c.date.pretty}<br/>${c.venue}<br/>${c.city} · ${c.price}</div>
+      </div>
+    </div>
+    ${supText}
+    <div class="star" style="left:62px;top:120px;"></div>
+    <div class="star" style="right:80px;top:90px;"></div>
+    <div class="star" style="left:90px;bottom:160px;"></div>
+    <div class="star" style="right:60px;bottom:200px;"></div>
+    <div class="bot">${c.date.iso} ✦ ${c.age} ✦ no. ${c.catalog}</div>
+  </div>`;
+}});
+
+/* T4 Y2K BLOB -------------------------------------------------------------- */
+TEMPLATES.push({ id:'Y2K·BLOB', render(c, v) {
+  return `
+  <style>
+    .y2k-blob { position:absolute; inset:0; overflow:hidden;
+      background:
+        radial-gradient(circle at 20% 10%, ${v.accent}30 0%, transparent 50%),
+        radial-gradient(circle at 80% 90%, ${v.sec}30 0%, transparent 50%),
+        linear-gradient(180deg, ${v.bg} 0%, #000814 100%);
+      color:var(--fg); font-family:var(--display); }
+    .y2k-blob .blob { position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+      width:520px; height:520px;
+      border-radius: 58% 42% 60% 40% / 45% 55% 45% 55%;
+      background:
+        conic-gradient(from 40deg, #fff 0deg, ${v.accent} 60deg, #1a1a4d 120deg, ${v.sec} 180deg, #fff 240deg, ${v.accent} 300deg, #fff 360deg);
+      filter: blur(1px) saturate(1.2);
+      box-shadow:
+        inset 0 -40px 80px rgba(0,0,0,0.35),
+        inset 0 40px 80px rgba(255,255,255,0.55),
+        0 0 100px ${v.accent}50, 0 0 60px ${v.sec}40;
+      animation: drift 6s ease-in-out infinite;
+    }
+    .y2k-blob .blob::after { content:""; position:absolute; left:18%; top:14%; width:36%; height:22%;
+      background: radial-gradient(ellipse, #fff 0%, transparent 70%); border-radius:50%;
+      opacity:.9; }
+    .y2k-blob .name { position:absolute; left:0; right:0; top:46%; transform:translateY(-50%);
+      text-align:center; font:800 ${c.name.length>14?54:72}px/0.95 var(--display); letter-spacing:0.02em; text-transform:uppercase;
+      background: linear-gradient(180deg, #fff 0%, ${v.accent} 50%, ${v.sec} 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.4);
+      filter: drop-shadow(0 0 10px ${v.accent}80);
+      padding:0 30px;
+    }
+    .y2k-blob .strap { position:absolute; left:50%; top:14%; transform:translateX(-50%);
+      font:500 12px/1 "Space Mono",monospace; letter-spacing:.4em; text-transform:uppercase;
+      color:#fff; padding:8px 16px; border:1px solid rgba(255,255,255,0.4); border-radius:999px;
+      background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
+    .y2k-blob .holo { position:absolute; left:50%; bottom:170px; transform:translateX(-50%);
+      width:80%; height:36px; border-radius:8px;
+      background: linear-gradient(90deg, #ff66cc, #ffcc66, #66ff99, #66ccff, #cc66ff, #ff66cc);
+      background-size: 200% 100%; animation: slide 3s linear infinite;
+      display:flex; align-items:center; justify-content:center; color:#0a0a2a; font:700 12px/1 "Space Mono",monospace; letter-spacing:.3em; }
+    @keyframes slide { to { background-position: -200% 0; } }
+    .y2k-blob .grid { position:absolute; left:0; right:0; bottom:0; height:55%;
+      background: linear-gradient(transparent, rgba(255,255,255,0.04) 50%, transparent),
+                  repeating-linear-gradient(0deg, transparent 0 24px, ${v.sec}40 24px 25px),
+                  repeating-linear-gradient(90deg, transparent 0 24px, ${v.sec}40 24px 25px);
+      mask: linear-gradient(transparent 0%, black 60%);
+      transform: perspective(500px) rotateX(58deg); transform-origin: center top;
+      opacity:.55; }
+    .y2k-blob .info { position:absolute; left:0; right:0; bottom:50px; text-align:center;
+      font:500 13px/1.5 "Space Mono",monospace; letter-spacing:.18em; text-transform:uppercase; color:#fff; opacity:.9; }
+    .y2k-blob .info b { color:${v.accent}; font-weight:700; }
+    .y2k-blob .sparkle { position:absolute; width:18px; height:18px; pointer-events:none;
+      background:
+        linear-gradient(transparent 45%, #fff 45% 55%, transparent 55%),
+        linear-gradient(90deg, transparent 45%, #fff 45% 55%, transparent 55%);
+      filter: drop-shadow(0 0 6px #fff);
+    }
+  </style>
+  <div class="y2k-blob">
+    <div class="grid"></div>
+    <div class="strap">${c.presenter} ✶ ${c.printer}</div>
+    <div class="blob"></div>
+    <div class="name">${c.name}</div>
+    <div class="sparkle" style="left:60px;top:140px;"></div>
+    <div class="sparkle" style="right:70px;top:200px;"></div>
+    <div class="sparkle" style="left:100px;bottom:280px;"></div>
+    <div class="sparkle" style="right:60px;bottom:260px;"></div>
+    <div class="holo">${c.date.iso} · ${c.venue}</div>
+    <div class="info">${c.support.length ? '+ '+c.support.join(' · ')+'<br/>' : ''}
+      <b>${c.date.pretty}</b> · ${c.time} · ${c.price} · ${c.age}<br/>
+      ${c.venue}, ${c.city} · NO. ${c.catalog}
+    </div>
+  </div>`;
+}});
+
+/* T5 DIAGONAL SLASH -------------------------------------------------------- */
+TEMPLATES.push({ id:'DIAG·SLASH', render(c, v) {
+  const angle = chance(0.5) ? -28 : 28;
+  return `
+  <style>
+    .diag { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--display); overflow:hidden; }
+    .diag .name { position:absolute; left:50%; top:50%;
+      transform: translate(-50%,-50%) rotate(${angle}deg);
+      font-size: ${c.name.length>14?120:160}px;
+      line-height:0.85;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform:uppercase;
+      white-space: nowrap;
+      color:var(--ac);
+      text-stroke: 2px var(--fg);
+      -webkit-text-stroke: 2px var(--fg);
+    }
+    .diag .name::after { content:"${c.name}"; position:absolute; left:6px; top:6px;
+      color:transparent; -webkit-text-stroke:2px var(--sec); z-index:-1; }
+    .diag .tl, .diag .tr, .diag .bl, .diag .br { position:absolute; font:700 12px/1.4 "Space Mono",monospace; letter-spacing:.18em; text-transform:uppercase; max-width:200px; }
+    .diag .tl { top:36px; left:36px; }
+    .diag .tr { top:36px; right:36px; text-align:right; }
+    .diag .bl { bottom:36px; left:36px; }
+    .diag .br { bottom:36px; right:36px; text-align:right; }
+    .diag b { display:block; font-weight:900; font-size:14px; color:var(--ac); margin-top:4px; }
+    .diag .stripes { position:absolute; left:0; right:0; bottom:0; height:30px;
+      background: repeating-linear-gradient(90deg, var(--fg) 0 24px, transparent 24px 48px);
+    }
+    .diag .stripes.t { top:0; bottom:auto; }
+  </style>
+  <div class="diag grain">
+    <div class="stripes t"></div>
+    <div class="stripes"></div>
+    <div class="tl">${c.presenter}<b>${c.printer}</b></div>
+    <div class="tr">Date<b>${c.date.pretty}</b></div>
+    <div class="name">${c.name}</div>
+    <div class="bl">${c.support.length?c.support.join('<br/>'):'Solo show'}<b>${c.age}</b></div>
+    <div class="br">${c.venue}<br/>${c.city}<b>${c.price} · ${c.time}</b></div>
+  </div>`;
+}});
+
+/* T6 MEGA DATE ------------------------------------------------------------- */
+TEMPLATES.push({ id:'MEGA·DATE', render(c, v) {
+  return `
+  <style>
+    .mega { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--display); padding:44px; display:grid; grid-template-rows:auto 1fr auto; }
+    .mega .top { display:flex; justify-content:space-between; font:700 11px/1.3 "Space Mono",monospace; letter-spacing:.22em; text-transform:uppercase; }
+    .mega .top em { color:var(--ac); font-style:normal; font-weight:900; }
+    .mega .date { font-size: 460px; line-height:0.78; font-weight:900;
+      letter-spacing:-0.06em; color:var(--ac); position:relative; }
+    .mega .date span { display:block; }
+    .mega .month { position:absolute; right:0; top:30px; font:700 28px/1 var(--display); color:var(--fg); letter-spacing:.14em; text-transform:uppercase; }
+    .mega .dow { position:absolute; left:0; bottom:10px; font:700 22px/1 "Space Mono",monospace; color:var(--sec); letter-spacing:.32em; text-transform:uppercase; }
+    .mega .bot { display:grid; grid-template-columns:1.5fr 1fr; gap:24px; align-items:end; border-top:2px solid var(--fg); padding-top:18px; }
+    .mega .bn { font:900 ${c.name.length>14?42:54}px/0.92 var(--display); letter-spacing:-0.02em; text-transform:uppercase; }
+    .mega .meta { font:700 11px/1.5 "Space Mono",monospace; letter-spacing:.16em; text-transform:uppercase; text-align:right; }
+    .mega .meta b { color:var(--ac); font-weight:900; display:block; font-size:13px; margin-top:2px; }
+    .mega .sup { font:500 13px/1.4 var(--sans); letter-spacing:.12em; text-transform:uppercase; opacity:.8; margin-top:8px; }
+  </style>
+  <div class="mega grain">
+    <div class="top"><span>${c.presenter}</span><span>NO. <em>${c.catalog}</em> · ${c.printer}</span></div>
+    <div class="date">
+      <div class="dow">${c.date.dow}</div>
+      <span>${c.date.d2}</span>
+      <div class="month">${c.date.mShort}<br/>'${String(2026+rand(2)).slice(-2)}</div>
+    </div>
+    <div class="bot">
+      <div>
+        <div class="bn">${c.name}</div>
+        <div class="sup">${c.support.length?'+ '+c.support.join(' · '):''}</div>
+      </div>
+      <div class="meta">${c.venue}<br/>${c.city}<br/><b>${c.time} · ${c.price}</b><b>${c.age}</b></div>
+    </div>
+  </div>`;
+}});
+
+/* T7 GRID CHAOS ------------------------------------------------------------ */
+TEMPLATES.push({ id:'GRID·CHAOS', render(c, v) {
+  // build varied grid cells
+  const cells = shuf([
+    { c:'name', html:`<div class="bn">${c.name}</div>` },
+    { c:'date', html:`<div class="big">${c.date.d2}<small>${c.date.mShort}</small></div>` },
+    { c:'venue', html:`<div class="lbl">Venue</div><div class="med">${c.venue}</div><small>${c.city}</small>` },
+    { c:'time', html:`<div class="lbl">Doors</div><div class="med">${c.time}</div>` },
+    { c:'price', html:`<div class="lbl">Adm</div><div class="med">${c.price}</div><small>${c.age}</small>` },
+    { c:'sup', html:`<div class="lbl">Support</div><div class="sm">${c.support.length?c.support.join('<br/>'):'TBA'}</div>` },
+    { c:'no', html:`<div class="lbl">Cat. no.</div><div class="big">${c.catalog}</div>` },
+    { c:'flag', html:`<div class="flag">▲</div>` },
+  ]);
+  const invertSet = new Set(shuf([0,1,2,3,4,5,6,7]).slice(0, 2 + rand(2)));
+  const cellHtml = cells.map((cell, i) => {
+    const inv = invertSet.has(i) ? 'inv' : '';
+    return `<div class="cell ${cell.c} ${inv}">${cell.html}</div>`;
+  }).join('');
+  return `
+  <style>
+    .grid-chaos { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); padding:20px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 0.7fr 1fr;
+      gap:10px;
+    }
+    .grid-chaos .cell { border:2px solid var(--fg); padding:14px; position:relative; overflow:hidden;
+      display:flex; flex-direction:column; justify-content:center; }
+    .grid-chaos .cell.inv { background:var(--fg); color:var(--bg); }
+    .grid-chaos .name { grid-column: 1 / span 3; }
+    .grid-chaos .name .bn { font:900 ${c.name.length>14?64:88}px/0.9 var(--display); letter-spacing:-0.03em; text-transform:uppercase; }
+    .grid-chaos .date { grid-row: span 2; }
+    .grid-chaos .big { font:900 96px/0.9 var(--display); letter-spacing:-0.03em; }
+    .grid-chaos .big small { display:block; font:700 16px/1 var(--sans); letter-spacing:.2em; margin-top:6px; }
+    .grid-chaos .med { font:900 24px/1 var(--display); letter-spacing:0; margin-top:4px; }
+    .grid-chaos .sm { font:700 13px/1.4 var(--sans); letter-spacing:.12em; text-transform:uppercase; margin-top:4px; }
+    .grid-chaos .lbl { font:700 10px/1 var(--sans); letter-spacing:.22em; text-transform:uppercase; color:var(--ac); }
+    .grid-chaos .cell.inv .lbl { color:var(--ac); }
+    .grid-chaos small { font:500 11px/1.2 var(--sans); letter-spacing:.14em; text-transform:uppercase; margin-top:6px; }
+    .grid-chaos .flag { font-size:80px; line-height:1; color:var(--ac); display:grid; place-items:center; height:100%; }
+    .grid-chaos .cell.inv.flag .flag { color:var(--bg); }
+  </style>
+  <div class="grid-chaos grain">${cellHtml}</div>`;
+}});
+
+/* T8 CONCENTRIC TEXT ------------------------------------------------------- */
+TEMPLATES.push({ id:'CONCENTRIC', render(c, v) {
+  const r1 = ringText(`${c.name} ★ ${c.name} ★ `, {r:280, size:34, fill:v.accent, letter:8, cx:310, cy:434});
+  const r2 = ringText(`${c.venue} · ${c.city} · `, {r:220, size:20, fill:v.fg, letter:6, cx:310, cy:434, rev:true});
+  const r3 = ringText(`${c.date.pretty} · ${c.time} · ${c.price} · ${c.age} · `, {r:160, size:14, fill:v.sec, letter:5, cx:310, cy:434});
+  return `
+  <style>
+    .conc { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--display); overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 50%, ${v.bg} 60%, ${v.accent}20 100%);
+    }
+    .conc .top { position:absolute; top:30px; left:0; right:0; text-align:center;
+      font:700 11px/1 "Space Mono",monospace; letter-spacing:.28em; text-transform:uppercase; }
+    .conc .bot { position:absolute; bottom:30px; left:0; right:0; text-align:center;
+      font:700 11px/1 "Space Mono",monospace; letter-spacing:.28em; text-transform:uppercase; }
+    .conc .center { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:240px; height:240px; border-radius:50%;
+      background:var(--ac); display:grid; place-items:center; text-align:center; padding:24px;
+      box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--ac);
+    }
+    .conc .center .bn { font:900 28px/1 var(--display); color:var(--bg); text-transform:uppercase; letter-spacing:.02em; }
+    .conc .center .meta { font:700 10px/1.4 "Space Mono",monospace; color:var(--bg); margin-top:8px; letter-spacing:.2em; text-transform:uppercase; opacity:.85; }
+    .conc .ring { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
+    .conc .r1 { width:720px; height:720px; animation: slowspin 80s linear infinite; }
+    .conc .r2 { width:560px; height:560px; animation: slowspin 60s linear infinite reverse; }
+    .conc .r3 { width:420px; height:420px; animation: slowspin 40s linear infinite; }
+    .conc .ticks { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:340px; height:340px; border-radius:50%;
+      background:
+        repeating-conic-gradient(from 0deg, var(--fg) 0 1deg, transparent 1deg 30deg);
+      mask: radial-gradient(circle, transparent 49%, black 49%, black 50%, transparent 50%);
+    }
+    .conc .sup { position:absolute; bottom:62px; left:0; right:0; text-align:center; font:500 14px/1.3 var(--sans); letter-spacing:.18em; text-transform:uppercase; opacity:.8; }
+  </style>
+  <div class="conc grain">
+    <div class="top">⊹ ${c.presenter} ⊹ ${c.printer} ⊹</div>
+    <div class="ring r1">${r1}</div>
+    <div class="ring r2">${r2}</div>
+    <div class="ring r3">${r3}</div>
+    <div class="ticks"></div>
+    <div class="center"><div>
+      <div class="bn">${c.name}</div>
+      <div class="meta">${c.date.iso}<br/>${c.time}<br/>NO. ${c.catalog}</div>
+    </div></div>
+    ${c.support.length?`<div class="sup">with ${c.support.join(' · ')}</div>`:''}
+    <div class="bot">${c.date.iso} ✦ ${c.venue} ✦ ${c.age}</div>
+  </div>`;
+}});
+
+/* T9 OVERPRINT TYPE -------------------------------------------------------- */
+TEMPLATES.push({ id:'OVERPRINT', render(c, v) {
+  const x = chance(0.5) ? -6 : 6;
+  const y = chance(0.5) ? -4 : 4;
+  return `
+  <style>
+    .over { position:absolute; inset:0; background:var(--bg); color:var(--fg);
+      font-family:var(--display); padding:40px; display:grid; grid-template-rows:auto 1fr auto; gap:22px; overflow:hidden; }
+    .over .top { display:flex; justify-content:space-between; font:700 10px/1 "Space Mono",monospace; letter-spacing:.22em; text-transform:uppercase; }
+    .over .stage { display:grid; place-items:center; position:relative; }
+    .over .word {
+      font-size: ${c.name.length>14?96:130}px; line-height:0.86;
+      font-weight: 900; letter-spacing:-0.04em; text-transform:uppercase;
+      text-align:center;
+      color: var(--fg);
+      position: relative;
+    }
+    .over .word::before, .over .word::after {
+      content: attr(data-name);
+      position:absolute; inset:0;
+      mix-blend-mode: multiply;
+    }
+    .over .word::before { color: var(--ac); transform: translate(${x}px, ${y}px); }
+    .over .word::after { color: var(--sec); transform: translate(${-x}px, ${-y}px); }
+    .over .bot { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; border-top:2px solid var(--fg); padding-top:14px; font:700 11px/1.4 "Space Mono",monospace; letter-spacing:.16em; text-transform:uppercase; }
+    .over .bot b { color:var(--ac); display:block; font-size:13px; font-weight:900; margin-top:2px; }
+    .over .sup { text-align:center; font:500 16px/1.3 var(--sans); letter-spacing:.14em; text-transform:uppercase; opacity:.85; margin-top:18px; }
+    .over .ticker { position:absolute; left:0; right:0; bottom:50%; transform:translateY(50%);
+      font:700 12px/1 "Space Mono",monospace; letter-spacing:.32em; text-transform:uppercase;
+      color:var(--ac); white-space:nowrap; overflow:hidden; opacity:.5; padding:6px 0; border-top:1px solid currentColor; border-bottom:1px solid currentColor; pointer-events:none; }
+  </style>
+  <div class="over grain">
+    <div class="top"><span>${c.presenter}</span><span>${c.printer}</span></div>
+    <div class="stage">
+      <div class="ticker">${(c.name+' · ').repeat(8)}</div>
+      <div>
+        <div class="word" data-name="${c.name}">${c.name}</div>
+        <div class="sup">${c.support.length?'with '+c.support.join(' · '):'an evening of'}</div>
+      </div>
+    </div>
+    <div class="bot">
+      <div>Date<b>${c.date.pretty}</b></div>
+      <div>Venue<b>${c.venue}</b></div>
+      <div>Adm<b>${c.price} · ${c.age}</b></div>
+    </div>
+  </div>`;
+}});
+
+/* T10 PSYCH MELT ----------------------------------------------------------- */
+TEMPLATES.push({ id:'PSYCH·WAVE', render(c, v) {
+  const pal = v.palette || [v.accent, v.sec, v.fg];
+  const wave = ringText(`★ ${c.name} ★ ${c.name} ★ `, { r:480, size:60, fill:pal[1]||v.accent, letter:6, cx:310, cy:1000 });
+  return `
+  <style>
+    .wave { position:absolute; inset:0; background:
+      linear-gradient(180deg, ${pal[3]||v.fg} 0%, ${pal[0]} 30%, ${pal[1]||v.accent} 60%, ${pal[2]||v.bg} 100%);
+      color:${v.bg}; font-family:var(--display); overflow:hidden; }
+    .wave .stripes { position:absolute; inset:0;
+      background: repeating-linear-gradient(180deg,
+        transparent 0 50px, ${v.bg}30 50px 52px); pointer-events:none; }
+    .wave .moon { position:absolute; left:50%; top:34%; transform:translate(-50%,-50%);
+      width:340px; height:340px; border-radius:50%;
+      background: radial-gradient(circle at 38% 38%, ${pal[3]||'#fff'} 0%, ${pal[2]||v.bg} 60%, ${pal[1]||v.accent} 100%);
+      box-shadow: 0 0 80px ${pal[0]}80, inset -30px -30px 60px ${v.bg}40; }
+    .wave .name { position:absolute; left:0; right:0; top:36%; transform:translateY(-50%);
+      text-align:center; font:400 ${c.name.length>14?52:74}px/1 var(--display); text-transform:uppercase;
+      letter-spacing:.02em; color:${pal[3]||v.bg};
+      text-shadow:
+        3px 0 0 ${pal[0]},
+        -3px 0 0 ${pal[1]||v.accent},
+        0 0 30px ${pal[2]||v.bg};
+    }
+    .wave .info { position:absolute; left:0; right:0; bottom:80px; text-align:center;
+      font:500 13px/1.6 "Space Mono",monospace; letter-spacing:.22em; text-transform:uppercase; color:${v.bg}; }
+    .wave .info b { font-weight:900; }
+    .wave .ribbon { position:absolute; left:-10%; right:-10%; bottom:42%; height:2px; background:${v.bg};
+      transform: rotate(-3deg); opacity:.4; }
+    .wave .ribbon.r2 { bottom:38%; transform: rotate(3deg); }
+    .wave .top { position:absolute; top:30px; left:0; right:0; text-align:center;
+      font:700 11px/1 "Space Mono",monospace; letter-spacing:.32em; text-transform:uppercase; color:${v.bg}; }
+    .wave .bg-text { position:absolute; left:0; right:0; top:0; bottom:0; }
+  </style>
+  <div class="wave">
+    <div class="stripes"></div>
+    <div class="top">⟁ ${c.presenter} ⟁ ${c.date.iso} ⟁</div>
+    <div class="moon"></div>
+    <div class="name">${c.name}</div>
+    <div class="ribbon"></div>
+    <div class="ribbon r2"></div>
+    <div class="bg-text">${wave}</div>
+    <div class="info">
+      ${c.support.length?'+ '+c.support.join(' · ')+'<br/>':''}
+      <b>${c.date.pretty}</b> · ${c.venue}, ${c.city}<br/>
+      ${c.time} · ${c.price} · ${c.age} · No. ${c.catalog}
+    </div>
+  </div>`;
+}});
+
+/* -------------------- Generate poster -------------------- */
+
+function generate() {
+  const name = makeBandName();
+  const supportCount = chance(0.55) ? 1 + rand(3) : 0;
+  const support = makeSupport(supportCount);
+  const venue = pick(VENUES);
+  const city = pick(CITIES);
+  const date = makeDate();
+  const time = pick(['19:30','20:00','20:30','21:00','22:00','DOORS 8','DOORS 9']);
+  const price = chance(0.15) ? 'FREE' : '£' + (6 + rand(22));
+  const age = pick(['18+','21+','ALL AGES']);
+  const catalog = String(rand(999)).padStart(3,'0');
+  const presenter = pick(PRESENTERS);
+  const printer = pick(PRINTERS);
+
+  const vibe = pick(VIBES);
+  const template = pick(TEMPLATES);
+
+  const ctx = { name, support, venue, city, date, time, price, age, catalog, presenter, printer };
+
+  const poster = document.getElementById('poster');
+  poster.style.cssText = vibeVars(vibe);
+  poster.innerHTML = template.render(ctx, vibe);
+
+  document.getElementById('crumbs').textContent =
+    `${vibe.id} · ${template.id} · ${date.iso}`;
+  document.getElementById('tagLayout').textContent = template.id;
+  document.getElementById('tagVibe').textContent = vibe.id;
+  document.getElementById('tagSeed').textContent = Math.random().toString(36).slice(2,8).toUpperCase();
+}
+
+document.getElementById('gen').addEventListener('click', generate);
+generate();
+</script>
+</body>
+</html>

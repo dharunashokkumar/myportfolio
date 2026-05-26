@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Liquid Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: oklch(0.965 0.012 80);          /* warm off-white */
+    --bg-2: oklch(0.945 0.014 78);        /* slightly darker, for grain edge */
+    --ink: oklch(0.18 0.012 260);         /* deep ink, the single dark accent */
+    --ink-soft: oklch(0.30 0.012 260);
+    --hair: oklch(0.85 0.010 80);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "ss01","cv11";
+    -webkit-font-smoothing: antialiased;
+    overflow:hidden;
+    display:grid;
+    place-items:center;
+    /* very subtle vignette / paper feel */
+    background-image:
+      radial-gradient(120% 80% at 50% 40%, transparent 0%, oklch(0.94 0.014 78 / 0.35) 100%);
+  }
+
+  /* ─── chrome / page furniture ─────────────────────────────── */
+  .chrome{
+    position:fixed; inset:0; pointer-events:none;
+    padding: 28px 32px;
+    color: var(--ink-soft);
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    display:flex; justify-content:space-between; align-items:flex-start;
+  }
+  .chrome .mono{ font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.06em; }
+  .chrome .rt{ text-align:right; line-height:1.7; }
+  .chrome b{ color: var(--ink); font-weight:500; }
+
+  .footer{
+    position:fixed; left:0; right:0; bottom: 22px;
+    padding: 0 32px;
+    text-align:center;
+    color: var(--ink-soft);
+    font-family: "Instrument Serif", "Times New Roman", serif;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+  .footer .dot{
+    display:inline-block; width:4px; height:4px; border-radius:50%;
+    background: var(--ink); vertical-align:middle;
+    margin: 0 10px 3px;
+  }
+
+  /* ─── the nav stage ───────────────────────────────────────── */
+  .stage{
+    position:relative;
+    width: min(880px, 92vw);
+    height: 220px;
+    display:grid;
+    place-items:center;
+  }
+
+  /* The goo container clips the filtered blobs */
+  .goo{
+    position:absolute; inset:0;
+    filter: url(#goo);
+    /* will-change keeps the filter cheap during transforms */
+    will-change: filter;
+  }
+
+  .blob{
+    position:absolute;
+    top: 50%;
+    /* CSS var --x drives horizontal anchor in px from center */
+    left: calc(50% + var(--x, 0px));
+    width: var(--size, 116px);
+    height: var(--size, 116px);
+    margin-left: calc(var(--size, 116px) / -2);
+    margin-top:  calc(var(--size, 116px) / -2);
+    border-radius: 50%;
+    background: var(--ink);
+    transition:
+      transform 720ms cubic-bezier(.2,.9,.25,1.15),
+      width 600ms cubic-bezier(.2,.9,.25,1.05),
+      height 600ms cubic-bezier(.2,.9,.25,1.05),
+      margin 600ms cubic-bezier(.2,.9,.25,1.05);
+  }
+
+  /* gentle perpetual wobble so the blob shape feels alive even at rest */
+  .blob.b1{ animation: wob1 7.3s ease-in-out infinite; }
+  .blob.b2{ animation: wob2 8.1s ease-in-out infinite; }
+  .blob.b3{ animation: wob3 6.6s ease-in-out infinite; }
+  .blob.b4{ animation: wob4 7.8s ease-in-out infinite; }
+  @keyframes wob1 { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(2px,-3px) scale(1.03); } }
+  @keyframes wob2 { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(-2px,2px) scale(0.98); } }
+  @keyframes wob3 { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(3px,2px) scale(1.02); } }
+  @keyframes wob4 { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(-3px,-2px) scale(0.99); } }
+
+  /* labels live OUTSIDE the goo container (no filter on text) */
+  .labels{
+    position:absolute; inset:0;
+    pointer-events:none; /* hit-testing handled by blobs */
+  }
+  .item{
+    position:absolute;
+    top:50%; left:50%;
+    transform: translate(-50%, -50%);
+    width: var(--size, 116px);
+    height: var(--size, 116px);
+    margin-left: var(--x, 0px); /* match blob shift */
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+    pointer-events:auto;
+    transition: margin-left 720ms cubic-bezier(.2,.9,.25,1.15);
+  }
+  .item .num{
+    position:absolute;
+    top: 50%; left:50%;
+    transform: translate(-50%, -50%);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--bg);
+    opacity: 0;
+    transition: opacity 380ms ease 80ms, transform 480ms cubic-bezier(.2,.9,.25,1.15) 80ms;
+  }
+  .item .label{
+    position:absolute;
+    top: calc(100% + 22px);
+    left: 50%;
+    transform: translate(-50%, -6px);
+    white-space: nowrap;
+    font-family: "Instrument Serif", "Times New Roman", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    opacity: 0;
+    transition: opacity 420ms ease 120ms, transform 520ms cubic-bezier(.2,.9,.25,1.05) 120ms;
+  }
+  .item .label::before{
+    content:"";
+    position:absolute;
+    left:50%; top:-12px;
+    width:1px; height:8px;
+    background: var(--ink);
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top;
+    transition: transform 360ms ease 140ms;
+  }
+
+  /* ─── separated state ────────────────────────────────────── */
+  .stage.is-open .item{
+    margin-left: calc(var(--x) + var(--spread, 0px));
+  }
+  .stage.is-open .blob{
+    /* shift blobs out to the same spread offsets */
+  }
+  .stage.is-open .b1{ transform: translateX(var(--shift-1, 0px)); }
+  .stage.is-open .b2{ transform: translateX(var(--shift-2, 0px)); }
+  .stage.is-open .b3{ transform: translateX(var(--shift-3, 0px)); }
+  .stage.is-open .b4{ transform: translateX(var(--shift-4, 0px)); }
+
+  .stage.is-open .item .num,
+  .stage.is-open .item .label{ opacity: 1; transform: translate(-50%, 0); }
+  .stage.is-open .item .label::before{ transform: translateX(-50%) scaleY(1); }
+
+  /* hovered item enlarges + others shrink subtly to emphasize */
+  .stage.is-open .item.is-hot ~ .item .num,
+  .stage.is-open .item:not(.is-hot) .num{ opacity: 0.55; }
+  .stage.is-open .item.is-hot .label{ font-size: 28px; }
+  .stage.is-open .item.is-hot .num{ font-size: 11px; }
+
+  .stage.is-open .blob.hot{ width: 138px; height: 138px; margin-left: -69px; margin-top: -69px; }
+  .stage.is-open .blob.cold{ width: 102px; height: 102px; margin-left: -51px; margin-top: -51px; }
+
+  /* the "rest" hint underneath when merged */
+  .hint{
+    position:absolute;
+    bottom: -38px; left: 50%;
+    transform: translateX(-50%);
+    color: var(--ink-soft);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: opacity 300ms ease;
+  }
+  .stage.is-open .hint{ opacity: 0; }
+
+  /* tiny status row above */
+  .above{
+    position:absolute;
+    top: -42px; left: 50%;
+    transform: translateX(-50%);
+    display:flex; align-items:center; gap: 14px;
+    color: var(--ink-soft);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .above .pulse{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--ink);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:.35; transform:scale(1);} 50%{ opacity:1; transform:scale(1.4);} }
+  .above .ln{ width: 28px; height:1px; background: var(--ink); opacity:.25; }
+
+  /* selected pill below */
+  .selected{
+    position:absolute;
+    bottom: -78px; left:50%;
+    transform: translateX(-50%);
+    display:flex; align-items:center; gap:10px;
+    font-family: "Instrument Serif", serif; font-style: italic;
+    color: var(--ink-soft);
+    font-size: 15px;
+    opacity:0;
+    transition: opacity 400ms ease;
+  }
+  .selected.show{ opacity: 1; }
+  .selected b{
+    color: var(--ink); font-style: normal; font-weight: 500;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 5px 10px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- corner chrome -->
+  <div class="chrome">
+    <div>
+      <div class="mono"><b>STUDIO</b> &nbsp;/&nbsp; index</div>
+    </div>
+    <div class="rt mono">
+      <div><b>v 02 · 06</b></div>
+      <div>liquid&nbsp;nav&nbsp;—&nbsp;rev&nbsp;A</div>
+    </div>
+  </div>
+
+  <!-- SVG filter: gaussian blur + alpha threshold = "goo" -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+        <feColorMatrix in="blur" mode="matrix" values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 22 -11" result="goo"/>
+        <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="stage" id="stage">
+
+    <div class="above">
+      <span class="pulse"></span>
+      <span class="ln"></span>
+      <span>navigation</span>
+      <span class="ln"></span>
+    </div>
+
+    <!-- merged blob layer (filter applied here) -->
+    <div class="goo">
+      <span class="blob b1" data-i="0"></span>
+      <span class="blob b2" data-i="1"></span>
+      <span class="blob b3" data-i="2"></span>
+      <span class="blob b4" data-i="3"></span>
+    </div>
+
+    <!-- hit + label layer (no filter) -->
+    <div class="labels" id="labels">
+      <a class="item" href="#home"    data-i="0" data-key="home">
+        <span class="num">01</span>
+        <span class="label">Home</span>
+      </a>
+      <a class="item" href="#work"    data-i="1" data-key="work">
+        <span class="num">02</span>
+        <span class="label">Work</span>
+      </a>
+      <a class="item" href="#notes"   data-i="2" data-key="notes">
+        <span class="num">03</span>
+        <span class="label">Notes</span>
+      </a>
+      <a class="item" href="#contact" data-i="3" data-key="contact">
+        <span class="num">04</span>
+        <span class="label">Contact</span>
+      </a>
+    </div>
+
+    <div class="hint">hover to separate</div>
+
+    <div class="selected" id="selected">
+      <span>currently viewing</span>
+      <b id="sel-name">Home</b>
+    </div>
+
+  </main>
+
+  <div class="footer">
+    four ideas, one shape <span class="dot"></span> until you reach toward them
+  </div>
+
+<script>
+(() => {
+  const stage  = document.getElementById('stage');
+  const items  = [...document.querySelectorAll('.item')];
+  const blobs  = [...document.querySelectorAll('.blob')];
+  const selectedEl = document.getElementById('selected');
+  const selName    = document.getElementById('sel-name');
+
+  // Anchors: blobs sit close enough that the goo filter merges them at rest.
+  // Spacing here is ~64px center-to-center vs 116px diameter → heavy overlap.
+  const CENTERS = [-96, -32, 32, 96]; // px from stage center
+  const SPREAD  = [-58, -20, 20, 58]; // additional outward shift on hover
+
+  // Lay out blobs + items
+  items.forEach((it, i) => {
+    it.style.setProperty('--x', CENTERS[i] + 'px');
+    it.style.setProperty('--spread', SPREAD[i] + 'px');
+  });
+  blobs.forEach((b, i) => {
+    b.style.setProperty('--x', CENTERS[i] + 'px');
+    b.style.setProperty('--shift-' + (i+1), SPREAD[i] + 'px');
+    // assign css var dynamically per blob index
+    b.style.setProperty(`--shift-${i+1}`, SPREAD[i] + 'px');
+  });
+  // We set them all on stage too so the class selectors can use them.
+  stage.style.setProperty('--shift-1', SPREAD[0] + 'px');
+  stage.style.setProperty('--shift-2', SPREAD[1] + 'px');
+  stage.style.setProperty('--shift-3', SPREAD[2] + 'px');
+  stage.style.setProperty('--shift-4', SPREAD[3] + 'px');
+
+  let openTimer = null;
+  const open = () => {
+    clearTimeout(openTimer);
+    stage.classList.add('is-open');
+  };
+  const close = () => {
+    clearTimeout(openTimer);
+    openTimer = setTimeout(() => {
+      stage.classList.remove('is-open');
+      items.forEach(i => i.classList.remove('is-hot'));
+      blobs.forEach(b => { b.classList.remove('hot'); b.classList.remove('cold'); });
+    }, 220);
+  };
+
+  // Hovering anywhere on the stage opens it
+  stage.addEventListener('pointerenter', open);
+  stage.addEventListener('pointerleave', close);
+
+  // Per-item hover emphasis
+  items.forEach((it, i) => {
+    it.addEventListener('pointerenter', () => {
+      open();
+      items.forEach(x => x.classList.remove('is-hot'));
+      it.classList.add('is-hot');
+      blobs.forEach((b, j) => {
+        b.classList.toggle('hot', j === i);
+        b.classList.toggle('cold', j !== i);
+      });
+    });
+    it.addEventListener('pointerleave', () => {
+      // don't strip hot yet; stage leave will handle full close
+    });
+    it.addEventListener('click', (e) => {
+      e.preventDefault();
+      // mark selected
+      items.forEach(x => x.removeAttribute('data-selected'));
+      it.setAttribute('data-selected', 'true');
+      selName.textContent = it.querySelector('.label').textContent;
+      selectedEl.classList.add('show');
+    });
+  });
+
+  // initial selected: Home
+  items[0].setAttribute('data-selected','true');
+  selectedEl.classList.add('show');
+})();
+</script>
+</body>
+</html>
