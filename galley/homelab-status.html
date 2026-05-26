@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>homelab :: status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#efece4;
+    --bg-2:#e8e4d8;
+    --ink:#2a2823;
+    --ink-2:#5a564c;
+    --ink-3:#8a8678;
+    --rule:#cfc9b8;
+    --rule-2:#d9d3c1;
+    --ok:oklch(0.55 0.11 145);
+    --warn:oklch(0.62 0.13 75);
+    --err:oklch(0.55 0.15 25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+  body{
+    font-family:"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+    font-size:13px;
+    line-height:1.45;
+    padding:28px 32px 60px;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+
+  /* subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0 1px, transparent 1px 3px);
+    mix-blend-mode:multiply;
+  }
+
+  .wrap{position:relative; z-index:1; max-width:1320px; margin:0 auto}
+
+  /* ── header ───────────────────────────────────────── */
+  header{
+    display:grid;
+    grid-template-columns: 1fr auto;
+    align-items:end;
+    gap:16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .brand{display:flex; gap:18px; align-items:baseline; flex-wrap:wrap}
+  .brand .host{font-weight:700; letter-spacing:.02em}
+  .brand .host::before{content:"┌─ "; color:var(--ink-3)}
+  .brand .host::after{content:" ─┐"; color:var(--ink-3)}
+  .brand .meta{color:var(--ink-2); font-size:12px}
+  .brand .meta span{margin-right:14px}
+  .brand .meta b{font-weight:500; color:var(--ink)}
+
+  .legend{
+    display:flex; gap:14px; color:var(--ink-2); font-size:12px;
+    align-items:center;
+  }
+  .legend i{font-style:normal}
+  .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:1px}
+  .dot.ok{background:var(--ok)}
+  .dot.warn{background:var(--warn)}
+  .dot.err{background:var(--err)}
+
+  /* ── summary strip ───────────────────────────────── */
+  .summary{
+    display:grid;
+    grid-template-columns: repeat(6,1fr);
+    gap:0;
+    margin:18px 0 22px;
+    border:1px solid var(--rule);
+    background:var(--bg-2);
+  }
+  .summary .cell{
+    padding:10px 14px;
+    border-right:1px solid var(--rule);
+  }
+  .summary .cell:last-child{border-right:none}
+  .summary .k{font-size:11px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.12em}
+  .summary .v{font-size:18px; font-weight:500; margin-top:2px}
+  .summary .v small{font-size:11px; color:var(--ink-2); font-weight:400; margin-left:4px}
+
+  /* ── grid ─────────────────────────────────────────── */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:18px;
+  }
+  @media (max-width: 1100px){ .grid{ grid-template-columns: repeat(2,1fr) } }
+  @media (max-width: 720px){ .grid{ grid-template-columns: 1fr } .summary{grid-template-columns:repeat(2,1fr)} .summary .cell{border-bottom:1px solid var(--rule)} }
+
+  .tile{
+    background:transparent;
+    border:1px solid var(--rule);
+    padding:0;
+    position:relative;
+    display:flex; flex-direction:column;
+  }
+  .tile .bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:8px 12px;
+    border-bottom:1px solid var(--rule);
+    background:var(--bg-2);
+    font-size:12px;
+  }
+  .tile .name{font-weight:700; letter-spacing:.02em}
+  .tile .name .tag{color:var(--ink-3); font-weight:400; margin-left:6px}
+  .tile .state{display:flex; align-items:center; gap:8px; color:var(--ink-2)}
+  .tile .state .pill{
+    border:1px solid var(--rule);
+    padding:1px 7px;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:var(--bg);
+  }
+  .tile.ok .state .pill{ color:var(--ok); border-color:color-mix(in oklch, var(--ok) 35%, var(--rule)) }
+  .tile.warn .state .pill{ color:var(--warn); border-color:color-mix(in oklch, var(--warn) 35%, var(--rule)) }
+  .tile.err .state .pill{ color:var(--err); border-color:color-mix(in oklch, var(--err) 35%, var(--rule)) }
+
+  .tile .body{padding:12px 12px 14px}
+
+  .row{
+    display:grid;
+    grid-template-columns: 84px 1fr auto;
+    gap:10px;
+    align-items:center;
+    padding:3px 0;
+    font-size:12px;
+  }
+  .row .lbl{color:var(--ink-3); text-transform:uppercase; letter-spacing:.1em; font-size:10.5px}
+  .row .val{color:var(--ink); font-variant-numeric:tabular-nums}
+  .row .mid{color:var(--ink-2); font-variant-numeric:tabular-nums}
+
+  /* ascii bars */
+  .ascii-bar{
+    font-family:inherit;
+    color:var(--ink-2);
+    letter-spacing:0;
+    white-space:pre;
+  }
+  .ascii-bar .fill{color:var(--ink)}
+  .tile.warn .ascii-bar .fill{color:var(--warn)}
+  .tile.err  .ascii-bar .fill{color:var(--err)}
+
+  /* sparkline */
+  .spark{
+    font-family:inherit;
+    letter-spacing:1px;
+    color:var(--ink);
+    font-size:14px;
+    line-height:1;
+  }
+  .tile.warn .spark{color:var(--warn)}
+  .tile.err  .spark{color:var(--err)}
+
+  /* footer log */
+  .log{
+    margin-top:26px;
+    border-top:1px dashed var(--rule);
+    padding-top:14px;
+    color:var(--ink-2);
+    font-size:12px;
+  }
+  .log h3{
+    margin:0 0 8px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  .log ul{margin:0; padding:0; list-style:none}
+  .log li{
+    display:grid;
+    grid-template-columns: 78px 70px 1fr;
+    gap:14px;
+    padding:2px 0;
+  }
+  .log li .t{color:var(--ink-3)}
+  .log li .l{color:var(--ink); text-transform:uppercase; font-size:10.5px; letter-spacing:.1em; padding-top:1px}
+  .log li.warn .l{color:var(--warn)}
+  .log li.err .l{color:var(--err)}
+  .log li.ok .l{color:var(--ok)}
+
+  /* footer rule */
+  .rule{
+    color:var(--ink-3);
+    white-space:pre;
+    overflow:hidden;
+    line-height:1;
+    margin:4px 0 0;
+  }
+
+  .footer{
+    margin-top:24px;
+    display:flex; justify-content:space-between;
+    color:var(--ink-3); font-size:11.5px;
+    border-top:1px solid var(--rule);
+    padding-top:10px;
+  }
+  .cursor{display:inline-block; width:7px; height:13px; background:var(--ink); vertical-align:-2px; margin-left:6px; animation:blink 1.05s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="host">basement.lan</div>
+      <div class="meta">
+        <span>kernel <b>6.8.0-49</b></span>
+        <span>load <b>0.34 0.41 0.38</b></span>
+        <span>uptime <b>47d 12h 18m</b></span>
+        <span>tz <b>UTC−05</b></span>
+      </div>
+    </div>
+    <div class="legend">
+      <i><span class="dot ok"></span>up</i>
+      <i><span class="dot warn"></span>degraded</i>
+      <i><span class="dot err"></span>down</i>
+      <i id="clock" style="color:var(--ink);font-variant-numeric:tabular-nums"></i>
+    </div>
+  </header>
+
+  <section class="summary" aria-label="cluster summary">
+    <div class="cell"><div class="k">services</div><div class="v">6<small>/6</small></div></div>
+    <div class="cell"><div class="k">up</div><div class="v">5<small>/6</small></div></div>
+    <div class="cell"><div class="k">avg ping</div><div class="v">14<small>ms</small></div></div>
+    <div class="cell"><div class="k">cpu</div><div class="v">22<small>%</small></div></div>
+    <div class="cell"><div class="k">mem</div><div class="v">61<small>% · 9.8/16 G</small></div></div>
+    <div class="cell"><div class="k">disk</div><div class="v">73<small>% · 2.9/4.0 T</small></div></div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+  <section class="log">
+    <h3>── recent events ──────────────────────────────</h3>
+    <ul>
+      <li class="ok"><span class="t">12:41:08</span><span class="l">[ ok ]</span><span>grafana    · scrape /metrics 200 in 41ms</span></li>
+      <li class="warn"><span class="t">12:39:55</span><span class="l">[warn]</span><span>seafile    · gc queue depth 184 (threshold 150)</span></li>
+      <li class="ok"><span class="t">12:38:12</span><span class="l">[ ok ]</span><span>pi-hole    · blocklist refresh — 184,612 domains</span></li>
+      <li class="err"><span class="t">12:36:01</span><span class="l">[ err]</span><span>jellyfin   · transcoder process exited (137) — restarting</span></li>
+      <li class="ok"><span class="t">12:34:47</span><span class="l">[ ok ]</span><span>immich     · ml worker started — 4 threads</span></li>
+      <li class="ok"><span class="t">12:31:20</span><span class="l">[ ok ]</span><span>vaultwarden· daily backup → /srv/backup/vw_20260517.tar.zst (412 MB)</span></li>
+    </ul>
+  </section>
+
+  <div class="footer">
+    <div>./status --watch --interval=5s<span class="cursor"></span></div>
+    <div>polled 5s ago · next in <span id="next">4</span>s</div>
+  </div>
+
+</div>
+
+<script>
+/* ─── data ─────────────────────────────────────────────────── */
+const services = [
+  {
+    name:"vaultwarden", tag:"password vault",
+    state:"ok", uptime:"32d 04h 11m",
+    ping:9, pingHist:[8,9,7,10,9,8,9,11,9,8,9,10,8,9,9,10,8,9,9,8,9,10,9,8],
+    mem:18, memMB:"288 / 1638 MB",
+    restart:"2026-04-15 02:14",
+    port:":8222", img:"vaultwarden/server:1.32"
+  },
+  {
+    name:"immich", tag:"photo backup",
+    state:"ok", uptime:"12d 19h 02m",
+    ping:14, pingHist:[12,13,15,14,16,18,15,14,13,15,14,17,16,15,14,13,15,16,14,13,14,15,14,14],
+    mem:54, memMB:"2.16 / 4.00 GB",
+    restart:"2026-05-04 09:38",
+    port:":2283", img:"ghcr.io/immich-app/immich-server:v1.118"
+  },
+  {
+    name:"seafile", tag:"file sync",
+    state:"warn", uptime:"6d 11h 47m",
+    ping:22, pingHist:[18,19,21,24,28,31,26,22,25,29,27,30,28,32,29,26,28,30,33,29,31,28,30,27],
+    mem:71, memMB:"1.42 / 2.00 GB",
+    restart:"2026-05-10 17:22",
+    port:":8000", img:"seafileltd/seafile-mc:11.0"
+  },
+  {
+    name:"grafana", tag:"observability",
+    state:"ok", uptime:"47d 12h 18m",
+    ping:6, pingHist:[6,5,6,7,6,5,6,7,6,6,5,6,7,8,6,6,5,7,6,6,5,7,6,6],
+    mem:33, memMB:"672 / 2048 MB",
+    restart:"2026-03-31 23:59",
+    port:":3000", img:"grafana/grafana-oss:11.2"
+  },
+  {
+    name:"pi-hole", tag:"dns sinkhole",
+    state:"ok", uptime:"47d 12h 18m",
+    ping:2, pingHist:[2,3,2,2,3,2,2,3,2,2,2,3,2,2,3,2,2,2,3,2,2,3,2,2],
+    mem:11, memMB:"176 / 1638 MB",
+    restart:"2026-03-31 23:59",
+    port:":53/:80", img:"pihole/pihole:2026.02"
+  },
+  {
+    name:"jellyfin", tag:"media server",
+    state:"err", uptime:"00d 00h 02m",
+    ping:0, pingHist:[18,19,20,22,19,21,24,28,33,41,55,72,98,140,0,0,0,0,0,0,0,0,0,0],
+    mem:0, memMB:"— / 4096 MB",
+    restart:"2026-05-17 12:36",
+    port:":8096", img:"jellyfin/jellyfin:10.9.6"
+  },
+];
+
+/* ─── helpers ──────────────────────────────────────────────── */
+const SPARK = "▁▂▃▄▅▆▇█";
+function spark(arr){
+  const max = Math.max(...arr, 1);
+  const min = Math.min(...arr);
+  const range = Math.max(max - min, 1);
+  return arr.map(v=>{
+    if(v===0) return "·";
+    const i = Math.min(SPARK.length-1, Math.floor(((v-min)/range)*(SPARK.length-1)));
+    return SPARK[i];
+  }).join("");
+}
+function asciiBar(pct, width=18){
+  const filled = Math.round((pct/100)*width);
+  const empty  = width - filled;
+  const f = "█".repeat(filled);
+  const e = "░".repeat(empty);
+  return `<span class="fill">${f}</span>${e}`;
+}
+function stateWord(s){
+  return s==="ok" ? "online" : s==="warn" ? "degraded" : "offline";
+}
+
+/* ─── render ───────────────────────────────────────────────── */
+const grid = document.getElementById("grid");
+grid.innerHTML = services.map(s=>{
+  const pingTxt = s.state==="err" ? "  — ms  (timeout × 6)" :
+    `${String(s.ping).padStart(3,' ')} ms  avg ${(s.pingHist.reduce((a,b)=>a+b,0)/s.pingHist.length).toFixed(1)}`;
+  return `
+  <article class="tile ${s.state}">
+    <div class="bar">
+      <div class="name">${s.name}<span class="tag">· ${s.tag}</span></div>
+      <div class="state">
+        <span>${s.port}</span>
+        <span class="pill"><span class="dot ${s.state}"></span>${stateWord(s.state)}</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="row">
+        <span class="lbl">uptime</span>
+        <span class="mid">since ${s.restart}</span>
+        <span class="val">${s.uptime}</span>
+      </div>
+      <div class="row">
+        <span class="lbl">ping 2m</span>
+        <span class="spark">${spark(s.pingHist)}</span>
+        <span class="val">${s.state==="err" ? "— ms" : s.ping+" ms"}</span>
+      </div>
+      <div class="row">
+        <span class="lbl">memory</span>
+        <span class="ascii-bar">[${asciiBar(s.mem)}]</span>
+        <span class="val">${String(s.mem).padStart(2,' ')}%</span>
+      </div>
+      <div class="row">
+        <span class="lbl">└ rss</span>
+        <span class="mid">${s.memMB}</span>
+        <span class="val"></span>
+      </div>
+      <div class="row">
+        <span class="lbl">image</span>
+        <span class="mid" style="grid-column: 2 / span 2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${s.img}</span>
+      </div>
+    </div>
+  </article>`;
+}).join("");
+
+/* ─── tiny clock + countdown ───────────────────────────────── */
+function pad(n){return String(n).padStart(2,'0')}
+function tick(){
+  const d = new Date();
+  document.getElementById("clock").textContent =
+    `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+tick(); setInterval(tick,1000);
+
+let n = 4;
+setInterval(()=>{ n = n<=0 ? 4 : n-1; document.getElementById("next").textContent = n; },1000);
+</script>
+</body>
+</html>

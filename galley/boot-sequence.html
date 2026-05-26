@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Boot Sequence</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(0.13 0.005 145);
+    --fg: oklch(0.78 0.16 145);
+    --fg-dim: oklch(0.58 0.12 145);
+    --fg-bright: oklch(0.94 0.18 145);
+    --ok: oklch(0.86 0.20 145);
+    --warn: oklch(0.86 0.18 95);
+    --fail: oklch(0.70 0.22 25);
+    --info: oklch(0.80 0.14 220);
+    --muted: oklch(0.45 0.06 145);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #000;
+    color: var(--fg);
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.35;
+    height: 100%;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    display: grid;
+    place-items: stretch;
+  }
+  /* CRT container */
+  .crt {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background:
+      radial-gradient(ellipse at center,
+        oklch(0.18 0.02 145) 0%,
+        oklch(0.10 0.01 145) 60%,
+        oklch(0.04 0.005 145) 100%);
+    overflow: hidden;
+    padding: clamp(16px, 3vw, 48px) clamp(20px, 4vw, 64px);
+  }
+  .crt.with-effects::before {
+    /* scanlines */
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0.22) 3px,
+      rgba(0,0,0,0) 4px
+    );
+    pointer-events: none;
+    z-index: 3;
+    mix-blend-mode: multiply;
+  }
+  .crt.with-effects::after {
+    /* vignette + glow */
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 4;
+  }
+  .screen {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    color: var(--fg);
+    text-shadow: 0 0 1px currentColor, 0 0 6px oklch(0.78 0.16 145 / 0.35);
+    overflow: hidden;
+    white-space: pre;
+    font-variant-ligatures: none;
+    letter-spacing: 0.01em;
+  }
+  .screen .line {
+    white-space: pre-wrap;
+    word-break: break-word;
+    opacity: 0;
+    animation: lineIn 80ms ease-out forwards;
+  }
+  @keyframes lineIn {
+    from { opacity: 0; transform: translateY(2px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* Tag colors */
+  .ts     { color: var(--muted); }
+  .ok     { color: var(--ok); font-weight: 500; }
+  .fail   { color: var(--fail); font-weight: 500; }
+  .warn   { color: var(--warn); font-weight: 500; }
+  .info   { color: var(--info); font-weight: 500; }
+  .dim    { color: var(--fg-dim); }
+  .bright { color: var(--fg-bright); }
+  .muted  { color: var(--muted); }
+  .red    { color: var(--fail); }
+  .label  { color: var(--fg); }
+
+  /* Progress bar line — updates in place */
+  .progress-line .bar {
+    color: var(--fg-bright);
+  }
+  .progress-line .barwrap {
+    color: var(--muted);
+  }
+
+  /* Banner ASCII */
+  .banner {
+    color: var(--fg-bright);
+    text-shadow: 0 0 2px currentColor, 0 0 10px oklch(0.78 0.16 145 / 0.5);
+    margin: 0 0 0.4em 0;
+    line-height: 1.0;
+  }
+
+  /* Login prompt */
+  .login {
+    color: var(--fg-bright);
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    background: var(--fg-bright);
+    vertical-align: -0.15em;
+    margin-left: 2px;
+    box-shadow: 0 0 6px oklch(0.94 0.18 145 / 0.7);
+    animation: blink 1.06s steps(2, start) infinite;
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+
+  /* Controls (small, bottom-right; hidden during playback unless hovered) */
+  .controls {
+    position: fixed;
+    right: 14px;
+    bottom: 12px;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    opacity: 0.35;
+    transition: opacity 180ms ease;
+  }
+  .controls:hover { opacity: 1; }
+  .controls button {
+    background: oklch(0.18 0.01 145 / 0.85);
+    color: var(--fg);
+    border: 1px solid oklch(0.35 0.06 145);
+    padding: 6px 10px;
+    font: inherit;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .controls button:hover {
+    background: oklch(0.28 0.04 145);
+    color: var(--fg-bright);
+    border-color: var(--fg);
+  }
+  .controls button.active {
+    background: oklch(0.30 0.06 145);
+    color: var(--fg-bright);
+  }
+
+  /* Scrollbar hidden but content can overflow during very long boots */
+  .screen::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+  <div class="crt with-effects" id="crt">
+    <div class="screen" id="screen"></div>
+  </div>
+
+  <div class="controls">
+    <button id="btn-replay" title="Restart boot">↻ Replay</button>
+    <button id="btn-speed" title="Cycle speed">1×</button>
+    <button id="btn-crt" class="active" title="Toggle CRT effects">CRT</button>
+  </div>
+
+<script>
+(() => {
+  const screen = document.getElementById('screen');
+  const crt = document.getElementById('crt');
+  const btnReplay = document.getElementById('btn-replay');
+  const btnSpeed = document.getElementById('btn-speed');
+  const btnCrt = document.getElementById('btn-crt');
+
+  // ---------- Helpers ----------
+  let speed = 1; // 1x, 2x, 4x
+  const SPEEDS = [1, 2, 4, 0.5];
+  let bootTimer = null;
+  let cancelTokens = [];
+
+  function sleep(ms) {
+    return new Promise(res => {
+      const t = setTimeout(res, ms / speed);
+      cancelTokens.push(() => clearTimeout(t));
+    });
+  }
+
+  function appendLine(html, cls = '') {
+    const div = document.createElement('div');
+    div.className = 'line ' + cls;
+    div.innerHTML = html;
+    screen.appendChild(div);
+    // Auto-scroll: keep latest visible by trimming top if overflowing
+    while (screen.scrollHeight > screen.clientHeight + 4 && screen.firstChild) {
+      screen.removeChild(screen.firstChild);
+    }
+    return div;
+  }
+
+  // Format kernel-style timestamp: [   12.345678]
+  function ts(t) {
+    const s = t.toFixed(6);
+    const pad = ' '.repeat(Math.max(0, 12 - s.length));
+    return `<span class="ts">[${pad}${s}]</span>`;
+  }
+
+  function tag(kind, label) {
+    const map = {
+      OK:    `[  <span class="ok">OK</span>  ]`,
+      FAIL:  `[<span class="fail">FAILED</span>]`,
+      WARN:  `[ <span class="warn">WARN</span> ]`,
+      INFO:  `[ <span class="info">INFO</span> ]`,
+      DEP:   `[<span class="warn">DEPEND</span>]`,
+      BUSY:  `[ <span class="dim">....</span> ]`,
+    };
+    return (map[kind] || `[      ]`) + (label ? ' ' + label : '');
+  }
+
+  // Animated progress bar line (in-place)
+  async function progressBar({ label, width = 28, duration = 1800, finalTag = 'OK', startPct = 0, stutter = false }) {
+    const line = appendLine('', 'progress-line');
+    const startTime = performance.now();
+    const dur = duration / speed;
+    let pct = startPct;
+    let lastRender = -1;
+
+    function render(p) {
+      const filled = Math.round((width - 2) * p);
+      const empty = (width - 2) - filled;
+      const bar =
+        '<span class="barwrap">[</span>' +
+        '<span class="bar">' + '█'.repeat(filled) + '</span>' +
+        '<span class="dim">' + '·'.repeat(empty) + '</span>' +
+        '<span class="barwrap">]</span>';
+      const pctStr = String(Math.round(p * 100)).padStart(3, ' ') + '%';
+      line.innerHTML = `${label} ${bar} <span class="bright">${pctStr}</span>`;
+    }
+
+    render(pct);
+
+    return new Promise(resolve => {
+      function step() {
+        const now = performance.now();
+        const elapsed = now - startTime;
+        let target = Math.min(1, elapsed / dur);
+        // Optional stutter — pause briefly around 60-70%
+        if (stutter && target > 0.6 && target < 0.72) {
+          target = 0.6 + (target - 0.6) * 0.15;
+        }
+        if (Math.abs(target - lastRender) > 0.005) {
+          render(target);
+          lastRender = target;
+        }
+        if (target < 1) {
+          const id = requestAnimationFrame(step);
+          cancelTokens.push(() => cancelAnimationFrame(id));
+        } else {
+          // Replace final line with tagged completion
+          const okTag =
+            finalTag === 'OK'   ? `[  <span class="ok">OK</span>  ]` :
+            finalTag === 'FAIL' ? `[<span class="fail">FAILED</span>]` :
+            finalTag === 'WARN' ? `[ <span class="warn">WARN</span> ]` : '[      ]';
+          const bar =
+            '<span class="barwrap">[</span>' +
+            '<span class="bar">' + '█'.repeat(width - 2) + '</span>' +
+            '<span class="barwrap">]</span>';
+          line.innerHTML = `${okTag} ${label} ${bar} <span class="bright">100%</span>`;
+          resolve();
+        }
+      }
+      step();
+    });
+  }
+
+  // ---------- Boot script ----------
+  // Original wording — no copying of real systemd/distro messages.
+  // Invented: hostnames, kernel build strings, service names.
+
+  const KERNEL = "Linux version 6.11.4-arboreal-amd64 (build@forge07) (gcc 14.2.0, GNU ld 2.43) #1 SMP PREEMPT_DYNAMIC Tue May 12 03:14:09 UTC 2026";
+  const HOST = "kestrel";
+
+  async function runBoot() {
+    cancelTokens.forEach(fn => fn());
+    cancelTokens = [];
+    screen.innerHTML = '';
+
+    // ----- 1. Firmware handoff -----
+    appendLine(`<span class="dim">Arboreal Linux 14.2 LTS (vespertine)</span>`);
+    appendLine(`<span class="dim">Loading initramfs ............ done</span>`);
+    await sleep(220);
+    appendLine(`<span class="dim">Decompressing kernel image (zstd) ....</span>`);
+    await sleep(260);
+
+    // ----- 2. Early kernel log -----
+    let t = 0.000094;
+    const klog = async (msg, dt = 0.000220, cls = '') => {
+      t += dt + Math.random() * 0.000180;
+      appendLine(`${ts(t)} ${msg}`, cls);
+      await sleep(28 + Math.random() * 70);
+    };
+
+    await klog(`Command line: BOOT_IMAGE=/vmlinuz-6.11.4-arboreal-amd64 root=UUID=c4f1-8a02-...-7e9d ro quiet splash resume=UUID=2cbe-...-0011`);
+    await klog(`x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'`);
+    await klog(`x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'`);
+    await klog(`x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'`);
+    await klog(`BIOS-provided physical RAM map:`);
+    await klog(`  BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable`);
+    await klog(`  BIOS-e820: [mem 0x0000000000100000-0x00000000bffd9fff] usable`);
+    await klog(`  BIOS-e820: [mem 0x0000000100000000-0x000000043fffffff] usable`);
+    await klog(`efi: EFI v2.7 by Arboreal Reference Firmware r229`);
+    await klog(`SMBIOS 3.5.0 present.`);
+    await klog(`DMI: Forge07/MB-A2 X670E, BIOS 2.94 03/19/2026`);
+    await klog(`tsc: Detected 4900.123 MHz processor`);
+    await klog(`clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns`);
+    await klog(`Memory: 31904M/32480M available (16384K kernel code, 2104K rwdata, 5824K rodata, 2728K init, 5588K bss)`);
+    await klog(`SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=24, Nodes=1`);
+    await klog(`rcu: Hierarchical RCU implementation.`);
+    await klog(`NR_IRQS: 524544, nr_irqs: 2024, preallocated irqs: 16`);
+    await klog(`Console: colour dummy device 80x25`);
+    await klog(`printk: console [tty0] enabled`);
+    await klog(`ACPI: Core revision 20240827`);
+    await klog(`smpboot: CPU0: AMD Ryzen 9 7900X 12-Core Processor (family: 0x19, model: 0x61)`);
+    await klog(`smpboot: Total of 24 processors activated (235207.96 BogoMIPS)`);
+    await klog(`devtmpfs: initialized`);
+    await klog(`PCI: Using configuration type 1 for base access`);
+    await klog(`pci 0000:00:00.0: [1022:14d8] type 00 class 0x060000`);
+    await klog(`pci 0000:01:00.0: [10de:2684] type 00 class 0x030000`);
+    await klog(`pci 0000:01:00.0: <span class="bright">NVIDIA Corporation Device 2684 (rev a1)</span>`);
+    await klog(`nvme nvme0: pci function 0000:02:00.0`);
+    await klog(`nvme0n1: p1 p2 p3`);
+    await klog(`scsi host0: ahci`);
+    await klog(`ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)`);
+    await klog(`usb 1-1: new high-speed USB device number 2 using xhci_hcd`);
+    await klog(`Bluetooth: Core ver 2.22`);
+    await klog(`Bluetooth: HCI device and connection manager initialized`);
+    await klog(`audit: initializing netlink subsys (disabled)`);
+    await klog(`Loaded X.509 cert 'Arboreal Build CA: f0a1b2c3d4e5f60718293a4b5c6d7e8f': key=0x4f2c9a`);
+    await klog(`<span class="warn">i8042: No controller found</span>`, 0.00022, '');
+    await klog(`<span class="info">cryptd: max_cpu_qlen set to 1000</span>`);
+    await klog(`EXT4-fs (nvme0n1p2): mounted filesystem with ordered data mode. Quota mode: none.`);
+    await klog(`VFS: Mounted root (ext4 filesystem) readonly on device 259:2.`);
+    await klog(`Run /sbin/init as init process`);
+    await sleep(180);
+
+    // ----- 3. Hand off to init/systemd-like supervisor -----
+    appendLine('');
+    appendLine(`<span class="bright">vespertine init[1]:</span> supervisor v257.3 starting (PID 1)`);
+    appendLine(`Detected architecture <span class="bright">x86-64</span>.`);
+    appendLine(`Detected virtualization <span class="bright">none</span>.`);
+    appendLine(`Welcome to <span class="bright">Arboreal Linux 14.2 LTS (vespertine)</span>!`);
+    appendLine('');
+    await sleep(280);
+
+    appendLine(tag('INFO', `Set hostname to <span class="bright">&lt;${HOST}&gt;</span>.`));
+    await sleep(120);
+    appendLine(tag('INFO', `Queued start job for default target <span class="bright">graphical.target</span>.`));
+    appendLine('');
+    await sleep(220);
+
+    // ----- 4. Stream of [ OK ] service-started lines -----
+    const services = [
+      ['Created slice',               'User and Session Slice.'],
+      ['Started',                     'Dispatch Password Requests to Console Directory Watch.'],
+      ['Reached target',              'Local Encrypted Volumes.'],
+      ['Reached target',              'Paths.'],
+      ['Reached target',              'Remote File Systems (Pre).'],
+      ['Reached target',              'Slices.'],
+      ['Reached target',              'Swap.'],
+      ['Listening on',                'Journal Audit Socket.'],
+      ['Listening on',                'Journal Socket (/dev/log).'],
+      ['Listening on',                'Journal Socket.'],
+      ['Listening on',                'udev Control Socket.'],
+      ['Listening on',                'udev Kernel Socket.'],
+      ['Mounting',                    'Huge Pages File System...'],
+      ['Mounting',                    'POSIX Message Queue File System...'],
+      ['Mounting',                    'Kernel Debug File System...'],
+      ['Starting',                    'Journal Service...'],
+      ['Starting',                    'Load Kernel Modules...'],
+      ['Starting',                    'Remount Root and Kernel File Systems...'],
+      ['Starting',                    'Coldplug All udev Devices...'],
+      ['Starting',                    'Create Static Device Nodes in /dev...'],
+    ];
+    for (const [verb, what] of services) {
+      appendLine(tag('OK', `${verb} <span class="bright">${what}</span>`));
+      await sleep(45 + Math.random() * 70);
+    }
+
+    appendLine('');
+    await sleep(160);
+
+    // ----- 5. A few [ ** ] busy → completed transitions -----
+    const slowSvcs = [
+      'Hardware Database Manager',
+      'Network Time Synchronization',
+      'D-Bus System Message Bus',
+    ];
+    for (const name of slowSvcs) {
+      const line = appendLine(tag('BUSY', `Starting <span class="dim">${name}...</span>`));
+      await sleep(380 + Math.random() * 320);
+      line.innerHTML = tag('OK', `Started <span class="bright">${name}.</span>`);
+      await sleep(60);
+    }
+    await sleep(120);
+
+    // ----- 6. A WARN and a FAILED, then recovery -----
+    appendLine(tag('WARN', `Failed to load module <span class="bright">nct6775</span>: sensor chip not present.`));
+    await sleep(160);
+    appendLine(tag('FAIL', `Failed to start <span class="bright">Optical Disc Authoring Daemon</span>.`));
+    await sleep(60);
+    appendLine(`<span class="dim">See 'journalctl -u arborcd.service' for details.</span>`);
+    await sleep(220);
+    appendLine(tag('DEP', `Dependency failed for <span class="bright">Disc Burning Helper Socket</span>.`));
+    await sleep(180);
+    appendLine('');
+
+    // ----- 7. Mounting filesystems — with /home progress bar -----
+    appendLine(tag('OK', `Mounted <span class="bright">/boot/efi</span> (vfat, ro,noatime)`));
+    await sleep(120);
+    appendLine(tag('OK', `Mounted <span class="bright">/boot</span> (ext4, rw,relatime)`));
+    await sleep(120);
+    appendLine(tag('OK', `Mounted <span class="bright">/var</span> (ext4, rw,relatime)`));
+    await sleep(120);
+    appendLine(tag('OK', `Activated swap on <span class="bright">/dev/nvme0n1p3</span> (8.0 GiB)`));
+    await sleep(140);
+
+    appendLine(`<span class="dim">Checking <span class="bright">/home</span> on /dev/mapper/vault-home (ext4, 2.4 TiB)...</span>`);
+    await sleep(200);
+    await progressBar({
+      label: `<span class="label">fsck.ext4 /dev/mapper/vault-home</span>`,
+      width: 36,
+      duration: 2200,
+      stutter: true,
+      finalTag: 'OK',
+    });
+    await sleep(120);
+
+    appendLine(`<span class="dim">Decrypting <span class="bright">vault-home</span> (LUKS2, argon2id)...</span>`);
+    await sleep(360);
+    await progressBar({
+      label: `<span class="label">mount /home</span>                  `,
+      width: 36,
+      duration: 1700,
+      finalTag: 'OK',
+    });
+    await sleep(140);
+
+    appendLine(tag('OK', `Mounted <span class="bright">/home</span> (ext4, rw,relatime,acl) — 1.84 TiB used of 2.40 TiB`));
+    appendLine('');
+    await sleep(220);
+
+    // ----- 8. Late-stage services -----
+    const late = [
+      'Network Manager',
+      'OpenSSH Server',
+      'CUPS Scheduler',
+      'Bluetooth Service',
+      'Power Profiles Daemon',
+      'Login Manager',
+      'Accounts Service',
+      'GNOME Display Manager',
+    ];
+    for (const name of late) {
+      appendLine(tag('OK', `Started <span class="bright">${name}.</span>`));
+      await sleep(55 + Math.random() * 90);
+    }
+    await sleep(160);
+
+    appendLine('');
+    appendLine(tag('OK', `Reached target <span class="bright">Multi-User System.</span>`));
+    appendLine(tag('OK', `Reached target <span class="bright">Graphical Interface.</span>`));
+    appendLine('');
+    await sleep(420);
+
+    // ----- 9. Banner + login prompt -----
+    const banner = [
+"   ___    ____  ____   ___  ____   ____  ___  _      ",
+"  / _ |  / __ \\/ __ ) / _ \\/ __ \\ / __/ /   |/ /     ",
+" / __ | / /_/ / __  |/ , _/ /_/ // _/  / /| / /__    ",
+"/_/ |_|/_/ _/_/ /_(_)_/|_|\\____//___/ /_/ |_\\___/    ",
+"           vespertine 14.2 LTS · kernel 6.11.4       ",
+    ].join('\n');
+    appendLine(`<span class="banner">${banner}</span>`);
+    appendLine(`<span class="dim">tty1 — Wed May 13 04:27:11 UTC 2026</span>`);
+    appendLine('');
+
+    const promptLine = appendLine(`<span class="login">${HOST} login:</span> <span class="cursor"></span>`, 'login-line');
+
+    // Tiny typing demonstration after a beat
+    await sleep(1400);
+    await typeInto(promptLine, [
+      { text: 'admin', delay: 90 },
+    ], `${HOST} login:`);
+
+    await sleep(700);
+    const pwdLine = appendLine(`<span class="login">Password:</span> <span class="cursor"></span>`, 'login-line');
+    await sleep(900);
+    await typeInto(pwdLine, [
+      { text: '••••••••••', delay: 110 },
+    ], `Password:`);
+
+    await sleep(700);
+    appendLine('');
+    appendLine(`<span class="dim">Last login: Wed May 13 03:51:02 UTC 2026 on tty1</span>`);
+    appendLine(`<span class="bright">admin@${HOST}</span>:<span class="info">~</span>$ <span class="cursor"></span>`, 'shell-line');
+  }
+
+  async function typeInto(lineEl, segments, promptText) {
+    for (const seg of segments) {
+      for (const ch of seg.text) {
+        lineEl.innerHTML = `<span class="login">${promptText}</span> <span class="bright">${escapeHtml(currentTyped(lineEl, promptText) + ch)}</span><span class="cursor"></span>`;
+        await sleep(seg.delay);
+      }
+    }
+  }
+  function currentTyped(lineEl, promptText) {
+    // crude — recover typed substring from element text minus prompt
+    const txt = lineEl.textContent || '';
+    const idx = txt.indexOf(promptText);
+    if (idx === -1) return '';
+    let rest = txt.slice(idx + promptText.length).replace(/^\s+/, '');
+    // strip trailing cursor block char if present
+    return rest;
+  }
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // ---------- Controls ----------
+  btnReplay.addEventListener('click', () => {
+    runBoot();
+  });
+  btnSpeed.addEventListener('click', () => {
+    const idx = SPEEDS.indexOf(speed);
+    speed = SPEEDS[(idx + 1) % SPEEDS.length];
+    btnSpeed.textContent = speed + '×';
+  });
+  btnCrt.addEventListener('click', () => {
+    crt.classList.toggle('with-effects');
+    btnCrt.classList.toggle('active');
+  });
+
+  // Kick off
+  runBoot();
+})();
+</script>
+</body>
+</html>

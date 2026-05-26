@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Noise Gallery</title>
+<style>
+  :root {
+    --bg: #f3f1ec;
+    --ink: #0c0c0c;
+    --line: #1a1a1a;
+    --muted: #7a7773;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 32px 80px;
+  }
+  header {
+    width: min(960px, 100%);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+  }
+  header h1 {
+    font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  header .meta {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 200px);
+    gap: 40px 24px;
+  }
+  .tile {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .frame {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .frame canvas {
+    display: block;
+    width: 200px;
+    height: 200px;
+    image-rendering: pixelated;
+  }
+  .frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .meta-row .num {
+    color: var(--muted);
+  }
+  footer {
+    margin-top: 56px;
+    width: min(960px, 100%);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Noise Gallery</h1>
+    <div class="meta">12 plates · procedural · monochrome</div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <span>200 × 200 px</span>
+    <span>animated · slow loop</span>
+    <span>b/w only</span>
+  </footer>
+
+<script>
+/* ----------------------------------------------------------------
+   Noise Gallery — 12 procedural patterns at 200×200, looping slowly.
+   All patterns are rendered into ImageData (or paths) at low res
+   and scaled up via CSS for crisp pixel feel.
+   ---------------------------------------------------------------- */
+
+const SIZE = 200;
+const tiles = [
+  { id: 'perlin',   name: 'Perlin' },
+  { id: 'worley',   name: 'Worley' },
+  { id: 'flow',     name: 'Flow Field' },
+  { id: 'rd',       name: 'Reaction-Diffusion' },
+  { id: 'truchet',  name: 'Truchet' },
+  { id: 'march',    name: 'Marching Squares' },
+  { id: 'voronoi',  name: 'Voronoi' },
+  { id: 'gradient', name: 'Gradient Noise' },
+  { id: 'warp',     name: 'Domain Warp' },
+  { id: 'fbm',      name: 'FBM' },
+  { id: 'hex',      name: 'Hex Tiles' },
+  { id: 'stipple',  name: 'Dot Stipple' },
+];
+
+const grid = document.getElementById('grid');
+const contexts = {};
+for (let i = 0; i < tiles.length; i++) {
+  const t = tiles[i];
+  const wrap = document.createElement('div');
+  wrap.className = 'tile';
+  wrap.innerHTML = `
+    <div class="frame"><canvas id="c-${t.id}" width="${SIZE}" height="${SIZE}"></canvas></div>
+    <div class="meta-row"><span>${t.name}</span><span class="num">${String(i+1).padStart(2,'0')}/12</span></div>
+  `;
+  grid.appendChild(wrap);
+  const cv = wrap.querySelector('canvas');
+  contexts[t.id] = cv.getContext('2d');
+}
+
+/* -------- shared utilities -------- */
+function hash2(x, y) {
+  let h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return h - Math.floor(h);
+}
+function lerp(a, b, t) { return a + (b - a) * t; }
+function smooth(t) { return t * t * (3 - 2 * t); }
+
+/* value-noise; cheap and good enough for visuals */
+function vnoise(x, y) {
+  const xi = Math.floor(x), yi = Math.floor(y);
+  const xf = x - xi, yf = y - yi;
+  const a = hash2(xi,     yi);
+  const b = hash2(xi + 1, yi);
+  const c = hash2(xi,     yi + 1);
+  const d = hash2(xi + 1, yi + 1);
+  const u = smooth(xf), v = smooth(yf);
+  return lerp(lerp(a, b, u), lerp(c, d, u), v);
+}
+
+function fbm2(x, y, oct = 5) {
+  let v = 0, amp = 0.5, freq = 1;
+  for (let i = 0; i < oct; i++) {
+    v += amp * vnoise(x * freq, y * freq);
+    freq *= 2; amp *= 0.5;
+  }
+  return v;
+}
+
+/* dither helpers for crunchy blacks/whites */
+const bayer4 = [
+   0, 8, 2,10,
+  12, 4,14, 6,
+   3,11, 1, 9,
+  15, 7,13, 5
+];
+function bayer(x, y) {
+  return bayer4[(y & 3) * 4 + (x & 3)] / 16;
+}
+
+/* ---------- 01. PERLIN (value-noise, smooth grays) ---------- */
+function drawPerlin(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const z = t * 0.15;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const n = vnoise(x / 28 + z, y / 28 - z * 0.5);
+      const v = Math.round(n * 255);
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=v; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 02. WORLEY (cellular F1 distance, drifting points) ---------- */
+const worleyPts = [];
+for (let i = 0; i < 24; i++) {
+  worleyPts.push({ x: Math.random(), y: Math.random(), phase: Math.random() * Math.PI * 2, speed: 0.2 + Math.random() * 0.4 });
+}
+function drawWorley(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const pts = worleyPts.map(p => ({
+    x: (p.x + Math.cos(t * 0.3 * p.speed + p.phase) * 0.04) * SIZE,
+    y: (p.y + Math.sin(t * 0.25 * p.speed + p.phase * 1.3) * 0.04) * SIZE
+  }));
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      let f1 = 1e9, f2 = 1e9;
+      for (let k = 0; k < pts.length; k++) {
+        const dx = x - pts[k].x, dy = y - pts[k].y;
+        const dd = dx*dx + dy*dy;
+        if (dd < f1) { f2 = f1; f1 = dd; }
+        else if (dd < f2) { f2 = dd; }
+      }
+      const v = Math.min(1, Math.sqrt(f1) / 60);
+      const i = (y * SIZE + x) * 4;
+      const g = Math.round((1 - v) * 255);
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 03. FLOW FIELD (persistent particles, faded trails) ---------- */
+const flowState = { inited: false, particles: [] };
+function initFlow(ctx) {
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  flowState.particles = [];
+  for (let i = 0; i < 220; i++) {
+    flowState.particles.push({
+      x: Math.random() * SIZE,
+      y: Math.random() * SIZE,
+      life: Math.random() * 200
+    });
+  }
+  flowState.inited = true;
+}
+function drawFlow(ctx, t) {
+  if (!flowState.inited) initFlow(ctx);
+  // gentle fade
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.fillStyle = '#0c0c0c';
+  const z = t * 0.05;
+  for (const p of flowState.particles) {
+    const a = vnoise(p.x / 40 + z, p.y / 40 - z) * Math.PI * 4;
+    p.x += Math.cos(a) * 0.7;
+    p.y += Math.sin(a) * 0.7;
+    p.life--;
+    if (p.life <= 0 || p.x < 0 || p.y < 0 || p.x >= SIZE || p.y >= SIZE) {
+      p.x = Math.random() * SIZE;
+      p.y = Math.random() * SIZE;
+      p.life = 120 + Math.random() * 200;
+    }
+    ctx.fillRect(p.x | 0, p.y | 0, 1, 1);
+  }
+}
+
+/* ---------- 04. REACTION-DIFFUSION (Gray-Scott, periodic) ---------- */
+const RD = (() => {
+  const W = 100, H = 100;
+  const a = new Float32Array(W * H);
+  const b = new Float32Array(W * H);
+  const a2 = new Float32Array(W * H);
+  const b2 = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) { a[i] = 1; b[i] = 0; }
+  // seed splotches
+  for (let s = 0; s < 8; s++) {
+    const sx = (Math.random() * W) | 0;
+    const sy = (Math.random() * H) | 0;
+    for (let dy = -3; dy <= 3; dy++) {
+      for (let dx = -3; dx <= 3; dx++) {
+        const ix = ((sx + dx + W) % W) + ((sy + dy + H) % H) * W;
+        b[ix] = 1;
+      }
+    }
+  }
+  const Da = 1.0, Db = 0.5, feed = 0.055, kill = 0.062;
+  function step() {
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const i = y * W + x;
+        const xm = (x - 1 + W) % W;
+        const xp = (x + 1) % W;
+        const ym = ((y - 1 + H) % H) * W;
+        const yp = ((y + 1) % H) * W;
+        const la = a[ym + x] + a[yp + x] + a[y * W + xm] + a[y * W + xp] - 4 * a[i];
+        const lb = b[ym + x] + b[yp + x] + b[y * W + xm] + b[y * W + xp] - 4 * b[i];
+        const ab2 = a[i] * b[i] * b[i];
+        a2[i] = a[i] + (Da * la - ab2 + feed * (1 - a[i]));
+        b2[i] = b[i] + (Db * lb + ab2 - (kill + feed) * b[i]);
+      }
+    }
+    a.set(a2); b.set(b2);
+  }
+  return { W, H, a, b, step };
+})();
+function drawRD(ctx, t) {
+  // step a few iterations per frame for visible motion
+  for (let s = 0; s < 6; s++) RD.step();
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const sx = (x * RD.W / SIZE) | 0;
+      const sy = (y * RD.H / SIZE) | 0;
+      const v = RD.a[sy * RD.W + sx] - RD.b[sy * RD.W + sx];
+      const g = Math.max(0, Math.min(255, (v * 255) | 0));
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 05. TRUCHET (quarter-arc tiles, slow shuffle) ---------- */
+function drawTruchet(ctx, t) {
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.strokeStyle = '#0c0c0c';
+  ctx.lineWidth = 2;
+  const N = 10, s = SIZE / N;
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) {
+      // very slow flip probability driven by noise
+      const n = vnoise(x * 1.3 + t * 0.08, y * 1.3 - t * 0.08);
+      const flip = n > 0.5;
+      const cx = x * s, cy = y * s;
+      ctx.beginPath();
+      if (flip) {
+        ctx.arc(cx, cy, s / 2, 0, Math.PI / 2);
+        ctx.moveTo(cx + s, cy + s);
+        ctx.arc(cx + s, cy + s, s / 2, Math.PI, Math.PI * 1.5);
+      } else {
+        ctx.arc(cx + s, cy, s / 2, Math.PI / 2, Math.PI);
+        ctx.moveTo(cx, cy + s);
+        ctx.arc(cx, cy + s, s / 2, -Math.PI / 2, 0);
+      }
+      ctx.stroke();
+    }
+  }
+}
+
+/* ---------- 06. MARCHING SQUARES (isolines of fbm) ---------- */
+function drawMarching(ctx, t) {
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.strokeStyle = '#0c0c0c';
+  ctx.lineWidth = 1;
+  const N = 40, s = SIZE / N;
+  const field = new Float32Array((N + 1) * (N + 1));
+  const z = t * 0.1;
+  for (let y = 0; y <= N; y++) {
+    for (let x = 0; x <= N; x++) {
+      field[y * (N + 1) + x] = fbm2(x / 8 + z, y / 8, 4);
+    }
+  }
+  const levels = [0.35, 0.45, 0.55, 0.65, 0.75];
+  function ip(a, b) { return (a - level) / ((a - b) || 1e-6); }
+  let level;
+  for (const lv of levels) {
+    level = lv;
+    ctx.beginPath();
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) {
+        const a = field[y * (N + 1) + x];
+        const b = field[y * (N + 1) + (x + 1)];
+        const c = field[(y + 1) * (N + 1) + (x + 1)];
+        const d = field[(y + 1) * (N + 1) + x];
+        let idx = 0;
+        if (a > level) idx |= 1;
+        if (b > level) idx |= 2;
+        if (c > level) idx |= 4;
+        if (d > level) idx |= 8;
+        const x0 = x * s, y0 = y * s, x1 = x0 + s, y1 = y0 + s;
+        const tA = ip(a, b), tB = ip(b, c), tC = ip(d, c), tD = ip(a, d);
+        const pA = [x0 + tA * s, y0];
+        const pB = [x1, y0 + tB * s];
+        const pC = [x0 + tC * s, y1];
+        const pD = [x0, y0 + tD * s];
+        function L(p1, p2){ ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]); }
+        switch (idx) {
+          case 1: case 14: L(pD, pA); break;
+          case 2: case 13: L(pA, pB); break;
+          case 3: case 12: L(pD, pB); break;
+          case 4: case 11: L(pB, pC); break;
+          case 5: L(pD, pA); L(pB, pC); break;
+          case 6: case 9: L(pA, pC); break;
+          case 7: case 8: L(pD, pC); break;
+          case 10: L(pA, pB); L(pC, pD); break;
+        }
+      }
+    }
+    ctx.stroke();
+  }
+}
+
+/* ---------- 07. VORONOI (edges only) ---------- */
+const voroPts = [];
+for (let i = 0; i < 20; i++) {
+  voroPts.push({ x: Math.random(), y: Math.random(), ph: Math.random() * 6.28 });
+}
+function drawVoronoi(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const pts = voroPts.map(p => ({
+    x: (p.x + Math.cos(t * 0.2 + p.ph) * 0.05) * SIZE,
+    y: (p.y + Math.sin(t * 0.18 + p.ph * 1.7) * 0.05) * SIZE
+  }));
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      let f1 = 1e9, f2 = 1e9;
+      for (let k = 0; k < pts.length; k++) {
+        const dx = x - pts[k].x, dy = y - pts[k].y;
+        const dd = dx*dx + dy*dy;
+        if (dd < f1) { f2 = f1; f1 = dd; }
+        else if (dd < f2) { f2 = dd; }
+      }
+      const edge = Math.sqrt(f2) - Math.sqrt(f1);
+      const g = edge < 2 ? 0 : 255;
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 08. GRADIENT NOISE (bayer-dithered to b/w) ---------- */
+function drawGradientNoise(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const z = t * 0.1;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const n = vnoise(x / 20 + z, y / 20 - z);
+      const g = (n + bayer(x, y) - 0.5) > 0.5 ? 255 : 0;
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 09. DOMAIN WARP ---------- */
+function drawWarp(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const z = t * 0.07;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const u = x / 35, v = y / 35;
+      const qx = fbm2(u + z, v, 4);
+      const qy = fbm2(u + 5.2, v + 1.3 - z, 4);
+      const n = fbm2(u + 4 * qx, v + 4 * qy, 4);
+      const g = Math.round(Math.min(1, Math.max(0, n)) * 255);
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 10. FBM (clean grayscale) ---------- */
+function drawFBM(ctx, t) {
+  const img = ctx.createImageData(SIZE, SIZE);
+  const d = img.data;
+  const z = t * 0.08;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const n = fbm2(x / 30 + z, y / 30 - z * 0.5, 6);
+      const g = Math.round(Math.min(1, Math.max(0, n)) * 255);
+      const i = (y * SIZE + x) * 4;
+      d[i]=d[i+1]=d[i+2]=g; d[i+3]=255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 11. HEX TILES (axial grid, fill ramp from noise) ---------- */
+function drawHex(ctx, t) {
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  const r = 12;
+  const hh = Math.sqrt(3) * r;
+  const cols = Math.ceil(SIZE / (1.5 * r)) + 2;
+  const rows = Math.ceil(SIZE / hh) + 2;
+  for (let row = -1; row < rows; row++) {
+    for (let col = -1; col < cols; col++) {
+      const cx = col * 1.5 * r;
+      const cy = row * hh + (col % 2 ? hh / 2 : 0);
+      const n = vnoise(col * 0.4 + t * 0.1, row * 0.4 - t * 0.08);
+      const fill = n;
+      // hex path
+      ctx.beginPath();
+      for (let k = 0; k < 6; k++) {
+        const a = k * Math.PI / 3;
+        const px = cx + Math.cos(a) * r;
+        const py = cy + Math.sin(a) * r;
+        if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      const g = Math.round(fill * 255);
+      ctx.fillStyle = `rgb(${g},${g},${g})`;
+      ctx.fill();
+      ctx.strokeStyle = '#0c0c0c';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+}
+
+/* ---------- 12. DOT STIPPLE (density from noise) ---------- */
+function drawStipple(ctx, t) {
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.fillStyle = '#0c0c0c';
+  const step = 4;
+  const z = t * 0.07;
+  for (let y = 0; y < SIZE; y += step) {
+    for (let x = 0; x < SIZE; x += step) {
+      const n = fbm2(x / 35 + z, y / 35 - z * 0.5, 4);
+      // density: more dots where n is low (darker)
+      const density = 1 - n;
+      const count = Math.floor(density * 6);
+      for (let k = 0; k < count; k++) {
+        const px = x + Math.floor(hash2(x + k * 11, y + k * 7 + t * 0.5) * step);
+        const py = y + Math.floor(hash2(x + k * 5 + 1, y + k * 13) * step);
+        ctx.fillRect(px, py, 1, 1);
+      }
+    }
+  }
+}
+
+/* ---------- main loop ---------- */
+const drawers = {
+  perlin: drawPerlin,
+  worley: drawWorley,
+  flow: drawFlow,
+  rd: drawRD,
+  truchet: drawTruchet,
+  march: drawMarching,
+  voronoi: drawVoronoi,
+  gradient: drawGradientNoise,
+  warp: drawWarp,
+  fbm: drawFBM,
+  hex: drawHex,
+  stipple: drawStipple,
+};
+
+// throttle to ~20fps; subtle slow loop, save CPU
+let last = 0;
+function frame(now) {
+  if (!last) last = now;
+  if (now - last > 50) {
+    const t = now / 1000;
+    for (const id in drawers) drawers[id](contexts[id], t);
+    last = now;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

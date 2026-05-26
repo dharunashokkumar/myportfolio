@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Satisfying Buttons</title>
+<style>
+  :root {
+    --bg: #f1ede5;
+    --bg-2: #ebe6dc;
+    --ink: #15110c;
+    --ink-soft: #2a2520;
+    --muted: #8a8378;
+    --hair: rgba(21, 17, 12, 0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "Helvetica Neue", Helvetica, "Inter", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: 56px 40px 80px;
+  }
+  .head {
+    max-width: 1200px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.05;
+  }
+  h1 em { font-style: normal; color: var(--muted); font-weight: 400; }
+  .sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 360px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+  .sub b { color: var(--ink); font-weight: 600; }
+  .sub .audio-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+    vertical-align: middle;
+    margin: 0 4px 2px;
+  }
+
+  .grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 18px;
+  }
+
+  .cell {
+    position: relative;
+    aspect-ratio: 1.15 / 1;
+    background: var(--bg-2);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+  .cell .label {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .cell .idx {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .cell .audio-mark {
+    position: absolute;
+    right: 14px;
+    bottom: 13px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* Base button */
+  .btn {
+    appearance: none;
+    border: none;
+    background: var(--ink);
+    color: var(--bg);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    padding: 14px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 120ms cubic-bezier(.2,.7,.2,1);
+    position: relative;
+    z-index: 2;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  /* ---------- 1 SQUISH ---------- */
+  .btn.squish.go { animation: squish 520ms cubic-bezier(.3,.9,.3,1.2); }
+  @keyframes squish {
+    0% { transform: scale(1,1); }
+    25% { transform: scale(1.18, 0.72); }
+    55% { transform: scale(0.9, 1.12); }
+    80% { transform: scale(1.04, 0.96); }
+    100% { transform: scale(1,1); }
+  }
+
+  /* ---------- 2 SHATTER ---------- */
+  .btn.shatter.go { opacity: 0; transition: opacity 80ms 120ms; }
+  .shard {
+    position: absolute;
+    background: var(--ink);
+    pointer-events: none;
+    z-index: 2;
+    will-change: transform, opacity;
+  }
+
+  /* ---------- 3 PEEL ---------- */
+  .btn.peel { perspective: 600px; }
+  .btn.peel .peel-corner {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--ink);
+    transform-origin: bottom right;
+    transition: transform 600ms cubic-bezier(.4,.1,.2,1), opacity 600ms ease;
+    backface-visibility: hidden;
+  }
+  .btn.peel.go .peel-corner {
+    transform: rotateX(-65deg) rotateY(35deg);
+    opacity: 0;
+  }
+  .btn.peel.go { color: transparent; }
+
+  /* ---------- 4 RIPPLE ---------- */
+  .ripple-target { background: var(--bg-2); }
+  .ripple-wave {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--ink);
+    pointer-events: none;
+    transform: translate(-50%,-50%) scale(0);
+    opacity: 0.85;
+    z-index: 1;
+  }
+  .ripple-wave.go {
+    animation: rippleOut 700ms cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  @keyframes rippleOut {
+    to { transform: translate(-50%,-50%) scale(14); opacity: 0; }
+  }
+  .btn.ripple { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); mix-blend-mode: difference; }
+
+  /* ---------- 5 FOLD ---------- */
+  .btn.fold { perspective: 500px; background: transparent; padding: 0; }
+  .btn.fold .fold-top, .btn.fold .fold-bot {
+    display: block;
+    height: 22px;
+    background: var(--ink);
+    color: var(--bg);
+    overflow: hidden;
+    line-height: 44px;
+    padding: 0 22px;
+    transform-origin: bottom center;
+    transition: transform 520ms cubic-bezier(.5,.05,.2,1);
+    backface-visibility: hidden;
+  }
+  .btn.fold .fold-top { border-radius: 999px 999px 0 0; }
+  .btn.fold .fold-bot { border-radius: 0 0 999px 999px; transform-origin: top center; line-height: 0; padding-top: 0; }
+  .btn.fold .fold-bot span { display: block; margin-top: -22px; }
+  .btn.fold.go .fold-top { transform: rotateX(-170deg); }
+  .btn.fold.go .fold-bot { transform: rotateX(170deg); }
+
+  /* ---------- 6 MELT ---------- */
+  .btn.melt { overflow: visible; }
+  .btn.melt .drop {
+    position: absolute;
+    top: 80%;
+    width: 6px;
+    height: 0;
+    background: var(--ink);
+    border-radius: 0 0 6px 6px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .btn.melt.go { transform: translateY(2px) scaleY(0.85); transform-origin: top center; transition: transform 900ms ease-in; }
+
+  /* ---------- 7 POP / BURST ---------- */
+  .btn.pop.go { animation: popPuff 380ms ease-out forwards; }
+  @keyframes popPuff {
+    0% { transform: scale(1); opacity: 1; }
+    40% { transform: scale(1.35); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .pop-particle {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ---------- 8 JELLY ---------- */
+  .btn.jelly.go { animation: jelly 900ms cubic-bezier(.36,.07,.19,.97); }
+  @keyframes jelly {
+    0%   { transform: scale(1,1); }
+    15%  { transform: scale(1.25, 0.75); }
+    30%  { transform: scale(0.82, 1.22); }
+    45%  { transform: scale(1.12, 0.92); }
+    60%  { transform: scale(0.94, 1.06); }
+    75%  { transform: scale(1.03, 0.98); }
+    100% { transform: scale(1,1); }
+  }
+
+  /* ---------- 9 SLICE ---------- */
+  .btn.slice { background: transparent; padding: 0; }
+  .btn.slice .slice-top, .btn.slice .slice-bot {
+    display: block;
+    background: var(--ink);
+    color: var(--bg);
+    height: 22px;
+    overflow: hidden;
+    line-height: 44px;
+    padding: 0 22px;
+    transition: transform 600ms cubic-bezier(.4,.0,.2,1), opacity 600ms ease;
+  }
+  .btn.slice .slice-top { border-radius: 999px 999px 0 0; }
+  .btn.slice .slice-bot { border-radius: 0 0 999px 999px; line-height: 0; }
+  .btn.slice .slice-bot span { display: block; margin-top: -22px; }
+  .btn.slice.go .slice-top { transform: translate(-18px, -10px) rotate(-6deg); opacity: 0; }
+  .btn.slice.go .slice-bot { transform: translate(18px, 10px) rotate(-6deg); opacity: 0; }
+  .slice-line {
+    position: absolute;
+    left: -10%;
+    top: 50%;
+    height: 1px;
+    width: 120%;
+    background: var(--ink);
+    transform: scaleX(0) rotate(-6deg);
+    transform-origin: left center;
+    pointer-events: none;
+    z-index: 4;
+  }
+  .slice-line.go {
+    animation: sliceLine 600ms cubic-bezier(.6,.0,.2,1) forwards;
+  }
+  @keyframes sliceLine {
+    0% { transform: scaleX(0) rotate(-6deg); opacity: 1;}
+    60%{ transform: scaleX(1) rotate(-6deg); opacity: 1;}
+    100%{ transform: scaleX(1) rotate(-6deg); opacity: 0;}
+  }
+
+  /* ---------- 10 SHAKE ---------- */
+  .btn.shake.go { animation: shakeIt 460ms cubic-bezier(.36,.07,.19,.97); }
+  @keyframes shakeIt {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(4px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+    40%, 60% { transform: translate3d(6px, 0, 0); }
+  }
+
+  /* ---------- 11 CONFETTI ---------- */
+  .confetti {
+    position: absolute;
+    width: 4px; height: 8px;
+    background: var(--ink);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ---------- 12 CRUMBLE ---------- */
+  .btn.crumble.go { opacity: 0; transition: opacity 60ms 200ms; }
+  .dust {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ---------- 13 PULSE ---------- */
+  .btn.pulse.go { animation: heart 720ms cubic-bezier(.3,.9,.3,1.2); }
+  @keyframes heart {
+    0%{ transform: scale(1);} 18%{transform: scale(1.18);}
+    35%{ transform: scale(0.96);} 52%{ transform: scale(1.12);}
+    100%{ transform: scale(1);}
+  }
+  .pulse-ring {
+    position: absolute;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+  }
+  .pulse-ring.go { animation: pulseRing 720ms ease-out forwards; }
+  @keyframes pulseRing {
+    0% { transform: scale(1); opacity: .55; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* ---------- 14 FLIP ---------- */
+  .btn.flip { perspective: 600px; background: transparent; padding: 0; }
+  .btn.flip .flip-face {
+    display: block;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 14px 22px;
+    border-radius: 999px;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(.5,.0,.2,1);
+  }
+  .btn.flip.go .flip-face { transform: rotateX(720deg); }
+
+  /* ---------- 15 STRETCH ---------- */
+  .btn.stretch.go { animation: stretchIt 700ms cubic-bezier(.5,.05,.2,1); }
+  @keyframes stretchIt {
+    0%{ transform: scaleX(1);}
+    40%{ transform: scaleX(1.55) scaleY(0.85); letter-spacing: 0.4em;}
+    70%{ transform: scaleX(0.9) scaleY(1.08);}
+    100%{ transform: scaleX(1);}
+  }
+
+  /* ---------- 16 BOUNCE ---------- */
+  .btn.bounce.go { animation: hop 700ms cubic-bezier(.3,.7,.3,1.4); }
+  @keyframes hop {
+    0%{ transform: translateY(0);}
+    25%{ transform: translateY(-26px) scaleY(1.06);}
+    50%{ transform: translateY(0) scaleY(0.9);}
+    65%{ transform: translateY(-10px);}
+    80%{ transform: translateY(0) scaleY(0.98);}
+    100%{ transform: translateY(0);}
+  }
+
+  /* ---------- 17 GLITCH ---------- */
+  .btn.glitch.go { animation: glitchMain 380ms steps(1) forwards; }
+  .btn.glitch .gh, .btn.glitch .gh2 {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--ink);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .btn.glitch.go .gh { animation: glitchA 380ms steps(1) forwards; mix-blend-mode: screen; }
+  .btn.glitch.go .gh2 { animation: glitchB 380ms steps(1) forwards; mix-blend-mode: screen; }
+  @keyframes glitchMain {
+    0%,100%{ transform: translate(0,0); }
+    20%{ transform: translate(-3px, 2px);}
+    40%{ transform: translate(3px,-2px);}
+    60%{ transform: translate(-2px,-1px);}
+    80%{ transform: translate(2px, 1px);}
+  }
+  @keyframes glitchA {
+    0%,100%{ opacity:0; transform:translate(0,0);}
+    20%{ opacity:.7; transform:translate(6px,-2px);}
+    40%{ opacity:.7; transform:translate(-5px,3px);}
+    60%{ opacity:.7; transform:translate(4px,2px);}
+    80%{ opacity:.7; transform:translate(-3px,-3px);}
+  }
+  @keyframes glitchB {
+    0%,100%{ opacity:0; transform:translate(0,0);}
+    20%{ opacity:.6; transform:translate(-6px,2px);}
+    40%{ opacity:.6; transform:translate(5px,-3px);}
+    60%{ opacity:.6; transform:translate(-4px,-2px);}
+    80%{ opacity:.6; transform:translate(3px,3px);}
+  }
+
+  /* ---------- 18 RAYS ---------- */
+  .ray {
+    position: absolute;
+    width: 1.5px;
+    height: 30px;
+    background: var(--ink);
+    top: 50%; left: 50%;
+    transform-origin: 50% 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .btn.rays.go { animation: rayPop 380ms cubic-bezier(.3,.9,.3,1.2); }
+  @keyframes rayPop {
+    0%,100%{ transform: scale(1);}
+    50%{ transform: scale(1.08);}
+  }
+
+  /* ---------- 19 SPIN ---------- */
+  .btn.spin.go { animation: spinIt 700ms cubic-bezier(.5,.0,.2,1); }
+  @keyframes spinIt {
+    0%{ transform: rotate(0) scale(1);}
+    50%{ transform: rotate(180deg) scale(0.85);}
+    100%{ transform: rotate(360deg) scale(1);}
+  }
+
+  /* ---------- 20 TEAR ---------- */
+  .btn.tear { background: transparent; padding: 0; }
+  .btn.tear .tear-l, .btn.tear .tear-r {
+    display: block;
+    background: var(--ink);
+    color: var(--bg);
+    height: 44px;
+    width: 50%;
+    overflow: hidden;
+    line-height: 44px;
+    transition: transform 700ms cubic-bezier(.5,.0,.2,1);
+    float: left;
+  }
+  .btn.tear .tear-l {
+    border-radius: 999px 0 0 999px;
+    padding-left: 22px;
+    clip-path: polygon(0 0, 100% 0, 96% 25%, 100% 45%, 95% 65%, 100% 80%, 96% 100%, 0 100%);
+  }
+  .btn.tear .tear-r {
+    border-radius: 0 999px 999px 0;
+    padding-right: 22px;
+    margin-left: -2px;
+    text-indent: -22px;
+    clip-path: polygon(4% 0, 100% 0, 100% 100%, 4% 100%, 0% 80%, 5% 65%, 0% 45%, 4% 25%);
+  }
+  .btn.tear.go .tear-l { transform: translate(-30px,0) rotate(-6deg); opacity: 0; }
+  .btn.tear.go .tear-r { transform: translate(30px,0) rotate(6deg); opacity: 0; }
+
+  /* ---------- helper for hidden state ---------- */
+  .invisible { visibility: hidden; }
+
+  footer {
+    max-width: 1200px;
+    margin: 56px auto 0;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Twenty buttons.<br/><em>One satisfying click each.</em></h1>
+  <div class="sub">
+    A small study in micro-interactions. Tap anything.
+    Three buttons<span class="audio-dot"></span>also play a soft click — find them.
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <span>Satisfying buttons — 01 / 20</span>
+  <span>Click anywhere</span>
+</footer>
+
+<script>
+(() => {
+  // ---------- Audio ----------
+  let ctx;
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function softClick(variant = 0) {
+    const ac = getCtx();
+    const now = ac.currentTime;
+
+    // tonal body
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    const freqMap = [520, 740, 360];
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freqMap[variant] || 520, now);
+    osc.frequency.exponentialRampToValueAtTime((freqMap[variant] || 520) * 0.55, now + 0.08);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+    osc.connect(gain).connect(ac.destination);
+    osc.start(now);
+    osc.stop(now + 0.13);
+
+    // little noise tick
+    const buf = ac.createBuffer(1, ac.sampleRate * 0.04, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i/data.length, 3);
+    const noise = ac.createBufferSource();
+    const noiseGain = ac.createGain();
+    const filter = ac.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 2400;
+    noise.buffer = buf;
+    noiseGain.gain.setValueAtTime(0.12, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+    noise.connect(filter).connect(noiseGain).connect(ac.destination);
+    noise.start(now);
+  }
+
+  // ---------- helpers ----------
+  const grid = document.getElementById('grid');
+  function makeCell(idx, label, audio = false) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.idx = idx;
+    const lab = document.createElement('div');
+    lab.className = 'label';
+    lab.textContent = label;
+    const num = document.createElement('div');
+    num.className = 'idx';
+    num.textContent = String(idx).padStart(2,'0');
+    cell.appendChild(num);
+    cell.appendChild(lab);
+    if (audio) {
+      const d = document.createElement('div');
+      d.className = 'audio-mark';
+      cell.appendChild(d);
+    }
+    grid.appendChild(cell);
+    return cell;
+  }
+
+  function pos(cell, btn) {
+    const c = cell.getBoundingClientRect();
+    const b = btn.getBoundingClientRect();
+    return {
+      x: b.left - c.left,
+      y: b.top - c.top,
+      w: b.width,
+      h: b.height,
+      cx: b.left - c.left + b.width/2,
+      cy: b.top - c.top + b.height/2
+    };
+  }
+
+  function debounce(btn, ms, fn) {
+    btn.addEventListener('click', (e) => {
+      if (btn._busy) return;
+      btn._busy = true;
+      fn(e);
+      setTimeout(() => { btn._busy = false; btn.classList.remove('go'); }, ms);
+    });
+  }
+
+  // ============ 01 SQUISH (audio) ============
+  {
+    const cell = makeCell(1, 'Squish', true);
+    const btn = document.createElement('button');
+    btn.className = 'btn squish';
+    btn.textContent = 'Squish me';
+    cell.appendChild(btn);
+    debounce(btn, 600, () => {
+      btn.classList.add('go');
+      softClick(0);
+    });
+  }
+
+  // ============ 02 SHATTER ============
+  {
+    const cell = makeCell(2, 'Shatter');
+    const btn = document.createElement('button');
+    btn.className = 'btn shatter';
+    btn.textContent = 'Shatter';
+    cell.appendChild(btn);
+    debounce(btn, 1100, () => {
+      const p = pos(cell, btn);
+      const cols = 5, rows = 3;
+      const sw = p.w / cols, sh = p.h / rows;
+      btn.classList.add('go');
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const sh1 = document.createElement('div');
+          sh1.className = 'shard';
+          sh1.style.left = (p.x + c * sw) + 'px';
+          sh1.style.top = (p.y + r * sh) + 'px';
+          sh1.style.width = sw + 'px';
+          sh1.style.height = sh + 'px';
+          sh1.style.borderRadius = (c === 0 ? '999px 0 0 0' : c === cols-1 ? '0 999px 0 0' : '0') + '';
+          cell.appendChild(sh1);
+          const dx = (Math.random() - 0.5) * 220;
+          const dy = (Math.random() * -80) + 40 + r * 30;
+          const rot = (Math.random() - 0.5) * 240;
+          sh1.animate([
+            { transform: 'translate(0,0) rotate(0)', opacity: 1 },
+            { transform: `translate(${dx}px, ${dy + 80}px) rotate(${rot}deg)`, opacity: 0 }
+          ], { duration: 900, easing: 'cubic-bezier(.3,.6,.4,1)', fill: 'forwards' });
+          setTimeout(() => sh1.remove(), 950);
+        }
+      }
+      setTimeout(() => { btn.style.opacity = ''; }, 1000);
+    });
+  }
+
+  // ============ 03 PEEL ============
+  {
+    const cell = makeCell(3, 'Peel');
+    const btn = document.createElement('button');
+    btn.className = 'btn peel';
+    btn.innerHTML = '<span style="position:relative;z-index:1">Peel</span><span class="peel-corner"></span>';
+    cell.appendChild(btn);
+    debounce(btn, 800, () => {
+      btn.classList.add('go');
+      setTimeout(() => {
+        btn.classList.remove('go');
+      }, 750);
+    });
+  }
+
+  // ============ 04 RIPPLE (audio) ============
+  {
+    const cell = makeCell(4, 'Ripple', true);
+    cell.classList.add('ripple-target');
+    const btn = document.createElement('button');
+    btn.className = 'btn ripple';
+    btn.textContent = 'Ripple';
+    cell.appendChild(btn);
+    debounce(btn, 720, (e) => {
+      const p = pos(cell, btn);
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left) + p.x;
+      const y = (e.clientY - rect.top) + p.y;
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const w = document.createElement('div');
+          w.className = 'ripple-wave';
+          w.style.left = x + 'px';
+          w.style.top = y + 'px';
+          w.style.width = '30px';
+          w.style.height = '30px';
+          cell.appendChild(w);
+          requestAnimationFrame(() => w.classList.add('go'));
+          setTimeout(() => w.remove(), 800);
+        }, i * 120);
+      }
+      softClick(1);
+    });
+  }
+
+  // ============ 05 FOLD ============
+  {
+    const cell = makeCell(5, 'Fold');
+    const btn = document.createElement('button');
+    btn.className = 'btn fold';
+    btn.innerHTML = '<span class="fold-top">Fold me</span><span class="fold-bot"><span>Fold me</span></span>';
+    cell.appendChild(btn);
+    debounce(btn, 700, () => {
+      btn.classList.add('go');
+      setTimeout(() => btn.classList.remove('go'), 700);
+    });
+  }
+
+  // ============ 06 MELT ============
+  {
+    const cell = makeCell(6, 'Melt');
+    const btn = document.createElement('button');
+    btn.className = 'btn melt';
+    btn.textContent = 'Melt';
+    cell.appendChild(btn);
+    debounce(btn, 1100, () => {
+      const p = pos(cell, btn);
+      // drops
+      for (let i = 0; i < 7; i++) {
+        const d = document.createElement('div');
+        d.className = 'drop';
+        const dx = p.x + 8 + (p.w - 16) * (i / 6);
+        d.style.left = dx + 'px';
+        d.style.top = (p.y + p.h - 4) + 'px';
+        d.style.width = (4 + Math.random() * 3) + 'px';
+        cell.appendChild(d);
+        d.animate([
+          { height: '0px', transform: 'translateY(0)', opacity: 1 },
+          { height: (12 + Math.random() * 18) + 'px', transform: `translateY(${30 + Math.random()*30}px)`, opacity: 1, offset: 0.7 },
+          { height: '2px', transform: `translateY(${100}px)`, opacity: 0 }
+        ], { duration: 1000, easing: 'cubic-bezier(.5,.0,.5,1)', fill: 'forwards' });
+        setTimeout(() => d.remove(), 1000);
+      }
+      btn.classList.add('go');
+      setTimeout(() => {
+        btn.style.transition = 'transform 300ms ease, opacity 300ms ease';
+        btn.style.transform = '';
+        btn.classList.remove('go');
+        setTimeout(() => { btn.style.transition = ''; }, 320);
+      }, 900);
+    });
+  }
+
+  // ============ 07 POP ============
+  {
+    const cell = makeCell(7, 'Pop');
+    const btn = document.createElement('button');
+    btn.className = 'btn pop';
+    btn.textContent = 'Pop';
+    cell.appendChild(btn);
+    debounce(btn, 900, () => {
+      const p = pos(cell, btn);
+      btn.classList.add('go');
+      for (let i = 0; i < 14; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'pop-particle';
+        dot.style.left = (p.cx - 3) + 'px';
+        dot.style.top = (p.cy - 3) + 'px';
+        cell.appendChild(dot);
+        const a = (i / 14) * Math.PI * 2 + Math.random()*0.3;
+        const d = 50 + Math.random() * 50;
+        dot.animate([
+          { transform: 'translate(0,0) scale(1)', opacity: 1 },
+          { transform: `translate(${Math.cos(a)*d}px, ${Math.sin(a)*d}px) scale(0.2)`, opacity: 0 }
+        ], { duration: 600, easing: 'cubic-bezier(.2,.7,.4,1)', fill: 'forwards' });
+        setTimeout(() => dot.remove(), 620);
+      }
+      setTimeout(() => { btn.style.opacity = ''; btn.style.transform = ''; }, 800);
+    });
+  }
+
+  // ============ 08 JELLY ============
+  {
+    const cell = makeCell(8, 'Jelly');
+    const btn = document.createElement('button');
+    btn.className = 'btn jelly';
+    btn.textContent = 'Wobble';
+    cell.appendChild(btn);
+    debounce(btn, 900, () => btn.classList.add('go'));
+  }
+
+  // ============ 09 SLICE ============
+  {
+    const cell = makeCell(9, 'Slice');
+    const btn = document.createElement('button');
+    btn.className = 'btn slice';
+    btn.innerHTML = '<span class="slice-top">Slice</span><span class="slice-bot"><span>Slice</span></span>';
+    cell.appendChild(btn);
+    const line = document.createElement('div');
+    line.className = 'slice-line';
+    cell.appendChild(line);
+    debounce(btn, 900, () => {
+      line.classList.add('go');
+      setTimeout(() => btn.classList.add('go'), 200);
+      setTimeout(() => {
+        btn.classList.remove('go');
+        line.classList.remove('go');
+      }, 900);
+    });
+  }
+
+  // ============ 10 SHAKE ============
+  {
+    const cell = makeCell(10, 'Shake');
+    const btn = document.createElement('button');
+    btn.className = 'btn shake';
+    btn.textContent = 'Shake';
+    cell.appendChild(btn);
+    debounce(btn, 550, () => btn.classList.add('go'));
+  }
+
+  // ============ 11 CONFETTI ============
+  {
+    const cell = makeCell(11, 'Confetti');
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = 'Celebrate';
+    cell.appendChild(btn);
+    debounce(btn, 1300, () => {
+      const p = pos(cell, btn);
+      for (let i = 0; i < 22; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        const w = 3 + Math.random() * 3;
+        const h = 6 + Math.random() * 6;
+        c.style.width = w + 'px';
+        c.style.height = h + 'px';
+        c.style.left = (p.cx - w/2) + 'px';
+        c.style.top = (p.cy - h/2) + 'px';
+        cell.appendChild(c);
+        const a = -Math.PI/2 + (Math.random() - 0.5) * 1.6;
+        const v = 80 + Math.random() * 80;
+        const dx = Math.cos(a) * v;
+        const dy = Math.sin(a) * v;
+        const rot = (Math.random() - 0.5) * 720;
+        c.animate([
+          { transform: 'translate(0,0) rotate(0)', opacity: 1 },
+          { transform: `translate(${dx*0.5}px, ${dy*0.5}px) rotate(${rot*0.5}deg)`, opacity: 1, offset: 0.5 },
+          { transform: `translate(${dx}px, ${dy + 140}px) rotate(${rot}deg)`, opacity: 0 }
+        ], { duration: 1100, easing: 'cubic-bezier(.2,.7,.5,1)', fill: 'forwards' });
+        setTimeout(() => c.remove(), 1150);
+      }
+    });
+  }
+
+  // ============ 12 CRUMBLE ============
+  {
+    const cell = makeCell(12, 'Crumble');
+    const btn = document.createElement('button');
+    btn.className = 'btn crumble';
+    btn.textContent = 'Crumble';
+    cell.appendChild(btn);
+    debounce(btn, 1300, () => {
+      const p = pos(cell, btn);
+      btn.classList.add('go');
+      for (let i = 0; i < 50; i++) {
+        const d = document.createElement('div');
+        d.className = 'dust';
+        const dx = p.x + Math.random() * p.w;
+        const dy = p.y + Math.random() * p.h;
+        d.style.left = dx + 'px';
+        d.style.top = dy + 'px';
+        cell.appendChild(d);
+        d.animate([
+          { transform: 'translate(0,0)', opacity: 0.9 },
+          { transform: `translate(${(Math.random()-0.5)*40}px, ${30 + Math.random()*60}px)`, opacity: 0 }
+        ], { duration: 800 + Math.random()*400, easing: 'cubic-bezier(.4,.0,.6,1)', fill: 'forwards' });
+        setTimeout(() => d.remove(), 1300);
+      }
+      setTimeout(() => { btn.style.opacity = ''; }, 1250);
+    });
+  }
+
+  // ============ 13 PULSE (audio) ============
+  {
+    const cell = makeCell(13, 'Pulse', true);
+    const btn = document.createElement('button');
+    btn.className = 'btn pulse';
+    btn.textContent = 'Pulse';
+    cell.appendChild(btn);
+    debounce(btn, 900, () => {
+      const p = pos(cell, btn);
+      btn.classList.add('go');
+      const ring = document.createElement('div');
+      ring.className = 'pulse-ring';
+      ring.style.left = p.x + 'px';
+      ring.style.top = p.y + 'px';
+      ring.style.width = p.w + 'px';
+      ring.style.height = p.h + 'px';
+      cell.appendChild(ring);
+      requestAnimationFrame(() => ring.classList.add('go'));
+      setTimeout(() => ring.remove(), 800);
+      softClick(2);
+    });
+  }
+
+  // ============ 14 FLIP ============
+  {
+    const cell = makeCell(14, 'Flip');
+    const btn = document.createElement('button');
+    btn.className = 'btn flip';
+    btn.innerHTML = '<span class="flip-face">Flip</span>';
+    cell.appendChild(btn);
+    debounce(btn, 800, () => {
+      btn.classList.add('go');
+      setTimeout(() => btn.classList.remove('go'), 800);
+    });
+  }
+
+  // ============ 15 STRETCH ============
+  {
+    const cell = makeCell(15, 'Stretch');
+    const btn = document.createElement('button');
+    btn.className = 'btn stretch';
+    btn.textContent = 'Stretch';
+    cell.appendChild(btn);
+    debounce(btn, 800, () => btn.classList.add('go'));
+  }
+
+  // ============ 16 BOUNCE ============
+  {
+    const cell = makeCell(16, 'Bounce');
+    const btn = document.createElement('button');
+    btn.className = 'btn bounce';
+    btn.textContent = 'Boing';
+    cell.appendChild(btn);
+    debounce(btn, 800, () => btn.classList.add('go'));
+  }
+
+  // ============ 17 GLITCH ============
+  {
+    const cell = makeCell(17, 'Glitch');
+    const btn = document.createElement('button');
+    btn.className = 'btn glitch';
+    btn.innerHTML = 'Glitch<span class="gh">Glitch</span><span class="gh2">Glitch</span>';
+    cell.appendChild(btn);
+    debounce(btn, 500, () => btn.classList.add('go'));
+  }
+
+  // ============ 18 RAYS ============
+  {
+    const cell = makeCell(18, 'Burst');
+    const btn = document.createElement('button');
+    btn.className = 'btn rays';
+    btn.textContent = 'Burst';
+    cell.appendChild(btn);
+    debounce(btn, 700, () => {
+      const p = pos(cell, btn);
+      btn.classList.add('go');
+      for (let i = 0; i < 14; i++) {
+        const r = document.createElement('div');
+        r.className = 'ray';
+        r.style.left = p.cx + 'px';
+        r.style.top = p.cy + 'px';
+        const ang = (i / 14) * 360;
+        r.style.transform = `rotate(${ang}deg) translateY(${p.w*0.35}px)`;
+        cell.appendChild(r);
+        r.animate([
+          { transform: `rotate(${ang}deg) translateY(${p.w*0.25}px) scaleY(0.2)`, opacity: 0 },
+          { transform: `rotate(${ang}deg) translateY(${p.w*0.35}px) scaleY(1)`, opacity: 1, offset: 0.35 },
+          { transform: `rotate(${ang}deg) translateY(${p.w*0.55}px) scaleY(0.3)`, opacity: 0 }
+        ], { duration: 500, easing: 'cubic-bezier(.2,.7,.4,1)', fill: 'forwards' });
+        setTimeout(() => r.remove(), 520);
+      }
+    });
+  }
+
+  // ============ 19 SPIN ============
+  {
+    const cell = makeCell(19, 'Spin');
+    const btn = document.createElement('button');
+    btn.className = 'btn spin';
+    btn.textContent = 'Spin';
+    cell.appendChild(btn);
+    debounce(btn, 800, () => btn.classList.add('go'));
+  }
+
+  // ============ 20 TEAR ============
+  {
+    const cell = makeCell(20, 'Tear');
+    const btn = document.createElement('button');
+    btn.className = 'btn tear';
+    btn.style.width = '120px';
+    btn.style.height = '44px';
+    btn.innerHTML = '<span class="tear-l">Tea</span><span class="tear-r">r</span>';
+    cell.appendChild(btn);
+    debounce(btn, 900, () => {
+      btn.classList.add('go');
+      setTimeout(() => btn.classList.remove('go'), 900);
+    });
+  }
+
+  // first user gesture warms up audio
+  document.addEventListener('pointerdown', () => getCtx(), { once: true });
+
+  // update footer count
+  document.querySelectorAll('.cell').length;
+})();
+</script>
+
+</body>
+</html>

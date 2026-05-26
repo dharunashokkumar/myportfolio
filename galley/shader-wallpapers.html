@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shader Wallpapers</title>
+<style>
+  :root {
+    --fg: #f4f4f5;
+    --fg-dim: rgba(244,244,245,0.55);
+    --chrome-bg: rgba(18,18,22,0.55);
+    --chrome-border: rgba(255,255,255,0.08);
+    --chrome-hi: rgba(255,255,255,0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    background: #0a0a0d;
+    overflow: hidden;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    cursor: crosshair;
+  }
+  canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+  }
+
+  /* Switcher --------------------------------------------- */
+  .switcher {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background: var(--chrome-bg);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--chrome-border);
+    border-radius: 999px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 20px 40px -10px rgba(0,0,0,0.6);
+    z-index: 10;
+    cursor: default;
+  }
+  .switcher button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--fg-dim);
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 160ms ease, background 220ms ease;
+    white-space: nowrap;
+  }
+  .switcher button:hover { color: var(--fg); }
+  .switcher button.active {
+    color: var(--fg);
+    background: var(--chrome-hi);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset;
+  }
+  .switcher .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+    opacity: 0.7;
+  }
+
+  /* Caption (top-left readout) --------------------------- */
+  .caption {
+    position: fixed;
+    top: 28px; left: 28px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    pointer-events: none;
+  }
+  .caption .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .caption .name {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+  .caption .hint {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--fg-dim);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* HUD (top-right) ------------------------------------- */
+  .hud {
+    position: fixed;
+    top: 28px; right: 28px;
+    z-index: 10;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--fg-dim);
+    text-align: right;
+    line-height: 1.6;
+    pointer-events: none;
+  }
+  .hud span { color: var(--fg); }
+
+  /* First-load hint pulse ------------------------------- */
+  .pulse-hint {
+    position: fixed;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    opacity: 0;
+    animation: fadehint 5s ease 0.6s forwards;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    text-shadow: 0 0 24px rgba(0,0,0,0.6);
+  }
+  @keyframes fadehint {
+    0% { opacity: 0; }
+    15% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <div class="caption">
+    <div class="eyebrow">Wallpaper · 01 / 05</div>
+    <div class="name" id="name">Aurora Silk</div>
+    <div class="hint" id="hint">drag the mouse · click to burst</div>
+  </div>
+
+  <div class="hud" id="hud">
+    <div>FPS <span id="fps">60</span></div>
+    <div>POS <span id="pos">0.50, 0.50</span></div>
+  </div>
+
+  <div class="pulse-hint">move · click · explore</div>
+
+  <div class="switcher" id="switcher">
+    <button data-i="0" class="active"><i class="dot"></i>Aurora Silk</button>
+    <button data-i="1"><i class="dot"></i>Voronoi Cells</button>
+    <button data-i="2"><i class="dot"></i>Plasma Lens</button>
+    <button data-i="3"><i class="dot"></i>Magnetic Grid</button>
+    <button data-i="4"><i class="dot"></i>Event Horizon</button>
+  </div>
+
+<script id="vs" type="x-shader/x-vertex">
+attribute vec2 a_pos;
+void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }
+</script>
+
+<!-- =================== SHADER 1: AURORA SILK =================== -->
+<script id="fs0" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uMouse;       // 0..1
+uniform float uClick;       // decays from 1
+uniform vec2  uClickPos;    // 0..1
+uniform float uMix;         // mouse-following warmth
+varying vec2 vUv;
+
+// hash + simplex-ish noise
+vec3 hash3(vec2 p){
+  vec3 q = vec3(dot(p,vec2(127.1,311.7)),
+                dot(p,vec2(269.5,183.3)),
+                dot(p,vec2(419.2,371.9)));
+  return fract(sin(q)*43758.5453);
+}
+float noise(vec2 p){
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f*f*(3.0-2.0*f);
+  float a = hash3(i).x;
+  float b = hash3(i+vec2(1,0)).x;
+  float c = hash3(i+vec2(0,1)).x;
+  float d = hash3(i+vec2(1,1)).x;
+  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0.0;
+  float a = 0.5;
+  for(int i=0;i<5;i++){
+    v += a*noise(p);
+    p = p*2.02 + vec2(1.7, 9.2);
+    a *= 0.5;
+  }
+  return v;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p  = uv;
+  p.x *= uRes.x / uRes.y;
+
+  vec2 m = uMouse;
+  m.x *= uRes.x / uRes.y;
+
+  // Mouse pulls a flow direction, plus click ripple
+  vec2 toM = (m - p);
+  float dM = length(toM);
+  vec2 flow = vec2(0.0);
+  flow += 0.25 * toM / (dM + 0.4);
+
+  // Click ring distortion
+  vec2 cp = uClickPos; cp.x *= uRes.x / uRes.y;
+  float dC = length(p - cp);
+  float ring = exp(-pow((dC - uClick*0.9), 2.0)*22.0) * uClick;
+  flow += normalize(p - cp + 1e-4) * ring * 0.5;
+
+  float t = uTime * 0.07;
+
+  // Layered fbm flowing
+  vec2 q  = p*1.3 + flow*0.6 + vec2(0.0, t*2.0);
+  float n1 = fbm(q + vec2(t, -t*0.5));
+  float n2 = fbm(q*1.4 - vec2(t*0.7, t));
+  float n3 = fbm(q*2.2 + vec2(-t*0.4, t*1.3) + n1*1.2);
+
+  float band = sin(n3*6.2831 + uTime*0.2 + n2*2.0)*0.5+0.5;
+  band = pow(band, 1.4);
+
+  // Palette: deep indigo -> magenta -> teal -> warm gold
+  vec3 c1 = vec3(0.05, 0.04, 0.13);     // deep night
+  vec3 c2 = vec3(0.55, 0.18, 0.62);     // magenta
+  vec3 c3 = vec3(0.18, 0.78, 0.82);     // teal
+  vec3 c4 = vec3(0.98, 0.78, 0.42);     // gold (mouse warmth)
+
+  vec3 col = mix(c1, c2, band);
+  col = mix(col, c3, smoothstep(0.4, 0.95, n2));
+  // mouse-proximity warmth
+  float warm = exp(-dM*1.6) * (0.6 + 0.4*sin(uTime*0.8));
+  col = mix(col, c4, warm*0.55);
+
+  // Click bloom
+  col += vec3(1.0, 0.6, 0.9) * ring * 0.8;
+
+  // subtle vignette
+  vec2 v = uv-0.5;
+  col *= 1.0 - dot(v,v)*0.5;
+
+  // grain
+  float g = hash3(gl_FragCoord.xy + uTime).x;
+  col += (g-0.5)*0.015;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<!-- =================== SHADER 2: VORONOI CELLS =================== -->
+<script id="fs1" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uMouse;
+uniform float uClick;
+uniform vec2  uClickPos;
+varying vec2 vUv;
+
+vec2 hash2(vec2 p){
+  p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
+  return fract(sin(p)*43758.5453);
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p = uv;
+  float ar = uRes.x/uRes.y;
+  p.x *= ar;
+  vec2 m = uMouse; m.x *= ar;
+  vec2 cp = uClickPos; cp.x *= ar;
+
+  // ripple radius from click
+  float rippleR = uClick * 1.2;
+  float dC = length(p - cp);
+  float ripple = exp(-pow((dC - rippleR), 2.0)*60.0) * uClick;
+
+  // grid scale
+  float sc = 9.0;
+  vec2 g = p * sc;
+  vec2 gi = floor(g);
+  vec2 gf = fract(g);
+
+  float minDist = 1.0;
+  float secondDist = 1.0;
+  vec2 nearestCell = vec2(0.0);
+
+  for(int y=-1;y<=1;y++){
+    for(int x=-1;x<=1;x++){
+      vec2 nb = vec2(float(x),float(y));
+      vec2 cell = gi + nb;
+      vec2 h = hash2(cell);
+      // animate cell point
+      vec2 pt = nb + 0.5 + 0.45*vec2(
+        sin(uTime*0.6 + h.x*6.28 + h.y*3.14),
+        cos(uTime*0.55 + h.y*6.28 - h.x*2.71)
+      );
+      // mouse attracts cell points subtly
+      vec2 cellWorld = (cell + 0.5) / sc;
+      vec2 toM = m - cellWorld;
+      pt += 0.35 * toM * exp(-length(toM)*1.2);
+
+      float d = length(pt - gf);
+      if(d < minDist){ secondDist = minDist; minDist = d; nearestCell = cell; }
+      else if(d < secondDist){ secondDist = d; }
+    }
+  }
+
+  // cell color (steady palette indexed by cell hash)
+  vec2 ch = hash2(nearestCell);
+  float hue = ch.x;
+  vec3 a = mix(vec3(0.07,0.04,0.18), vec3(0.10,0.18,0.32), ch.y);
+  vec3 b = 0.5 + 0.5*cos(6.2831*(hue + vec3(0.0, 0.33, 0.67)) + 1.2);
+  b *= 0.55;
+  vec3 base = mix(a, b, 0.5);
+
+  // edge thickness
+  float edge = smoothstep(0.02, 0.0, secondDist - minDist);
+
+  // mouse proximity: cells near mouse glow + pulse
+  vec2 cellWorld = (nearestCell + 0.5) / sc;
+  float dm = length(m - cellWorld);
+  float glow = exp(-dm*2.5) * (0.6 + 0.4*sin(uTime*2.0 + hash2(nearestCell).x*6.28));
+
+  // click ripple: bright pop along ring
+  float pop = ripple * 1.6;
+
+  vec3 col = base;
+  col += b * glow * 1.5;
+  col += vec3(1.0, 0.85, 0.6) * pop;
+  col = mix(col, vec3(0.95,0.96,1.0), edge*0.85);
+
+  // softer fill toward center of cell
+  float fill = smoothstep(0.5, 0.0, minDist);
+  col *= mix(0.8, 1.3, fill);
+
+  // vignette
+  vec2 v = uv-0.5;
+  col *= 1.0 - dot(v,v)*0.55;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<!-- =================== SHADER 3: PLASMA LENS =================== -->
+<script id="fs2" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uMouse;
+uniform float uClick;
+uniform vec2  uClickPos;
+uniform vec2  uLens;       // sticky lens position
+uniform float uLensOn;
+varying vec2 vUv;
+
+vec3 palette(float t){
+  // deep ocean -> emerald -> amber
+  vec3 a = vec3(0.08, 0.05, 0.18);
+  vec3 b = vec3(0.10, 0.55, 0.65);
+  vec3 c = vec3(0.95, 0.55, 0.20);
+  vec3 d = vec3(0.95, 0.95, 0.85);
+  float u = clamp(t, 0.0, 1.0);
+  vec3 col = mix(a,b,smoothstep(0.0,0.45,u));
+  col = mix(col, c, smoothstep(0.45,0.8,u));
+  col = mix(col, d, smoothstep(0.85,1.0,u));
+  return col;
+}
+
+float plasma(vec2 p, float t){
+  float v = 0.0;
+  v += sin(p.x*3.0 + t*0.6);
+  v += sin(p.y*2.4 - t*0.4);
+  v += sin((p.x+p.y)*2.1 + t*0.8);
+  v += sin(length(p+vec2(sin(t*0.3), cos(t*0.27)))*5.0 - t);
+  return v*0.25;
+}
+
+vec2 lensDistort(vec2 p, vec2 c, float strength, float radius){
+  vec2 d = p - c;
+  float r = length(d);
+  float k = strength * smoothstep(radius, 0.0, r);
+  // pull toward / push away creates spherical lens
+  return p - d * k;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p = uv*2.0 - 1.0;
+  p.x *= uRes.x / uRes.y;
+  vec2 m = uMouse*2.0 - 1.0; m.x *= uRes.x/uRes.y;
+  vec2 cp = uClickPos*2.0 - 1.0; cp.x *= uRes.x/uRes.y;
+  vec2 lensP = uLens*2.0 - 1.0; lensP.x *= uRes.x/uRes.y;
+
+  // apply lens distortions
+  vec2 q = p;
+  q = lensDistort(q, m, 0.65, 0.7);
+  if(uLensOn > 0.5) q = lensDistort(q, lensP, -0.5, 0.55);
+  // click expanding lens
+  q = lensDistort(q, cp, uClick*0.8, 0.6 + uClick*0.4);
+
+  float v = plasma(q*1.1, uTime);
+  // double-layer for richness
+  float v2 = plasma(q*2.3 + vec2(3.1,1.7), uTime*0.6);
+  float f = 0.5 + 0.5*sin(6.2831*(v + v2*0.5) + uTime*0.2);
+
+  vec3 col = palette(f);
+
+  // edge highlight on lens
+  float dM = length(p-m);
+  float rim = exp(-pow((dM - 0.7), 2.0)*60.0)*0.4;
+  col += rim;
+
+  if(uLensOn>0.5){
+    float dL = length(p-lensP);
+    col += exp(-pow((dL-0.55), 2.0)*70.0)*0.3;
+  }
+
+  // film grain
+  float g = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233)) + uTime)*43758.5453);
+  col += (g-0.5)*0.02;
+
+  // vignette
+  vec2 vg = uv-0.5;
+  col *= 1.0 - dot(vg,vg)*0.6;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<!-- =================== SHADER 4: MAGNETIC GRID =================== -->
+<script id="fs3" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uMouse;
+uniform float uClick;
+uniform vec2  uClickPos;
+uniform float uPolarity;   // +1 attract, -1 repel
+varying vec2 vUv;
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p = uv*2.0 - 1.0;
+  float ar = uRes.x/uRes.y;
+  p.x *= ar;
+  vec2 m = uMouse*2.0 - 1.0; m.x *= ar;
+  vec2 cp = uClickPos*2.0 - 1.0; cp.x *= ar;
+
+  // magnetic displacement field
+  vec2 toM = p - m;
+  float r = length(toM) + 0.001;
+  vec2 dir = toM / r;
+  // dipole-ish: strong near, weaker far
+  float strength = uPolarity * 0.35 / (r*r + 0.05);
+  vec2 disp = dir * strength;
+
+  // click pulse: outgoing ring of force
+  vec2 toC = p - cp;
+  float rc = length(toC) + 0.001;
+  float ring = exp(-pow((rc - uClick*1.2), 2.0)*40.0) * uClick;
+  disp += normalize(toC) * ring * 0.6;
+
+  // sample grid in displaced space
+  vec2 g = (p + disp) * 14.0;
+  vec2 gi = floor(g) + 0.5;
+  vec2 gf = g - gi;
+  float d = length(gf);
+
+  // dot brightness
+  float dot1 = smoothstep(0.38, 0.18, d);
+  // larger soft halo
+  float halo = smoothstep(0.9, 0.0, d) * 0.25;
+
+  // color by displacement magnitude
+  float energy = clamp(length(disp)*1.2, 0.0, 1.0);
+  vec3 cool = vec3(0.35, 0.6, 1.0);
+  vec3 hot  = vec3(1.0, 0.45, 0.7);
+  vec3 dotCol = mix(cool, hot, energy);
+
+  // field lines: faint streaks along disp direction
+  vec2 align = normalize(disp + 1e-4);
+  vec2 perp = vec2(-align.y, align.x);
+  float lineCoord = dot(p*40.0, perp);
+  float lines = smoothstep(0.85, 1.0, sin(lineCoord)*0.5+0.5) * smoothstep(0.0, 0.7, energy)*0.18;
+
+  // background
+  vec3 bg = mix(vec3(0.04,0.05,0.09), vec3(0.07,0.04,0.14), uv.y);
+  bg += vec3(0.1,0.15,0.25) * exp(-length(p-m)*1.5)*0.25;
+
+  vec3 col = bg;
+  col += dotCol * (dot1 + halo);
+  col += vec3(0.9,0.95,1.0) * lines;
+  // click ring shimmer
+  col += vec3(1.0,0.8,0.95) * ring * 0.6;
+
+  // vignette
+  vec2 vg = uv-0.5;
+  col *= 1.0 - dot(vg,vg)*0.55;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<!-- =================== SHADER 5: EVENT HORIZON =================== -->
+<script id="fs4" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uMouse;
+uniform float uClick;
+uniform vec2  uClickPos;
+uniform float uSpin;        // +/- 1
+varying vec2 vUv;
+
+vec2 hash2(vec2 p){
+  p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
+  return fract(sin(p)*43758.5453);
+}
+float noise(vec2 p){
+  vec2 i = floor(p); vec2 f = fract(p);
+  vec2 u = f*f*(3.0-2.0*f);
+  float a = hash2(i).x;
+  float b = hash2(i+vec2(1,0)).x;
+  float c = hash2(i+vec2(0,1)).x;
+  float d = hash2(i+vec2(1,1)).x;
+  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+}
+float fbm(vec2 p){
+  float v=0.0; float a=0.5;
+  for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+vec2(1.3,7.1); a*=0.5; }
+  return v;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes.xy;
+  vec2 p = uv*2.0 - 1.0;
+  float ar = uRes.x/uRes.y;
+  p.x *= ar;
+  vec2 m = uMouse*2.0 - 1.0; m.x *= ar;
+  vec2 cp = uClickPos*2.0 - 1.0; cp.x *= ar;
+
+  vec2 q = p - m;
+  float r = length(q);
+  float a = atan(q.y, q.x);
+
+  // spiral angle warp pulled stronger near center
+  float swirl = uSpin * (1.6 / (r + 0.15));
+  float aa = a + swirl + uTime*0.25*uSpin;
+
+  // log-spiral coordinates
+  vec2 sp = vec2(aa*1.8, log(r+0.1)*1.6 - uTime*0.4*uSpin);
+  float n = fbm(sp*1.2);
+  float n2 = fbm(sp*2.5 + n*1.3);
+
+  // disk falloff
+  float disk = smoothstep(1.6, 0.0, r) * smoothstep(0.04, 0.18, r);
+  float hot = pow(n2, 1.5)*disk;
+
+  // accretion palette
+  vec3 c1 = vec3(0.04, 0.02, 0.08);
+  vec3 c2 = vec3(0.5, 0.15, 0.7);
+  vec3 c3 = vec3(1.0, 0.55, 0.25);
+  vec3 c4 = vec3(1.0, 0.95, 0.75);
+  vec3 col = c1;
+  col = mix(col, c2, smoothstep(0.05, 0.5, hot));
+  col = mix(col, c3, smoothstep(0.45, 0.85, hot));
+  col = mix(col, c4, smoothstep(0.85, 1.0, hot));
+
+  // event horizon (dark disc)
+  float core = smoothstep(0.18, 0.10, r);
+  col = mix(col, vec3(0.0), core);
+  // photon ring
+  float ring = exp(-pow((r-0.20), 2.0)*900.0);
+  col += vec3(1.0, 0.7, 0.4) * ring * 1.2;
+
+  // click ring pulse
+  float dC = length(p - cp);
+  float clickRing = exp(-pow((dC - uClick*1.3), 2.0)*30.0) * uClick;
+  col += vec3(0.9, 0.7, 1.0) * clickRing * 1.0;
+
+  // starfield background (outside disk)
+  float stars = pow(noise(p*120.0), 30.0);
+  col += vec3(stars) * smoothstep(0.8, 1.4, r);
+
+  // vignette
+  vec2 vg = uv-0.5;
+  col *= 1.0 - dot(vg,vg)*0.5;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<script>
+(() => {
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false });
+  if (!gl) {
+    document.body.innerHTML = '<div style="padding:40px;color:#fff;font-family:Helvetica">WebGL not supported.</div>';
+    return;
+  }
+
+  // ---- compile helpers ----
+  function compile(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('shader error:', gl.getShaderInfoLog(s), '\n', src);
+    }
+    return s;
+  }
+  function link(vs, fs) {
+    const p = gl.createProgram();
+    gl.attachShader(p, vs);
+    gl.attachShader(p, fs);
+    gl.bindAttribLocation(p, 0, 'a_pos');
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+      console.error('link error:', gl.getProgramInfoLog(p));
+    }
+    return p;
+  }
+
+  // ---- fullscreen quad ----
+  const quad = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+    -1,-1,  1,-1, -1, 1,
+    -1, 1,  1,-1,  1, 1
+  ]), gl.STATIC_DRAW);
+
+  const vsSrc = document.getElementById('vs').textContent;
+  const vs = compile(gl.VERTEX_SHADER, vsSrc);
+
+  const SHADERS = ['fs0','fs1','fs2','fs3','fs4'].map(id => {
+    const fs = compile(gl.FRAGMENT_SHADER, document.getElementById(id).textContent);
+    const prog = link(vs, fs);
+    return {
+      prog,
+      loc: {
+        uRes: gl.getUniformLocation(prog, 'uRes'),
+        uTime: gl.getUniformLocation(prog, 'uTime'),
+        uMouse: gl.getUniformLocation(prog, 'uMouse'),
+        uClick: gl.getUniformLocation(prog, 'uClick'),
+        uClickPos: gl.getUniformLocation(prog, 'uClickPos'),
+        uMix: gl.getUniformLocation(prog, 'uMix'),
+        uLens: gl.getUniformLocation(prog, 'uLens'),
+        uLensOn: gl.getUniformLocation(prog, 'uLensOn'),
+        uPolarity: gl.getUniformLocation(prog, 'uPolarity'),
+        uSpin: gl.getUniformLocation(prog, 'uSpin'),
+      }
+    };
+  });
+
+  // ---- resize ----
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.round(window.innerWidth * dpr);
+    const h = Math.round(window.innerHeight * dpr);
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // ---- input state ----
+  const state = {
+    current: 0,
+    // smoothed mouse 0..1 in canvas space (y inverted to match gl)
+    mx: 0.5, my: 0.5,
+    tx: 0.5, ty: 0.5,
+    click: 0,            // decays
+    clickPos: [0.5, 0.5],
+    // per-shader persistent state
+    lens: [0.5, 0.5],
+    lensOn: 0,
+    polarity: 1,
+    spin: 1,
+    startedAt: performance.now(),
+  };
+
+  function setPointer(e) {
+    const r = canvas.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = 1.0 - (e.clientY - r.top) / r.height;
+    state.tx = Math.max(0, Math.min(1, x));
+    state.ty = Math.max(0, Math.min(1, y));
+  }
+  window.addEventListener('pointermove', setPointer, { passive: true });
+  window.addEventListener('pointerdown', (e) => {
+    setPointer(e);
+    state.click = 1;
+    state.clickPos[0] = state.tx;
+    state.clickPos[1] = state.ty;
+    // per-shader click side-effects
+    if (state.current === 2) {
+      // plasma: drop / move lens
+      state.lens[0] = state.tx;
+      state.lens[1] = state.ty;
+      state.lensOn = 1;
+    } else if (state.current === 3) {
+      // magnetic: flip polarity
+      state.polarity *= -1;
+    } else if (state.current === 4) {
+      // event horizon: flip spin
+      state.spin *= -1;
+    }
+  });
+
+  // ---- switcher ----
+  const NAMES = ['Aurora Silk','Voronoi Cells','Plasma Lens','Magnetic Grid','Event Horizon'];
+  const HINTS = [
+    'move to warp the flow · click to burst',
+    'move to swell nearby cells · click to ripple',
+    'move to bend the field · click to pin a lens',
+    'move to bend the grid · click to flip polarity',
+    'move the singularity · click to reverse spin',
+  ];
+  const buttons = [...document.querySelectorAll('#switcher button')];
+  buttons.forEach(b => {
+    b.addEventListener('click', () => {
+      state.current = +b.dataset.i;
+      buttons.forEach(x => x.classList.toggle('active', x === b));
+      document.getElementById('name').textContent = NAMES[state.current];
+      document.getElementById('hint').textContent = HINTS[state.current];
+      document.querySelector('.eyebrow').textContent =
+        `Wallpaper · 0${state.current+1} / 05`;
+    });
+  });
+  // keyboard 1..5
+  window.addEventListener('keydown', (e) => {
+    const n = +e.key;
+    if (n >= 1 && n <= 5) buttons[n-1].click();
+  });
+
+  // ---- render loop ----
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+  let last = performance.now();
+  let frames = 0, fpsT = last, fps = 60;
+  const fpsEl = document.getElementById('fps');
+  const posEl = document.getElementById('pos');
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+
+    // smooth mouse
+    const k = 1 - Math.exp(-dt * 12);
+    state.mx += (state.tx - state.mx) * k;
+    state.my += (state.ty - state.my) * k;
+    // decay click
+    state.click = Math.max(0, state.click - dt * 0.9);
+
+    const t = (now - state.startedAt) / 1000;
+    const s = SHADERS[state.current];
+    gl.useProgram(s.prog);
+    gl.uniform2f(s.loc.uRes, canvas.width, canvas.height);
+    gl.uniform1f(s.loc.uTime, t);
+    gl.uniform2f(s.loc.uMouse, state.mx, state.my);
+    gl.uniform1f(s.loc.uClick, state.click);
+    gl.uniform2f(s.loc.uClickPos, state.clickPos[0], state.clickPos[1]);
+    if (s.loc.uLens)    gl.uniform2f(s.loc.uLens, state.lens[0], state.lens[1]);
+    if (s.loc.uLensOn)  gl.uniform1f(s.loc.uLensOn, state.lensOn);
+    if (s.loc.uPolarity)gl.uniform1f(s.loc.uPolarity, state.polarity);
+    if (s.loc.uSpin)    gl.uniform1f(s.loc.uSpin, state.spin);
+    if (s.loc.uMix)     gl.uniform1f(s.loc.uMix, 0.5);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    // hud
+    frames++;
+    if (now - fpsT > 500) {
+      fps = (frames * 1000 / (now - fpsT)) | 0;
+      fpsT = now; frames = 0;
+      fpsEl.textContent = fps;
+    }
+    posEl.textContent = state.mx.toFixed(2) + ', ' + state.my.toFixed(2);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Year in Pixels — 2026</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3efe7;
+    --bg-card: #faf7f0;
+    --ink: #2b2a26;
+    --ink-2: #6b6963;
+    --ink-3: #9a978f;
+    --rule: #e3ddd0;
+    --empty: #e8e2d2;
+    --empty-hover: #ddd6c2;
+
+    /* 5 muted moods — matched chroma 0.07, lightness 0.74 */
+    --m1: oklch(0.66 0.085 28);   /* awful — rust */
+    --m2: oklch(0.78 0.075 65);   /* low — clay */
+    --m3: oklch(0.87 0.055 95);   /* neutral — sand */
+    --m4: oklch(0.78 0.065 150);  /* good — sage */
+    --m5: oklch(0.72 0.07 235);   /* great — dusk blue */
+
+    --sans: "IBM Plex Sans", ui-sans-serif, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --serif: "IBM Plex Serif", ui-serif, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-feature-settings: "ss01", "ss02";
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: 56px 48px 80px;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+
+  header.top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+  }
+  .brand {
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 14px 0 0;
+  }
+  h1 .num {
+    font-feature-settings: "tnum";
+    color: var(--ink-2);
+    margin-left: 12px;
+  }
+  .top-right {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .top-right .filled { color: var(--ink); font-size: 13px; }
+
+  /* GRID */
+  .grid-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 28px 24px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .grid-inner {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    column-gap: 10px;
+    min-width: 980px;
+  }
+  .month-row {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    height: 18px;
+    margin-bottom: 6px;
+  }
+  .month-row span { grid-row: 1; }
+
+  .weekday-col {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    row-gap: 3px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .weekday-col span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2px;
+  }
+
+  .cells {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-auto-flow: column;
+    gap: 3px;
+  }
+  .cell {
+    aspect-ratio: 1;
+    background: var(--empty);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform .08s ease, background .12s ease, box-shadow .12s ease;
+    position: relative;
+  }
+  .cell.empty-slot { background: transparent; cursor: default; pointer-events: none; }
+  .cell:hover:not(.empty-slot) {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 1px var(--ink) inset;
+    z-index: 2;
+  }
+  .cell[data-mood="1"] { background: var(--m1); }
+  .cell[data-mood="2"] { background: var(--m2); }
+  .cell[data-mood="3"] { background: var(--m3); }
+  .cell[data-mood="4"] { background: var(--m4); }
+  .cell[data-mood="5"] { background: var(--m5); }
+  .cell.today { box-shadow: 0 0 0 1.5px var(--ink) inset; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+    padding: 4px 4px 0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .swatch {
+    width: 16px; height: 16px; border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .legend .hint {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* TOOLTIP */
+  .tooltip {
+    position: fixed;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 6px 9px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 11px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .1s;
+    white-space: nowrap;
+    z-index: 50;
+    letter-spacing: 0.02em;
+  }
+  .tooltip .t-mood { color: var(--ink-3); margin-left: 6px; }
+
+  /* STATS */
+  .stats-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .stats-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .stats-head .sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px 24px 22px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .stat .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .stat .value {
+    font-family: var(--serif);
+    font-size: 36px;
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-top: 10px;
+  }
+  .stat .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-2);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+  .stat .viz {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .stat .viz .s {
+    width: 14px; height: 14px;
+    border-radius: 2px;
+    background: var(--empty);
+  }
+  .stat .viz .s.lg { width: 22px; height: 22px; }
+  .stat.empty .value { color: var(--ink-3); font-style: italic; font-size: 22px; }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  button.btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-2);
+    padding: 10px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .12s ease;
+  }
+  button.btn:hover { color: var(--ink); border-color: var(--ink-3); background: var(--bg-card); }
+  button.btn.danger:hover { color: var(--m1); border-color: var(--m1); }
+
+  footer {
+    margin-top: 64px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 28px 20px 60px; }
+    h1 { font-size: 36px; }
+    .stats { grid-template-columns: 1fr; }
+    header.top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .top-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brand">Year in Pixels</div>
+      <h1>How was today?<span class="num" id="year-num">2026</span></h1>
+    </div>
+    <div class="top-right">
+      <div class="filled"><span id="filled-count">0</span> / 365 days</div>
+      <div>click to cycle · right-click to clear</div>
+    </div>
+  </header>
+
+  <section class="grid-card">
+    <div class="grid-inner">
+      <div></div>
+      <div class="month-row" id="month-row"></div>
+      <div class="weekday-col">
+        <span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span><span>Sun</span>
+      </div>
+      <div class="cells" id="cells"></div>
+    </div>
+  </section>
+
+  <div class="legend">
+    <div class="legend-item"><div class="swatch" style="background:var(--m1)"></div>Awful</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--m2)"></div>Low</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--m3)"></div>Okay</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--m4)"></div>Good</div>
+    <div class="legend-item"><div class="swatch" style="background:var(--m5)"></div>Great</div>
+    <div class="hint">5 moods · cycle on click</div>
+  </div>
+
+  <div class="stats-head">
+    <h2>End-of-year reflection</h2>
+    <div class="sub">updated live</div>
+  </div>
+
+  <section class="stats" id="stats">
+    <div class="stat" id="stat-common">
+      <div>
+        <div class="label">Most common mood</div>
+        <div class="value">—</div>
+      </div>
+      <div class="meta">Log a day to begin</div>
+    </div>
+    <div class="stat" id="stat-streak">
+      <div>
+        <div class="label">Longest streak</div>
+        <div class="value">—</div>
+      </div>
+      <div class="meta">Consecutive days of one mood</div>
+    </div>
+    <div class="stat" id="stat-swing">
+      <div>
+        <div class="label">Biggest mood swing</div>
+        <div class="value">—</div>
+      </div>
+      <div class="meta">Largest jump between two days</div>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button class="btn" id="btn-sample">Load sample year</button>
+    <button class="btn danger" id="btn-clear">Clear all</button>
+  </div>
+
+  <footer>A tiny ritual · One square a day · 7 × 53 = your year</footer>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+  const YEAR = 2026;
+  const STORAGE_KEY = `year-in-pixels:${YEAR}`;
+  const MOOD_NAMES = { 1: "Awful", 2: "Low", 3: "Okay", 4: "Good", 5: "Great" };
+  const MOOD_COLORS = { 1: "var(--m1)", 2: "var(--m2)", 3: "var(--m3)", 4: "var(--m4)", 5: "var(--m5)" };
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  // ---- date helpers (local) ----
+  const isLeap = (y) => (y%4===0 && y%100!==0) || y%400===0;
+  const daysInYear = (y) => isLeap(y) ? 366 : 365;
+  const TOTAL_DAYS = 365; // user spec
+  // We'll treat the year as 365 days; if leap, Dec 31 is dropped from grid display.
+
+  function dateFromDayIndex(i) { // i: 0..364, day-of-year 1 = i=0
+    const d = new Date(YEAR, 0, 1);
+    d.setDate(d.getDate() + i);
+    return d;
+  }
+  function fmtDate(d) {
+    return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  }
+
+  // Calendar weekday Mon=0..Sun=6
+  function mondayIdx(d) { return (d.getDay() + 6) % 7; }
+
+  // ---- state ----
+  let moods = {}; // { dayIndex: 1..5 }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) moods = JSON.parse(raw);
+  } catch (e) { moods = {}; }
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(moods)); } catch(e) {}
+  }
+
+  // ---- build grid ----
+  const cellsEl = document.getElementById("cells");
+  const monthRowEl = document.getElementById("month-row");
+  const tooltip = document.getElementById("tooltip");
+
+  const jan1 = new Date(YEAR, 0, 1);
+  const startOffset = mondayIdx(jan1); // empty cells at top of column 0
+
+  // Build 7×53 = 371 cells. Skip first `startOffset` and any after day 365.
+  const cells = [];
+  // grid-auto-flow: column, so order is (row=0, col=0), (row=1, col=0)... but with grid-template-rows + grid-auto-flow column,
+  // children fill column-by-column: child 0 -> col0 row0, child 1 -> col0 row1, etc.
+  for (let col = 0; col < 53; col++) {
+    for (let row = 0; row < 7; row++) {
+      const cellPos = col * 7 + row;
+      const dayIndex = cellPos - startOffset;
+      const div = document.createElement("div");
+      div.className = "cell";
+      if (dayIndex < 0 || dayIndex >= TOTAL_DAYS) {
+        div.classList.add("empty-slot");
+      } else {
+        div.dataset.day = dayIndex;
+        const d = dateFromDayIndex(dayIndex);
+        div.dataset.date = d.toISOString().slice(0,10);
+        // today highlight
+        const today = new Date();
+        if (today.getFullYear() === YEAR && today.getMonth() === d.getMonth() && today.getDate() === d.getDate()) {
+          div.classList.add("today");
+        }
+      }
+      cellsEl.appendChild(div);
+      cells.push(div);
+    }
+  }
+
+  // Month labels — place each month label at the column of that month's 1st day
+  // column-track is 1..53; CSS grid-column starts at 1
+  for (let m = 0; m < 12; m++) {
+    const firstOfMonth = new Date(YEAR, m, 1);
+    const dayIndex = Math.round((firstOfMonth - jan1) / 86400000);
+    const col = Math.floor((dayIndex + startOffset) / 7); // 0..52
+    const span = document.createElement("span");
+    span.textContent = MONTHS[m];
+    span.style.gridColumn = (col + 1) + " / span 4";
+    monthRowEl.appendChild(span);
+  }
+
+  // ---- render moods ----
+  function render() {
+    let filled = 0;
+    cells.forEach(c => {
+      if (c.classList.contains("empty-slot")) return;
+      const di = +c.dataset.day;
+      const m = moods[di];
+      if (m) { c.dataset.mood = m; filled++; }
+      else { delete c.dataset.mood; }
+    });
+    document.getElementById("filled-count").textContent = filled;
+    renderStats();
+  }
+
+  // ---- interactions ----
+  cellsEl.addEventListener("click", (e) => {
+    const c = e.target.closest(".cell");
+    if (!c || c.classList.contains("empty-slot")) return;
+    const di = +c.dataset.day;
+    const cur = moods[di] || 0;
+    const next = (cur + 1) > 5 ? 0 : cur + 1; // cycle 0→1→2→3→4→5→0
+    if (next === 0) delete moods[di]; else moods[di] = next;
+    save();
+    render();
+  });
+  cellsEl.addEventListener("contextmenu", (e) => {
+    const c = e.target.closest(".cell");
+    if (!c || c.classList.contains("empty-slot")) return;
+    e.preventDefault();
+    const di = +c.dataset.day;
+    delete moods[di];
+    save();
+    render();
+  });
+
+  // tooltip
+  cellsEl.addEventListener("mousemove", (e) => {
+    const c = e.target.closest(".cell");
+    if (!c || c.classList.contains("empty-slot")) { tooltip.style.opacity = 0; return; }
+    const di = +c.dataset.day;
+    const d = dateFromDayIndex(di);
+    const m = moods[di];
+    tooltip.innerHTML = `${fmtDate(d)}<span class="t-mood">${m ? MOOD_NAMES[m] : "—"}</span>`;
+    tooltip.style.opacity = 1;
+    const r = c.getBoundingClientRect();
+    tooltip.style.left = (r.left + r.width/2 - tooltip.offsetWidth/2) + "px";
+    tooltip.style.top = (r.top - tooltip.offsetHeight - 8) + "px";
+  });
+  cellsEl.addEventListener("mouseleave", () => { tooltip.style.opacity = 0; });
+
+  // ---- stats ----
+  function renderStats() {
+    const entries = Object.entries(moods).map(([k,v]) => [+k, v]).sort((a,b)=>a[0]-b[0]);
+    const statCommon = document.getElementById("stat-common");
+    const statStreak = document.getElementById("stat-streak");
+    const statSwing  = document.getElementById("stat-swing");
+
+    if (entries.length === 0) {
+      resetStat(statCommon, "Most common mood", "Log a day to begin");
+      resetStat(statStreak, "Longest streak", "Consecutive days of one mood");
+      resetStat(statSwing,  "Biggest mood swing", "Largest jump between two days");
+      return;
+    }
+
+    // 1. most common mood
+    const counts = {1:0,2:0,3:0,4:0,5:0};
+    entries.forEach(([,m]) => counts[m]++);
+    let topMood = 1, topCount = 0;
+    for (const [m,c] of Object.entries(counts)) {
+      if (c > topCount) { topCount = c; topMood = +m; }
+    }
+    const pct = Math.round(topCount / entries.length * 100);
+    statCommon.classList.remove("empty");
+    statCommon.innerHTML = `
+      <div>
+        <div class="label">Most common mood</div>
+        <div class="value">${MOOD_NAMES[topMood]}</div>
+      </div>
+      <div>
+        <div class="viz">
+          <div class="s lg" style="background:${MOOD_COLORS[topMood]}"></div>
+          ${[1,2,3,4,5].filter(m=>m!==topMood).map(m=>`<div class="s" style="background:${MOOD_COLORS[m]};opacity:${counts[m]?0.85:0.35}"></div>`).join("")}
+        </div>
+        <div class="meta">${topCount} ${topCount===1?"day":"days"} · ${pct}% of logged</div>
+      </div>`;
+
+    // 2. longest streak (consecutive calendar days of same mood)
+    let bestLen = 0, bestMood = null, bestStart = null;
+    let curLen = 1, curMood = entries[0][1], curStart = entries[0][0];
+    for (let i = 1; i < entries.length; i++) {
+      const [day, mood] = entries[i];
+      const prevDay = entries[i-1][0];
+      if (day === prevDay + 1 && mood === curMood) {
+        curLen++;
+      } else {
+        if (curLen > bestLen) { bestLen = curLen; bestMood = curMood; bestStart = curStart; }
+        curLen = 1; curMood = mood; curStart = day;
+      }
+    }
+    if (curLen > bestLen) { bestLen = curLen; bestMood = curMood; bestStart = curStart; }
+    const sd = dateFromDayIndex(bestStart);
+    const ed = dateFromDayIndex(bestStart + bestLen - 1);
+    statStreak.classList.remove("empty");
+    statStreak.innerHTML = `
+      <div>
+        <div class="label">Longest streak</div>
+        <div class="value">${bestLen} ${bestLen===1?"day":"days"}</div>
+      </div>
+      <div>
+        <div class="viz">
+          ${Array.from({length: Math.min(bestLen, 14)}).map(()=>`<div class="s" style="background:${MOOD_COLORS[bestMood]}"></div>`).join("")}
+          ${bestLen > 14 ? `<span style="font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:6px">+${bestLen-14}</span>` : ""}
+        </div>
+        <div class="meta">${MOOD_NAMES[bestMood]} · ${shortDate(sd)}${bestLen>1 ? " → " + shortDate(ed) : ""}</div>
+      </div>`;
+
+    // 3. biggest mood swing — largest |Δ| between two consecutive logged calendar days
+    let swingDelta = 0, swingFrom = null, swingTo = null, swingDay = null;
+    for (let i = 1; i < entries.length; i++) {
+      const [day, mood] = entries[i];
+      const prevDay = entries[i-1][0];
+      const prevMood = entries[i-1][1];
+      if (day === prevDay + 1) {
+        const delta = Math.abs(mood - prevMood);
+        if (delta > swingDelta) {
+          swingDelta = delta;
+          swingFrom = prevMood;
+          swingTo = mood;
+          swingDay = day;
+        }
+      }
+    }
+    if (swingDelta === 0) {
+      statSwing.classList.remove("empty");
+      statSwing.innerHTML = `
+        <div>
+          <div class="label">Biggest mood swing</div>
+          <div class="value">Steady</div>
+        </div>
+        <div class="meta">No back-to-back days differ yet</div>`;
+    } else {
+      const swingDate = dateFromDayIndex(swingDay);
+      statSwing.classList.remove("empty");
+      statSwing.innerHTML = `
+        <div>
+          <div class="label">Biggest mood swing</div>
+          <div class="value">${swingDelta} ${swingDelta===1?"step":"steps"}</div>
+        </div>
+        <div>
+          <div class="viz">
+            <div class="s lg" style="background:${MOOD_COLORS[swingFrom]}"></div>
+            <span style="font-family:var(--mono);font-size:14px;color:var(--ink-3);margin:0 4px">→</span>
+            <div class="s lg" style="background:${MOOD_COLORS[swingTo]}"></div>
+          </div>
+          <div class="meta">${MOOD_NAMES[swingFrom]} → ${MOOD_NAMES[swingTo]} · ${shortDate(swingDate)}</div>
+        </div>`;
+    }
+  }
+
+  function resetStat(el, label, meta) {
+    el.classList.add("empty");
+    el.innerHTML = `<div><div class="label">${label}</div><div class="value">—</div></div><div class="meta">${meta}</div>`;
+  }
+  function shortDate(d) {
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }
+
+  // ---- controls ----
+  document.getElementById("btn-clear").addEventListener("click", () => {
+    if (Object.keys(moods).length === 0) return;
+    if (confirm("Clear all moods for " + YEAR + "?")) {
+      moods = {};
+      save();
+      render();
+    }
+  });
+
+  document.getElementById("btn-sample").addEventListener("click", () => {
+    // generate a plausible sample year — drifting baseline, occasional spikes
+    moods = {};
+    let baseline = 3;
+    for (let i = 0; i < TOTAL_DAYS; i++) {
+      // gentle baseline drift
+      baseline += (Math.random() - 0.5) * 0.18;
+      baseline = Math.max(1.6, Math.min(4.4, baseline));
+      // weekly weekend lift
+      const d = dateFromDayIndex(i);
+      const wd = d.getDay();
+      const lift = (wd === 5 || wd === 6) ? 0.4 : 0;
+      // small noise
+      let v = baseline + lift + (Math.random() - 0.5) * 0.9;
+      // occasional spike
+      if (Math.random() < 0.04) v += (Math.random() < 0.5 ? -1.6 : 1.6);
+      let m = Math.round(v);
+      if (m < 1) m = 1; if (m > 5) m = 5;
+      // leave ~12% of days unfilled to feel real
+      if (Math.random() < 0.12) continue;
+      moods[i] = m;
+    }
+    save();
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>

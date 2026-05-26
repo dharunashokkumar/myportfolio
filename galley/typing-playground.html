@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Typing Playground</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --bg: #f1ede4;
+    --ink: #0a0a0a;
+    --rule: rgba(10,10,10,0.14);
+    --soft: rgba(10,10,10,0.55);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* Layout ------------------------------------------------------- */
+  .app {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 22px 28px 0;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  .topbar b { color: var(--ink); font-weight: 500; letter-spacing: 0.14em; }
+
+  .stage {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 6vw;
+  }
+
+  .canvas {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    font-size: clamp(56px, 11.5vw, 168px);
+    user-select: none;
+    -webkit-user-select: none;
+    will-change: transform;
+  }
+  .canvas .ghost {
+    color: var(--soft);
+    font-weight: 300;
+    opacity: 0.45;
+    letter-spacing: -0.02em;
+    font-size: 0.36em;
+    line-height: 1.2;
+  }
+
+  /* Letters ------------------------------------------------------ */
+  .ch {
+    display: inline-block;
+    transform-origin: 50% 60%;
+    white-space: pre;
+    will-change: transform, opacity, filter;
+  }
+  .ch[data-space="1"] { width: 0.28em; }
+
+  /* Input bar ---------------------------------------------------- */
+  .inputbar {
+    padding: 0 28px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-top: 1px solid var(--rule);
+    margin-top: 0;
+  }
+  .inputbar::before {
+    content: "TYPE";
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--soft);
+    padding-top: 18px;
+  }
+  .field {
+    flex: 1;
+    position: relative;
+    padding: 16px 0 14px;
+  }
+  .field input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    caret-color: var(--ink);
+  }
+  .field input::placeholder { color: var(--soft); }
+  .counter {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--soft);
+    padding-top: 18px;
+    min-width: 56px;
+    text-align: right;
+  }
+
+  /* Chips -------------------------------------------------------- */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 24px 22px;
+    border-top: 1px solid var(--rule);
+    justify-content: center;
+  }
+  .chip {
+    appearance: none;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    padding: 9px 16px 9px 14px;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+  }
+  .chip:hover { transform: translateY(-1px); }
+  .chip .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--ink);
+    transition: background 120ms ease;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .chip[aria-pressed="true"] .dot {
+    background: var(--bg);
+    border-color: var(--bg);
+  }
+  .chip .num {
+    font-size: 10px;
+    opacity: 0.55;
+    margin-right: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Mode-specific decoration ------------------------------------- */
+  .ch.glitch::before,
+  .ch.glitch::after {
+    content: attr(data-c);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .ch.glitch { position: relative; }
+  .ch.glitch::before { transform: translate(-2px, 0); opacity: 0.7; }
+  .ch.glitch::after  { transform: translate( 2px, 0); opacity: 0.7; }
+
+  /* Mode label --------------------------------------------------- */
+  .modeLabel {
+    position: absolute;
+    top: 22px;
+    left: 28px;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--soft);
+    text-transform: uppercase;
+  }
+  .modeLabel b {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Crosshair for magnetic */
+  .pointer {
+    position: absolute;
+    width: 22px; height: 22px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity 160ms ease;
+  }
+  .pointer.on { opacity: 0.5; }
+
+  /* Reduced motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .ch { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <span><b>Typing Playground</b> &nbsp;·&nbsp; Kinetic type, eight modes</span>
+    <span>v 1.0</span>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="modeLabel">Mode &nbsp; <b id="modeName">BOUNCE</b></div>
+    <div class="pointer" id="pointer"></div>
+    <div class="canvas" id="canvas" aria-live="polite"></div>
+  </section>
+
+  <div class="inputbar">
+    <div class="field">
+      <input id="input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"
+             placeholder="Type something — watch it move." maxlength="48" />
+    </div>
+    <div class="counter" id="counter">00 / 48</div>
+  </div>
+
+  <nav class="chips" id="chips" role="tablist" aria-label="Motion style"></nav>
+</div>
+
+<script>
+(() => {
+  const MODES = [
+    { id: "bounce",    label: "Bounce"    },
+    { id: "wave",      label: "Wave"      },
+    { id: "glitch",    label: "Glitch"    },
+    { id: "dissolve",  label: "Dissolve"  },
+    { id: "liquid",    label: "Liquid"    },
+    { id: "falling",   label: "Falling"   },
+    { id: "exploding", label: "Exploding" },
+    { id: "magnetic",  label: "Magnetic"  },
+  ];
+
+  const PLACEHOLDER = "kinetic";
+  const MAX = 48;
+
+  const $ = (s) => document.querySelector(s);
+  const canvas  = $("#canvas");
+  const input   = $("#input");
+  const counter = $("#counter");
+  const chips   = $("#chips");
+  const modeName= $("#modeName");
+  const stage   = $("#stage");
+  const pointerEl = $("#pointer");
+
+  // State
+  let mode = "bounce";
+  let text = "";
+  let lastText = "";
+  let bornAt = new Map();   // index -> timestamp when first appeared
+  let charBirthCounter = 0;
+  let mouse = { x: -9999, y: -9999, inside: false };
+
+  // Render chips
+  MODES.forEach((m, i) => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-pressed", m.id === mode ? "true" : "false");
+    b.dataset.mode = m.id;
+    b.innerHTML = `<span class="dot"></span><span class="num">${String(i+1).padStart(2,"0")}</span>${m.label}`;
+    b.addEventListener("click", () => setMode(m.id));
+    chips.appendChild(b);
+  });
+
+  function setMode(id) {
+    mode = id;
+    document.querySelectorAll(".chip").forEach(c => {
+      c.setAttribute("aria-pressed", c.dataset.mode === id ? "true" : "false");
+    });
+    modeName.textContent = id.toUpperCase();
+    pointerEl.classList.toggle("on", id === "magnetic");
+    // Reset birth timing for entrance-driven modes so the effect plays
+    if (id === "falling" || id === "exploding" || id === "dissolve") {
+      const now = performance.now();
+      bornAt.clear();
+      [...text].forEach((_, i) => bornAt.set(i, now + i * 28));
+    }
+  }
+
+  function renderChars() {
+    const src = text.length ? text : "";
+    canvas.innerHTML = "";
+    if (!src.length) {
+      const g = document.createElement("div");
+      g.className = "ghost";
+      g.textContent = "Start typing…";
+      canvas.appendChild(g);
+      return;
+    }
+    [...src].forEach((c, i) => {
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.dataset.i = i;
+      s.dataset.c = c;
+      if (c === " ") {
+        s.dataset.space = "1";
+        s.innerHTML = "&nbsp;";
+      } else {
+        s.textContent = c;
+      }
+      canvas.appendChild(s);
+    });
+  }
+
+  // Track birth times
+  function syncBirths() {
+    const now = performance.now();
+    if (text !== lastText) {
+      // Mark new indices
+      for (let i = 0; i < text.length; i++) {
+        if (!bornAt.has(i) || text[i] !== lastText[i]) {
+          bornAt.set(i, now + (i - Math.max(0, lastText.length - 1)) * 18);
+        }
+      }
+      // Drop births past current length
+      for (const k of [...bornAt.keys()]) {
+        if (k >= text.length) bornAt.delete(k);
+      }
+      lastText = text;
+      renderChars();
+    }
+  }
+
+  // Input handling
+  input.addEventListener("input", (e) => {
+    text = e.target.value.slice(0, MAX);
+    counter.textContent = `${String(text.length).padStart(2,"0")} / ${MAX}`;
+    syncBirths();
+  });
+  // Keep focus on canvas click
+  stage.addEventListener("click", () => input.focus());
+  input.focus();
+
+  // Mouse tracking for magnetic
+  stage.addEventListener("pointermove", (e) => {
+    const r = stage.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+    mouse.inside = true;
+    pointerEl.style.left = mouse.x + "px";
+    pointerEl.style.top  = mouse.y + "px";
+  });
+  stage.addEventListener("pointerleave", () => { mouse.inside = false; });
+
+  // Animation loop -------------------------------------------------
+  function tick(t) {
+    const chars = canvas.querySelectorAll(".ch");
+    if (!chars.length) { requestAnimationFrame(tick); return; }
+
+    const stageRect = stage.getBoundingClientRect();
+
+    chars.forEach((el, i) => {
+      const c = el.dataset.c;
+      const age = (t - (bornAt.get(i) ?? t)) / 1000; // seconds since birth
+      let transform = "";
+      let opacity = 1;
+      let filter = "";
+
+      // Reset extras
+      if (el.classList.contains("glitch") && mode !== "glitch") el.classList.remove("glitch");
+
+      switch (mode) {
+        case "bounce": {
+          // Each letter on a staggered sine, with a soft squash
+          const phase = i * 0.32;
+          const y = Math.sin(t / 260 + phase) * 18 - 6;
+          const ydown = Math.max(0, y - 8);
+          const sq = 1 + Math.sin(t / 260 + phase + 1.2) * 0.04;
+          transform = `translateY(${-y}px) scale(${1 + (y>0?0.02:-0.02)}, ${sq})`;
+          break;
+        }
+        case "wave": {
+          const k = i * 0.42;
+          const y = Math.sin(t / 380 + k) * 36;
+          const rot = Math.cos(t / 380 + k) * 6;
+          transform = `translateY(${y}px) rotate(${rot}deg)`;
+          break;
+        }
+        case "glitch": {
+          if (!el.classList.contains("glitch")) el.classList.add("glitch");
+          // Bursty jitter — most letters mostly still, occasional kick
+          const seed = (i * 9301 + 49297) % 233280;
+          const burst = (Math.sin(t / 90 + i) + Math.sin(t / 53 + i * 1.7)) > 1.4 ? 1 : 0;
+          const jx = burst ? (Math.sin(t / 17 + seed) * 8) : (Math.sin(t / 230 + i) * 1.2);
+          const jy = burst ? (Math.cos(t / 19 + seed) * 6) : (Math.cos(t / 250 + i) * 0.8);
+          const skew = burst ? (Math.sin(t / 11 + seed) * 6) : 0;
+          transform = `translate(${jx}px, ${jy}px) skewX(${skew}deg)`;
+          if (burst) filter = "blur(0.4px)";
+          break;
+        }
+        case "dissolve": {
+          // Each letter fades in/out on its own slow phase
+          const phase = i * 1.13;
+          const v = (Math.sin(t / 700 + phase) + 1) / 2; // 0..1
+          opacity = 0.18 + v * 0.82;
+          const drift = Math.sin(t / 900 + phase) * 4;
+          transform = `translateY(${drift}px)`;
+          filter = `blur(${(1 - v) * 1.4}px)`;
+          break;
+        }
+        case "liquid": {
+          // Wobbly scale + skew, neighbors offset
+          const p = i * 0.55;
+          const sx = 1 + Math.sin(t / 320 + p) * 0.14;
+          const sy = 1 + Math.cos(t / 290 + p + 0.7) * 0.16;
+          const sk = Math.sin(t / 410 + p) * 8;
+          const y  = Math.sin(t / 360 + p * 1.3) * 6;
+          transform = `translateY(${y}px) scale(${sx}, ${sy}) skewX(${sk}deg)`;
+          break;
+        }
+        case "falling": {
+          // Drop in from -120px, settle with a tiny bounce. Then idle gravity wobble.
+          const a = Math.max(0, age);
+          if (a < 0.7) {
+            const k = a / 0.7;          // 0..1
+            const eased = 1 - Math.pow(1 - k, 3); // easeOutCubic
+            const y = -180 * (1 - eased);
+            const rot = (1 - eased) * (i % 2 === 0 ? -14 : 14);
+            opacity = Math.min(1, k * 2);
+            transform = `translateY(${y}px) rotate(${rot}deg)`;
+          } else if (a < 1.0) {
+            const k = (a - 0.7) / 0.3;  // settle bounce
+            const y = Math.sin(k * Math.PI) * -6;
+            transform = `translateY(${y}px)`;
+          } else {
+            const idle = Math.sin(t / 700 + i) * 1.2;
+            transform = `translateY(${idle}px)`;
+          }
+          break;
+        }
+        case "exploding": {
+          // On birth, blast outward from center, then return.
+          const a = Math.max(0, age);
+          const cycle = 1.4; // seconds outward+back
+          const k = Math.min(1, a / cycle);
+          // direction: based on index parity + position
+          const total = chars.length;
+          const center = (total - 1) / 2;
+          const dx0 = (i - center);
+          const dirX = dx0 === 0 ? (i % 2 === 0 ? -1 : 1) : Math.sign(dx0);
+          const angle = (i * 137.5) * Math.PI / 180; // golden-ish spread
+          const r = Math.sin(k * Math.PI) * 140;     // out and back
+          const x = Math.cos(angle) * r * 0.8 + dirX * Math.sin(k * Math.PI) * 30;
+          const y = Math.sin(angle) * r * 0.7;
+          const rot = Math.sin(k * Math.PI) * (dirX * 90);
+          const sc  = 1 + Math.sin(k * Math.PI) * 0.3;
+          // After return, idle pulse
+          if (a > cycle) {
+            const pulse = Math.sin(t / 420 + i) * 2;
+            transform = `translateY(${pulse}px)`;
+          } else {
+            transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${sc})`;
+          }
+          break;
+        }
+        case "magnetic": {
+          // Letters get pulled toward the cursor with falloff.
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2 - stageRect.left;
+          const cy = rect.top  + rect.height / 2 - stageRect.top;
+          let dx = 0, dy = 0, pull = 0;
+          if (mouse.inside) {
+            const ddx = mouse.x - cx;
+            const ddy = mouse.y - cy;
+            const dist = Math.hypot(ddx, ddy);
+            const radius = 260;
+            const k = Math.max(0, 1 - dist / radius);
+            pull = k * k;
+            dx = ddx * pull * 0.45;
+            dy = ddy * pull * 0.45;
+          }
+          // smooth idle breathing too
+          const breath = Math.sin(t / 800 + i * 0.6) * 1.5;
+          const sc = 1 + pull * 0.18;
+          transform = `translate(${dx}px, ${dy + breath}px) scale(${sc})`;
+          break;
+        }
+      }
+
+      el.style.transform = transform;
+      el.style.opacity = opacity;
+      el.style.filter = filter;
+    });
+
+    requestAnimationFrame(tick);
+  }
+
+  // Seed with a friendly default so it animates immediately
+  function seed() {
+    text = PLACEHOLDER;
+    input.value = PLACEHOLDER;
+    counter.textContent = `${String(text.length).padStart(2,"0")} / ${MAX}`;
+    const now = performance.now();
+    [...text].forEach((_, i) => bornAt.set(i, now + i * 28));
+    lastText = text;
+    renderChars();
+  }
+
+  seed();
+  requestAnimationFrame(tick);
+
+  // Number keys 1–8 jump modes
+  window.addEventListener("keydown", (e) => {
+    if (e.target === input) return;
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= MODES.length) setMode(MODES[n-1].id);
+  });
+})();
+</script>
+</body>
+</html>

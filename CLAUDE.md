@@ -21,7 +21,7 @@ There is no build step, no linter, and no test suite.
   - `index.html` — listing page that loads `projects.json` dynamically
   - `project.html` — template page that renders individual project markdown files from `lfprojects/projects/*.md` client-side
   - `projects.json` — project metadata index
-- **`explorer/`** — standalone interactive pages (e.g., CPU architecture explorer)
+- **`galley/`** — standalone interactive experiments (CPU architecture explorer, shader wallpapers, ui-pattern studies, dashboards, etc.), linked from `galley.html`
 - **`css/styles.css`** — single shared stylesheet (Merriweather font, lowercase text-transform globally)
 - **`js/rv.js`** — responsive video iframe height adjustment
 - **`js/cfme.js`** — float correction for `.media` containers with `.item-halfwidth` children; runs on load and resize

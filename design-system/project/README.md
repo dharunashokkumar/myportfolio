@@ -20,7 +20,7 @@ slides and micro-sites without breaking the feel.
 | Reference snapshot in this project | `reference/*.html`, `reference/styles.css` |
 
 A snapshot of the upstream pages (`index`, `about`, `projects`, `resume`,
-`contact`, `reflections`, `opensource`, `vault`, `explorer`) and the shared
+`contact`, `reflections`, `opensource`, `vault`, `galley`) and the shared
 stylesheet are copied into `reference/` so this system stays self-contained.
 
 ---
@@ -56,7 +56,7 @@ source. Pages in the source tree:
   as its own micro-brand within the brand.
 - **`about.html`** — Wikipedia-style biography, infobox on the right.
 - **`contact.html`** — classic contact cards grid.
-- **`opensource.html`**, **`explorer.html`**, **`vault.html`** — sub-surfaces.
+- **`opensource.html`**, **`galley.html`**, **`vault.html`** — sub-surfaces.
 - **`lfprojects/`** — a mini-app exploring all 765 Linux Foundation projects.
 - **`projects/*.html`**, **`reflections/*.html`** — standalone write-ups.
 

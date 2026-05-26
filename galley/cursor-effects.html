@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cursor Effects · 8 panels</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #efece4;
+    --panel: #f6f3ec;
+    --panel-2: #f1ede4;
+    --ink: #18170f;
+    --ink-soft: #2a2820;
+    --line: #d8d2c2;
+    --muted: #8a8474;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 32px 80px;
+    gap: 36px;
+  }
+  header {
+    width: min(1664px, 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+  }
+  header .title {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  header .sub {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 400px);
+    grid-template-rows: repeat(2, 300px);
+    gap: 24px;
+  }
+  .panel {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    cursor: crosshair;
+    isolation: isolate;
+  }
+  .panel:nth-child(even) { background: var(--panel-2); }
+
+  .panel canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .panel .label {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+  }
+  .panel .index {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+  }
+  .panel .name {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+    font-weight: 500;
+  }
+  .panel .corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--line);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .panel .corner.tl { left: -1px; top: -1px; border-right: none; border-bottom: none; }
+  .panel .corner.tr { right: -1px; top: -1px; border-left: none; border-bottom: none; }
+  .panel .corner.bl { left: -1px; bottom: -1px; border-right: none; border-top: none; }
+  .panel .corner.br { right: -1px; bottom: -1px; border-left: none; border-top: none; }
+
+  footer {
+    width: min(1664px, 100%);
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">Cursor study · eight behaviours</div>
+  <div class="sub">monochrome / 4 × 2 / hover any panel</div>
+</header>
+
+<div class="grid" id="grid">
+  <!-- 1 Comet trail -->
+  <div class="panel" data-effect="comet">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">01 · trail</div>
+    <div class="index">i</div>
+    <div class="name">Comet trail</div>
+  </div>
+  <!-- 2 Magnetic to nearest -->
+  <div class="panel" data-effect="magnetic">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">02 · field</div>
+    <div class="index">ii</div>
+    <div class="name">Magnetic-to-nearest</div>
+  </div>
+  <!-- 3 Paint stroke -->
+  <div class="panel" data-effect="paint">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">03 · stroke</div>
+    <div class="index">iii</div>
+    <div class="name">Paint stroke</div>
+  </div>
+  <!-- 4 Gravity well -->
+  <div class="panel" data-effect="gravity">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">04 · orbit</div>
+    <div class="index">iv</div>
+    <div class="name">Gravity well</div>
+  </div>
+  <!-- 5 Particle emission -->
+  <div class="panel" data-effect="particles">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">05 · spray</div>
+    <div class="index">v</div>
+    <div class="name">Particle emission</div>
+  </div>
+  <!-- 6 Ink blot -->
+  <div class="panel" data-effect="ink">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">06 · blot</div>
+    <div class="index">vi</div>
+    <div class="name">Ink blot</div>
+  </div>
+  <!-- 7 Smoke -->
+  <div class="panel" data-effect="smoke">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">07 · vapour</div>
+    <div class="index">vii</div>
+    <div class="name">Smoke</div>
+  </div>
+  <!-- 8 Ripple -->
+  <div class="panel" data-effect="ripple">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <canvas></canvas>
+    <div class="label">08 · wave</div>
+    <div class="index">viii</div>
+    <div class="name">Ripple</div>
+  </div>
+</div>
+
+<footer>
+  <div>cursor.study/008</div>
+  <div>monochrome · canvas2d · v0.1</div>
+</footer>
+
+<script>
+(() => {
+  const TAU = Math.PI * 2;
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  // ---------- shared setup per panel ----------
+  function setupPanel(panel) {
+    const canvas = panel.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+    function resize() {
+      const r = panel.getBoundingClientRect();
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    new ResizeObserver(resize).observe(panel);
+
+    const state = {
+      mx: -9999, my: -9999, pmx: -9999, pmy: -9999,
+      inside: false, raf: 0,
+      w: () => canvas.width / dpr,
+      h: () => canvas.height / dpr,
+      ctx,
+    };
+
+    panel.addEventListener('pointerenter', (e) => {
+      state.inside = true;
+      const r = panel.getBoundingClientRect();
+      state.mx = state.pmx = e.clientX - r.left;
+      state.my = state.pmy = e.clientY - r.top;
+    });
+    panel.addEventListener('pointermove', (e) => {
+      const r = panel.getBoundingClientRect();
+      state.pmx = state.mx; state.pmy = state.my;
+      state.mx = e.clientX - r.left;
+      state.my = e.clientY - r.top;
+    });
+    panel.addEventListener('pointerleave', () => {
+      state.inside = false;
+      state.mx = state.my = -9999;
+    });
+
+    return state;
+  }
+
+  // ---------- 1 · Comet trail ----------
+  function comet(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const parts = [];
+    function loop() {
+      // fade prior frame
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0,0,0,0.10)';
+      ctx.fillRect(0, 0, s.w(), s.h());
+      ctx.globalCompositeOperation = 'source-over';
+
+      if (s.inside) {
+        const dx = s.mx - s.pmx, dy = s.my - s.pmy;
+        const speed = Math.hypot(dx, dy);
+        const n = 1 + Math.min(4, speed / 8);
+        for (let i = 0; i < n; i++) {
+          parts.push({
+            x: s.mx + rand(-1, 1),
+            y: s.my + rand(-1, 1),
+            vx: dx * 0.02 + rand(-0.3, 0.3),
+            vy: dy * 0.02 + rand(-0.3, 0.3),
+            life: 1,
+            r: rand(0.8, 2.2),
+          });
+        }
+      }
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vx *= 0.96; p.vy *= 0.96;
+        p.life -= 0.018;
+        if (p.life <= 0) { parts.splice(i, 1); continue; }
+        ctx.fillStyle = `rgba(24,23,15,${p.life * 0.9})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * p.life, 0, TAU);
+        ctx.fill();
+      }
+      // head
+      if (s.inside) {
+        ctx.fillStyle = 'rgba(24,23,15,0.95)';
+        ctx.beginPath();
+        ctx.arc(s.mx, s.my, 2.5, 0, TAU);
+        ctx.fill();
+      }
+      s.raf = requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 2 · Magnetic to nearest ----------
+  function magnetic(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const cols = 14, rows = 10;
+    const pts = [];
+    function build() {
+      pts.length = 0;
+      const w = s.w(), h = s.h();
+      const px = w / (cols + 1), py = h / (rows + 1);
+      for (let j = 1; j <= rows; j++) {
+        for (let i = 1; i <= cols; i++) {
+          pts.push({ ox: i * px, oy: j * py, x: i * px, y: j * py });
+        }
+      }
+    }
+    build();
+    new ResizeObserver(build).observe(panel);
+
+    function loop() {
+      ctx.clearRect(0, 0, s.w(), s.h());
+      const mx = s.mx, my = s.my, inside = s.inside;
+      // find nearest only
+      let nearest = -1, nd = Infinity;
+      if (inside) {
+        for (let i = 0; i < pts.length; i++) {
+          const d = (pts[i].ox - mx) ** 2 + (pts[i].oy - my) ** 2;
+          if (d < nd) { nd = d; nearest = i; }
+        }
+      }
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        let tx = p.ox, ty = p.oy;
+        if (i === nearest) { tx = mx; ty = my; }
+        p.x += (tx - p.x) * 0.18;
+        p.y += (ty - p.y) * 0.18;
+      }
+      // connection from nearest to cursor
+      if (nearest >= 0) {
+        const p = pts[nearest];
+        ctx.strokeStyle = 'rgba(24,23,15,0.55)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mx, my);
+        ctx.stroke();
+      }
+      // dots
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        const d = Math.hypot(p.x - p.ox, p.y - p.oy);
+        const r = 1.1 + Math.min(2.2, d * 0.02);
+        ctx.fillStyle = i === nearest ? 'rgba(24,23,15,1)' : 'rgba(24,23,15,0.55)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, TAU);
+        ctx.fill();
+      }
+      if (inside) {
+        ctx.strokeStyle = 'rgba(24,23,15,0.9)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(mx, my, 5, 0, TAU);
+        ctx.stroke();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 3 · Paint stroke ----------
+  function paint(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    let last = null;
+    function loop() {
+      if (s.inside) {
+        const dx = s.mx - s.pmx, dy = s.my - s.pmy;
+        const speed = Math.hypot(dx, dy);
+        const width = Math.max(2, 16 - speed * 0.35);
+        if (last) {
+          ctx.strokeStyle = 'rgba(24,23,15,0.85)';
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.lineWidth = width;
+          ctx.beginPath();
+          ctx.moveTo(last.x, last.y);
+          // quadratic for smoother line
+          const cx = (last.x + s.mx) / 2;
+          const cy = (last.y + s.my) / 2;
+          ctx.quadraticCurveTo(last.x, last.y, cx, cy);
+          ctx.stroke();
+          // bristle splatter
+          for (let i = 0; i < 2; i++) {
+            const a = Math.atan2(dy, dx) + Math.PI / 2;
+            const off = rand(-width * 0.7, width * 0.7);
+            ctx.fillStyle = `rgba(24,23,15,${rand(0.2, 0.6)})`;
+            ctx.beginPath();
+            ctx.arc(s.mx + Math.cos(a) * off, s.my + Math.sin(a) * off, rand(0.4, 1.2), 0, TAU);
+            ctx.fill();
+          }
+        }
+        last = { x: s.mx, y: s.my };
+      } else {
+        last = null;
+        // slow fade so stroke gently disappears
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(0,0,0,0.04)';
+        ctx.fillRect(0, 0, s.w(), s.h());
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 4 · Gravity well ----------
+  function gravity(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const N = 80;
+    const ps = [];
+    function build() {
+      ps.length = 0;
+      for (let i = 0; i < N; i++) {
+        ps.push({
+          x: rand(0, s.w()), y: rand(0, s.h()),
+          vx: rand(-0.2, 0.2), vy: rand(-0.2, 0.2),
+          r: rand(0.6, 1.6),
+        });
+      }
+    }
+    build();
+    new ResizeObserver(build).observe(panel);
+
+    function loop() {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.fillRect(0, 0, s.w(), s.h());
+      ctx.globalCompositeOperation = 'source-over';
+
+      const mx = s.mx, my = s.my;
+      for (const p of ps) {
+        if (s.inside) {
+          const dx = mx - p.x, dy = my - p.y;
+          const d2 = dx * dx + dy * dy + 600;
+          const f = 240 / d2;
+          // tangential to make orbit
+          p.vx += dx * f * 0.5 + (-dy) * f * 0.6;
+          p.vy += dy * f * 0.5 + (dx) * f * 0.6;
+        }
+        p.vx *= 0.96; p.vy *= 0.96;
+        p.x += p.vx; p.y += p.vy;
+        // wrap softly
+        if (p.x < -10) p.x = s.w() + 10;
+        if (p.x > s.w() + 10) p.x = -10;
+        if (p.y < -10) p.y = s.h() + 10;
+        if (p.y > s.h() + 10) p.y = -10;
+        const sp = Math.hypot(p.vx, p.vy);
+        ctx.strokeStyle = `rgba(24,23,15,${Math.min(0.85, 0.25 + sp * 0.3)})`;
+        ctx.lineWidth = p.r;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x - p.vx * 2.5, p.y - p.vy * 2.5);
+        ctx.stroke();
+      }
+      // well
+      if (s.inside) {
+        const g = ctx.createRadialGradient(mx, my, 0, mx, my, 28);
+        g.addColorStop(0, 'rgba(24,23,15,0.55)');
+        g.addColorStop(1, 'rgba(24,23,15,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(mx, my, 28, 0, TAU);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(24,23,15,1)';
+        ctx.beginPath();
+        ctx.arc(mx, my, 2.5, 0, TAU);
+        ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 5 · Particle emission ----------
+  function particles(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const ps = [];
+    function loop() {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0,0,0,0.08)';
+      ctx.fillRect(0, 0, s.w(), s.h());
+      ctx.globalCompositeOperation = 'source-over';
+
+      if (s.inside) {
+        for (let i = 0; i < 6; i++) {
+          const a = rand(0, TAU);
+          const v = rand(0.6, 3.2);
+          ps.push({
+            x: s.mx, y: s.my,
+            vx: Math.cos(a) * v, vy: Math.sin(a) * v,
+            life: 1, r: rand(0.6, 1.8),
+          });
+        }
+      }
+      for (let i = ps.length - 1; i >= 0; i--) {
+        const p = ps[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vx *= 0.985; p.vy *= 0.985;
+        p.vy += 0.03; // tiny gravity
+        p.life -= 0.014;
+        if (p.life <= 0) { ps.splice(i, 1); continue; }
+        ctx.fillStyle = `rgba(24,23,15,${p.life * 0.85})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, TAU);
+        ctx.fill();
+      }
+      if (s.inside) {
+        ctx.strokeStyle = 'rgba(24,23,15,0.8)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(s.mx, s.my, 6, 0, TAU);
+        ctx.stroke();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 6 · Ink blot ----------
+  function ink(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    let acc = 0, last = null;
+    function blot(x, y, r) {
+      // main lobe
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, 'rgba(24,23,15,0.95)');
+      g.addColorStop(0.7, 'rgba(24,23,15,0.7)');
+      g.addColorStop(1, 'rgba(24,23,15,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, TAU);
+      ctx.fill();
+      // satellite blots
+      const n = 4 + Math.floor(Math.random() * 4);
+      for (let i = 0; i < n; i++) {
+        const a = rand(0, TAU);
+        const d = rand(r * 0.4, r * 1.6);
+        const rr = rand(r * 0.15, r * 0.5);
+        const sx = x + Math.cos(a) * d, sy = y + Math.sin(a) * d;
+        const gg = ctx.createRadialGradient(sx, sy, 0, sx, sy, rr);
+        gg.addColorStop(0, `rgba(24,23,15,${rand(0.5, 0.9)})`);
+        gg.addColorStop(1, 'rgba(24,23,15,0)');
+        ctx.fillStyle = gg;
+        ctx.beginPath();
+        ctx.arc(sx, sy, rr, 0, TAU);
+        ctx.fill();
+      }
+    }
+    function loop() {
+      if (s.inside) {
+        if (!last) last = { x: s.mx, y: s.my };
+        const d = Math.hypot(s.mx - last.x, s.my - last.y);
+        acc += d;
+        if (acc > 22) {
+          blot(s.mx + rand(-2, 2), s.my + rand(-2, 2), rand(6, 12));
+          acc = 0;
+        }
+        last = { x: s.mx, y: s.my };
+      } else {
+        last = null;
+        // slow soak-away
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(0,0,0,0.015)';
+        ctx.fillRect(0, 0, s.w(), s.h());
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 7 · Smoke ----------
+  function smoke(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const puffs = [];
+    function loop() {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0,0,0,0.025)';
+      ctx.fillRect(0, 0, s.w(), s.h());
+      ctx.globalCompositeOperation = 'source-over';
+
+      if (s.inside) {
+        for (let i = 0; i < 2; i++) {
+          puffs.push({
+            x: s.mx + rand(-2, 2),
+            y: s.my + rand(-2, 2),
+            vx: rand(-0.15, 0.15),
+            vy: rand(-0.7, -0.25),
+            r: rand(6, 12),
+            grow: rand(0.18, 0.4),
+            life: 1,
+            decay: rand(0.006, 0.012),
+          });
+        }
+      }
+      for (let i = puffs.length - 1; i >= 0; i--) {
+        const p = puffs[i];
+        p.x += p.vx + Math.sin((p.y + i) * 0.04) * 0.15;
+        p.y += p.vy;
+        p.vy *= 0.992;
+        p.r += p.grow;
+        p.life -= p.decay;
+        if (p.life <= 0) { puffs.splice(i, 1); continue; }
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        const a = p.life * 0.22;
+        g.addColorStop(0, `rgba(24,23,15,${a})`);
+        g.addColorStop(1, 'rgba(24,23,15,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, TAU);
+        ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---------- 8 · Ripple ----------
+  function ripple(panel) {
+    const s = setupPanel(panel);
+    const { ctx } = s;
+    const rs = [];
+    let acc = 0, last = null, t = 0;
+    function loop() {
+      t++;
+      ctx.clearRect(0, 0, s.w(), s.h());
+      if (s.inside) {
+        if (!last) last = { x: s.mx, y: s.my };
+        acc += Math.hypot(s.mx - last.x, s.my - last.y);
+        last = { x: s.mx, y: s.my };
+        // emit on movement + steady tick
+        if (acc > 16 || t % 28 === 0) {
+          rs.push({ x: s.mx, y: s.my, r: 4, life: 1 });
+          acc = 0;
+        }
+      } else {
+        last = null;
+      }
+      for (let i = rs.length - 1; i >= 0; i--) {
+        const r = rs[i];
+        r.r += 1.4;
+        r.life -= 0.012;
+        if (r.life <= 0) { rs.splice(i, 1); continue; }
+        ctx.strokeStyle = `rgba(24,23,15,${r.life * 0.7})`;
+        ctx.lineWidth = 1 + r.life * 1.2;
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.r, 0, TAU);
+        ctx.stroke();
+      }
+      if (s.inside) {
+        ctx.fillStyle = 'rgba(24,23,15,1)';
+        ctx.beginPath();
+        ctx.arc(s.mx, s.my, 2.5, 0, TAU);
+        ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  const map = { comet, magnetic, paint, gravity, particles, ink, smoke, ripple };
+  document.querySelectorAll('.panel').forEach((p) => {
+    const fn = map[p.dataset.effect];
+    if (fn) fn(p);
+  });
+})();
+</script>
+</body>
+</html>

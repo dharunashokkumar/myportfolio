@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Constellation Maker</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0b1027;
+    --navy-2: #060920;
+    --star: #f5f1e6;
+    --line: rgba(245, 241, 230, 0.35);
+    --ink: #d9d4c2;
+    --muted: #6f7390;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: #0a0d1c;
+    color: var(--ink);
+    font-family: "EB Garamond", "Iowan Old Style", Georgia, serif;
+    font-feature-settings: "liga", "kern";
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    min-height: 100vh;
+  }
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .toolbar {
+    width: 600px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .toolbar .hint::before {
+    content: "▸ ";
+    color: var(--ink);
+  }
+  .toolbar button {
+    background: transparent;
+    border: 1px solid rgba(217, 212, 194, 0.25);
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: border-color 120ms ease, color 120ms ease;
+  }
+  .toolbar button:hover {
+    border-color: var(--ink);
+  }
+  .canvas-wrap {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    border-radius: 2px;
+    background:
+      radial-gradient(120% 80% at 30% 20%, #131a3a 0%, var(--navy) 55%, var(--navy-2) 100%);
+    box-shadow:
+      0 0 0 1px rgba(245, 241, 230, 0.08),
+      0 30px 80px -30px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    cursor: crosshair;
+  }
+  /* faint distant stars in the background */
+  .canvas-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 18% 32%, rgba(245,241,230,0.45) 50%, transparent 51%),
+      radial-gradient(1px 1px at 72% 18%, rgba(245,241,230,0.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 44% 78%, rgba(245,241,230,0.4) 50%, transparent 51%),
+      radial-gradient(1px 1px at 88% 64%, rgba(245,241,230,0.3) 50%, transparent 51%),
+      radial-gradient(1px 1px at 22% 88%, rgba(245,241,230,0.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 58% 42%, rgba(245,241,230,0.25) 50%, transparent 51%),
+      radial-gradient(1px 1px at 8% 60%, rgba(245,241,230,0.3) 50%, transparent 51%),
+      radial-gradient(1px 1px at 92% 90%, rgba(245,241,230,0.25) 50%, transparent 51%),
+      radial-gradient(1px 1px at 36% 12%, rgba(245,241,230,0.3) 50%, transparent 51%);
+    pointer-events: none;
+  }
+  svg.lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  svg.lines line {
+    stroke: var(--line);
+    stroke-width: 0.75;
+  }
+  .star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: var(--star);
+    box-shadow:
+      0 0 6px 1px rgba(245, 241, 230, 0.6),
+      0 0 14px 3px rgba(245, 241, 230, 0.18);
+    animation: twinkle var(--dur, 3.6s) ease-in-out var(--delay, 0s) infinite;
+    pointer-events: none;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.45; transform: scale(0.92); }
+    50%      { opacity: 1;    transform: scale(1.08); }
+  }
+  .label {
+    width: 600px;
+    min-height: 44px;
+    text-align: center;
+    color: var(--star);
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: lowercase;
+    opacity: 0.92;
+  }
+  .label:empty::before {
+    content: "—";
+    color: rgba(217, 212, 194, 0.25);
+    font-style: normal;
+    letter-spacing: 0;
+  }
+  .name-row {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .name-row label {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .name-row input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(217, 212, 194, 0.25);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 18px;
+    font-style: italic;
+    padding: 6px 2px;
+    outline: none;
+    transition: border-color 150ms ease;
+  }
+  .name-row input::placeholder {
+    color: rgba(217, 212, 194, 0.35);
+    font-style: italic;
+  }
+  .name-row input:focus {
+    border-bottom-color: var(--star);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="toolbar">
+      <span class="hint">click the sky to place stars · stars within 80px connect</span>
+      <button id="clear" type="button">clear</button>
+    </div>
+
+    <div class="canvas-wrap" id="sky">
+      <svg class="lines" id="lines" viewBox="0 0 600 400" preserveAspectRatio="none"></svg>
+    </div>
+
+    <div class="name-row">
+      <label for="name">name it</label>
+      <input id="name" type="text" autocomplete="off" placeholder="ursa minor, the kettle, etc." />
+    </div>
+
+    <div class="label" id="label"></div>
+  </div>
+
+<script>
+  (function () {
+    const sky = document.getElementById("sky");
+    const lines = document.getElementById("lines");
+    const nameInput = document.getElementById("name");
+    const label = document.getElementById("label");
+    const clearBtn = document.getElementById("clear");
+
+    const THRESHOLD = 80;
+    const stars = [];
+
+    function addStar(x, y) {
+      const el = document.createElement("div");
+      el.className = "star";
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      // randomize twinkle so each is independent
+      const dur = (2.6 + Math.random() * 2.8).toFixed(2) + "s";
+      const delay = (-Math.random() * 4).toFixed(2) + "s";
+      el.style.setProperty("--dur", dur);
+      el.style.setProperty("--delay", delay);
+      sky.appendChild(el);
+      stars.push({ x, y, el });
+      redrawLines();
+    }
+
+    function redrawLines() {
+      // clear
+      while (lines.firstChild) lines.removeChild(lines.firstChild);
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const a = stars[i], b = stars[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d <= THRESHOLD) {
+            const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            ln.setAttribute("x1", a.x);
+            ln.setAttribute("y1", a.y);
+            ln.setAttribute("x2", b.x);
+            ln.setAttribute("y2", b.y);
+            // softer line if farther
+            const op = 0.18 + 0.55 * (1 - d / THRESHOLD);
+            ln.setAttribute("stroke", "rgba(245, 241, 230, " + op.toFixed(2) + ")");
+            lines.appendChild(ln);
+          }
+        }
+      }
+    }
+
+    sky.addEventListener("click", function (e) {
+      const rect = sky.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      // keep inside a small inset so stars never clip the edge
+      const ix = Math.max(4, Math.min(rect.width - 4, x));
+      const iy = Math.max(4, Math.min(rect.height - 4, y));
+      addStar(ix, iy);
+    });
+
+    nameInput.addEventListener("input", function () {
+      label.textContent = nameInput.value.toLowerCase();
+    });
+
+    clearBtn.addEventListener("click", function () {
+      stars.splice(0).forEach(s => s.el.remove());
+      redrawLines();
+    });
+  })();
+</script>
+</body>
+</html>

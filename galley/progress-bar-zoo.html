@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Progress Bar Zoo</title>
+<style>
+  :root {
+    --bg: #efeae1;
+    --paper: #f4efe6;
+    --fg: #1c1814;
+    --muted: #8c8478;
+    --faint: #c8c1b4;
+    --line: #ddd6c8;
+    --accent: #e35d2c;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    min-height: 100vh;
+    padding: 28px;
+  }
+  .frame {
+    max-width: 1480px;
+    margin: 0 auto;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 4px 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  header .meta {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  header .meta b { color: var(--accent); font-weight: 600; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .cell {
+    background: var(--paper);
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .head .id {
+    color: var(--muted);
+  }
+  .head .name {
+    color: var(--fg);
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .head .pct {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .stage {
+    flex: 1;
+    display: block;
+    margin-top: 14px;
+    position: relative;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding: 0 4px;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <header>
+    <h1>Progress Bar Zoo · 16 specimens</h1>
+    <div class="meta">Loop &nbsp;<b>0 → 100%</b>&nbsp; · monochrome / warm accent</div>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <span>Specimens hand-rendered to canvas · all structurally distinct</span>
+    <span>Palette · <span style="color:var(--accent)">#E35D2C</span></span>
+  </footer>
+</div>
+
+<script>
+const C = {
+  fg: '#1c1814',
+  muted: '#8c8478',
+  faint: '#c8c1b4',
+  line: '#ddd6c8',
+  accent: '#e35d2c',
+  accentSoft: 'rgba(227,93,44,0.18)',
+  paper: '#f4efe6',
+};
+
+function roundRect(ctx, x, y, w, h, r) {
+  if (w < 2*r) r = w/2;
+  if (h < 2*r) r = h/2;
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y,   x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x,   y+h, r);
+  ctx.arcTo(x,   y+h, x,   y,   r);
+  ctx.arcTo(x,   y,   x+w, y,   r);
+  ctx.closePath();
+}
+
+/* ---------- 16 SPECIMENS ---------- */
+
+// 01 SOLID — classic, with a bright leading edge
+function drawSolid(ctx, t, w, h) {
+  const bh = 14, y = h/2 - bh/2;
+  ctx.fillStyle = C.line;
+  roundRect(ctx, 0, y, w, bh, bh/2); ctx.fill();
+  if (t > 0.001) {
+    ctx.fillStyle = C.accent;
+    roundRect(ctx, 0, y, Math.max(w*t, bh), bh, bh/2); ctx.fill();
+    // leading edge tick
+    const lx = Math.min(w*t, w-1);
+    ctx.fillStyle = C.fg;
+    ctx.fillRect(lx-1, y-3, 2, bh+6);
+  }
+}
+
+// 02 SEGMENTED — 24 cells, current cell ramps in
+function drawSegmented(ctx, t, w, h) {
+  const n = 24, gap = 3, bh = 22;
+  const cellW = (w - gap*(n-1)) / n;
+  const y = h/2 - bh/2;
+  const exact = t * n;
+  for (let i = 0; i < n; i++) {
+    const x = i * (cellW + gap);
+    const f = Math.max(0, Math.min(1, exact - i));
+    if (f >= 1) {
+      ctx.fillStyle = C.accent;
+      ctx.fillRect(x, y, cellW, bh);
+    } else {
+      ctx.fillStyle = C.line;
+      ctx.fillRect(x, y, cellW, bh);
+      if (f > 0) {
+        ctx.fillStyle = C.accent;
+        ctx.fillRect(x, y, cellW, bh * f); // grows top-down
+      }
+    }
+  }
+}
+
+// 03 LIQUID WAVE — horizontal fill w/ scrolling sine surface
+function drawWave(ctx, t, w, h) {
+  const bh = 40, y = h/2 - bh/2, r = 6;
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+  roundRect(ctx, 0.5, y+0.5, w-1, bh-1, r); ctx.stroke();
+  ctx.save();
+  roundRect(ctx, 0, y, w, bh, r); ctx.clip();
+  const fillX = w * t;
+  const phase = performance.now()/220;
+  ctx.fillStyle = C.accent;
+  ctx.beginPath();
+  ctx.moveTo(0, y+bh);
+  ctx.lineTo(0, y+8);
+  for (let x = 0; x <= fillX + 14; x += 2) {
+    const wv = Math.sin(x*0.10 - phase) * 3 + Math.sin(x*0.04 + phase*0.7) * 1.5;
+    ctx.lineTo(x, y + 8 + wv);
+  }
+  ctx.lineTo(fillX + 14, y + bh);
+  ctx.closePath();
+  ctx.fill();
+  // subtle inner foam line
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let x = 0; x <= fillX; x += 2) {
+    const wv = Math.sin(x*0.10 - phase) * 3 + Math.sin(x*0.04 + phase*0.7) * 1.5;
+    if (x === 0) ctx.moveTo(x, y + 8 + wv);
+    else ctx.lineTo(x, y + 8 + wv);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+// 04 MAGNETIC — dots snap to bar line as they pass the fill front
+function drawMagnetic(ctx, t, w, h) {
+  const yMid = h/2;
+  // ghost rail
+  ctx.strokeStyle = C.line; ctx.setLineDash([2,3]); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, yMid); ctx.lineTo(w, yMid); ctx.stroke();
+  ctx.setLineDash([]);
+  const N = 46;
+  const fillX = w * t;
+  const phase = performance.now()/600;
+  for (let i = 0; i < N; i++) {
+    const baseX = ((i + 0.5) / N) * w;
+    const seed = (Math.sin(i*12.9898 + 4.1414) * 43758.5453) % 1;
+    const drift = Math.sin(phase + i*0.7) * 1.5;
+    const scatterY = ((seed * 2 - 1)) * 24 + drift * 4;
+    const dist = baseX - fillX;
+    let x, y, col, r;
+    if (dist <= 0) {
+      x = baseX; y = yMid; col = C.accent; r = 2.6;
+    } else {
+      // pulling toward bar with distance
+      const pull = Math.max(0, 1 - dist/30);
+      x = baseX;
+      y = yMid + scatterY * (1 - pull) + drift;
+      col = pull > 0.4 ? C.accent : C.muted;
+      r = 2.0 + pull*0.6;
+    }
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  }
+}
+
+// 05 SHATTER — solid bar, fragments fly off the leading edge
+function drawShatter(ctx, t, w, h) {
+  const bh = 16, y = h/2 - bh/2;
+  ctx.fillStyle = C.line;
+  ctx.fillRect(0, y, w, bh);
+  const fillX = w * t;
+  ctx.fillStyle = C.accent;
+  ctx.fillRect(0, y, Math.max(0, fillX - 8), bh);
+  // shards near edge
+  const tm = performance.now()/1000;
+  for (let i = 0; i < 14; i++) {
+    const seed = (Math.sin(i*91.13)*43.7)%1;
+    const life = ((seed + tm*0.6) % 1);
+    const sx = fillX - 6 + life * 26;
+    const sy = y + bh/2 + Math.sin(i*2.3 + tm*3 + seed*6) * (life*16);
+    const sw = 4 - life*3.2;
+    const sh = 4 - life*3;
+    const alpha = 1 - life;
+    if (sw <= 0 || sh <= 0 || sx > w) continue;
+    ctx.fillStyle = `rgba(227,93,44,${alpha.toFixed(3)})`;
+    ctx.fillRect(sx, sy, sw, sh);
+  }
+}
+
+// 06 KNIT — V-shaped stitches filling left to right
+function drawKnit(ctx, t, w, h) {
+  const rows = 3, cols = 22;
+  const stitchW = w / cols;
+  const stitchH = 9;
+  const totalH = rows * stitchH;
+  const y0 = h/2 - totalH/2;
+  ctx.lineWidth = 1.6;
+  ctx.lineCap = 'round';
+  const totalStitches = rows * cols;
+  const drawn = Math.floor(t * totalStitches);
+  let count = 0;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const x = c * stitchW;
+      const y = y0 + r * stitchH;
+      const filled = count < drawn;
+      const partial = count === drawn ? (t*totalStitches - drawn) : 0;
+      ctx.strokeStyle = filled ? C.accent : C.line;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + stitchW/2, y + stitchH);
+      ctx.lineTo(x + stitchW, y);
+      ctx.stroke();
+      if (partial > 0) {
+        ctx.strokeStyle = C.accent;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        if (partial < 0.5) {
+          ctx.lineTo(x + stitchW*partial, y + stitchH*partial*2);
+        } else {
+          ctx.lineTo(x + stitchW/2, y + stitchH);
+          ctx.lineTo(x + stitchW*(0.5 + (partial-0.5)), y + stitchH*(1 - (partial-0.5)*2));
+        }
+        ctx.stroke();
+      }
+      count++;
+    }
+  }
+}
+
+// 07 TERMINAL DOTS — ●●●●○○○○
+function drawDots(ctx, t, w, h) {
+  const n = 18, gap = w / n;
+  const y = h/2;
+  const r = Math.min(6, gap*0.34);
+  const exact = t * n;
+  ctx.lineWidth = 1.4;
+  for (let i = 0; i < n; i++) {
+    const x = gap*(i + 0.5);
+    const f = Math.max(0, Math.min(1, exact - i));
+    if (f >= 1) {
+      ctx.fillStyle = C.accent;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+    } else if (f > 0) {
+      ctx.fillStyle = C.accent;
+      ctx.beginPath(); ctx.arc(x, y, r * f, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = C.muted;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.stroke();
+    } else {
+      ctx.strokeStyle = C.muted;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.stroke();
+    }
+  }
+}
+
+// 08 INCHWORM — caterpillar crawls and leaves trail
+function drawWorm(ctx, t, w, h) {
+  const yMid = h/2;
+  // track
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, yMid+14); ctx.lineTo(w, yMid+14); ctx.stroke();
+  // trail = filled portion
+  ctx.fillStyle = C.accentSoft;
+  ctx.fillRect(0, yMid+10, w*t, 8);
+  // worm body — 6 segments arched
+  const segs = 7;
+  const headX = w * t;
+  const tm = performance.now()/180;
+  const arch = Math.abs(Math.sin(tm)) * 6;
+  for (let i = 0; i < segs; i++) {
+    const px = headX - i*6;
+    if (px < 0) continue;
+    const archProgress = i / (segs-1);
+    const py = yMid + 8 - Math.sin(archProgress * Math.PI) * (arch + 4);
+    const rad = 4.5 - i*0.25;
+    ctx.fillStyle = i === 0 ? C.accent : C.accent;
+    ctx.beginPath(); ctx.arc(px, py, rad, 0, Math.PI*2); ctx.fill();
+  }
+  // head eye
+  if (headX < w) {
+    ctx.fillStyle = C.paper;
+    ctx.beginPath(); ctx.arc(headX+1.5, yMid + 8 - arch - 4 + 0.5, 1.2, 0, Math.PI*2); ctx.fill();
+  }
+}
+
+// 09 PIXEL RAIN — pixels fall from top, stack into bar
+function drawRain(ctx, t, w, h) {
+  const bh = 18, by = h/2 - bh/2 + 8;
+  // baseline
+  ctx.fillStyle = C.line;
+  ctx.fillRect(0, by, w, bh);
+  // stacked portion
+  ctx.fillStyle = C.accent;
+  ctx.fillRect(0, by, w*t, bh);
+  // falling pixels above the leading edge
+  const tm = performance.now()/1000;
+  const fillX = w * t;
+  for (let i = 0; i < 12; i++) {
+    const seed = (Math.sin(i*7.31)*23.7)%1;
+    const phase = (seed + tm*1.4 + i*0.13) % 1;
+    const x = fillX - 30 + ((Math.sin(i*3.1)*0.5+0.5) * 40);
+    if (x < 0 || x > w) continue;
+    const y = by - (1-phase) * 28;
+    if (y < by - 30) continue;
+    const sz = 3;
+    ctx.fillStyle = phase > 0.85 ? C.accent : C.muted;
+    ctx.fillRect(x, y, sz, sz);
+  }
+}
+
+// 10 DOMINO — tipping line of dominoes
+function drawDomino(ctx, t, w, h) {
+  const n = 18, dw = 4, dh = 22, gap = (w - n*dw) / (n-1);
+  const yBase = h/2 + dh/2;
+  const exact = t * n;
+  for (let i = 0; i < n; i++) {
+    const x = i*(dw + gap);
+    let angle = 0;
+    if (i < Math.floor(exact)) angle = Math.PI/2 - 0.08; // fallen
+    else if (i === Math.floor(exact)) angle = (exact - i) * (Math.PI/2 - 0.08);
+    const col = (i <= exact) ? C.accent : C.muted;
+    ctx.save();
+    ctx.translate(x + dw/2, yBase);
+    ctx.rotate(-angle);
+    ctx.fillStyle = col;
+    ctx.fillRect(-dw/2, -dh, dw, dh);
+    ctx.restore();
+  }
+  // floor line
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, yBase+0.5); ctx.lineTo(w, yBase+0.5); ctx.stroke();
+}
+
+// 11 BRICKS — masonry stacks
+function drawBricks(ctx, t, w, h) {
+  const rows = 3, cols = 10;
+  const bw = w / cols, bh = 9, gap = 2;
+  const y0 = h/2 - (rows*bh + (rows-1)*gap)/2;
+  // build bottom-up, left-right per row
+  const total = rows * cols;
+  const built = t * total;
+  for (let r = 0; r < rows; r++) {
+    const rowFromBottom = rows - 1 - r;
+    const off = (rowFromBottom % 2) * (bw/2);
+    for (let c = 0; c < cols; c++) {
+      const idx = rowFromBottom * cols + c;
+      const x = c * bw + off - (off > 0 ? bw/2 : 0);
+      const y = y0 + r * (bh + gap);
+      const filled = idx < Math.floor(built);
+      const partial = idx === Math.floor(built) ? built - Math.floor(built) : 0;
+      const drawW = bw - 1.5;
+      if (x + drawW < 0 || x > w) continue;
+      if (filled) {
+        ctx.fillStyle = C.accent;
+        ctx.fillRect(Math.max(0,x), y, Math.min(drawW, w-Math.max(0,x)), bh);
+      } else if (partial > 0) {
+        ctx.fillStyle = C.line;
+        ctx.fillRect(Math.max(0,x), y, Math.min(drawW, w-Math.max(0,x)), bh);
+        ctx.fillStyle = C.accent;
+        const px = Math.max(0,x);
+        ctx.fillRect(px, y, Math.min(drawW, w-px) * partial, bh);
+      } else {
+        ctx.fillStyle = C.line;
+        ctx.fillRect(Math.max(0,x), y, Math.min(drawW, w-Math.max(0,x)), bh);
+      }
+    }
+  }
+}
+
+// 12 STITCH — dashes that converge into a solid line
+function drawStitch(ctx, t, w, h) {
+  const y = h/2;
+  const dashes = 22;
+  const dashW = w / dashes;
+  ctx.lineWidth = 6;
+  ctx.lineCap = 'butt';
+  const fillX = w * t;
+  for (let i = 0; i < dashes; i++) {
+    const cx = (i + 0.5) * dashW;
+    const dist = cx - fillX;
+    const gap0 = 4;
+    // unfilled segments retain a gap; filled merge into one line
+    if (dist <= 0) {
+      // merged solid
+      ctx.strokeStyle = C.accent;
+      ctx.beginPath();
+      ctx.moveTo(i*dashW, y);
+      ctx.lineTo((i+1)*dashW, y);
+      ctx.stroke();
+    } else {
+      const pull = Math.max(0, 1 - dist/22);
+      const g = gap0 * (1 - pull);
+      ctx.strokeStyle = pull > 0.5 ? C.accent : C.muted;
+      ctx.beginPath();
+      ctx.moveTo(i*dashW + g/2, y);
+      ctx.lineTo((i+1)*dashW - g/2, y);
+      ctx.stroke();
+    }
+  }
+}
+
+// 13 COMET — bright head with fading tail
+function drawComet(ctx, t, w, h) {
+  const y = h/2;
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  const headX = w * t;
+  // tail: many circles fading backward
+  for (let i = 0; i < 50; i++) {
+    const back = i * 3.2;
+    const x = headX - back;
+    if (x < 0) break;
+    const a = Math.pow(1 - i/50, 2.2);
+    const r = 5 - i*0.07;
+    if (r <= 0) break;
+    ctx.fillStyle = `rgba(227,93,44,${a.toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  }
+  // head
+  ctx.fillStyle = C.accent;
+  ctx.beginPath(); ctx.arc(headX, y, 6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = C.paper;
+  ctx.beginPath(); ctx.arc(headX-1, y-1, 1.6, 0, Math.PI*2); ctx.fill();
+}
+
+// 14 CHEVRON — V-arrows scrolling rightward; lit on filled side
+function drawChevron(ctx, t, w, h) {
+  const y = h/2;
+  const n = 22;
+  const spacing = w / n;
+  const tm = performance.now()/600;
+  const scroll = (tm % 1) * spacing;
+  const fillX = w * t;
+  ctx.lineWidth = 1.8;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  for (let i = -1; i < n + 1; i++) {
+    const cx = i * spacing + scroll;
+    if (cx < -10 || cx > w + 10) continue;
+    const lit = cx < fillX;
+    ctx.strokeStyle = lit ? C.accent : C.muted;
+    ctx.beginPath();
+    ctx.moveTo(cx - 5, y - 6);
+    ctx.lineTo(cx + 2, y);
+    ctx.lineTo(cx - 5, y + 6);
+    ctx.stroke();
+  }
+  // top/bottom rails
+  ctx.strokeStyle = C.line; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, y-12); ctx.lineTo(w, y-12); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, y+12); ctx.lineTo(w, y+12); ctx.stroke();
+}
+
+// 15 ASCII RAMP — characters densify across width
+function drawAscii(ctx, t, w, h) {
+  const ramp = ' .:-=+*x#%@'.split('');
+  const n = 30;
+  const cellW = w / n;
+  const y = h/2;
+  ctx.font = `${Math.min(16, cellW*1.4)}px ui-monospace, monospace`;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  const fillX = w * t;
+  for (let i = 0; i < n; i++) {
+    const cx = (i + 0.5) * cellW;
+    const dist = cx - fillX;
+    let idx;
+    if (dist <= 0) idx = ramp.length - 1;
+    else {
+      const pull = Math.max(0, 1 - dist/40);
+      idx = Math.floor(pull * (ramp.length - 1));
+    }
+    const ch = ramp[idx];
+    ctx.fillStyle = idx > ramp.length*0.55 ? C.accent : (idx > 0 ? C.muted : C.faint);
+    ctx.fillText(ch, cx, y);
+  }
+}
+
+// 16 HELIX — two crossing sine bands
+function drawHelix(ctx, t, w, h) {
+  const y = h/2;
+  const amp = 14;
+  const tm = performance.now()/700;
+  const fillX = w * t;
+  ctx.lineWidth = 2.2;
+  ctx.lineCap = 'round';
+  // back strand
+  function strand(offset, color) {
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    for (let x = 0; x <= w; x += 2) {
+      const yy = y + Math.sin(x*0.06 + tm + offset) * amp;
+      if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+    }
+    ctx.stroke();
+  }
+  // rungs
+  for (let x = 0; x <= w; x += 8) {
+    const y1 = y + Math.sin(x*0.06 + tm) * amp;
+    const y2 = y + Math.sin(x*0.06 + tm + Math.PI) * amp;
+    const lit = x < fillX;
+    ctx.strokeStyle = lit ? C.accent : C.line;
+    ctx.lineWidth = lit ? 1.6 : 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y1); ctx.lineTo(x, y2);
+    ctx.stroke();
+  }
+  // strands on top
+  ctx.lineWidth = 2.2;
+  strand(0, C.fg);
+  strand(Math.PI, C.accent);
+}
+
+const SPECS = [
+  { id: '01', name: 'Solid',        draw: drawSolid     },
+  { id: '02', name: 'Segmented',    draw: drawSegmented },
+  { id: '03', name: 'Liquid',       draw: drawWave      },
+  { id: '04', name: 'Magnetic',     draw: drawMagnetic  },
+  { id: '05', name: 'Shatter',      draw: drawShatter   },
+  { id: '06', name: 'Knit',         draw: drawKnit      },
+  { id: '07', name: 'Dots',         draw: drawDots      },
+  { id: '08', name: 'Inchworm',     draw: drawWorm      },
+  { id: '09', name: 'Pixel rain',   draw: drawRain      },
+  { id: '10', name: 'Domino',       draw: drawDomino    },
+  { id: '11', name: 'Masonry',      draw: drawBricks    },
+  { id: '12', name: 'Stitch',       draw: drawStitch    },
+  { id: '13', name: 'Comet',        draw: drawComet     },
+  { id: '14', name: 'Chevron',      draw: drawChevron   },
+  { id: '15', name: 'Ascii ramp',   draw: drawAscii     },
+  { id: '16', name: 'Helix',        draw: drawHelix     },
+];
+
+/* ---------- build grid + animate ---------- */
+
+const grid = document.getElementById('grid');
+const cells = SPECS.map((spec, i) => {
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.setAttribute('data-screen-label', `${spec.id} ${spec.name}`);
+  cell.innerHTML = `
+    <div class="head">
+      <div><span class="id">${spec.id}</span><span class="name">${spec.name}</span></div>
+      <div class="pct">000%</div>
+    </div>
+    <div class="stage"><canvas></canvas></div>`;
+  grid.appendChild(cell);
+  const canvas = cell.querySelector('canvas');
+  const pct = cell.querySelector('.pct');
+  return { spec, cell, canvas, pct, ctx: canvas.getContext('2d'), w: 0, h: 0, dpr: 1, offset: (i * 0.062) % 1 };
+});
+
+function resizeAll() {
+  const dpr = window.devicePixelRatio || 1;
+  cells.forEach(c => {
+    const r = c.canvas.getBoundingClientRect();
+    c.dpr = dpr;
+    c.w = r.width;
+    c.h = r.height;
+    c.canvas.width = Math.max(1, Math.floor(r.width * dpr));
+    c.canvas.height = Math.max(1, Math.floor(r.height * dpr));
+    c.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  });
+}
+window.addEventListener('resize', resizeAll);
+
+const LOOP_MS = 4200;
+function frame(now) {
+  cells.forEach(c => {
+    const t = ((now / LOOP_MS) + c.offset) % 1;
+    // small hold at 100% for clarity
+    let visualT = t < 0.92 ? t / 0.92 : 1.0;
+    c.ctx.clearRect(0, 0, c.w, c.h);
+    c.spec.draw(c.ctx, visualT, c.w, c.h);
+    const p = Math.floor(visualT * 100);
+    c.pct.textContent = String(p).padStart(3, '0') + '%';
+  });
+  requestAnimationFrame(frame);
+}
+
+requestAnimationFrame(() => {
+  resizeAll();
+  requestAnimationFrame(frame);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>sysmon</title>
+<style>
+  :root {
+    --bg: #0a0e0a;
+    --bg-panel: #0d120d;
+    --fg: #c8d3c8;
+    --dim: #5a6b5a;
+    --green: #7fdc7f;
+    --yellow: #e6d96b;
+    --red: #ff5f5f;
+    --blue: #6bb8ff;
+    --magenta: #d97fd9;
+    --cyan: #6bdcd6;
+    --border: #1a2a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow: hidden;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .widget {
+    width: 100%;
+    max-width: 980px;
+    height: 100%;
+    max-height: 640px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #000, 0 30px 80px -20px rgba(0,0,0,0.8);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    overflow: hidden;
+  }
+
+  /* Title bar */
+  .titlebar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #060906;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #2a3a2a; }
+  .dot.r { background: #4a2424; }
+  .dot.y { background: #4a3e1a; }
+  .dot.g { background: #1a4a24; }
+  .title { margin-left: 8px; letter-spacing: 0.05em; }
+  .clock { margin-left: auto; color: var(--green); font-variant-numeric: tabular-nums; }
+
+  /* Top stats */
+  .stats {
+    padding: 10px 14px 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 42px 1fr 70px;
+    align-items: center;
+    gap: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .row .label { color: var(--green); }
+  .row .label.alt { color: var(--cyan); }
+  .row .pct { text-align: right; color: var(--dim); font-size: 12px; }
+  .bar {
+    height: 12px;
+    background: #050805;
+    border: 1px solid #14201a;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+  }
+  .bar .fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--green);
+    transition: width 220ms cubic-bezier(.4,0,.2,1), background-color 220ms;
+    will-change: width;
+  }
+  .bar .fill.warn { background: var(--yellow); }
+  .bar .fill.crit { background: var(--red); }
+  .bar .frac {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--fg);
+    letter-spacing: 0.04em;
+    mix-blend-mode: difference;
+  }
+
+  .summary {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 6px;
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .summary span b { color: var(--fg); font-weight: 500; }
+  .summary .tasks b { color: var(--cyan); }
+  .summary .load b { color: var(--yellow); }
+  .summary .up b { color: var(--green); }
+
+  /* Process list */
+  .procs {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .procs-head, .proc {
+    display: grid;
+    grid-template-columns: 60px 90px 60px 70px 70px 60px 60px 1fr;
+    gap: 12px;
+    padding: 4px 14px;
+    font-variant-numeric: tabular-nums;
+    font-size: 12.5px;
+  }
+  .procs-head {
+    background: #122312;
+    color: #cfe7cf;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .procs-head .sort { color: #0a0e0a; background: #7fdc7f; padding: 0 6px; margin: 0 -6px; border-radius: 2px; }
+  .procs-body {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #2a4a2a transparent;
+  }
+  .procs-body::-webkit-scrollbar { width: 6px; }
+  .procs-body::-webkit-scrollbar-thumb { background: #2a4a2a; border-radius: 3px; }
+  .proc {
+    color: var(--fg);
+    border-bottom: 1px solid transparent;
+    transition: background-color 120ms;
+  }
+  .proc:hover { background: #0f1a0f; }
+  .proc.hl { background: #14241a; }
+  .proc .pid { color: var(--dim); }
+  .proc .user { color: var(--cyan); }
+  .proc .pri { color: var(--magenta); }
+  .proc .ni { color: var(--blue); }
+  .proc .cpu { color: var(--green); text-align: right; }
+  .proc .cpu.warn { color: var(--yellow); }
+  .proc .cpu.crit { color: var(--red); }
+  .proc .mem { color: var(--fg); text-align: right; }
+  .proc .time { color: var(--dim); }
+  .proc .cmd { color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .proc .cmd .arg { color: var(--dim); }
+  .proc .cmd .root { color: var(--red); }
+
+  /* Function bar */
+  .fnbar {
+    display: flex;
+    flex-wrap: wrap;
+    background: #060906;
+    border-top: 1px solid var(--border);
+    padding: 6px 10px;
+    gap: 2px;
+    font-size: 11.5px;
+  }
+  .fn { display: inline-flex; align-items: baseline; padding: 2px 4px; }
+  .fn .k { color: var(--dim); margin-right: 4px; }
+  .fn .v { background: #0a3a0a; color: #cfe7cf; padding: 1px 6px; border-radius: 2px; }
+
+  @media (max-width: 720px) {
+    body { padding: 10px; }
+    .stats { grid-template-columns: 1fr; }
+    .procs-head, .proc {
+      grid-template-columns: 50px 70px 50px 60px 1fr;
+      font-size: 11.5px;
+    }
+    .proc .pri, .proc .ni, .proc .time { display: none; }
+    .procs-head .h-pri, .procs-head .h-ni, .procs-head .h-time { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="widget" id="widget">
+  <div class="titlebar">
+    <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+    <span class="title">sysmon — 3.4.1 — bash — 132×40</span>
+    <span class="clock" id="clock">--:--:--</span>
+  </div>
+
+  <div class="stats" id="stats">
+    <!-- Left column: cores 1-4. Right column: cores 5-8. Built by JS. -->
+    <div class="summary">
+      <span class="tasks">Tasks: <b id="tasks-total">312</b>, <b id="tasks-thr">1843</b> thr; <b id="tasks-run">3</b> running</span>
+      <span class="load">Load average: <b id="load">0.84 1.02 0.91</b></span>
+      <span class="up">Uptime: <b id="uptime">14 days, 03:21:08</b></span>
+    </div>
+  </div>
+
+  <div class="procs">
+    <div class="procs-head">
+      <span class="h-pid">PID</span>
+      <span class="h-user">USER</span>
+      <span class="h-pri">PRI</span>
+      <span class="h-ni">NI</span>
+      <span class="h-cpu"><span class="sort">CPU%</span></span>
+      <span class="h-mem">MEM%</span>
+      <span class="h-time">TIME+</span>
+      <span class="h-cmd">Command</span>
+    </div>
+    <div class="procs-body" id="procs-body"></div>
+  </div>
+
+  <div class="fnbar">
+    <span class="fn"><span class="k">F1</span><span class="v">Help</span></span>
+    <span class="fn"><span class="k">F2</span><span class="v">Setup</span></span>
+    <span class="fn"><span class="k">F3</span><span class="v">Search</span></span>
+    <span class="fn"><span class="k">F4</span><span class="v">Filter</span></span>
+    <span class="fn"><span class="k">F5</span><span class="v">Tree</span></span>
+    <span class="fn"><span class="k">F6</span><span class="v">SortBy</span></span>
+    <span class="fn"><span class="k">F7</span><span class="v">Nice -</span></span>
+    <span class="fn"><span class="k">F8</span><span class="v">Nice +</span></span>
+    <span class="fn"><span class="k">F9</span><span class="v">Kill</span></span>
+    <span class="fn"><span class="k">F10</span><span class="v">Quit</span></span>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ---------- Build bars (8 cores + Mem + Swp) ----------
+  const stats = document.getElementById('stats');
+  const summary = stats.querySelector('.summary');
+
+  function makeRow(labelText, labelClass, fracText) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `
+      <span class="label ${labelClass||''}">${labelText}</span>
+      <div class="bar"><div class="fill"></div><span class="frac">${fracText||''}</span></div>
+      <span class="pct">0.0%</span>
+    `;
+    return row;
+  }
+
+  // 8 cores split into two columns
+  const cores = [];
+  for (let i = 0; i < 8; i++) {
+    const row = makeRow(`${i+1}`, '', '');
+    cores.push(row);
+    stats.insertBefore(row, summary);
+  }
+  // Mem row spans both columns: place after cores by appending an extra row before summary
+  const memRow = makeRow('Mem', '', '');
+  const swpRow = makeRow('Swp', 'alt', '');
+  stats.insertBefore(memRow, summary);
+  stats.insertBefore(swpRow, summary);
+
+  // ---------- Process data ----------
+  const USERS = ['root', 'systemd', 'www-data', 'postgres', 'redis', 'nobody', 'claude', 'docker', 'ubuntu', 'message+'];
+  const PROCS = [
+    { cmd: '/sbin/init', args: 'splash', user: 'root', baseCpu: 0.1, baseMem: 0.2 },
+    { cmd: '/lib/systemd/systemd-journald', args: '', user: 'root', baseCpu: 0.3, baseMem: 0.4 },
+    { cmd: '/usr/sbin/sshd', args: '-D', user: 'root', baseCpu: 0.0, baseMem: 0.1 },
+    { cmd: '/usr/sbin/sshd', args: '-D -p 22', user: 'root', baseCpu: 0.0, baseMem: 0.1 },
+    { cmd: '/usr/bin/dockerd', args: '-H fd:// --containerd=/run/containerd/containerd.sock', user: 'root', baseCpu: 1.4, baseMem: 2.1 },
+    { cmd: 'containerd', args: '--config /var/run/containerd/config.toml', user: 'root', baseCpu: 0.6, baseMem: 0.9 },
+    { cmd: 'nginx: master process', args: '/usr/sbin/nginx -g daemon on;', user: 'root', baseCpu: 0.0, baseMem: 0.2 },
+    { cmd: 'nginx: worker process', args: '', user: 'www-data', baseCpu: 1.2, baseMem: 0.4 },
+    { cmd: 'nginx: worker process', args: '', user: 'www-data', baseCpu: 0.9, baseMem: 0.4 },
+    { cmd: 'postgres', args: ' -D /var/lib/postgresql/15/main', user: 'postgres', baseCpu: 0.5, baseMem: 1.2 },
+    { cmd: 'postgres: writer process', args: '', user: 'postgres', baseCpu: 0.2, baseMem: 0.3 },
+    { cmd: 'postgres: walwriter process', args: '', user: 'postgres', baseCpu: 0.1, baseMem: 0.3 },
+    { cmd: 'postgres: autovacuum launcher', args: '', user: 'postgres', baseCpu: 0.1, baseMem: 0.2 },
+    { cmd: 'redis-server', args: '*:6379', user: 'redis', baseCpu: 0.8, baseMem: 0.6 },
+    { cmd: '/usr/bin/node', args: '/srv/app/server.js', user: 'ubuntu', baseCpu: 3.2, baseMem: 4.8 },
+    { cmd: '/usr/bin/python3', args: '-m uvicorn api.main:app --host 0.0.0.0', user: 'ubuntu', baseCpu: 2.1, baseMem: 3.4 },
+    { cmd: '/usr/bin/python3', args: '/srv/jobs/worker.py --queue=default', user: 'ubuntu', baseCpu: 1.5, baseMem: 2.6 },
+    { cmd: '/usr/lib/firefox/firefox', args: '-contentproc -childID 7', user: 'claude', baseCpu: 4.4, baseMem: 6.1 },
+    { cmd: 'Xorg', args: 'vt7 -displayfd 3 -auth /run/user/1000/gdm/Xauthority', user: 'root', baseCpu: 0.7, baseMem: 1.8 },
+    { cmd: 'gnome-shell', args: '', user: 'claude', baseCpu: 1.9, baseMem: 3.2 },
+    { cmd: '/usr/bin/dbus-daemon', args: '--session --address=systemd:', user: 'claude', baseCpu: 0.1, baseMem: 0.2 },
+    { cmd: '/usr/lib/snapd/snapd', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.5 },
+    { cmd: 'cron', args: '-f', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'rsyslogd', args: '-n -iNONE', user: 'root', baseCpu: 0.1, baseMem: 0.1 },
+    { cmd: '/usr/bin/containerd-shim-runc-v2', args: '-namespace moby -id 4f2c…', user: 'root', baseCpu: 0.2, baseMem: 0.3 },
+    { cmd: 'kworker/u16:2-events_unbound', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'kworker/0:1-events', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'ksoftirqd/0', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'rcu_sched', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'migration/3', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'bash', args: '', user: 'claude', baseCpu: 0.0, baseMem: 0.1 },
+    { cmd: 'htop', args: '', user: 'claude', baseCpu: 0.8, baseMem: 0.2 },
+    { cmd: 'tmux: server', args: '(/tmp/tmux-1000/default)', user: 'claude', baseCpu: 0.1, baseMem: 0.2 },
+    { cmd: '/usr/bin/code', args: '--no-sandbox --type=renderer', user: 'claude', baseCpu: 5.6, baseMem: 7.8 },
+    { cmd: '/usr/bin/code', args: '--type=extensionHost', user: 'claude', baseCpu: 1.1, baseMem: 2.3 },
+    { cmd: 'fail2ban-server', args: '-xf start', user: 'root', baseCpu: 0.1, baseMem: 0.3 },
+    { cmd: 'ufw', args: '', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+    { cmd: 'chronyd', args: '-F 1', user: 'root', baseCpu: 0.0, baseMem: 0.1 },
+    { cmd: 'NetworkManager', args: '--no-daemon', user: 'root', baseCpu: 0.2, baseMem: 0.4 },
+    { cmd: 'avahi-daemon:', args: 'running [hostname.local]', user: 'message+', baseCpu: 0.0, baseMem: 0.1 },
+    { cmd: 'irqbalance', args: '--foreground', user: 'root', baseCpu: 0.0, baseMem: 0.0 },
+  ];
+
+  // Assign PIDs, PRI, NI, TIME, mem%
+  let nextPid = 412;
+  const procs = PROCS.map((p, i) => {
+    nextPid += Math.floor(Math.random() * 37) + 3;
+    return {
+      pid: nextPid,
+      user: p.user,
+      pri: 20,
+      ni: p.cmd.startsWith('kworker') || p.cmd.startsWith('ksoftirqd') ? -20 : 0,
+      cpu: p.baseCpu + Math.random()*0.4,
+      mem: Math.max(0.0, p.baseMem + (Math.random()-0.5)*0.4),
+      tSec: Math.floor(Math.random()*8000) + 30,
+      cmd: p.cmd,
+      args: p.args,
+      baseCpu: p.baseCpu,
+      _bias: Math.random()*0.6 + 0.7,
+    };
+  });
+
+  // Sometimes spawn ephemeral procs (curl, ls, grep, etc.)
+  const EPHEMERAL = [
+    { cmd: 'curl', args: '-sSL https://api.internal/health' },
+    { cmd: 'grep', args: '-rn TODO /srv/app' },
+    { cmd: 'find', args: '/var/log -mtime -1 -name *.gz' },
+    { cmd: 'tail', args: '-f /var/log/syslog' },
+    { cmd: 'awk', args: "'{sum+=$1} END {print sum}'" },
+    { cmd: 'gzip', args: '/var/log/auth.log.1' },
+    { cmd: 'sshd:', args: 'claude [priv]' },
+    { cmd: 'sleep', args: '30' },
+    { cmd: 'apt-get', args: 'update' },
+    { cmd: 'git', args: 'fetch --all --prune' },
+  ];
+
+  function spawnEphemeral() {
+    const e = EPHEMERAL[Math.floor(Math.random()*EPHEMERAL.length)];
+    nextPid += Math.floor(Math.random()*23) + 1;
+    procs.unshift({
+      pid: nextPid,
+      user: ['claude','ubuntu','root'][Math.floor(Math.random()*3)],
+      pri: 20, ni: 0,
+      cpu: Math.random()*40 + 10,
+      mem: Math.random()*1.2 + 0.1,
+      tSec: Math.floor(Math.random()*4),
+      cmd: e.cmd,
+      args: e.args,
+      baseCpu: 8 + Math.random()*20,
+      _bias: 1 + Math.random()*1.4,
+      _ttl: 8 + Math.floor(Math.random()*10),
+    });
+    // Cap list size
+    if (procs.length > 60) procs.length = 60;
+  }
+
+  // ---------- Core CPU state (8 cores) with per-core "trends" ----------
+  const coreState = Array.from({length: 8}, (_, i) => ({
+    cpu: 5 + Math.random()*15,
+    target: 5 + Math.random()*15,
+    nextChange: Math.random()*3,
+    // Some cores are hotter
+    bias: i === 0 ? 1.5 : (i === 3 ? 1.3 : (i === 5 ? 1.1 : 0.9 + Math.random()*0.4)),
+  }));
+  const memState = { mem: 0.42, target: 0.45, swp: 0.05, swpTarget: 0.05 };
+
+  // ---------- Rendering ----------
+  const procsBody = document.getElementById('procs-body');
+
+  function colorClassForPct(p) {
+    if (p >= 80) return 'crit';
+    if (p >= 50) return 'warn';
+    return '';
+  }
+
+  function fmtTime(s) {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    const cs = Math.floor((s * 100) % 100);
+    if (h > 0) return `${h}h${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    return `${String(m).padStart(1,'0')}:${String(sec).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;
+  }
+
+  function fmtMB(p) {
+    // Pretend total is 16GB; show as e.g. 6.78G/15.6G
+    return (p * 15.6).toFixed(2) + 'G/15.6G';
+  }
+
+  function renderBars() {
+    // Cores
+    for (let i = 0; i < 8; i++) {
+      const row = cores[i];
+      const fill = row.querySelector('.fill');
+      const frac = row.querySelector('.frac');
+      const pct = row.querySelector('.pct');
+      const v = coreState[i].cpu;
+      fill.style.width = v + '%';
+      fill.className = 'fill ' + colorClassForPct(v);
+      frac.textContent = v.toFixed(1) + '%';
+      pct.textContent = v.toFixed(1) + '%';
+    }
+    // Mem
+    {
+      const fill = memRow.querySelector('.fill');
+      const frac = memRow.querySelector('.frac');
+      const pct = memRow.querySelector('.pct');
+      const v = memState.mem * 100;
+      fill.style.width = v + '%';
+      fill.className = 'fill ' + colorClassForPct(v);
+      frac.textContent = fmtMB(memState.mem);
+      pct.textContent = v.toFixed(1) + '%';
+    }
+    // Swp
+    {
+      const fill = swpRow.querySelector('.fill');
+      const frac = swpRow.querySelector('.frac');
+      const pct = swpRow.querySelector('.pct');
+      const v = memState.swp * 100;
+      fill.style.width = v + '%';
+      fill.className = 'fill ' + colorClassForPct(v);
+      frac.textContent = (memState.swp * 4).toFixed(2) + 'G/4.0G';
+      pct.textContent = v.toFixed(1) + '%';
+    }
+  }
+
+  function renderProcs() {
+    // Sort by cpu desc
+    const sorted = procs.slice().sort((a,b) => b.cpu - a.cpu);
+    const frag = document.createDocumentFragment();
+    sorted.forEach((p, idx) => {
+      const row = document.createElement('div');
+      row.className = 'proc' + (idx === 0 ? ' hl' : '');
+      const cpuCls = colorClassForPct(p.cpu);
+      const memCls = colorClassForPct(p.mem * 5); // mem% is small; scale for color
+      const userCls = p.user === 'root' ? 'root' : 'arg';
+      row.innerHTML = `
+        <span class="pid">${p.pid}</span>
+        <span class="user">${p.user}</span>
+        <span class="pri">${p.pri}</span>
+        <span class="ni">${p.ni}</span>
+        <span class="cpu ${cpuCls}">${p.cpu.toFixed(1)}</span>
+        <span class="mem ${memCls}">${p.mem.toFixed(1)}</span>
+        <span class="time">${fmtTime(p.tSec)}</span>
+        <span class="cmd"><span class="${userCls}">${p.cmd}</span>${p.args ? ' <span class="arg">'+p.args+'</span>' : ''}</span>
+      `;
+      frag.appendChild(row);
+    });
+    procsBody.innerHTML = '';
+    procsBody.appendChild(frag);
+  }
+
+  // ---------- Tick loop ----------
+  let lastTime = performance.now();
+  let bootSec = 14*86400 + 3*3600 + 21*60 + 8;
+  let spawnAccum = 0;
+
+  function tick(now) {
+    const dt = Math.min(0.25, (now - lastTime) / 1000);
+    lastTime = now;
+    bootSec += dt;
+
+    // Cores: smoothly chase a target, occasionally pick a new one
+    for (const c of coreState) {
+      c.nextChange -= dt;
+      if (c.nextChange <= 0) {
+        // Most of the time stay mellow, sometimes spike
+        const r = Math.random();
+        if (r < 0.08) c.target = 80 + Math.random()*20;     // crit spike
+        else if (r < 0.25) c.target = 45 + Math.random()*25; // warn
+        else c.target = 3 + Math.random()*30 * c.bias;
+        c.nextChange = 0.8 + Math.random()*3;
+      }
+      c.cpu += (c.target - c.cpu) * Math.min(1, dt * 2.5);
+      c.cpu = Math.max(0, Math.min(100, c.cpu));
+    }
+
+    // Memory drifts slowly
+    memState.target += (Math.random() - 0.5) * 0.02;
+    memState.target = Math.max(0.25, Math.min(0.92, memState.target));
+    memState.mem += (memState.target - memState.mem) * Math.min(1, dt * 0.6);
+
+    memState.swpTarget += (Math.random() - 0.5) * 0.01;
+    memState.swpTarget = Math.max(0.0, Math.min(0.35, memState.swpTarget));
+    memState.swp += (memState.swpTarget - memState.swp) * Math.min(1, dt * 0.4);
+
+    // Process CPU% wander, biased by their base
+    const avgCore = coreState.reduce((s,c)=>s+c.cpu,0)/8;
+    for (let i = procs.length - 1; i >= 0; i--) {
+      const p = procs[i];
+      const drive = (p.baseCpu * p._bias) + (avgCore * 0.1 * p._bias);
+      const noise = (Math.random() - 0.45) * 4;
+      p.cpu += ((drive + noise) - p.cpu) * Math.min(1, dt * 1.5);
+      p.cpu = Math.max(0, Math.min(99.9, p.cpu));
+      p.mem += (Math.random() - 0.5) * 0.05;
+      p.mem = Math.max(0, Math.min(15, p.mem));
+      p.tSec += dt;
+      if (p._ttl !== undefined) {
+        p._ttl -= dt;
+        if (p._ttl <= 0) procs.splice(i, 1);
+      }
+    }
+
+    // Spawn ephemerals
+    spawnAccum += dt;
+    if (spawnAccum > 1.4) {
+      spawnAccum = 0;
+      if (Math.random() < 0.55) spawnEphemeral();
+    }
+
+    renderBars();
+    renderProcs();
+
+    // Summary numbers
+    const running = coreState.filter(c => c.cpu > 50).length + Math.floor(Math.random()*2);
+    document.getElementById('tasks-run').textContent = Math.max(1, running);
+    document.getElementById('tasks-total').textContent = 280 + Math.floor(procs.length) + Math.floor(Math.random()*4);
+
+    requestAnimationFrame(tick);
+  }
+
+  // Clock + uptime + load avg update at lower freq
+  function slowTick() {
+    const d = new Date();
+    document.getElementById('clock').textContent =
+      String(d.getHours()).padStart(2,'0') + ':' +
+      String(d.getMinutes()).padStart(2,'0') + ':' +
+      String(d.getSeconds()).padStart(2,'0');
+
+    const days = Math.floor(bootSec / 86400);
+    const h = Math.floor((bootSec % 86400) / 3600);
+    const m = Math.floor((bootSec % 3600) / 60);
+    const s = Math.floor(bootSec % 60);
+    document.getElementById('uptime').textContent =
+      `${days} days, ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+    // Drift load average
+    const avgCpu = coreState.reduce((s,c)=>s+c.cpu,0) / 8 / 100;
+    const l1 = (avgCpu * 8 + (Math.random()-0.5)*0.2).toFixed(2);
+    const l5 = (avgCpu * 7 + 0.3 + (Math.random()-0.5)*0.2).toFixed(2);
+    const l15 = (avgCpu * 6 + 0.4 + (Math.random()-0.5)*0.15).toFixed(2);
+    document.getElementById('load').textContent = `${l1} ${l5} ${l15}`;
+  }
+  setInterval(slowTick, 1000);
+  slowTick();
+
+  requestAnimationFrame((t) => { lastTime = t; tick(t); });
+})();
+</script>
+</body>
+</html>

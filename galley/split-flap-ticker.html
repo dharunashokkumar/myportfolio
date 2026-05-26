@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Split-Flap Ticker</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --cream: #f1ead8;
+    --cream-deep: #e8e0c8;
+    --charcoal: #1b1b1a;
+    --charcoal-2: #262624;
+    --charcoal-edge: #0c0c0b;
+    --flap-text: #f5efe0;
+    --green: #6fa16b;
+    --red: #c66a5a;
+    --rule: #c9bfa3;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--cream);
+    color: #2a2620;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    padding: 56px 48px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image:
+      radial-gradient(1200px 600px at 50% 0%, rgba(0,0,0,0.04), transparent 60%);
+  }
+
+  .head {
+    width: min(1100px, 100%);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 6px 18px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 28px;
+    letter-spacing: 0.04em;
+  }
+  .head .mark {
+    font-family: "Courier New", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #5a5142;
+  }
+  .head .title {
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #5a5142;
+  }
+  .head .clock {
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    color: #5a5142;
+  }
+
+  /* Board frame */
+  .board {
+    width: min(1100px, 100%);
+    background:
+      linear-gradient(180deg, #1a1a19 0%, #131312 100%);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 30px 60px -30px rgba(0,0,0,0.5),
+      0 2px 0 #b9ad8d,
+      0 6px 0 #968a6b,
+      0 18px 30px -10px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .board::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
+  .col-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr 1fr 1fr;
+    gap: 14px;
+    padding: 0 8px 10px;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #8a7f63;
+    border-bottom: 1px dashed rgba(201,191,163,0.2);
+    margin-bottom: 14px;
+  }
+  .col-head span:nth-child(n+2) { text-align: right; }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 4px 8px;
+  }
+
+  /* Group of flaps */
+  .group {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+  }
+  .group.left { justify-content: flex-start; }
+
+  /* Single flap character */
+  .flap {
+    position: relative;
+    width: 30px;
+    height: 44px;
+    perspective: 200px;
+    background: var(--charcoal);
+    border-radius: 3px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 -1px 0 rgba(0,0,0,0.6) inset,
+      0 2px 4px rgba(0,0,0,0.35);
+  }
+  .flap .seam {
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 1px;
+    background: #000;
+    z-index: 5;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.06);
+  }
+  .flap .axle-l, .flap .axle-r {
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 4px;
+    background: #3a3a37;
+    transform: translateY(-50%);
+    z-index: 6;
+    border-radius: 1px;
+  }
+  .flap .axle-l { left: -1px; }
+  .flap .axle-r { right: -1px; }
+
+  /* Static halves showing current char */
+  .half {
+    position: absolute;
+    left: 0; right: 0;
+    height: 50%;
+    overflow: hidden;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--flap-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    user-select: none;
+  }
+  .half.top {
+    top: 0;
+    background: linear-gradient(180deg, #2e2e2b 0%, #1d1d1b 100%);
+    border-radius: 3px 3px 0 0;
+  }
+  .half.bottom {
+    bottom: 0;
+    background: linear-gradient(180deg, #1a1a18 0%, #232321 100%);
+    border-radius: 0 0 3px 3px;
+  }
+  .half.top span   { transform: translateY(50%); }
+  .half.bottom span{ transform: translateY(-50%); }
+
+  /* The flipping top half (shows OLD char, rotates down) */
+  .flip-top {
+    position: absolute;
+    left: 0; right: 0;
+    top: 0;
+    height: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #2e2e2b 0%, #1d1d1b 100%);
+    border-radius: 3px 3px 0 0;
+    transform-origin: 50% 100%;
+    backface-visibility: hidden;
+    z-index: 4;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--flap-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+  }
+  .flip-top span { transform: translateY(50%); }
+  .flip-top.animate {
+    animation: flipDown 140ms cubic-bezier(0.55, 0.1, 0.85, 0.4) forwards;
+  }
+  @keyframes flipDown {
+    0%   { transform: rotateX(0deg); }
+    100% { transform: rotateX(-90deg); }
+  }
+
+  /* The flipping bottom half (shows NEW char, rotates up into place) */
+  .flip-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0;
+    height: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #1a1a18 0%, #232321 100%);
+    border-radius: 0 0 3px 3px;
+    transform-origin: 50% 0%;
+    backface-visibility: hidden;
+    transform: rotateX(90deg);
+    z-index: 3;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--flap-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+  }
+  .flip-bottom span { transform: translateY(-50%); }
+  .flip-bottom.animate {
+    animation: flipUp 120ms cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+    animation-delay: 130ms;
+  }
+  @keyframes flipUp {
+    0%   { transform: rotateX(90deg); }
+    60%  { transform: rotateX(-8deg); }
+    80%  { transform: rotateX(4deg); }
+    100% { transform: rotateX(0deg); }
+  }
+
+  /* Coloring */
+  .flap.up .half, .flap.up .flip-top, .flap.up .flip-bottom { color: #b8d3a4; }
+  .flap.down .half, .flap.down .flip-top, .flap.down .flip-bottom { color: #e9a99a; }
+  .flap.sym .half, .flap.sym .flip-top, .flap.sym .flip-bottom { color: #efe5cd; }
+
+  /* Spacer flap for arrow/sign */
+  .arrow {
+    width: 30px; height: 44px;
+    background: var(--charcoal);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--flap-text);
+    position: relative;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 -1px 0 rgba(0,0,0,0.6) inset,
+      0 2px 4px rgba(0,0,0,0.35);
+  }
+  .arrow::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background:#000;
+  }
+
+  /* Footer */
+  .foot {
+    width: min(1100px, 100%);
+    display: flex;
+    justify-content: space-between;
+    margin-top: 22px;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #8a7f63;
+  }
+  .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #6fa16b;
+    margin-right: 8px;
+    box-shadow: 0 0 6px rgba(111,161,107,0.6);
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  @media (max-width: 720px) {
+    body { padding: 24px 14px 40px; }
+    .flap, .arrow { width: 22px; height: 34px; }
+    .half, .flip-top, .flip-bottom { font-size: 22px; }
+    .arrow { font-size: 17px; }
+    .row, .col-head { grid-template-columns: 1.1fr 1.1fr 0.9fr 0.9fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <div class="mark">◆ TERMINAL 7 · GATE B</div>
+    <div class="title">EQUITIES · DELAYED 15 MIN</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+
+  <div class="board" id="board">
+    <div class="col-head">
+      <span>SYMBOL</span>
+      <span>LAST</span>
+      <span>CHANGE</span>
+      <span>% CHG</span>
+    </div>
+    <div class="rows" id="rows"></div>
+  </div>
+
+  <div class="foot">
+    <div><span class="dot"></span>FEED LIVE</div>
+    <div>SESSION 04 · BOARD 02</div>
+    <div>REV 1986.3</div>
+  </div>
+
+<script>
+(() => {
+  // Charset used on the flaps (the order is the flip-through order)
+  const CHARSET = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.$-+%";
+
+  // Fake tickers (original symbols, not real companies)
+  const TICKERS = [
+    { sym: "NRTH", price: 142.06 },
+    { sym: "VLDA", price:  68.41 },
+    { sym: "ORYX", price: 311.92 },
+    { sym: "KOMO", price:  24.18 },
+    { sym: "PLEX", price: 506.77 },
+    { sym: "ZENT", price:  91.30 },
+    { sym: "AURA", price: 187.55 },
+    { sym: "MIRA", price:  43.62 },
+  ];
+
+  // --- Build a flap element ---
+  function makeFlap(initial = " ") {
+    const f = document.createElement("div");
+    f.className = "flap";
+    f.dataset.char = initial;
+    f.innerHTML = `
+      <div class="half top"><span>${escape(initial)}</span></div>
+      <div class="half bottom"><span>${escape(initial)}</span></div>
+      <div class="flip-top"><span>${escape(initial)}</span></div>
+      <div class="flip-bottom"><span>${escape(initial)}</span></div>
+      <div class="axle-l"></div><div class="axle-r"></div>
+      <div class="seam"></div>
+    `;
+    return f;
+  }
+  function escape(c) {
+    if (c === "<") return "&lt;";
+    if (c === ">") return "&gt;";
+    if (c === "&") return "&amp;";
+    if (c === " ") return "&nbsp;";
+    return c;
+  }
+
+  // --- Flip one flap one step (current -> next char in CHARSET) ---
+  function flipOnce(flap, nextChar, onDone) {
+    const curChar = flap.dataset.char;
+    const flipTop = flap.querySelector(".flip-top");
+    const flipBottom = flap.querySelector(".flip-bottom");
+    const topHalf = flap.querySelector(".half.top span");
+    const bottomHalf = flap.querySelector(".half.bottom span");
+
+    // Top half shows OLD; bottom half shows NEW (revealed after flap rotates away)
+    flipTop.querySelector("span").innerHTML = escape(curChar);
+    flipBottom.querySelector("span").innerHTML = escape(nextChar);
+    bottomHalf.innerHTML = escape(nextChar);
+    topHalf.innerHTML = escape(curChar);
+
+    // reset animation state
+    flipTop.classList.remove("animate");
+    flipBottom.classList.remove("animate");
+    // force reflow
+    void flipTop.offsetWidth;
+
+    flipTop.classList.add("animate");
+    flipBottom.classList.add("animate");
+
+    const finish = () => {
+      // After flip, the new char is in place on both halves
+      topHalf.innerHTML = escape(nextChar);
+      bottomHalf.innerHTML = escape(nextChar);
+      flap.dataset.char = nextChar;
+      flipTop.classList.remove("animate");
+      flipBottom.classList.remove("animate");
+      onDone && onDone();
+    };
+
+    // Total cycle ~ 250ms (top 140 + bottom 120 with 130 delay)
+    setTimeout(finish, 270);
+  }
+
+  // Flip a flap from its current char to a target by stepping through CHARSET
+  function flipToTarget(flap, target) {
+    const cur = flap.dataset.char;
+    let curIdx = CHARSET.indexOf(cur);
+    let tgtIdx = CHARSET.indexOf(target);
+    if (curIdx < 0) curIdx = 0;
+    if (tgtIdx < 0) tgtIdx = 0;
+    if (curIdx === tgtIdx) return;
+
+    // Steps forward (wrap)
+    let steps = (tgtIdx - curIdx + CHARSET.length) % CHARSET.length;
+    let i = 0;
+
+    function step() {
+      if (i >= steps) return;
+      i++;
+      const nextChar = CHARSET[(curIdx + i) % CHARSET.length];
+      flipOnce(flap, nextChar, () => {
+        if (i < steps) step();
+      });
+    }
+    step();
+  }
+
+  // --- Build a group of N flaps ---
+  function makeGroup(n, align = "right", className = "") {
+    const g = document.createElement("div");
+    g.className = "group" + (align === "left" ? " left" : "");
+    if (className) g.classList.add(className);
+    for (let i = 0; i < n; i++) g.appendChild(makeFlap(" "));
+    return g;
+  }
+
+  // --- Format helpers ---
+  function fmtPrice(p) {
+    // up to 999.99 -> 6 chars "123.45" or " 12.34" or "  1.23"
+    const s = p.toFixed(2);
+    return s.padStart(6, " ");
+  }
+  function fmtChange(c) {
+    // sign char + magnitude e.g. "+1.23" or "-12.45"
+    const sign = c >= 0 ? "+" : "-";
+    const mag = Math.abs(c).toFixed(2);
+    const num = mag.padStart(5, " "); // e.g. " 1.23"
+    return sign + num; // 6 chars
+  }
+  function fmtPct(c, base) {
+    const pct = (c / base) * 100;
+    const sign = pct >= 0 ? "+" : "-";
+    const mag = Math.abs(pct).toFixed(2);
+    const num = mag.padStart(4, " "); // "1.23" or "12.34"
+    return sign + num + "%"; // 6 chars
+  }
+
+  // --- Set a group's target string and animate ---
+  function setGroup(group, str) {
+    const flaps = group.querySelectorAll(".flap");
+    const chars = str.toUpperCase().split("");
+    // pad/truncate
+    while (chars.length < flaps.length) chars.unshift(" ");
+    chars.length = flaps.length;
+
+    flaps.forEach((flap, i) => {
+      // small per-character stagger for that cascading feel
+      const delay = i * 60 + Math.random() * 80;
+      setTimeout(() => flipToTarget(flap, chars[i]), delay);
+    });
+  }
+
+  // Apply color tone to a group based on positive/negative
+  function tone(group, kind) {
+    group.querySelectorAll(".flap").forEach(f => {
+      f.classList.remove("up", "down", "sym");
+      if (kind) f.classList.add(kind);
+    });
+  }
+
+  // --- Build the rows ---
+  const rowsEl = document.getElementById("rows");
+  const state = TICKERS.map(t => ({
+    sym: t.sym,
+    base: t.price,
+    last: t.price,
+    prev: t.price,
+  }));
+
+  const rowEls = state.map((s, idx) => {
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const symG = makeGroup(4, "left");
+    const priceG = makeGroup(6, "right");
+    const chgG = makeGroup(6, "right");
+    const pctG = makeGroup(6, "right");
+
+    row.appendChild(symG);
+    row.appendChild(priceG);
+    row.appendChild(chgG);
+    row.appendChild(pctG);
+    rowsEl.appendChild(row);
+
+    // Initial: symbol + starting price; flat change
+    setTimeout(() => {
+      setGroup(symG, s.sym);
+      tone(symG, "sym");
+      setGroup(priceG, fmtPrice(s.last));
+      setGroup(chgG, fmtChange(0));
+      setGroup(pctG, fmtPct(0, s.base));
+    }, 200 + idx * 140);
+
+    return { row, symG, priceG, chgG, pctG };
+  });
+
+  // --- Tick: pick a few rows and nudge their price ---
+  function tick() {
+    // Update 3-5 random rows
+    const n = 3 + Math.floor(Math.random() * 3);
+    const idxs = new Set();
+    while (idxs.size < n) idxs.add(Math.floor(Math.random() * state.length));
+
+    idxs.forEach(i => {
+      const s = state[i];
+      const els = rowEls[i];
+
+      // realistic small drift, ±0.4% with occasional bigger jump
+      const big = Math.random() < 0.15;
+      const pct = (Math.random() - 0.5) * (big ? 0.04 : 0.012);
+      const delta = s.last * pct;
+      s.prev = s.last;
+      s.last = Math.max(0.5, Math.min(9999.99, s.last + delta));
+
+      const change = s.last - s.base;
+      const dir = change >= 0 ? "up" : "down";
+
+      setGroup(els.priceG, fmtPrice(s.last));
+      tone(els.priceG, dir);
+      setGroup(els.chgG, fmtChange(change));
+      tone(els.chgG, dir);
+      setGroup(els.pctG, fmtPct(change, s.base));
+      tone(els.pctG, dir);
+    });
+  }
+
+  // First nudge after intro
+  setTimeout(() => {
+    tick();
+    setInterval(tick, 3500);
+  }, 2600);
+
+  // Clock
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function updateClock() {
+    const d = new Date();
+    document.getElementById("clock").textContent =
+      pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+</script>
+</body>
+</html>
