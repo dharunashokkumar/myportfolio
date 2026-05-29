@@ -1,0 +1,326 @@
+/*	************************************************** 
+	links
+	************************************************** */
+a {
+  color: inherit;
+  padding: 0 0.1125rem;
+  border-bottom: #555 dotted 1px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a[href*="//"] {
+  border-bottom-style: solid;
+}
+
+a:hover {
+  background: #ccc;
+  transition: background 0.3s;
+  color: #555;
+  border-bottom-style: solid;
+}
+
+a:active {
+  background-color: #ccc;
+  color: black;
+}
+
+a:link#active_page {
+  background: none;
+  font-weight: 900;
+}
+
+.social-links {
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+  justify-content: left;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social-links a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  color: #7e7a7afb;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  border: none;
+  padding: 0;
+}
+
+.social-links a:hover {
+  opacity: 2;
+  background: none;
+}
+
+.social-links svg {
+  width: 100%;
+  height: 100%;
+}
+
+.quick-nav,
+.list-note {
+  background: #eee;
+  padding: 0.9rem 1rem;
+}
+
+ul.nav-grid {
+  max-width: 36rem;
+  margin-top: -0.6rem;
+  margin-bottom: 2.1rem;
+}
+
+#container #content ul.nav-grid li {
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 0.6rem;
+}
+
+#header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.9rem;
+  justify-content: flex-start;
+}
+
+#header nav ul li {
+  display: block;
+}
+
+details.archive-toggle {
+  max-width: 100%;
+  margin: 1.8rem auto 3.6rem;
+}
+
+details.archive-toggle summary {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 0.81rem;
+  color: #555;
+  cursor: pointer;
+  padding: 0.45rem 0;
+}
+
+details.archive-toggle[open] summary {
+  margin-bottom: 0.9rem;
+}
+
+ul.archive.archive-secondary {
+  margin-top: 0;
+}
+
+/*	************************************************** 
+	style archive pages
+	************************************************** */
+ul.archive {
+  margin-top: 3.6em;
+  margin-bottom: 3.6em;
+  /* remove space between post title and subtext */
+}
+
+ul.archive li {
+  display: block;
+  width: 100%;
+}
+
+ul.archive li p {
+  margin: 0.775rem auto;
+}
+
+ul.archive li p a {
+  display: block;
+  overflow: hidden;
+}
+
+ul.archive li p .title {
+  font-weight: 900;
+}
+
+ul.archive li p .date {
+  float: right;
+  font-size: 85%;
+  opacity: 0.5;
+}
+
+ul.archive li p .excerpt {
+  display: none;
+}
+
+ul.archive li p .tags,
+ul.archive li p .categories {
+  font-style: italic;
+  opacity: 0.5;
+}
+
+ul.archive h1,
+ul.archive h2,
+ul.archive h3 {
+  margin: 0 auto;
+}
+
+ul.archive h1+p,
+ul.archive h2+p,
+ul.archive h3+p {
+  margin-top: 0;
+}
+
+/*	on archive pages where posts are listed without thubnails 
+	(like on the reflections and activities pages),
+	let there be a padding between the title of the post 
+	and the the categories/tags that show up next to it */
+ul.archive:not(.thumblist) li p a .tags,
+ul.archive:not(.thumblist) li p a .categories {
+  padding-left: 0.25rem;
+}
+
+/* project thumbnails on project-archive pages */
+ul.archive.thumblist {
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+ul.archive.thumblist li {
+  position: relative;
+  display: block;
+  width: 31%;
+  max-width: 409.6px;
+  height: auto;
+  padding: 0.5rem;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+ul.archive.thumblist li a::after {
+  content: "↗";
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 1.1rem;
+  color: #888;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.archive.thumblist li a:hover::after {
+  color: #555;
+}
+
+ul.archive.thumblist li a {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: none;
+  display: block;
+  position: relative;
+}
+
+ul.archive.thumblist li a .thumbnail {
+  /* pattern visible when there's no thumbnail image */
+  background: url("/assets/css/slash-ccc-4px.gif");
+  background-repeat: repeat;
+  width: 100%;
+  height: 71.5%;
+  /* thumbnail imgaes should have a 3:2 aspect ratio, and so this should have been 66.67%. but, for some reason, 71.5% is closer to keeping the thumbnail-images at 2/3 aspect ratio */
+  max-height: 272px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+ul.archive.thumblist li a .thumbnail img {
+  border-radius: 8px;
+}
+
+ul.archive.thumblist li a img,
+ul.archive.thumblist li a p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul.archive.thumblist li a p {
+  background: #fff;
+  position: initial;
+  opacity: 1;
+  padding: 0;
+  width: 95%;
+  height: initial;
+  margin: 0.45rem 0;
+  background: none;
+  line-height: 1.17rem;
+}
+
+ul.archive.thumblist li a p .title {
+  max-width: 10ch;
+  overflow: hidden;
+}
+
+ul.archive.thumblist li a p .date {
+  float: none;
+}
+
+ul.archive.thumblist li a p .date::before {
+  content: "(";
+}
+
+ul.archive.thumblist li a p .date::after {
+  content: ")";
+}
+
+ul.archive.thumblist li a p .excerpt {
+  display: block;
+}
+
+ul.archive.thumblist li a p .tags,
+ul.archive.thumblist li a p .categories {
+  display: block;
+}
+
+/* nth-child margins removed — flexbox gap handles spacing */
+
+.home-page ul.archive.thumblist li a p .date {
+  display: none;
+}
+
+/*	************************************************** 
+	style single posts
+	************************************************** */
+.post .post-meta {
+  opacity: 0.5;
+  line-height: 1em;
+}
+
+.post .post-meta small>* {
+  /* applies to immediate children of `.postmeta small` only */
+  display: block;
+}
+
+.inline-meta,
+h6 {
+  /* 
+  used in places like "about", 
+  where the date above entry 
+  is in smaller font and is grey.
+  */
+  font-weight: 300;
+  /* this is to make sure that h6 doesn't show up as bold */
+  opacity: 0.4;
+  font-size: 0.7425rem;
+}
+

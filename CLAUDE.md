@@ -21,7 +21,6 @@ Deployment is whatever pushes the repo root to `dharunashokkumar.com` (treat the
 ### Top-level pages (site sections)
 `index.html`, `projects.html`, `reflections.html`, `resume.html`, `about.html`, `contact.html`, `opensource.html`, `galley.html`, `vault.html` (PIN-protected).
 
-- `portfolio.html` is a `<meta http-equiv="refresh">` redirect to `resume.html` — keep it for backward compatibility, don't delete.
 - The PDF preview/download (embedded `<object>` + download buttons) lives in a collapsible "document & download" section inside `resume.html`; there is no separate preview page.
 - `reflections.html` is a single index page; there is **no** `reflections/` directory. New reflections currently live inline on that page.
 - `projects/` holds individual project write-ups as standalone HTML pages (currently `lpulabs.html`, `sysadmin.html`) plus a `projects/asset/` folder for their images.
@@ -40,9 +39,14 @@ Standalone single-file experiments (CPU architecture explorer, shader wallpapers
 > Historical note: this directory used to be called `explorer/`; it was renamed to `galley/` in commit `529ec58`. If you see old references, update them.
 
 ### Shared front-end assets
-- `css/styles.css` — single shared stylesheet (Merriweather, lowercase text-transform globally on `<html>`).
-- `js/rv.js` — responsive video iframe height adjustment.
-- `js/cfme.js` — float correction for `.media` containers with `.item-halfwidth` children; runs on load and resize.
+- `css/main.css` — single global stylesheet entry point. It only `@import`s, in order, five ordered partials that together hold the whole shared system (Merriweather, lowercase text-transform globally on `<html>`):
+  - `css/base.css` — reset, html/body, typography, headings/lists/blockquote, `#container`/header/footer/nav.
+  - `css/layout.css` — images, `.video*`, `div.media` / `.item` / `.item-halfwidth`, captions.
+  - `css/components.css` — links, `.social-links`, `.nav-grid`, header nav, archive pages & `.thumblist`, single-post meta.
+  - `css/responsive.css` — the global `@media screen` breakpoints and the `@media print` block.
+  - `css/modules.css` — `.featured_post`, wiki/about, contact-grid, timeline, project-card components, `#secret-lock`, vault, top-slider (each keeps its own embedded media queries).
+  - **Cascade order is load-bearing** — the partials are sequential slices of the old monolith; keep the `@import` order in `main.css` unchanged.
+- Page-scoped stylesheets (each linked only from its one page, never `@import`ed into `main.css`): `css/resume.css` (resume.html — the Instrument Serif + Inter + Caveat micro-system, kept isolated), `css/opensource.css` (opensource.html), `css/lpulabs.css` (projects/lpulabs.html).
 - `img/` — site imagery (`main.webp`, `lpulogo.jpeg`, still-life PNGs, etc.).
 - `files/dharun-ashokkumar-resume.pdf` — the downloadable resume.
 - `favicon/favicon.png` — referenced from every page's `<head>`.
@@ -73,7 +77,7 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 ## Conventions
 
 - All visible text is lowercase (enforced by `text-transform: lowercase` on `<html>`). Author copy in lowercase; don't rely on CSS to fix capitalization (it won't catch alt text, titles, or JSON-LD).
-- Every page shares the same header/nav and links to `css/styles.css`.
+- Every page shares the same header/nav and links to `css/main.css`.
 - Google Analytics tag `G-DGWHDZMCF6` is included in every page's `<head>`.
 - SEO: structured data (Schema.org JSON-LD), Open Graph, and Twitter Card meta are present on key pages; `sitemap.xml` and `robots.txt` live at root. **New content pages (projects, reflections) must be added to `sitemap.xml` manually.**
 

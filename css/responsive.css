@@ -1,0 +1,300 @@
+/*	************************************************** 
+	media queries
+	************************************************** */
+@media screen and (min-width: 720px) {
+  .video.videoDimensions5625.item-halfwidth {
+    padding-bottom: 28.125%;
+  }
+
+  .video.videoDimensions6667.item-halfwidth {
+    padding-bottom: 33.335%;
+  }
+
+  .video.videoDimensions5000.item-halfwidth {
+    padding-bottom: 50%;
+  }
+
+  p.video {
+    /* assume a default video to have 2:3 aspect ratio */
+    padding-bottom: 24.0012rem;
+  }
+
+  p.video.videoDimensions5625 {
+    padding-bottom: 20.25rem;
+  }
+
+  p.video.videoDimensions6667 {
+    padding-bottom: 24.0012rem;
+  }
+
+  p.video.videoDimensions5000 {
+    padding-bottom: 36rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  #container {
+    max-width: 95vw;
+  }
+
+  ul.archive.thumblist li {
+    width: calc(50% - 1rem);
+    max-width: 384px;
+    height: auto;
+  }
+
+  ul.archive.thumblist li a .thumbnail {
+    height: auto;
+    max-height: 256px;
+  }
+
+  ul.archive.thumblist li a p .excerpt {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  div.media .item-halfwidth {
+    width: 46.5vw;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1280px) {
+  ul.archive.thumblist li {
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 720px) and (max-width: 1280px) {
+
+  nav,
+  p,
+  h1,
+  h2,
+  h3,
+  ul,
+  .footnotes {
+    font-size: 0.74997rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+
+  hr,
+  hr.dotted {
+    border-top-width: 3px;
+    margin: 1.35rem auto;
+  }
+
+  #container {
+    /*max-width: 90vw; */
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+  }
+
+  #header,
+  #content,
+  ul.archive,
+  #footer {
+    margin-top: 1.8rem;
+    margin-bottom: 3.6rem;
+  }
+
+  nav,
+  h1,
+  h2,
+  h3,
+  ul,
+  p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  ul {
+    margin-left: 0;
+    /* on jen's phone, all ul's were indented for some unknown reason. so, this is an explicit style to prevent such an indent. */
+  }
+}
+
+@media screen and (max-width: 720px) {
+  ul.archive.thumblist li {
+    width: calc(50% - 1rem);
+    height: auto;
+  }
+
+  ul.archive.thumblist li a .thumbnail {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+
+  /* videos shot in portrait mode */
+  .video.videoDimensions1point5 {
+    padding-bottom: 150%;
+  }
+
+  .video.videoDimensions1point25 {
+    padding-bottom: 175%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  #container {
+    max-width: 90vw;
+  }
+
+  nav,
+  h1,
+  h2,
+  h3,
+  ul,
+  p {
+    font-size: 0.765rem;
+  }
+
+  a {
+    border-bottom-style: solid;
+  }
+
+  ul.archive li a {
+    border-bottom-color: #ccc;
+  }
+
+  ul.archive.thumblist li {
+    width: 100%;
+    height: auto;
+  }
+
+  ul.archive.thumblist li a p .excerpt {
+    display: none;
+  }
+
+  div.media .item-halfwidth:nth-last-child(2) {
+    margin-bottom: inherit;
+  }
+
+  div.media .item-halfwidth:nth-last-child(2),
+  div.media .item-halfwidth:nth-of-type(2n+1),
+  div.media .item-halfwidth:nth-of-type(2n),
+  div.media .item-halfwidth.floatleft,
+  div.media .item-halfwidth.floatright {
+    float: none;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  ul.archive.thumblist li {
+    width: 100%;
+    height: auto;
+  }
+
+  ul.archive.thumblist li a .thumbnail {
+    height: auto;
+  }
+}
+
+/*	************************************************** 
+	media queries for print
+
+	notes: 
+
+	1.
+	archive pages (esp ones with thumbnails) dont look good. 
+	but the purpose of these media queries is not to style those ;
+	it is single pages (like the résumé on the home page, or single projects)
+	that need to print well as a pdf (however rarely that is likely to happen).
+
+	2.
+	doesnt seem to work uniformly in all browsers. 
+	eg., safari definitely doesnt respect margins (@201901).
+
+	//
+
+	links to tutorials: 
+	- https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/
+	- 
+
+	************************************************** */
+@media print {
+  @page {
+    size: A4;
+    margin: 2cm;
+    padding: 0;
+  }
+
+  #container {
+    width: 100%;
+    margin: 0;
+    margin-top: -1rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    /* override settings set in the default stylesheet */
+  }
+
+  #container.post #content,
+  #container.home-page #content {
+    margin-top: 0;
+  }
+
+  #container.post nav,
+  #container.post p,
+  #container.post h1,
+  #container.post h2,
+  #container.post h3,
+  #container.post ul,
+  #container.post blockquote,
+  #container.home-page nav,
+  #container.home-page p,
+  #container.home-page h1,
+  #container.home-page h2,
+  #container.home-page h3,
+  #container.home-page ul,
+  #container.home-page blockquote {
+    font-size: 10pt;
+    width: 40rem;
+    page-break-inside: avoid;
+  }
+
+  #container.post .media,
+  #container.home-page .media {
+    width: 40rem;
+  }
+
+  #container.post .media .floatleft,
+  #container.post .media .floatright,
+  #container.home-page .media .floatleft,
+  #container.home-page .media .floatright {
+    float: none;
+  }
+
+  #container.post a,
+  #container.post a[href^="/"],
+  #container.post a[href*=mailto],
+  #container.home-page a,
+  #container.home-page a[href^="/"],
+  #container.home-page a[href*=mailto] {
+    border-bottom-color: #ccc;
+    border-bottom-style: solid;
+  }
+
+  #container.post a[href*="//"],
+  #container.home-page a[href*="//"] {
+    /* links that "contain //" are generally external links ///// reference link: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors; */
+    border-bottom-style: solid;
+  }
+
+  #container.post #footer,
+  #container.home-page #footer {
+    display: none;
+  }
+
+  .hide-in-print {
+    display: none;
+  }
+
+  .show-only-in-print {
+    display: initial;
+  }
+}

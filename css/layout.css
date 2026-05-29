@@ -1,0 +1,242 @@
+/*	************************************************** 
+	media
+	************************************************** */
+/*
+
+html structure: 
+
+<div class="media" title="images in a single coloum.">
+	<img src="" />
+	<div class="item"> 
+		<img src="" />
+		<p class="caption"></p>
+	</div>
+</div>
+
+<div class="media" title="images in 2 columns.">
+	<img class="item-halfwidth" src="" />
+	<div class="item-halfwidth"> 
+		<img src="" />
+		<p class="caption"></p>
+	</div>
+</div>
+
+*/
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.video {
+  position: relative;
+  padding-bottom: 66.67%;
+  height: 0;
+  /* videos shot in landscape mode */
+  /* videos shot in portrait mode */
+}
+
+.video.videoDimensions5625 {
+  padding-bottom: 56.25%;
+}
+
+.video.videoDimensions6667 {
+  padding-bottom: 66.67%;
+}
+
+.video.videoDimensions5000 {
+  padding-bottom: 100%;
+}
+
+.video.videoDimensions1point5 {
+  padding-bottom: 854px;
+}
+
+.video.videoDimensions1point25 {
+  padding-bottom: 1024px;
+}
+
+.video iframe.videoFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+audio {
+  width: 100%;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+div.media {
+  width: 100%;
+  height: auto;
+  margin: 1.395rem auto;
+  text-align: left;
+  /*	while .narrow can be applied to the <div class="media narrow">,
+  	or even directly on <img class="narrow" />,
+  	ideally it should be a sister class to <div class="item">
+  	i.e.,  use it like so:
+  	>	<div class="item narrow">
+  	>		<img />
+  	>	</div>
+  */
+  /* 
+  	'item' helps hold things like:;
+  	- an image with a caption, 
+  	- a audio with some p-text
+  	- etc (i.e., more than one item)
+  */
+  /* class="item-halfwidth" can be applied to 
+  	- a div that holds an img(etc)
+  	- a div that holds an img-and-p.caption
+  	- (and when you're lazy) directly onto an img
+  	*/
+}
+
+div.media>* {
+  margin-bottom: 1.395rem;
+}
+
+div.media *:last-child {
+  margin-bottom: 0;
+}
+
+div.media .narrow {
+  /* equal in width to a p-tag */
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.media .item audio,
+div.media .item-halfwidth audio {
+  display: block;
+  /*max-*/
+  width: 100%;
+}
+
+div.media .item p>audio,
+div.media .item-halfwidth p>audio {
+  margin-top: 0.6975rem;
+  margin-bottom: 0.6975rem;
+}
+
+div.media .item img,
+div.media .item .video,
+div.media .item-halfwidth img,
+div.media .item-halfwidth .video {
+  margin-bottom: 0;
+}
+
+div.media .item img+img,
+div.media .item-halfwidth img+img {
+  margin-top: 1.395rem;
+}
+
+div.media .item .video.videoDimensions1point25,
+div.media .item-halfwidth .video.videoDimensions1point25 {
+  padding-bottom: 1024px;
+}
+
+div.media .item .caption,
+div.media .item-halfwidth .caption {
+  opacity: 0.67;
+  font-size: 0.7425rem;
+  line-height: 1.18575rem;
+  margin-top: 0.75rem;
+  /* note:  the ".7rem" value, if changed, should be changed in all three lines below*/
+  position: relative;
+  left: 0.7rem;
+  text-indent: -0.7rem;
+  width: calc(100% - 0.7rem);
+}
+
+div.media .item .caption::before,
+div.media .item-halfwidth .caption::before {
+  content: "↑ ";
+}
+
+div.media .item-halfwidth {
+  display: inline-block;
+  width: 39.3025rem;
+  height: auto;
+  /*	first, third, etc (odd) images automatically float to the left
+  	second, fourth, etc (even) images float to the right.
+  	but this doesnt work for our situation (and i have preserved it here 
+  	because it is important to refer to it during future development-cycles),
+  	and so we just float:left everything and then let a javascript function
+  	tidy things up after
+  	*/
+  /*&:nth-of-type(2n+1) { float:left; }*/
+  /*&:nth-of-type(2n) { float:right; }*/
+  float: left;
+  /*	in this website, .item-halfwidth is applied to img or div elements,
+  	(i.e., not applied to a single element consistently)
+  	and so, using nth-of-type isn't very effective.
+  	so we use javascript (correctlyFloatMediaElementsLeftOrRight.js) on elements after they've loaded,
+  	to override the automatic "nth-of-type" css-styling,
+  	and do a better job at making the correct items float left or right. */
+}
+
+div.media .item-halfwidth>* {
+  width: 100%;
+}
+
+div.media .item-halfwidth .narrow {
+  max-width: 100%;
+}
+
+div.media .item-halfwidth.empty {
+  margin: 0;
+  height: 0;
+}
+
+div.media .item-halfwidth.floatleft {
+  float: left;
+}
+
+div.media .item-halfwidth.floatright {
+  float: right;
+}
+
+div.media .item-halfwidth.floatnone {
+  float: none;
+}
+
+div.media .item-halfwidth .caption {
+  margin-left: 0;
+}
+
+div.media .item.narrow .caption {
+  margin-left: 0;
+}
+
+div.media::after {
+  /* 	if there are any float elements inside, then they won't overlap any content that comes after the div.
+  	as seen in 202002 on https://www.w3schools.com/howto/howto_css_clearfix.asp (search for "modern clearfix hack" on that page) 
+  	*/
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* to help me quickly type an image instead of nesting it in media>item>etcetc */
+p>img:first-child {
+  margin-top: 0;
+}
+
+p>img {
+  margin: 1.395rem auto;
+}
+
+p>img:last-child {
+  margin-bottom: 0;
+}
+

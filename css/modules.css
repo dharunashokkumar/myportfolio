@@ -1,0 +1,740 @@
+
+/*
+	featured post marker for archive pages
+*/
+.featured_post {
+  background-color: #fb0;
+  color: #fff;
+}
+
+
+/* Wikipedia-style About Page */
+.wiki-article {
+  text-align: left;
+}
+
+.wiki-title {
+  border-bottom: 1px solid #a2a9b1;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.wiki-body {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.wiki-infobox {
+  float: right;
+  width: 260px;
+  border: 1px solid #a2a9b1;
+  background: #f8f9fa;
+  margin: 0 0 1.5rem 1.5rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.wiki-infobox .infobox-image {
+  padding: 0.5rem;
+  text-align: center;
+  background: #f8f9fa;
+}
+
+.wiki-infobox .infobox-image img {
+  width: 100%;
+  height: auto;
+}
+
+.wiki-infobox table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.wiki-infobox .infobox-header {
+  background: #ddd;
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: 900;
+  font-size: 0.85rem;
+}
+
+.wiki-infobox td {
+  padding: 0.35rem 0.5rem;
+  border-top: 1px solid #e0e0e0;
+  vertical-align: top;
+  color: #555;
+}
+
+.wiki-infobox .infobox-label {
+  font-weight: 900;
+  width: 80px;
+  color: #333;
+}
+
+.wiki-toc {
+  background: #f8f9fa;
+  border: 1px solid #a2a9b1;
+  padding: 0.75rem 1rem;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.wiki-toc .toc-title {
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+}
+
+.wiki-toc ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+#container #content .wiki-toc ol li {
+  list-style-type: decimal;
+  margin-left: 0;
+  margin-bottom: 0.25rem;
+  font-size: 0.78rem;
+}
+
+.wiki-table {
+  max-width: 36rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.395rem 0;
+  font-size: 0.78rem;
+}
+
+.wiki-table th,
+.wiki-table td {
+  border: 1px solid #a2a9b1;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  color: #555;
+}
+
+.wiki-table th {
+  background: #eaecf0;
+  font-weight: 900;
+}
+
+.wiki-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+@media screen and (max-width: 540px) {
+  .wiki-infobox {
+    float: none;
+    width: 100%;
+    margin: 0 auto 1.5rem;
+  }
+}
+
+/* Contact Page Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  max-width: 36rem;
+  margin: 1rem auto;
+  text-align: left;
+  color: #555;
+}
+
+.contact-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  background: #f8f9fa;
+  text-align: left;
+}
+
+.contact-card h3 {
+  margin: 0 0 0.4rem 0;
+  margin-top: 0;
+  font-size: 0.81rem;
+  font-weight: 900;
+  font-style: normal;
+  max-width: none;
+}
+
+.contact-card p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.72rem;
+  color: #777;
+  line-height: 1.3;
+}
+
+.contact-card a {
+  font-size: 0.75rem;
+}
+
+@media screen and (max-width: 540px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  #container.about-page #content,
+  #container.contact-page #content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #container.about-page .wiki-body,
+  #container.contact-page .contact-content,
+  #container.contact-page #content ul,
+  #container.contact-page #content ol {
+    max-width: 100%;
+  }
+
+  #container.about-page .wiki-toc {
+    display: block;
+    width: auto;
+  }
+
+  #container.about-page .wiki-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #container.about-page .wiki-table th,
+  #container.about-page .wiki-table td {
+    white-space: nowrap;
+  }
+
+  #container.contact-page .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  #container.contact-page #content a,
+  #container.contact-page #content li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media screen and (max-width: 540px) {
+
+  #container.about-page #header nav ul,
+  #container.contact-page #header nav ul,
+  #container.about-page #footer nav ul,
+  #container.contact-page #footer nav ul {
+    gap: 0.35rem 0.6rem;
+  }
+
+  #container.about-page .wiki-infobox {
+    float: none;
+    width: 100%;
+    margin: 0 auto 1rem;
+  }
+
+  #container.about-page .wiki-toc ol {
+    padding-left: 1.1rem;
+  }
+
+  #container.contact-page .contact-card {
+    padding: 0.85rem;
+  }
+}
+
+/* Portfolio Timeline Styles - extends main.css */
+
+.timeline {
+  max-width: 800px;
+  margin: 2em auto;
+  /* Change from "2em 0" to "2em auto" */
+  position: relative;
+}
+
+/* Timeline Sections */
+.timeline-section {
+  margin-bottom: 4em;
+}
+
+.timeline-section h2 {
+  font-size: 1.2em;
+  font-weight: normal;
+  margin-bottom: 2em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #000;
+}
+
+/* Timeline Items */
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 2em;
+  margin-bottom: 2.5em;
+  margin-left: auto;
+  /* Add this */
+  margin-right: auto;
+  /* Add this */
+  position: relative;
+}
+
+.timeline-item .year {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: #777;
+  text-align: right;
+  padding-top: 0.2em;
+}
+
+.timeline-content h3 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0 0 0.3em 0;
+}
+
+.timeline-content p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+.timeline-content p.detail {
+  color: #555;
+  font-size: 0.95em;
+}
+
+.timeline-content a {
+  text-decoration: underline;
+}
+
+/* Featured Items */
+.timeline-item.featured {
+  background: #f8f9fa;
+  padding: 1.5em;
+  margin-left: auto;
+  /* Change from "-1.5em" */
+  margin-right: auto;
+  /* Change from "-1.5em" */
+  width: calc(100% + 3em);
+  /* Add this to maintain width */
+}
+
+.timeline-item.featured .year {
+  padding-right: 0;
+}
+
+/* Achievements List */
+.timeline-content ul.achievements {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0 0 0;
+}
+
+.timeline-content ul.achievements li {
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+  position: relative;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.timeline-content ul.achievements li:before {
+  content: '→';
+  position: absolute;
+  left: 0;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2em;
+  margin-top: 1.5em;
+}
+
+.skill-category h3 {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0 0 0.5em 0;
+}
+
+.skill-category p {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Tooltips from disclaimer style */
+.timeline-content span[title] {
+  text-decoration: none;
+  border-bottom: 1px dotted #999;
+  cursor: help;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .timeline-item {
+    grid-template-columns: 80px 1fr;
+    gap: 1em;
+  }
+
+  .timeline-item .year {
+    font-size: 0.85em;
+  }
+
+  .timeline-item.featured {
+    margin-left: -1em;
+    margin-right: -1em;
+    padding: 1em;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .timeline-item.featured {
+    background: none;
+    border-left: 3px solid #000;
+    padding-left: 1em;
+  }
+}
+
+/* ==================================================
+   project page components — shared by /projects/*.html
+   greyscale only · border-radius 0 · no shadow · minimal motion
+   ================================================== */
+.project-hero {
+  max-width: 36rem;
+  margin: 0 auto 2.1rem;
+  text-align: left;
+}
+
+.project-hero .kicker {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #888;
+  border: 1px solid #ddd;
+  padding: 0.15rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.project-hero h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin: 0.4rem 0;
+  max-width: 100%;
+}
+
+.project-hero .tagline {
+  opacity: 0.7;
+  margin-top: 0;
+}
+
+/* action buttons — github / live site */
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 36rem;
+  margin: 1.2rem auto 2.1rem;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #555;
+  border: 1px solid #555;
+  padding: 0.4rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-ghost:hover {
+  background: #555;
+  color: #fff;
+  border-bottom-style: solid;
+}
+
+.btn-ghost svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* tag row */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 36rem;
+  margin: 1.2rem auto;
+}
+
+.tag {
+  font-size: 0.7rem;
+  border: 1px solid #ccc;
+  padding: 0.18rem 0.5rem;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+/* spec / fact grid */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  max-width: 36rem;
+  margin: 1.8rem auto;
+  text-align: left;
+}
+
+.spec {
+  border: 1px solid #e0e0e0;
+  padding: 0.9rem;
+}
+
+.spec .spec-value {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #333;
+  line-height: 1.2;
+}
+
+.spec .spec-label {
+  display: block;
+  font-size: 0.68rem;
+  color: #888;
+  margin-top: 0.3rem;
+  letter-spacing: 0.03em;
+}
+
+/* feature list */
+.feat-list {
+  max-width: 36rem;
+  margin: 1.5rem auto;
+  text-align: left;
+}
+
+.feat-list .feat {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  align-items: baseline;
+}
+
+.feat-list .feat .marker {
+  color: #555;
+  flex-shrink: 0;
+}
+
+.feat-list .feat .feat-text {
+  opacity: 0.85;
+}
+
+.feat-list .feat .feat-text strong {
+  font-weight: 900;
+  opacity: 1;
+}
+
+/* quiet callout — reuses the blockquote rule (1px left border) */
+.callout {
+  max-width: 36rem;
+  margin: 1.8rem auto;
+  border-left: 1px solid #ccc;
+  padding: 0.2rem 0 0.2rem 1rem;
+  font-style: italic;
+  color: #666;
+  text-align: left;
+}
+
+/* Secret Lock Icon */
+#secret-lock {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 9999;
+  opacity: 0.18;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 0;
+}
+
+#secret-lock:hover {
+  opacity: 0.6;
+}
+
+/* Vault Page Styles */
+.vault-container {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: left;
+}
+
+.vault-container h2 {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #333;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.vault-links {
+  list-style: none;
+  padding: 0;
+}
+
+.vault-links li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.vault-links li:last-child {
+  border-bottom: none;
+}
+
+.vault-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.81rem;
+  display: block;
+}
+
+.vault-links a:hover {
+  color: #000;
+}
+
+.vault-links .link-label {
+  font-weight: 900;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.vault-links .link-url {
+  font-size: 0.7rem;
+  color: #999;
+  word-break: break-all;
+}
+
+.vault-back {
+  margin-top: 2rem;
+  font-size: 0.81rem;
+}
+
+.vault-back a {
+  color: #999;
+}
+
+.vault-back a:hover {
+  color: #333;
+}
+
+/* Top Slider Tab */
+.top-slider {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 10000;
+  width: 280px;
+}
+
+.top-slider-drawer {
+  background: #e8e8e8;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+
+.top-slider.open .top-slider-drawer {
+  max-height: 260px;
+}
+
+.top-slider-panel {
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+}
+
+.top-slider-panel p {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 auto 1rem;
+}
+
+.top-slider-panel .slider-btn {
+  display: inline-block;
+  font-family: "Merriweather", sans-serif;
+  font-size: 0.72rem;
+  color: #555;
+  background: none;
+  border: 1px solid #555 !important;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.top-slider-panel .slider-btn:hover {
+  background: #555;
+  color: #fff;
+}
+
+.top-slider-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem 0.25rem;
+  background: #e8e8e8;
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.top-slider.open .top-slider-tab {
+  border-radius: 0;
+  background: #e8e8e8;
+}
+
+.top-slider-tab:hover {
+  background: #d5d5d5;
+}
+
+.tab-tux {
+  position: absolute;
+  left: -30px;
+  top: -2px;
+  width: 28px;
+  height: 38px;
+}
+
+.tab-label {
+  font-family: "Merriweather", sans-serif;
+  font-size: 0.62rem;
+  color: #666;
+  text-transform: lowercase;
+}
+
+.tab-arrow {
+  font-size: 0.55rem;
+  color: #666;
+  line-height: 1;
+}

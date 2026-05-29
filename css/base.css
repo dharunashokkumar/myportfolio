@@ -1,0 +1,289 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap");
+
+html {
+  text-transform: lowercase;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* ?because defaults may not be consistent across browsers */
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  /* to centre the content (PS. need ALL these specifications) */
+  height: 100%;
+  background: #ffffff;
+  font-family: "Merriweather", sans-serif;
+  font-weight: 300;
+  line-height: 1.395rem;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* to remove grey background/box that appears when you tap the screen on a iPad, etc. */
+}
+
+em {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: 900;
+}
+
+small {
+  font-size: 67%;
+}
+
+sup {
+  font-size: 75%;
+  vertical-align: top;
+  position: relative;
+  bottom: 0.225rem;
+}
+
+p span.highlight,
+p a.highlight {
+  background-color: #fe9;
+  padding: 0.1125rem;
+}
+
+.lpu-inline-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12rem;
+  vertical-align: baseline;
+}
+
+.lpu-inline-logo {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: inline-block;
+  object-fit: contain;
+  opacity: 0.70;
+  flex-shrink: 0;
+  position: relative;
+  top: 0.05em;
+}
+
+a.lpu-inline-link,
+a.lpu-inline-link[href*="//"] {
+  padding-left: 0.02rem;
+  border-bottom-style: dotted;
+}
+
+a.lpu-inline-link:hover {
+  border-bottom-style: solid;
+}
+
+hr {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  /* i don't quite know why these are required. i copied them off stacey's default css stylesheet. i think they can be gotten rid of */
+  border: none;
+  /* "border:none;" to eliminate the default "border: 1px inset;" attribute, as explained in: http://www.w3.org/TR/CSS2/sample.html */
+  border-top: black solid 6px;
+  margin: 2.7rem auto;
+  padding: 0;
+  max-width: 36rem;
+  /* mirrors the value of max-width from <p> */
+}
+
+hr.solid {
+  border-top-style: solid;
+}
+
+hr.dotted {
+  border-top-style: dotted;
+}
+
+hr.fullwidth {
+  max-width: inherit;
+}
+
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+ul,
+.footnotes {
+  font-size: 0.81rem;
+}
+
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+blockquote,
+.footnotes,
+ul,
+ol {
+  text-align: left;
+  /* to counter the "text-align:center;" in its parent div(s) */
+  color: #555;
+  margin: 1.395rem auto;
+  /* use formula: {{ margin * font-size = 1.5em }} */
+}
+
+nav,
+p,
+h1,
+h2,
+h3,
+h6,
+blockquote,
+.footnotes,
+#container.post #content ul,
+#container.post #content ol {
+  max-width: 36rem;
+}
+
+#container.contact-page #content ul,
+#container.contact-page #content ol {
+  max-width: 36rem;
+}
+
+ul,
+ol {
+  padding-inline-start: 0;
+  /* remove paddings by converting all values to 0 */
+  /*list-style-type: none;*/
+}
+
+p+ul {
+  margin-top: -1.2rem;
+}
+
+.footnotes ol {
+  padding-inline-start: 0.9rem;
+}
+
+ul>li>p,
+ol>li>p {
+  margin-left: 0.45rem;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 2.79rem;
+  font-weight: 900;
+}
+
+h3 {
+  font-style: italic;
+}
+
+blockquote {
+  border-left: 1px solid #ccc;
+}
+
+blockquote p+p,
+blockquote ul+p {
+  margin-top: -0.6975rem;
+}
+
+blockquote>p,
+blockquote>ul,
+blockquote>img {
+  margin-left: 1rem;
+}
+
+select,
+select>option {
+  /* this is done to override the user-agent-stylesheet's styles that were overriding the text's appearance. */
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+
+.hide {
+  display: none;
+}
+
+#container {
+  margin: 0 auto;
+  width: 1280px;
+  text-align: center;
+  /* to centre the content (PS. yes, we need ALL these specifications) */
+  padding: 3.6rem 1px;
+}
+
+#container #content ul:not(.archive) li {
+  margin-left: 1rem;
+  list-style-type: circle;
+}
+
+#content,
+#header,
+#footer {
+  margin: 3.6rem auto;
+}
+
+@media screen {
+  #footer {
+    margin-top: 5.4rem;
+  }
+}
+
+#header nav,
+#footer nav {
+  font-style: italic;
+}
+
+#header nav ul li,
+#footer nav ul li {
+  display: inline;
+}
+
+#header h1+nav,
+#header h2+nav,
+#header h3+nav,
+#footer h1+nav,
+#footer h2+nav,
+#footer h3+nav {
+  /* remove space between website title and navigation menu items */
+  margin-top: -1.395rem;
+}
+
+#footer {
+  opacity: 0.25;
+  transition: opacity 0.6s;
+}
+
+#footer:hover {
+  opacity: 1;
+}
+
+#header ul,
+#footer ul,
+ul.archive {
+  list-style-type: none;
+  /* remove bullets */
+  display: block;
+  /* this is as default */
+}
+
+.show-only-in-print {
+  display: none;
+}
+
+.disclaimer {
+  display: block;
+  background-color: #eee;
+  padding: 1rem;
+  margin-top: 3.6em;
+  margin-bottom: 3.6em;
+}
+
