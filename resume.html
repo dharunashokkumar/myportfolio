@@ -697,6 +697,106 @@
         color: var(--cr-ink) !important;
       }
 
+      /* Resume document / PDF */
+      .cr-doc-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 1.5rem !important;
+      }
+
+      .cr-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--cr-sans);
+        font-weight: 500 !important;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em !important;
+        padding: 0.8rem 1.4rem !important;
+        background: var(--cr-ink) !important;
+        color: #fff !important;
+        border: 1px solid var(--cr-ink) !important;
+        transition: all 0.3s ease;
+      }
+
+      .cr-btn:hover {
+        background: transparent !important;
+        color: var(--cr-ink) !important;
+        transform: translateY(-2px);
+      }
+
+      .cr-btn .cr-btn-arrow {
+        font-family: var(--cr-serif);
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      .cr-btn-ghost {
+        font-size: 0.8rem;
+        color: var(--cr-muted) !important;
+        border-bottom: 1px solid var(--cr-border) !important;
+        padding-bottom: 2px !important;
+        transition: color 0.2s;
+      }
+
+      .cr-btn-ghost:hover { color: var(--cr-ink) !important; }
+
+      .cr-doc-frame {
+        border: 1px solid var(--cr-border) !important;
+        overflow: hidden;
+      }
+
+      .cr-doc-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 1rem !important;
+        border-bottom: 1px solid var(--cr-border) !important;
+        font-family: var(--cr-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: var(--cr-muted) !important;
+      }
+
+      .cr-doc-dots { display: flex; gap: 0.35rem; }
+
+      .cr-doc-dots span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--cr-border);
+        display: inline-block;
+      }
+
+      .cr-doc {
+        width: 100%;
+        height: min(80vh, 850px);
+        border: 0;
+        display: block;
+        background: #f3f2ee;
+      }
+
+      .cr-doc-fallback {
+        padding: 3rem 1.5rem !important;
+        text-align: center;
+        font-family: var(--cr-serif);
+        font-size: 1.4rem;
+        color: var(--cr-muted) !important;
+      }
+
+      .cr-doc-fallback small {
+        display: block;
+        margin-top: 0.75rem !important;
+        font-family: var(--cr-sans);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+      }
+
       /* Tablet */
       @media (max-width: 900px) {
         .cr-header,
@@ -964,6 +1064,7 @@
               <div class="cr-skill">Raspberry Pi</div>
               <div class="cr-skill">Arduino / ESP32</div>
               <div class="cr-skill">Electronics</div>
+              <div class="cr-skill">Booking Tatkal Tickets (Confirmed, Not Waitlisted)</div>
             </div>
           </details>
 
@@ -1190,6 +1291,34 @@
             </div>
           </details>
 
+          <!-- Resume Document -->
+          <details class="cr-section">
+            <summary class="cr-section-summary">
+              <h2 class="cr-section-label">Document<br>& Download</h2>
+            </summary>
+            <div class="cr-section-content">
+              <div class="cr-doc-actions">
+                <a class="cr-btn" href="files/dharun-ashokkumar-resume.pdf" download>
+                  download pdf <span class="cr-btn-arrow">&darr;</span>
+                </a>
+                <a class="cr-btn-ghost" href="files/dharun-ashokkumar-resume.pdf" target="_blank" rel="noopener">open in new tab</a>
+              </div>
+              <div class="cr-doc-frame">
+                <div class="cr-doc-bar">
+                  <div class="cr-doc-dots"><span></span><span></span><span></span></div>
+                  <span>dharun-ashokkumar-resume.pdf</span>
+                  <span>pdf &middot; a4</span>
+                </div>
+                <object class="cr-doc" data="files/dharun-ashokkumar-resume.pdf#view=FitH&toolbar=0" type="application/pdf">
+                  <div class="cr-doc-fallback">
+                    preview unavailable in this browser.
+                    <small><a href="files/dharun-ashokkumar-resume.pdf" download>download the pdf</a> to view it.</small>
+                  </div>
+                </object>
+              </div>
+            </div>
+          </details>
+
           <!-- Footer CTA -->
           <div class="cr-cta">
             
@@ -1197,7 +1326,7 @@
             <div class="cr-links">
               <a href="https://github.com/dharunashokkumar">Github</a>
               <a href="https://linkedin.com/in/dharunashokkumar">LinkedIn</a>
-              <a href="resume-preview.html">Download Resume</a>
+              <a href="files/dharun-ashokkumar-resume.pdf" download>Download Resume</a>
             </div>
           </div>
 

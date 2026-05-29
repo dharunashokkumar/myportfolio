@@ -22,7 +22,7 @@ Deployment is whatever pushes the repo root to `dharunashokkumar.com` (treat the
 `index.html`, `projects.html`, `reflections.html`, `resume.html`, `about.html`, `contact.html`, `opensource.html`, `galley.html`, `vault.html` (PIN-protected).
 
 - `portfolio.html` is a `<meta http-equiv="refresh">` redirect to `resume.html` — keep it for backward compatibility, don't delete.
-- `resume-preview.html` is a separate preview/draft variant of the resume page.
+- The PDF preview/download (embedded `<object>` + download buttons) lives in a collapsible "document & download" section inside `resume.html`; there is no separate preview page.
 - `reflections.html` is a single index page; there is **no** `reflections/` directory. New reflections currently live inline on that page.
 - `projects/` holds individual project write-ups as standalone HTML pages (currently `lpulabs.html`, `sysadmin.html`) plus a `projects/asset/` folder for their images.
 
