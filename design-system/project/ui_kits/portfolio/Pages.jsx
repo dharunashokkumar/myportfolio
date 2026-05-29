@@ -33,7 +33,6 @@ function HomePage({ go }) {
 const PROJECTS = [
   { id: 'lpulabs',  title: 'lpu labs',      excerpt: 'cloud lab platform for students — self-hosted jupyter + ssh sandboxes',  date: '2026', tags: 'web development, docker', featured: true },
   { id: 'sysadmin', title: 'linux sysadmin', excerpt: 'managing + maintaining linux servers for campus and personal infra',   date: '2026', tags: 'ops, linux, ansible' },
-  { id: 'dadscloud', title: 'dadscloud',    excerpt: 'india-based alternative to aws / gcp — affordable, regional',            date: '2024', tags: 'infrastructure' },
   { id: 'lfp',      title: 'lf projects explorer', excerpt: 'exploring all 765 linux foundation projects, one at a time',      date: '2025', tags: 'open source, writing' },
   { id: 'iotgarden', title: 'iot garden',   excerpt: 'rabbitmq + mongodb pipeline feeding soil/humidity sensors into a dash',   date: '2024', tags: 'iot, rabbitmq, mongodb' },
   { id: 'seclab',   title: 'seclab writeups', excerpt: 'ctf writeups and vulnerability research from campus security club',    date: '2023 — present', tags: 'cybersecurity' },
@@ -115,7 +114,7 @@ function AboutPage() {
           <h3>early life and education</h3>
           <p>dharun's interest in technology began in high school with a battered thinkpad and a copy of ubuntu. he went on to enroll at <span className="lpu-inline-badge"><img src="../../assets/lpulogo.jpeg" alt="" className="lpu-inline-logo" /><a href="https://www.lpu.in/" target="_blank" rel="noreferrer" className="lpu-inline-link">lovely professional university</a></span> in 2022, pursuing a btech in computer science.</p>
           <h3>work</h3>
-          <p>his notable projects include <em>lpu labs</em>, a browser-based cloud lab for students, and <em>dadscloud</em>, a small regional cloud provider experiment. he maintains a public writing archive at <a href="#" onClick={(e) => e.preventDefault()}>his portfolio</a> and contributes to open source under <a href="https://github.com/dharunashokkumar" target="_blank" rel="noreferrer">github.com/dharunashokkumar</a>.</p>
+          <p>his notable projects include <em>lpu labs</em>, a browser-based cloud lab for students. he maintains a public writing archive at <a href="#" onClick={(e) => e.preventDefault()}>his portfolio</a> and contributes to open source under <a href="https://github.com/dharunashokkumar" target="_blank" rel="noreferrer">github.com/dharunashokkumar</a>.</p>
           <h3>philosophy</h3>
           <p>dharun advocates for <em>building in public</em> — shipping small things and reflecting on them openly, rather than announcing finished products. his site deliberately uses no frameworks, no emoji, and a single serif typeface.</p>
         </div>
