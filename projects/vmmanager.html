@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>VMManager | Native GTK4 Desktop App for QEMU/KVM &amp; Incus/LXD in C | Dharun Ashokkumar</title>
+    <meta name="description" content="VMManager — a native GTK4 desktop application, written in C, for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface. Think Proxmox, but a compiled binary on your desktop: no browser, no web server, no runtime dependencies.">
+    <meta name="keywords" content="vmmanager, vncmgr, gtk4, qemu, kvm, libvirt, incus, lxd, virtualization, container management, c programming, linux desktop app, dharun ashokkumar">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharunashokkumar.com/projects/vmmanager.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="VMManager | Native GTK4 App for QEMU/KVM &amp; Incus/LXD in C">
+    <meta property="og:description" content="Think Proxmox, but a compiled C binary on your desktop. Manage QEMU/KVM VMs and Incus/LXD containers — no browser, no web server, no runtime dependencies.">
+    <meta property="og:url" content="https://dharunashokkumar.com/projects/vmmanager.html">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="VMManager | GTK4 desktop app for QEMU/KVM &amp; Incus/LXD">
+    <meta name="twitter:description" content="A native C/GTK4 desktop app to manage VMs and containers. No browser, no web server, no runtime dependencies.">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "VMManager",
+      "description": "A native GTK4 desktop application written in C for managing QEMU/KVM virtual machines and Incus/LXD containers from a single unified interface. It talks to libvirt as a C library for VMs and to the Incus REST API over a Unix socket for containers. Ships as a single compiled binary with no browser, web server, or runtime dependencies.",
+      "url": "https://dharunashokkumar.com/projects/vmmanager.html",
+      "codeRepository": "https://github.com/dharunashokkumar/VnCmgr",
+      "programmingLanguage": "C",
+      "operatingSystem": "Linux",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "softwareVersion": "2.0.0",
+      "datePublished": "2026-02-28",
+      "dateModified": "2026-05-29",
+      "keywords": "gtk4, qemu, kvm, libvirt, incus, lxd, virtualization, container management, c",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharunashokkumar.com"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharunashokkumar.com/projects.html"},
+        {"@type":"ListItem","position":3,"name":"VMManager","item":"https://dharunashokkumar.com/projects/vmmanager.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">c · gtk4 · systems</span>
+          <h1>vmmanager</h1>
+          <p class="tagline">a native gtk4 desktop app for managing qemu/kvm virtual machines and incus/lxd containers — from one window.</p>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/VnCmgr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            view source on github
+          </a>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">c</span>
+          <span class="tag">gtk4</span>
+          <span class="tag">libvirt</span>
+          <span class="tag">qemu</span>
+          <span class="tag">kvm</span>
+          <span class="tag">incus</span>
+          <span class="tag">lxd</span>
+          <span class="tag">virtualization</span>
+          <span class="tag">linux</span>
+          <span class="tag">gpl-3.0</span>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>what it is</h2>
+        <p>think proxmox — but as a compiled c binary on your desktop. no browser, no web server, no runtime dependencies. one binary that manages both qemu/kvm virtual machines and incus/lxd containers from a single gtk4 interface.</p>
+        <p>i wrote it in c on purpose. i wanted to talk to libvirt directly as a c library, drive the incus rest api over its unix socket with libcurl, and feel where the real complexity in virtualization management lives — instead of letting a high-level framework hide it from me.</p>
+
+        <h2>what it does</h2>
+        <div class="feat-list">
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>dashboard</strong> — real-time cpu, ram, and disk monitoring plus vm/container counts, refreshing every few seconds</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>virtual machines</strong> — create, start, shut down, pause, resume, reboot, force-stop, and delete kvm vms via libvirt</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>containers</strong> — full lifecycle for incus/lxd containers via the rest api</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>snapshots</strong> — create, revert, and delete vm snapshots</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>console access</strong> — launch a vm viewer or a container shell straight from the app</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>activity log, search &amp; filter, keyboard shortcuts, persistent settings</strong></span></div>
+        </div>
+
+        <h2>architecture</h2>
+        <p>the gui is two gtk4 panels — one for vms, one for containers. underneath, the vm panel speaks to <strong>libvirt</strong> as a c library, and the container panel speaks the <strong>incus rest api</strong> through libcurl over a unix socket. those two adapters fan out to qemu/kvm and incus/lxd respectively. that's the whole shape: a thin, honest layer over the tools that already do the heavy lifting.</p>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-value">c</span><span class="spec-label">language</span></div>
+          <div class="spec"><span class="spec-value">gtk 4</span><span class="spec-label">gui</span></div>
+          <div class="spec"><span class="spec-value">v2.0.0</span><span class="spec-label">version</span></div>
+          <div class="spec"><span class="spec-value">gpl-3.0</span><span class="spec-label">license</span></div>
+        </div>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharunashokkumar.com">dharun ashokkumar</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <script src="../js/rv.js"></script>
+    <script src="../js/cfme.js"></script>
+  </body>
+</html>

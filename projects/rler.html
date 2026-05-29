@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RLER | Reinforcement-Learning Paper Trader for NSE in Rust | Dharun Ashokkumar</title>
+    <meta name="description" content="RLER — a Rust reinforcement-learning paper-trading workbench for NSE equities on 15-minute candles. Tabular Q-learning, backtests, paper replay, walk-forward validation, SQLite run history, and a Yew dashboard. Paper-only, no broker execution.">
+    <meta name="keywords" content="rler, reinforcement learning trading, q-learning, nse, paper trading, backtesting, walk-forward validation, rust, yew, dharun ashokkumar">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharunashokkumar.com/projects/rler.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="RLER | Reinforcement-Learning Paper Trader for NSE in Rust">
+    <meta property="og:description" content="A Rust reinforcement-learning paper-trading workbench for NSE 15-minute candles. Tabular Q-learning, walk-forward validation, Yew dashboard. Paper-only.">
+    <meta property="og:url" content="https://dharunashokkumar.com/projects/rler.html">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="RLER | RL Paper Trader for NSE in Rust">
+    <meta name="twitter:description" content="Tabular Q-learning, backtests, paper replay, walk-forward validation, SQLite run history, Yew dashboard. Paper-only.">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "RLER",
+      "description": "A Rust reinforcement-learning paper-trading workbench for NSE equities on 15-minute candles. It supports tabular Q-learning, CSV/Yahoo candle loading, backtests, paper replay, walk-forward validation with Monte Carlo robustness, SQLite run history, and a Rust/Yew dashboard. Paper-only: it does not place broker orders and does not provide investment advice.",
+      "url": "https://dharunashokkumar.com/projects/rler.html",
+      "codeRepository": "https://github.com/dharunashokkumar/rler",
+      "programmingLanguage": "Rust",
+      "license": "https://opensource.org/licenses/MIT",
+      "datePublished": "2026-05-06",
+      "dateModified": "2026-05-29",
+      "keywords": "reinforcement learning, q-learning, paper trading, backtesting, walk-forward validation",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharunashokkumar.com"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharunashokkumar.com/projects.html"},
+        {"@type":"ListItem","position":3,"name":"RLER","item":"https://dharunashokkumar.com/projects/rler.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">rust · reinforcement learning</span>
+          <h1>rler</h1>
+          <p class="tagline">a rust reinforcement-learning paper-trading workbench for nse equities on 15-minute candles.</p>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/rler" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            view source on github
+          </a>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">rust</span>
+          <span class="tag">reinforcement learning</span>
+          <span class="tag">q-learning</span>
+          <span class="tag">nse</span>
+          <span class="tag">paper trading</span>
+          <span class="tag">walk-forward</span>
+          <span class="tag">yew</span>
+          <span class="tag">mit</span>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>what it is</h2>
+        <p>rler is a workbench for teaching an agent to trade on 15-minute candles — and, more honestly, for teaching me how reinforcement learning behaves on noisy financial data. it's <strong>paper-only</strong>. it does not place broker orders and it does not give investment advice.</p>
+        <p>the current rust implementation does tabular q-learning, csv and yahoo candle loading, backtests, paper replay, walk-forward validation with monte-carlo robustness, sqlite run history, and a rust/yew dashboard. it ships with sample data so it works fully offline. dqn is intentionally deferred — getting the tabular case honest comes first.</p>
+
+        <h2>what each command does</h2>
+        <div class="feat-list">
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>train</strong> — fit one tabular q-learning model</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>backtest</strong> — train on earlier rows, evaluate on later rows</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>paper</strong> — replay paper trading with a saved model</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>validate</strong> — rolling walk-forward validation, the test that actually matters</span></div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-value">rust</span><span class="spec-label">language</span></div>
+          <div class="spec"><span class="spec-value">15m</span><span class="spec-label">candle resolution</span></div>
+          <div class="spec"><span class="spec-value">offline</span><span class="spec-label">runs with sample data</span></div>
+          <div class="spec"><span class="spec-value">mit</span><span class="spec-label">license</span></div>
+        </div>
+
+        <div class="callout">project boundaries, stated up front: paper-trading only, no real broker execution, no profit guarantee, deep-rl is a future phase. honesty about scope is part of the design.</div>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharunashokkumar.com">dharun ashokkumar</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <script src="../js/rv.js"></script>
+    <script src="../js/cfme.js"></script>
+  </body>
+</html>

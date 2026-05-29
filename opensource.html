@@ -16,8 +16,8 @@
 
     <title>Open Source Contributions - Dharun Ashokkumar</title>
 
-    <meta name="description" content="Dharun Ashokkumar open source contributions. Public repositories, GitHub activity, and community projects in cloud infrastructure, web development, IoT, and cybersecurity.">
-    <meta name="keywords" content="dharun ashokkumar, open source, github, contributions, repositories, cloud infrastructure, web development, iot, cybersecurity, software development">
+    <meta name="description" content="Dharun Ashokkumar's open source work — public GitHub repositories spanning a Rust clearing &amp; settlement engine, Indian-market quant tooling, a C/GTK4 virtualization manager, data-engineering platforms, and a CS knowledge hub. Live stats and recently merged pull requests.">
+    <meta name="keywords" content="dharun ashokkumar, open source, github, rust, python, c, fintech, clearing engine, quantitative finance, virtualization, data engineering, public repositories, merged pull requests">
     <meta name="author" content="Dharun Ashokkumar">
 
     <!-- Canonical URL -->
@@ -30,8 +30,8 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#555555">
 
-    <link rel="icon" href="/assets/favicon.png">
-    <link rel="apple-touch-icon" href="/assets/favicon.png" type="image/png" />
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
 
     <link rel="stylesheet" type="text/css" href='css/styles.css'>
 
@@ -41,7 +41,7 @@
     <meta property="og:title" content="Open Source Contributions - Dharun Ashokkumar">
     <meta property="og:description" content="Dharun Ashokkumar open source contributions. Public repositories, GitHub activity, and community projects.">
     <meta property="og:url" content="https://dharunashokkumar.com/opensource.html">
-    <meta property="og:image" content="https://dharunashokkumar.com/assets/favicon.png">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
     <meta property="og:image:alt" content="Dharun Ashokkumar Open Source Contributions">
     <meta property="og:locale" content="en_GB">
 
@@ -51,7 +51,7 @@
     <meta name="twitter:creator" content="@dharuna457">
     <meta name="twitter:title" content="Open Source Contributions - Dharun Ashokkumar">
     <meta name="twitter:description" content="Dharun Ashokkumar open source contributions. Public repositories, GitHub activity, and community projects.">
-    <meta name="twitter:image" content="https://dharunashokkumar.com/assets/favicon.png">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
 
     <!-- Schema.org: ProfilePage -->
     <script type="application/ld+json">
@@ -116,7 +116,7 @@
           "name": "Does Dharun Ashokkumar contribute to open source?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, Dharun Ashokkumar is an active open source contributor. He maintains a public GitHub profile at github.com/dharunashokkumar where he publishes projects spanning web development, IoT, cybersecurity, and infrastructure. He believes in building in public and sharing knowledge openly."
+            "text": "Yes. Dharun Ashokkumar maintains a public GitHub profile at github.com/dharunashokkumar where he publishes most of his work openly. Notable open-source projects include Open Clearing Engine (a Rust NSCCL-grade clearing and settlement engine), Indie Market Analyst (an Indian-market analysis toolkit), an alternative-data platform for Indian equities, VMManager (a C/GTK4 virtualization manager), and CS Archive (a computer-science knowledge hub). He believes in building in public."
           }
         },
         {
@@ -124,9 +124,26 @@
           "name": "What is Dharun Ashokkumar's GitHub?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dharun Ashokkumar's GitHub profile is github.com/dharunashokkumar. He publishes open source projects in Python, JavaScript, React, Arduino, ESP32, and other technologies. His repositories cover web applications, IoT systems, cybersecurity tools, and infrastructure configurations."
+            "text": "Dharun Ashokkumar's GitHub profile is github.com/dharunashokkumar. He publishes open-source projects primarily in Rust, Python, and C, spanning financial infrastructure, quantitative tooling, data engineering, virtualization, and web development."
           }
         }
+      ]
+    }
+    </script>
+
+    <!-- Schema.org: Featured open-source repositories -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Featured open-source projects by Dharun Ashokkumar",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"item":{"@type":"SoftwareSourceCode","name":"Open Clearing Engine","codeRepository":"https://github.com/dharunashokkumar/open-clearing-engine","programmingLanguage":"Rust","description":"NSCCL-grade clearing and settlement engine in Rust."}},
+        {"@type":"ListItem","position":2,"item":{"@type":"SoftwareSourceCode","name":"Indie Market Analyst","codeRepository":"https://github.com/dharunashokkumar/indie-market-analyst","programmingLanguage":"Python","description":"Open-source Indian-market analysis toolkit."}},
+        {"@type":"ListItem","position":3,"item":{"@type":"SoftwareSourceCode","name":"Alternative Data Platform — Indian Equities","codeRepository":"https://github.com/dharunashokkumar/alt-data-platform-india","programmingLanguage":"Python","description":"Point-in-time alternative-data platform with a medallion architecture."}},
+        {"@type":"ListItem","position":4,"item":{"@type":"SoftwareSourceCode","name":"VMManager","codeRepository":"https://github.com/dharunashokkumar/VnCmgr","programmingLanguage":"C","description":"Native GTK4 desktop app for managing QEMU/KVM VMs and Incus/LXD containers."}},
+        {"@type":"ListItem","position":5,"item":{"@type":"SoftwareSourceCode","name":"RLER","codeRepository":"https://github.com/dharunashokkumar/rler","programmingLanguage":"Rust","description":"Reinforcement-learning paper-trading workbench for NSE equities."}},
+        {"@type":"ListItem","position":6,"item":{"@type":"SoftwareSourceCode","name":"CS Archive","codeRepository":"https://github.com/dharunashokkumar/cs-archive","programmingLanguage":"HTML","description":"Open-source computer-science knowledge hub with 20+ curated categories."}}
       ]
     }
     </script>
@@ -195,9 +212,13 @@
         color: #555;
         background: #eee;
       }
+      /* merged = github's iconic merge purple (intentional semantic accent) */
       .pr-state-merged {
-        background: #fb0;
+        background: #8957e5;
         color: #fff;
+      }
+      .pr-icon.merged {
+        color: #8957e5;
       }
       .pr-state-open {
         background: #fe9;
@@ -269,6 +290,75 @@
         text-align: center;
       }
 
+      /* language bar — greyscale stacked share of languages across repos */
+      .lang-bar {
+        display: flex;
+        max-width: 36rem;
+        margin: 1.2rem auto 0.6rem;
+        height: 8px;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+      }
+      .lang-bar span { height: 100%; display: block; }
+      .lang-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+        max-width: 36rem;
+        margin: 0 auto 1rem;
+        font-size: 0.68rem;
+        color: #888;
+        justify-content: center;
+      }
+      .lang-legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+      /* featured open-source work */
+      .featured-projects {
+        list-style: none;
+        padding: 0;
+        max-width: 36rem;
+        margin: 1.5rem auto;
+      }
+      .featured-projects .fp {
+        border: 1px solid #e0e0e0;
+        padding: 1rem 1.1rem;
+        margin-bottom: 1rem;
+      }
+      .featured-projects .fp-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.6rem;
+      }
+      .featured-projects .fp-name {
+        font-weight: 900;
+        color: #333;
+      }
+      .featured-projects .fp-lang {
+        font-size: 0.68rem;
+        color: #888;
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+      }
+      .featured-projects .fp-desc {
+        color: #666;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        margin: 0.4rem 0 0.6rem;
+      }
+      .featured-projects .fp-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+        font-size: 0.72rem;
+      }
+      .featured-projects .fp-links a {
+        color: #555;
+        text-decoration: none;
+        border-bottom: 1px solid #ccc;
+      }
+      .featured-projects .fp-links a:hover { border-bottom-color: #555; }
+
       .profile-link {
         max-width: 36rem;
         margin: 1rem auto;
@@ -304,9 +394,9 @@
 </nav>
 </div><div id="content">
 
-<p>public repositories and open source work on <a href="https://github.com/dharunashokkumar" target="_blank" rel="noopener">github</a>. data fetched live from the github api.</p>
+<p>i build in public. most of what i make ends up on <a href="https://github.com/dharunashokkumar" target="_blank" rel="noopener">github</a> — clearing &amp; settlement infrastructure in rust, indian-market quant tooling in python, a virtualization manager in c, data-engineering platforms, and the odd knowledge hub. the numbers below are pulled live from the github api.</p>
 
-<h1>contribution summary</h1>
+<h1>by the numbers</h1>
 
 <div id="github-stats" class="github-stats">
   <div class="skeleton skeleton-stat"></div>
@@ -314,7 +404,46 @@
   <div class="skeleton skeleton-stat"></div>
 </div>
 
+<div id="lang-bar" class="lang-bar" aria-hidden="true"></div>
+<div id="lang-legend" class="lang-legend"></div>
+
 <div id="profile-link" class="profile-link"></div>
+
+<h1>featured work</h1>
+<p>a few of the projects i'm most proud of. each links to the source — and, where it exists, a longer write-up.</p>
+
+<ul class="featured-projects">
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">open clearing engine</span><span class="fp-lang">rust · apache-2.0</span></div>
+    <p class="fp-desc">nsccl-grade clearing &amp; settlement engine: novation, multilateral netting, span portfolio risk, event-sourced and deterministic, with a rest/ws api and ops dashboard.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/open-clearing-engine" target="_blank" rel="noopener">source ↗</a><a href="/projects/open-clearing-engine.html">case study →</a></div>
+  </li>
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">indie market analyst</span><span class="fp-lang">python · react · mit</span></div>
+    <p class="fp-desc">local-first indian-market toolkit: deterministic intraday scanner, dashboards, a backtester with the full indian cost model, and an optional ai-assisted chat. live docs hosted.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/indie-market-analyst" target="_blank" rel="noopener">source ↗</a><a href="/projects/indie-market-analyst.html">case study →</a><a href="https://indiemarket.dharunashokkumar.com" target="_blank" rel="noopener">live ↗</a></div>
+  </li>
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">alternative data platform — indian equities</span><span class="fp-lang">python</span></div>
+    <p class="fp-desc">medallion-architecture alt-data platform with a point-in-time feature store that's structurally anti-lookahead, plug-in data sources, signals and backtests, fastapi delivery.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/alt-data-platform-india" target="_blank" rel="noopener">source ↗</a><a href="/projects/alt-data-platform-india.html">case study →</a></div>
+  </li>
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">vmmanager</span><span class="fp-lang">c · gtk4 · gpl-3.0</span></div>
+    <p class="fp-desc">native gtk4 desktop app for managing qemu/kvm virtual machines and incus/lxd containers from one window. a single compiled binary — no browser, no web server, no runtime deps.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/VnCmgr" target="_blank" rel="noopener">source ↗</a><a href="/projects/vmmanager.html">case study →</a></div>
+  </li>
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">rler</span><span class="fp-lang">rust · mit</span></div>
+    <p class="fp-desc">reinforcement-learning paper-trading workbench for nse equities on 15-minute candles: tabular q-learning, backtests, walk-forward validation, a yew dashboard. paper-only.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/rler" target="_blank" rel="noopener">source ↗</a><a href="/projects/rler.html">case study →</a></div>
+  </li>
+  <li class="fp">
+    <div class="fp-top"><span class="fp-name">cs archive</span><span class="fp-lang">html · archived</span></div>
+    <p class="fp-desc">free, open-source computer-science knowledge hub with 20+ curated categories in a retro web 1.0 aesthetic. frozen at v3 and kept live as a reference snapshot.</p>
+    <div class="fp-links"><a href="https://github.com/dharunashokkumar/cs-archive" target="_blank" rel="noopener">source ↗</a><a href="/projects/cs-archive.html">case study →</a><a href="https://archive.dharunashokkumar.com" target="_blank" rel="noopener">live ↗</a></div>
+  </li>
+</ul>
 
 <h1>recently merged pull requests</h1>
 
@@ -386,18 +515,58 @@
     } catch (e) { /* ignore quota errors */ }
   }
 
-  function renderStats(profile, mergedPrTotal, openPrTotal, closedPrTotal) {
+  function renderStats(profile, mergedPrTotal, starsTotal) {
     var el = document.getElementById('github-stats');
 
     el.innerHTML =
+      '<div class="stat-card"><span class="stat-value">' + profile.public_repos + '</span><span class="stat-label">public repos</span></div>' +
       '<div class="stat-card"><span class="stat-value">' + mergedPrTotal + '</span><span class="stat-label">merged prs</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + openPrTotal + '</span><span class="stat-label">open prs</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + closedPrTotal + '</span><span class="stat-label">closed prs</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + profile.followers + '</span><span class="stat-label">followers</span></div>' +
-      '<div class="stat-card"><span class="stat-value">' + profile.public_repos + '</span><span class="stat-label">public repos</span></div>';
+      '<div class="stat-card"><span class="stat-value">' + starsTotal + '</span><span class="stat-label">stars earned</span></div>' +
+      '<div class="stat-card"><span class="stat-value">' + profile.followers + '</span><span class="stat-label">followers</span></div>';
 
     var linkEl = document.getElementById('profile-link');
     linkEl.innerHTML = '<a href="' + profile.html_url + '" target="_blank" rel="noopener">view full profile on github &rarr;</a>';
+  }
+
+  var LANG_SHADES = ['#333', '#555', '#777', '#999', '#bbb', '#d4d4d4'];
+
+  function renderLanguages(languages) {
+    var barEl = document.getElementById('lang-bar');
+    var legendEl = document.getElementById('lang-legend');
+    if (!barEl || !legendEl) return;
+    if (!languages || !languages.length) { barEl.style.display = 'none'; return; }
+
+    var total = languages.reduce(function(s, l) { return s + l.count; }, 0);
+    if (total === 0) { barEl.style.display = 'none'; return; }
+
+    var barHtml = '';
+    var legendHtml = '';
+    languages.forEach(function(l, i) {
+      var pct = (l.count / total * 100).toFixed(1);
+      var shade = LANG_SHADES[i % LANG_SHADES.length];
+      barHtml += '<span style="width:' + pct + '%;background:' + shade + ';" title="' + l.name + ' ' + pct + '%"></span>';
+      legendHtml += '<span><span class="lang-dot" style="background:' + shade + ';"></span>' + escapeHtml(l.name) + '</span>';
+    });
+    barEl.innerHTML = barHtml;
+    legendEl.innerHTML = legendHtml;
+  }
+
+  function summarizeLanguages(repos) {
+    var counts = {};
+    repos.forEach(function(r) {
+      if (r.fork) return;
+      var lang = r.language;
+      if (!lang) return;
+      counts[lang] = (counts[lang] || 0) + 1;
+    });
+    return Object.keys(counts)
+      .map(function(k) { return { name: k.toLowerCase(), count: counts[k] }; })
+      .sort(function(a, b) { return b.count - a.count; })
+      .slice(0, 6);
+  }
+
+  function sumStars(repos) {
+    return repos.reduce(function(s, r) { return s + (r.fork ? 0 : (r.stargazers_count || 0)); }, 0);
   }
 
   function extractRepoFromPrUrl(prUrl) {
@@ -407,7 +576,7 @@
 
   function getStatusIcon(status) {
     if (status === 'merged') {
-      return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M5 3.5a2.5 2.5 0 1 1 1 2v2.086a2.5 2.5 0 1 1-1 0V5.5a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 1.5-1.5V8h3.586a2.5 2.5 0 1 1 0 1H6.5v1.586a2.5 2.5 0 1 1-1 0V8.5A2.5 2.5 0 0 1 5 3.5Zm6.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>';
+      return '<svg class="pr-icon merged" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M5 3.5a2.5 2.5 0 1 1 1 2v2.086a2.5 2.5 0 1 1-1 0V5.5a1.5 1.5 0 0 0 1.5-1.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 1.5-1.5V8h3.586a2.5 2.5 0 1 1 0 1H6.5v1.586a2.5 2.5 0 1 1-1 0V8.5A2.5 2.5 0 0 1 5 3.5Zm6.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm-6 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg>';
     }
     if (status === 'open') {
       return '<svg class="pr-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>';
@@ -453,6 +622,10 @@
   function showError(msg) {
     var statsEl = document.getElementById('github-stats');
     statsEl.innerHTML = '';
+    var barEl = document.getElementById('lang-bar');
+    if (barEl) barEl.style.display = 'none';
+    var legendEl = document.getElementById('lang-legend');
+    if (legendEl) legendEl.innerHTML = '';
     var prEl = document.getElementById('pr-list');
     prEl.innerHTML = '<li class="error-msg">' + msg + '</li>';
   }
@@ -461,12 +634,8 @@
     var cached = getCached();
     if (cached) {
       if (cached.profile && cached.pullRequests) {
-        renderStats(
-          cached.profile,
-          cached.mergedPrTotal || 0,
-          cached.openPrTotal || 0,
-          cached.closedPrTotal || 0
-        );
+        renderStats(cached.profile, cached.mergedPrTotal || 0, cached.starsTotal || 0);
+        renderLanguages(cached.languages || []);
         renderPullRequests(cached.pullRequests);
         return;
       }
@@ -475,8 +644,7 @@
 
     var profileUrl = 'https://api.github.com/users/' + GITHUB_USER;
     var mergedPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:merged&sort=updated&order=desc&per_page=20';
-    var openPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:open&sort=updated&order=desc&per_page=20';
-    var closedPrUrl = 'https://api.github.com/search/issues?q=author:' + GITHUB_USER + '+is:pr+is:closed+-is:merged&sort=updated&order=desc&per_page=20';
+    var reposUrl = 'https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&sort=pushed';
 
     Promise.all([
       fetch(profileUrl).then(function(r) {
@@ -487,11 +655,7 @@
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       }),
-      fetch(openPrUrl).then(function(r) {
-        if (!r.ok) throw new Error('github api error: ' + r.status);
-        return r.json();
-      }),
-      fetch(closedPrUrl).then(function(r) {
+      fetch(reposUrl).then(function(r) {
         if (!r.ok) throw new Error('github api error: ' + r.status);
         return r.json();
       })
@@ -499,42 +663,32 @@
     .then(function(results) {
       var profile = results[0];
       var mergedData = results[1] || {};
-      var openData = results[2] || {};
-      var closedData = results[3] || {};
+      var repos = Array.isArray(results[2]) ? results[2] : [];
 
       var mergedPrs = (mergedData.items || []).map(function(pr) {
         pr.pr_status = 'merged';
         return pr;
       });
-      var openPrs = (openData.items || []).map(function(pr) {
-        pr.pr_status = 'open';
-        return pr;
-      });
-      var closedPrs = (closedData.items || []).map(function(pr) {
-        pr.pr_status = 'closed';
-        return pr;
-      });
 
       var pullRequests = mergedPrs
-        .concat(openPrs)
-        .concat(closedPrs)
         .sort(function(a, b) {
           return new Date(b.updated_at) - new Date(a.updated_at);
         })
-        .slice(0, 30);
+        .slice(0, 15);
 
       var mergedPrTotal = mergedData.total_count || mergedPrs.length;
-      var openPrTotal = openData.total_count || openPrs.length;
-      var closedPrTotal = closedData.total_count || closedPrs.length;
+      var starsTotal = sumStars(repos);
+      var languages = summarizeLanguages(repos);
 
       setCache({
         profile: profile,
         pullRequests: pullRequests,
         mergedPrTotal: mergedPrTotal,
-        openPrTotal: openPrTotal,
-        closedPrTotal: closedPrTotal
+        starsTotal: starsTotal,
+        languages: languages
       });
-      renderStats(profile, mergedPrTotal, openPrTotal, closedPrTotal);
+      renderStats(profile, mergedPrTotal, starsTotal);
+      renderLanguages(languages);
       renderPullRequests(pullRequests);
     })
     .catch(function(err) {

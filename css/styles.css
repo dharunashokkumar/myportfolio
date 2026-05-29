@@ -1560,6 +1560,158 @@ h6 {
   }
 }
 
+/* ==================================================
+   project page components — shared by /projects/*.html
+   greyscale only · border-radius 0 · no shadow · minimal motion
+   ================================================== */
+.project-hero {
+  max-width: 36rem;
+  margin: 0 auto 2.1rem;
+  text-align: left;
+}
+
+.project-hero .kicker {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #888;
+  border: 1px solid #ddd;
+  padding: 0.15rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.project-hero h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin: 0.4rem 0;
+  max-width: 100%;
+}
+
+.project-hero .tagline {
+  opacity: 0.7;
+  margin-top: 0;
+}
+
+/* action buttons — github / live site */
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 36rem;
+  margin: 1.2rem auto 2.1rem;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #555;
+  border: 1px solid #555;
+  padding: 0.4rem 0.9rem;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-ghost:hover {
+  background: #555;
+  color: #fff;
+  border-bottom-style: solid;
+}
+
+.btn-ghost svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* tag row */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 36rem;
+  margin: 1.2rem auto;
+}
+
+.tag {
+  font-size: 0.7rem;
+  border: 1px solid #ccc;
+  padding: 0.18rem 0.5rem;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+/* spec / fact grid */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  max-width: 36rem;
+  margin: 1.8rem auto;
+  text-align: left;
+}
+
+.spec {
+  border: 1px solid #e0e0e0;
+  padding: 0.9rem;
+}
+
+.spec .spec-value {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #333;
+  line-height: 1.2;
+}
+
+.spec .spec-label {
+  display: block;
+  font-size: 0.68rem;
+  color: #888;
+  margin-top: 0.3rem;
+  letter-spacing: 0.03em;
+}
+
+/* feature list */
+.feat-list {
+  max-width: 36rem;
+  margin: 1.5rem auto;
+  text-align: left;
+}
+
+.feat-list .feat {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  align-items: baseline;
+}
+
+.feat-list .feat .marker {
+  color: #555;
+  flex-shrink: 0;
+}
+
+.feat-list .feat .feat-text {
+  opacity: 0.85;
+}
+
+.feat-list .feat .feat-text strong {
+  font-weight: 900;
+  opacity: 1;
+}
+
+/* quiet callout — reuses the blockquote rule (1px left border) */
+.callout {
+  max-width: 36rem;
+  margin: 1.8rem auto;
+  border-left: 1px solid #ccc;
+  padding: 0.2rem 0 0.2rem 1rem;
+  font-style: italic;
+  color: #666;
+  text-align: left;
+}
+
 /* Secret Lock Icon */
 #secret-lock {
   position: fixed;

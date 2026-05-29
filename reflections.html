@@ -67,7 +67,7 @@
         "url": "https://dharunashokkumar.com"
       },
       "datePublished": "2016-01-01",
-	"dateModified": "2026-04-16",
+	"dateModified": "2026-05-29",
       "inLanguage": "en-GB",
       "isPartOf": {
         "@type": "WebSite",
@@ -95,7 +95,53 @@
         "@type": "Blog",
         "name": "Technical Reflections",
         "description": "Technical writings and documentation on infrastructure, development, and learning",
-				"blogPost": []
+				"blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "why i built a clearing engine i'll probably never run in production",
+            "url": "https://dharunashokkumar.com/reflections.html#clearing-engine",
+            "datePublished": "2026-05-20",
+            "dateModified": "2026-05-29",
+            "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+            "keywords": "clearing house, settlement, event sourcing, determinism, rust, learning by building"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "a backtest that ignores costs is fiction",
+            "url": "https://dharunashokkumar.com/reflections.html#backtest-costs",
+            "datePublished": "2026-05-12",
+            "dateModified": "2026-05-29",
+            "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+            "keywords": "backtesting, point-in-time, lookahead bias, indian cost model, quantitative finance"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "i wrote a vm manager in c on purpose",
+            "url": "https://dharunashokkumar.com/reflections.html#vmmanager-in-c",
+            "datePublished": "2026-03-18",
+            "dateModified": "2026-05-29",
+            "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+            "keywords": "c programming, gtk4, libvirt, systems programming, learning the hard way"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "rust keeps making me slower, and that's the point",
+            "url": "https://dharunashokkumar.com/reflections.html#rust-slower",
+            "datePublished": "2026-05-05",
+            "dateModified": "2026-05-29",
+            "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+            "keywords": "rust, compiler, software design, scope, deferring features"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "building in public, even the unfinished and the archived",
+            "url": "https://dharunashokkumar.com/reflections.html#building-in-public",
+            "datePublished": "2026-04-10",
+            "dateModified": "2026-05-29",
+            "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+            "keywords": "building in public, open source, learning in public, cs archive, portfolio"
+          }
+        ]
       }
     }
     </script>
@@ -123,21 +169,55 @@
 <p class="disclaimer">
 	i am, <em>slowly</em>, piecing together writings from my <span title="dharunashokkumar.com - every redesign reflected who i was becoming.">previous blog</span>, scattered <span title="notion for ideas, obsidian for learning, github gists for code i thought i'd never need again.">documentation</span> across platforms i've abandoned and returned to, journals from <span title="building tripleetech between classes, debugging at 3am, learning business from youtube.">hostel nights</span>, and projects documented in <span title="commits that say 'fixed bug' with no explanation of what i actually learned.">cryptic git commits</span>. these traces go back to when i first discovered <span title="the first time an led blinked because of my code - that feeling never gets old.">what code could build</span>, through <span title="raspberry pi projects that became servers, servers that became the foundation for dadscloud.">raspberry pi experiments</span> that taught me infrastructure exists to serve people, not impress them. some writings are <span title="raw thoughts, half-formed ideas, the honest mess of learning in public.">unpolished</span>. that's intentional. <small>&mdash;2024.11</small>
 </p>
-<p class="list-note">no reflection posts are published right now. this page is reserved for future writing.</p>
+<p class="list-note">a few notes from building the things on my <a href="projects.html">projects</a> page. more later.</p>
 
-<!-- reflection post template (keep this for future use)
-<ul class="archive">
-	<li>
-		<p>
-			<a href="reflections/your-post-slug.html">
-				<span class="title">your reflection title</span>
-				<span class="tags">tag1,&nbsp;tag2</span>
-				<span class="date">2026</span>
-			</a>
-		</p>
-	</li>
-</ul>
--->
+<article id="clearing-engine">
+  <h2>why i built a clearing engine i'll probably never run in production</h2>
+  <p class="inline-meta">2026.05 · rust, clearing &amp; settlement, event sourcing</p>
+  <p>i kept reading the phrase "the clearing house novates the trade" and realising i didn't actually understand it. so i built one. <a href="projects/open-clearing-engine.html">open clearing engine</a> takes executed trades and runs them through the same pipeline a real clearing corporation uses — novation, position keeping, multilateral netting, settlement — with a span risk engine on top.</p>
+  <p>the thing that surprised me wasn't the finance. it was how much the <em>correctness</em> requirements shape the code. i made it event-sourced and deterministic not because it's fashionable, but because that's the only way to replay a settlement run and prove it produces a byte-identical result. once you pin a golden output file and refuse to let the engine drift from it, you stop trusting your own assumptions and start trusting the tests.</p>
+  <p>i'll never run this against real money. that was never the point. i wanted the concept to live in my hands instead of in a textbook, and now it does.</p>
+</article>
+
+<hr class="dotted">
+
+<article id="backtest-costs">
+  <h2>a backtest that ignores costs is fiction</h2>
+  <p class="inline-meta">2026.05 · backtesting, point-in-time, quant</p>
+  <p>the first version of every backtest i wrote was a lie. it bought at the close, sold later, and reported a number that felt great. then i added the indian cost model to <a href="projects/indie-market-analyst.html">indie market analyst</a> — stt, stamp duty, exchange charges, sebi fees, gst, brokerage — and a lot of "strategies" quietly died. good. they were never alive.</p>
+  <p>the second lie is subtler: lookahead. it's terrifyingly easy to let a backtest peek at data it couldn't have known yet. that's why in <a href="projects/alt-data-platform-india.html">the alt-data platform</a> i made point-in-time correctness structural — every feature carries the date it was published, and every read filters to what was knowable at the as-of moment. there's no api to see the future. you have to build the constraint into the foundation, because if you leave it to discipline, you will cheat without noticing.</p>
+  <p>honesty in financial software isn't a feature you add. it's the load-bearing wall.</p>
+</article>
+
+<hr class="dotted">
+
+<article id="vmmanager-in-c">
+  <h2>i wrote a vm manager in c on purpose</h2>
+  <p class="inline-meta">2026.03 · c, gtk4, systems</p>
+  <p>i could have built <a href="projects/vmmanager.html">vmmanager</a> in an afternoon with electron and some shell calls. instead i wrote it in c, talking to libvirt as a library and to the incus rest api over a unix socket with libcurl. it took much longer. that was the trade i wanted.</p>
+  <p>high-level frameworks are wonderful at hiding complexity — which is exactly the problem when you're trying to learn where the complexity lives. doing manual memory management around gtk widgets, parsing json-glib responses, handling a socket that can just stop talking to you: that's where i actually learned how virtualization management works under the calm proxmox dashboard.</p>
+  <p>not every project should be built the hard way. but some should, on purpose, while you still have the time to.</p>
+</article>
+
+<hr class="dotted">
+
+<article id="rust-slower">
+  <h2>rust keeps making me slower, and that's the point</h2>
+  <p class="inline-meta">2026.05 · rust, design, scope</p>
+  <p>rust does not let me lie to it. the borrow checker stops me at the exact moment i was about to do something i hadn't thought through. early on this felt like the language fighting me. now i think it's the closest thing i have to a senior engineer reading over my shoulder.</p>
+  <p>it also changed how i scope work. in <a href="projects/rler.html">rler</a> i deferred deep reinforcement learning entirely and shipped honest tabular q-learning first, because i'd rather have a small correct thing than a big handwavy one. rust nudges you toward that mindset — make the states explicit, make the errors explicit, and the design follows.</p>
+  <p>i'm slower in rust. i'm also more sure of what i shipped. i'll take that trade most days.</p>
+</article>
+
+<hr class="dotted">
+
+<article id="building-in-public">
+  <h2>building in public, even the unfinished and the archived</h2>
+  <p class="inline-meta">2026.04 · open source, learning in public</p>
+  <p>most of what's on this site is open source, and a fair bit of it isn't finished. <a href="projects/cs-archive.html">cs archive</a> is literally archived — i froze it at version 3 and left it live as a snapshot rather than pretending i'd keep maintaining it. that honesty matters more to me than a wall of "production-ready" badges.</p>
+  <p>building in public means letting people see the seams. the deferred features, the "iteration 1 complete" notes, the projects that taught me something and then stopped. my <a href="galley.html">galley</a> is the same instinct pointed at smaller, stranger things. none of it is a finished monument. all of it is a record of someone actually learning.</p>
+  <p>i'd rather show the workshop than the showroom.</p>
+</article>
 
       </div><div id="footer">
 	<!-- start: navigation --><!-- end: navigation -->

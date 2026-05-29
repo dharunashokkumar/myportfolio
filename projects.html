@@ -100,16 +100,86 @@
         "@type": "ItemList",
         "itemListElement": [
           {
-            "@type": "CreativeWork",
-						"name": "Linux sysadmin",
-						"description": "Managing and maintaining Linux servers",
-						"dateCreated": "2026"
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Open Clearing Engine",
+              "description": "NSCCL-grade clearing and settlement engine in Rust: novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic.",
+              "url": "https://dharunashokkumar.com/projects/open-clearing-engine.html",
+              "codeRepository": "https://github.com/dharunashokkumar/open-clearing-engine",
+              "programmingLanguage": "Rust"
+            }
           },
           {
-            "@type": "CreativeWork",
-						"name": "LPU Labs",
-						"description": "Cloud lab platform for students",
-						"dateCreated": "2026"
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Indie Market Analyst",
+              "description": "Open-source Indian-market analysis toolkit: intraday scanner, dashboards, backtester with the Indian cost model, and optional AI chat.",
+              "url": "https://dharunashokkumar.com/projects/indie-market-analyst.html",
+              "codeRepository": "https://github.com/dharunashokkumar/indie-market-analyst",
+              "programmingLanguage": "Python"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Alternative Data Platform — Indian Equities",
+              "description": "Medallion-architecture alternative-data platform with a point-in-time feature store, plug-in data sources, signals and backtests.",
+              "url": "https://dharunashokkumar.com/projects/alt-data-platform-india.html",
+              "codeRepository": "https://github.com/dharunashokkumar/alt-data-platform-india",
+              "programmingLanguage": "Python"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "VMManager",
+              "description": "Native GTK4 desktop app in C for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface.",
+              "url": "https://dharunashokkumar.com/projects/vmmanager.html",
+              "codeRepository": "https://github.com/dharunashokkumar/VnCmgr",
+              "programmingLanguage": "C"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "TechArticle",
+              "name": "LPU Labs",
+              "description": "Multi-tenant platform for on-demand, browser-accessible development and learning environments powered by Docker, FastAPI, and React.",
+              "url": "https://dharunashokkumar.com/projects/lpulabs.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "RLER",
+              "description": "Rust reinforcement-learning paper-trading workbench for NSE equities on 15-minute candles. Paper-only.",
+              "url": "https://dharunashokkumar.com/projects/rler.html",
+              "codeRepository": "https://github.com/dharunashokkumar/rler",
+              "programmingLanguage": "Rust"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "CS Archive",
+              "description": "Free, open-source computer-science knowledge hub with 20+ curated categories in a retro Web 1.0 aesthetic.",
+              "url": "https://dharunashokkumar.com/projects/cs-archive.html",
+              "codeRepository": "https://github.com/dharunashokkumar/cs-archive",
+              "programmingLanguage": "HTML"
+            }
           }
         ]
       }
@@ -134,42 +204,108 @@
 			</li></ul>
 </nav>
 </div><div id="content">
-        <p>i build <em>technology platforms</em> and <em>practical software solutions</em>. my work spans web development, cloud infrastructure, iot systems, and cybersecurity — helping businesses and individuals leverage technology effectively.</p>
+        <p>i build <em>software</em> i actually want to understand — clearing and settlement infrastructure, market tooling, virtualization, data platforms, and the web. mostly in <em>rust</em>, <em>python</em>, and <em>c</em>. i lean toward systems that are deterministic, honest about their scope, and built in public.</p>
 
-<p>currently studying at <a href="https://www.lpu.in/" target="_blank">lovely professional university</a> ; 
-i have delivered projects across india, and am building <a href="https://dadscloud.com" target="_blank">dadscloud</a> as an india-based alternative to aws/gcp/azure <span id="tenure">since 2020</span> ; 
-and <span class="highlight">am available for projects now</span>.</p>
-
-<script>document.getElementById("tenure").innerHTML = `over ${Number(new Date().getFullYear() - 2023)} years`</script>
+<p>currently studying at <a href="https://www.lpu.in/" target="_blank">lovely professional university</a>, punjab. most of the work below is open source — <span class="highlight">the source is one click away on each page</span>. and i'm <a href="/contact.html">open to interesting work</a>.</p>
 
 
 <h1>projects</h1>
-<p class="list-note">showing only active project pages.</p>
+<p class="list-note">selected work. most pages link straight to the source on github.</p>
 <ul class="archive thumblist">
 	<li>
-	<a href="/projects/sysadmin.html">
+	<a href="/projects/open-clearing-engine.html">
 		<div class="thumbnail">
-			<img src="/projects/asset/sysadmin_tn.webp" />
+			<img src="/projects/asset/thumbs/open-clearing-engine.svg" alt="open clearing engine" />
 		</div>
 		<p>
-			<span class="title">Linux sysadmin</span>
+			<span class="title">open clearing engine</span>
 			<span class="date">2026</span>
-			<span class="excerpt">managing and maintaining linux servers</span>
-			<span class="categories tags">web development,&nbsp;docker</span>
+			<span class="excerpt">nsccl-grade clearing &amp; settlement engine in rust</span>
+			<span class="categories tags">rust,&nbsp;fintech,&nbsp;event sourcing</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/indie-market-analyst.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/indie-market-analyst.svg" alt="indie market analyst" />
+		</div>
+		<p>
+			<span class="title">indie market analyst</span>
+			<span class="date">2026</span>
+			<span class="excerpt">indian-market scanner, backtester &amp; ai chat (live)</span>
+			<span class="categories tags">python,&nbsp;react,&nbsp;nse/bse</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/alt-data-platform-india.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/alt-data-platform-india.svg" alt="alternative data platform" />
+		</div>
+		<p>
+			<span class="title">alt-data platform</span>
+			<span class="date">2026</span>
+			<span class="excerpt">point-in-time alt-data platform for indian equities</span>
+			<span class="categories tags">python,&nbsp;data engineering</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/vmmanager.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/vmmanager.svg" alt="vmmanager" />
+		</div>
+		<p>
+			<span class="title">vmmanager</span>
+			<span class="date">2026</span>
+			<span class="excerpt">gtk4 desktop app for qemu/kvm + incus/lxd, in c</span>
+			<span class="categories tags">c,&nbsp;gtk4,&nbsp;virtualization</span>
 		</p>
 	</a>
 </li>
 
 	<li>
 	<a href="/projects/lpulabs.html">
-    <div class="thumbnail">
-      <img src="/projects/asset/lpulabsassets/lpu-labs-project-thumbnail.webp" />
-    </div>
+		<div class="thumbnail">
+			<img src="/projects/asset/lpulabsassets/lpu-labs-project-thumbnail.webp" alt="lpu labs" />
+		</div>
 		<p>
-			<span class="title">LPU Labs</span>
+			<span class="title">lpu labs</span>
+			<span class="date">2025</span>
+			<span class="excerpt">browser-accessible dev &amp; learning lab platform</span>
+			<span class="categories tags">fastapi,&nbsp;react,&nbsp;docker</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/rler.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/rler.svg" alt="rler" />
+		</div>
+		<p>
+			<span class="title">rler</span>
 			<span class="date">2026</span>
-			<span class="excerpt">clab platform for students</span>
-			<span class="categories tags">web development,&nbsp;docker</span>
+			<span class="excerpt">reinforcement-learning paper trader for nse, in rust</span>
+			<span class="categories tags">rust,&nbsp;reinforcement learning</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/cs-archive.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/cs-archive.svg" alt="cs archive" />
+		</div>
+		<p>
+			<span class="title">cs archive</span>
+			<span class="date">2025</span>
+			<span class="excerpt">open-source cs knowledge hub, 20+ categories</span>
+			<span class="categories tags">html,&nbsp;knowledge base</span>
 		</p>
 	</a>
 </li>

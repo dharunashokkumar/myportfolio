@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Alternative Data Platform for Indian Equities | Point-in-Time Feature Store | Dharun Ashokkumar</title>
+    <meta name="description" content="An alternative-data platform for Indian equities: medallion architecture with a point-in-time feature store (anti-lookahead), plug-in data sources, signal and backtest layers, and a FastAPI delivery surface. Built in Python.">
+    <meta name="keywords" content="alternative data, indian equities, point-in-time feature store, medallion architecture, data engineering, quantitative finance, factor investing, backtesting, fastapi, prefect, timescaledb, posoco, dharun ashokkumar">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharunashokkumar.com/projects/alt-data-platform-india.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="Alternative Data Platform for Indian Equities | Point-in-Time Feature Store">
+    <meta property="og:description" content="Find information that moves stocks in the physical world before it hits financial statements. Medallion architecture, anti-lookahead feature store, plug-in sources.">
+    <meta property="og:url" content="https://dharunashokkumar.com/projects/alt-data-platform-india.html">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="Alternative Data Platform for Indian Equities">
+    <meta name="twitter:description" content="Medallion architecture, anti-lookahead point-in-time feature store, plug-in data sources, signal and backtest layers.">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "Alternative Data Platform — Indian Equities",
+      "description": "An alternative-data platform for Indian equities built as a scalable skeleton with hard layer contracts plus one fully working vertical slice (POSOCO power demand). Medallion architecture with a point-in-time feature store enforcing anti-lookahead correctness, plug-in data sources, signal and backtest layers, and FastAPI delivery.",
+      "url": "https://dharunashokkumar.com/projects/alt-data-platform-india.html",
+      "codeRepository": "https://github.com/dharunashokkumar/alt-data-platform-india",
+      "programmingLanguage": "Python",
+      "datePublished": "2026-05-17",
+      "dateModified": "2026-05-29",
+      "keywords": "alternative data, point-in-time feature store, medallion architecture, quantitative finance, factor investing, backtesting",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharunashokkumar.com"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharunashokkumar.com/projects.html"},
+        {"@type":"ListItem","position":3,"name":"Alternative Data Platform","item":"https://dharunashokkumar.com/projects/alt-data-platform-india.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">python · data engineering</span>
+          <h1>alternative data platform — indian equities</h1>
+          <p class="tagline">find information that moves stocks in the physical world, before it hits financial statements.</p>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/alt-data-platform-india" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            view source on github
+          </a>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">python</span>
+          <span class="tag">alternative data</span>
+          <span class="tag">medallion architecture</span>
+          <span class="tag">point-in-time</span>
+          <span class="tag">feature store</span>
+          <span class="tag">fastapi</span>
+          <span class="tag">prefect</span>
+          <span class="tag">timescaledb</span>
+          <span class="tag">backtesting</span>
+          <span class="tag">quant</span>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>what it is</h2>
+        <p>most market signals show up in a company's numbers after the fact. alternative data is the bet that you can see the same thing earlier — in power demand, shipping, footfall, satellite imagery — if you can structure it. this platform is built to do that for indian equities.</p>
+        <p>it's a <strong>scalable skeleton with hard layer contracts</strong> plus one fully working vertical slice (posoco power demand). adding the other sources is a plug-in, not a rewrite — copy a template, implement three methods, add a feature recipe, and nothing downstream changes.</p>
+
+        <h2>the medallion pipeline</h2>
+        <div class="feat-list">
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>sources → ingest</strong> — pluggable data sources behind one abstract contract</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>bronze</strong> — raw, untouched, in object storage (minio)</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>silver</strong> — normalized records in postgres</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>gold</strong> — a point-in-time feature store</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>signals → backtest → delivery</strong> — factor models, an indian cost model, fastapi + grafana</span></div>
+        </div>
+
+        <h2>the rule that runs through everything</h2>
+        <p>point-in-time correctness is structural, not a checkbox. every feature carries <strong>(feature_date, published_date, as_of_date)</strong>, and every read goes through one function that filters to what was actually knowable at the as-of moment. there's simply no api to see the future — which is the single most common way a backtest lies to you.</p>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-value">python</span><span class="spec-label">language</span></div>
+          <div class="spec"><span class="spec-value">posoco</span><span class="spec-label">working vertical slice</span></div>
+          <div class="spec"><span class="spec-value">minio + pg</span><span class="spec-label">storage</span></div>
+          <div class="spec"><span class="spec-value">fastapi</span><span class="spec-label">delivery</span></div>
+        </div>
+
+        <div class="callout">i wanted to build the boring, correct part first — the part that stops you fooling yourself — and only then add sources. the anti-lookahead feature store is the whole point.</div>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharunashokkumar.com">dharun ashokkumar</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <script src="../js/rv.js"></script>
+    <script src="../js/cfme.js"></script>
+  </body>
+</html>

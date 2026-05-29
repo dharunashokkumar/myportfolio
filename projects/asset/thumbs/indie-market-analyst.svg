@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="indie market analyst">
+  <rect width="600" height="400" fill="#eef0f0"/>
+  <rect x="10" y="10" width="580" height="380" fill="none" stroke="#d8d8d8" stroke-width="2"/>
+  <text x="40" y="74" font-family="Courier New, monospace" font-size="17" letter-spacing="3" fill="#9a9a9a">PYTHON · REACT · MARKET TOOLKIT</text>
+  <text x="36" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="bold" fill="#333">indie market</text>
+  <text x="36" y="265" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="bold" fill="#333">analyst</text>
+  <text x="40" y="356" font-family="Georgia, serif" font-size="20" fill="#888">nse/bse scanner · backtester · ai</text>
+</svg>
