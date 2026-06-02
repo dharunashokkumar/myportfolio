@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plinth — The operating system for modern teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf8f4;
+    --ink: #1a1916;
+    --muted: #6f6c64;
+    --faint: #9b9890;
+    --hair: #e6e1d7;
+    --hair-strong: #d8d2c6;
+    --accent-cta: #d2643a;       /* the "why is this orange" orange */
+    --accent-cta-ink: #ffffff;
+    --crit: oklch(0.47 0.14 27);  /* oxblood — the only thing that breaks polish */
+    --crit-soft: oklch(0.55 0.11 30);
+    --serif: 'Spectral', Georgia, 'Times New Roman', serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --col: 590px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: oklch(0.47 0.14 27 / 0.16); }
+
+  /* ---------- layout shell ---------- */
+  #wrap {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .col {
+    max-width: var(--col);
+    margin: 0 auto;
+  }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.1) blur(8px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  .brand .mark {
+    width: 13px; height: 13px;
+    background: var(--ink);
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 15.5px;
+    color: var(--muted);
+  }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: var(--ink); }
+  .btn {
+    font-family: var(--serif);
+    font-size: 15.5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    padding: 9px 18px;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-cta {
+    background: var(--accent-cta);
+    color: var(--accent-cta-ink);
+    font-weight: 500;
+  }
+  .btn-cta:hover { filter: brightness(1.04); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--hair-strong);
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-lg { padding: 13px 26px; font-size: 17px; }
+
+  /* ---------- generic sections ---------- */
+  section { padding: 96px 0; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 22px;
+  }
+  h1 {
+    font-size: 62px;
+    line-height: 1.04;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  h2 {
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 21px;
+    color: var(--muted);
+    margin: 0 0 34px;
+    text-wrap: pretty;
+  }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  /* hero */
+  #hero { padding-top: 86px; padding-bottom: 64px; text-align: center; }
+  #hero .col { max-width: 640px; }
+  #hero .cta-row { justify-content: center; }
+  .shot {
+    margin: 64px auto 0;
+    max-width: 980px;
+    height: 460px;
+    border-radius: 12px;
+    border: 1px solid var(--hair-strong);
+    background:
+      repeating-linear-gradient(135deg, #f0ece3 0 11px, #f4f0e8 11px 22px);
+    box-shadow: 0 28px 60px -34px rgba(40,34,24,0.4);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shot .ph {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    background: var(--bg);
+    padding: 7px 13px;
+    border-radius: 5px;
+    border: 1px solid var(--hair);
+  }
+
+  /* logo cloud */
+  #logos { padding: 56px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  #logos .label {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 30px;
+  }
+  .logo-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 52px;
+    flex-wrap: wrap;
+    opacity: 0.7;
+  }
+  .logo-row span {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--muted);
+  }
+
+  /* features */
+  .feature-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 44px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .feature .ic {
+    width: 40px; height: 40px;
+    border: 1.4px solid var(--ink);
+    border-radius: 9px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .feature .ic::after {
+    content: "";
+    position: absolute;
+    inset: 11px;
+    border: 1.4px solid var(--ink);
+    border-radius: 3px;
+  }
+  .feature h3 { font-size: 22px; font-weight: 600; margin: 0 0 9px; letter-spacing: -0.01em; }
+  .feature p { font-size: 16.5px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+  /* stats */
+  #stats { background: #f4efe6; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .stat .n { font-size: 54px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+  .stat .l { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+
+  /* testimonial */
+  #quote .col { max-width: 760px; text-align: center; }
+  blockquote { margin: 0; font-size: 32px; line-height: 1.32; font-weight: 400; letter-spacing: -0.015em; text-wrap: balance; }
+  .byline { display: flex; align-items: center; gap: 14px; justify-content: center; margin-top: 34px; }
+  .byline .av { width: 46px; height: 46px; border-radius: 50%; background: repeating-linear-gradient(45deg,#e8e2d6 0 6px,#efeae0 6px 12px); border: 1px solid var(--hair-strong); }
+  .byline .who { text-align: left; font-size: 15.5px; }
+  .byline .who b { font-weight: 600; }
+  .byline .who span { display: block; color: var(--muted); font-size: 14px; }
+
+  /* pricing */
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1000px; margin: 0 auto; }
+  .tier {
+    border: 1px solid var(--hair-strong);
+    border-radius: 14px;
+    padding: 30px 26px;
+    background: #fff;
+    position: relative;
+  }
+  .tier.feat { border-color: var(--accent-cta); box-shadow: 0 18px 40px -28px rgba(210,100,58,0.6); }
+  .tier .badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent-cta); color: #fff;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .tier h3 { font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .tier .price { font-size: 42px; font-weight: 500; letter-spacing: -0.02em; }
+  .tier .price small { font-size: 15px; color: var(--muted); font-weight: 400; }
+  .tier ul { list-style: none; padding: 0; margin: 22px 0 26px; font-size: 15.5px; color: var(--muted); }
+  .tier li { padding: 7px 0; border-top: 1px solid var(--hair); }
+  .tier .btn { width: 100%; }
+
+  /* final cta */
+  #finalcta { text-align: center; }
+  #finalcta .col { max-width: 680px; }
+
+  /* footer */
+  footer { background: #f1ece2; border-top: 1px solid var(--hair); padding: 72px 0 40px; }
+  .foot-grid {
+    max-width: 1080px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px;
+  }
+  .foot-col h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin: 0 0 16px; font-weight: 500; }
+  .foot-col a { display: block; color: var(--muted); text-decoration: none; font-size: 15px; padding: 5px 0; }
+  .foot-col a:hover { color: var(--ink); }
+  .foot-brand .brand { margin-bottom: 14px; }
+  .foot-brand p { color: var(--muted); font-size: 15px; margin: 0; max-width: 230px; }
+  .foot-bottom { max-width: 1080px; margin: 48px auto 0; padding: 26px 24px 0; border-top: 1px solid var(--hair-strong); display: flex; justify-content: space-between; color: var(--faint); font-size: 13.5px; }
+
+  /* ---------- the honest coda ---------- */
+  #coda {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 130px 0;
+    text-align: center;
+  }
+  #coda .col { max-width: 640px; }
+  #coda .eyebrow { color: var(--crit-soft); }
+  #coda h2 { color: var(--bg); font-weight: 400; font-size: 34px; }
+  #coda p { color: #cfcabd; font-size: 19px; }
+  #coda .btn-honest {
+    background: var(--bg); color: var(--ink); font-weight: 500;
+    margin-top: 30px;
+  }
+  #coda .btn-honest:hover { filter: none; background: #fff; }
+
+  /* ---------- annotation layer ---------- */
+  #anno-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+  }
+  #leaders {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  #leaders line { stroke: var(--crit); stroke-width: 1; opacity: 0; transition: opacity .6s ease; }
+  #leaders circle { fill: var(--crit); opacity: 0; transition: opacity .6s ease; }
+  #leaders .lshow { opacity: 0.55; }
+  #leaders circle.lshow { opacity: 0.9; }
+
+  .note {
+    position: absolute;
+    width: 212px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--crit);
+    opacity: 0;
+    transform: translateY(7px);
+    transition: opacity .6s ease, transform .6s ease;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .note.show { opacity: 0.95; transform: none; }
+  .note .idx {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--crit-soft);
+    opacity: 0.75;
+    margin-bottom: 5px;
+  }
+  .note .body { display: block; }
+  .note.t3 { font-size: 13px; color: var(--crit); }
+  .note.t3 .body { font-style: normal; }
+  .note.on-dark { color: oklch(0.74 0.13 32); }
+  .note.on-dark .idx { color: oklch(0.66 0.11 32); }
+  .note.on-dark .reply { color: oklch(0.62 0.1 32); border-top-color: oklch(0.6 0.12 32 / 0.5); }
+  .note .reply {
+    display: none;
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px dashed color-mix(in srgb, var(--crit) 40%, transparent);
+    color: var(--crit-soft);
+    font-style: italic;
+  }
+  .note.dismissed .body { text-decoration: line-through; opacity: 0.38; }
+  .note.dismissed .reply { display: block; }
+  .note:hover .idx { opacity: 1; }
+
+  /* inline (narrow) mode */
+  body.inline-notes #leaders { display: none; }
+  body.inline-notes .note { width: auto; max-width: 540px; }
+
+  /* ---------- critique toggle ---------- */
+  #crit-toggle {
+    position: fixed;
+    bottom: 22px; right: 22px;
+    z-index: 60;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--crit);
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    border: 1px solid color-mix(in srgb, var(--crit) 35%, transparent);
+    border-radius: 20px;
+    padding: 7px 14px 7px 11px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(6px);
+    transition: opacity .25s ease;
+  }
+  #crit-toggle .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--crit); transition: background .2s; }
+  body.crit-off #crit-toggle { color: var(--faint); border-color: var(--hair-strong); }
+  body.crit-off #crit-toggle .dot { background: var(--faint); }
+  body.crit-off #anno-layer { opacity: 0; pointer-events: none; }
+  #anno-layer { transition: opacity .4s ease; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1080px) {
+    .foot-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .foot-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 820px) {
+    body { font-size: 17.5px; }
+    h1 { font-size: 44px; }
+    h2 { font-size: 32px; }
+    .features, .stat-row, .price-grid { grid-template-columns: 1fr; }
+    .shot { height: 300px; }
+    blockquote { font-size: 25px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .note { font-size: 13px; }
+  }
+  @media (max-width: 520px) {
+    h1 { font-size: 36px; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<button id="crit-toggle" aria-label="Toggle critique layer">
+  <span class="dot"></span><span class="lbl">critique: on</span>
+</button>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand" id="t-logo"><span class="mark"></span>Plinth</div>
+    <div class="nav-links">
+      <a href="#">Product</a>
+      <a href="#">Solutions</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <button class="btn btn-cta" id="t-nav-cta">Start free</button>
+    </div>
+  </div>
+</nav>
+
+<div id="wrap">
+
+  <section id="hero">
+    <div class="col">
+      <p class="eyebrow" id="t-eyebrow">Introducing Plinth 3.0</p>
+      <h1 id="t-headline">The operating system for modern teams.</h1>
+      <p class="lede" id="t-lede">One seamless, unified workspace that brings your people, projects, and processes together — intelligently. Effortless by design, powerful at scale.</p>
+      <div class="cta-row">
+        <button class="btn btn-cta btn-lg" id="t-hero-cta">Start free</button>
+        <button class="btn btn-ghost btn-lg" id="t-demo">Book a demo</button>
+      </div>
+    </div>
+    <div class="shot" id="t-shot"><span class="ph">product screenshot</span></div>
+  </section>
+
+  <section id="logos">
+    <div class="label" id="t-logos-label">Trusted by teams at</div>
+    <div class="logo-row">
+      <span>Vantix</span><span>Corewave</span><span>Northbeam</span><span>Lattice&nbsp;Co</span><span>Hexa</span>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="feature-head">
+      <h2 id="t-feat-head">Everything your team needs. Nothing it doesn't.</h2>
+      <p class="lede" style="margin-bottom:0">A complete platform that adapts to how you already work — so you can move faster, together.</p>
+    </div>
+    <div class="features">
+      <div class="feature" id="t-feat1">
+        <div class="ic"></div>
+        <h3>Unified workspace</h3>
+        <p>Bring docs, tasks, and conversations into one place your whole team actually uses.</p>
+      </div>
+      <div class="feature" id="t-feat2">
+        <div class="ic"></div>
+        <h3>Intelligent automation</h3>
+        <p>Let Plinth handle the busywork so your team can focus on the work that matters.</p>
+      </div>
+      <div class="feature" id="t-feat3">
+        <div class="ic"></div>
+        <h3>Enterprise-grade security</h3>
+        <p>SOC 2, SSO, and granular permissions, because trust is built on a solid foundation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats">
+    <div class="stat-row">
+      <div class="stat" id="t-stat1"><div class="n">10M+</div><div class="l">Tasks completed</div></div>
+      <div class="stat" id="t-stat2"><div class="n">4.9★</div><div class="l">Average rating</div></div>
+      <div class="stat" id="t-stat3"><div class="n">99.99%</div><div class="l">Uptime</div></div>
+    </div>
+  </section>
+
+  <section id="quote">
+    <div class="col">
+      <blockquote id="t-quote">"Plinth completely transformed how our team operates. We can't imagine working any other way. It's not just a tool, it's become part of who we are."</blockquote>
+      <div class="byline" id="t-byline">
+        <div class="av"></div>
+        <div class="who"><b>Jordan Reyes</b><span>VP of Operations, Corewave</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="feature-head">
+      <h2>Simple, transparent pricing.</h2>
+      <p class="lede" style="margin-bottom:0">Start free. Upgrade when you're ready. Cancel anytime.</p>
+    </div>
+    <div class="price-grid">
+      <div class="tier">
+        <h3>Starter</h3>
+        <div class="price">$0<small>/mo</small></div>
+        <ul><li>Up to 3 members</li><li>Basic workspace</li><li>Community support</li></ul>
+        <button class="btn btn-ghost">Get started</button>
+      </div>
+      <div class="tier feat" id="t-tier">
+        <div class="badge">Most popular</div>
+        <h3>Team</h3>
+        <div class="price">$24<small>/mo</small></div>
+        <ul><li>Unlimited members</li><li>Automation &amp; integrations</li><li>Priority support</li></ul>
+        <button class="btn btn-cta">Start free trial</button>
+      </div>
+      <div class="tier">
+        <h3>Enterprise</h3>
+        <div class="price">Custom</div>
+        <ul><li>SSO &amp; SCIM</li><li>Dedicated success</li><li>99.99% SLA</li></ul>
+        <button class="btn btn-ghost">Contact sales</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="finalcta">
+    <div class="col">
+      <h2 id="t-final-head">Ready to get started?</h2>
+      <p class="lede">Join thousands of modern teams already building on Plinth.</p>
+      <div class="cta-row" style="justify-content:center">
+        <button class="btn btn-cta btn-lg" id="t-final-cta">Start free</button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#wrap -->
+
+<footer id="t-footer">
+  <div class="foot-grid">
+    <div class="foot-col foot-brand">
+      <div class="brand"><span class="mark"></span>Plinth</div>
+      <p>The operating system for modern teams.</p>
+    </div>
+    <div class="foot-col"><h4>Product</h4><a href="#">Overview</a><a href="#">Features</a><a href="#">Integrations</a><a href="#">Changelog</a></div>
+    <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Press</a></div>
+    <div class="foot-col"><h4>Resources</h4><a href="#">Docs</a><a href="#">Guides</a><a href="#">Community</a><a href="#">Status</a></div>
+    <div class="foot-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a><a href="#">Cookies</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Plinth, Inc. All rights reserved.</span>
+    <span>Made with intention, somewhere.</span>
+  </div>
+</footer>
+
+<section id="coda">
+  <div class="col">
+    <p class="eyebrow">The honest version</p>
+    <h2 id="t-coda-head">Okay. Here's the truth.</h2>
+    <p id="t-coda-body">Plinth isn't real. This whole page was an exercise in how convincing generic can look. If you actually need software, buy the boring one with the docs you can read. That's the only advice on this page we mean.</p>
+    <button class="btn btn-honest btn-lg" id="t-coda-cta">Fair enough →</button>
+  </div>
+</section>
+
+<!-- annotation overlay injected into #wrap by script -->
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- annotation script ---------- *
+   * tier 1 = polite design notes
+   * tier 2 = marketing cynicism
+   * tier 3 = turns on the reader / existential
+   */
+  var NOTES = [
+    { t: "t-eyebrow", side: "left", tier: 1, text: "nobody asked for 1.0 or 2.0 either. the version number is decoration." },
+    { t: "t-headline", side: "right", tier: 1, text: "\u201coperating system for [noun]\u201d isn't a product. it's a mad-lib. swap in any noun.", reply: "fine. \u201cthe operating system for operating systems.\u201d happy?" },
+    { t: "t-lede", side: "left", tier: 1, text: "seamless. unified. intelligent. effortless. four words that mean nothing. this sentence has all four." },
+    { t: "t-hero-cta", side: "right", tier: 1, text: "why is this orange. no one chose orange. it was orange in the template and no one pushed back.", reply: "we tried blue once. a stakeholder cried." },
+    { t: "t-demo", side: "left", tier: 1, text: "nobody books the demo. it's here so the orange button feels like a choice." },
+    { t: "t-shot", side: "right", tier: 1, text: "a dashboard your data will never look this clean inside of. note the perfectly round numbers." },
+    { t: "t-logos-label", side: "left", tier: 2, text: "\u201ctrusted by.\u201d two of these are dead. one never paid. one is a guy's side project he forgot about." },
+    { t: "t-feat-head", side: "right", tier: 2, text: "it has everything every other tool has. that's the whole pitch, and also the whole problem." },
+    { t: "t-feat1", side: "left", tier: 2, text: "the icon is a square inside a square. the next two are too. same outline pack as 1,400 other sites." },
+    { t: "t-feat3", side: "right", tier: 2, text: "nobody reads the third column. you're not reading it right now. you read this instead. proves the point." },
+    { t: "t-stat2", side: "left", tier: 2, text: "we invented 10M+. the 4.9\u2605 is from eleven reviews, four of them ours. the uptime is aspirational." },
+    { t: "t-quote", side: "right", tier: 2, text: "this person may not exist. the headshot is a hatched placeholder. the quote was written by marketing on a friday at 4pm." },
+    { t: "t-tier", side: "left", tier: 3, text: "the middle tier says \u201cmost popular\u201d so you anchor to it. it is not popular. nothing on this page is popular. you are alone here." },
+    { t: "t-final-head", side: "right", tier: 3, text: "you've scrolled the entire page. you read the annotations, not the copy. you were never going to sign up \u2014 and we both know that isn't why you're still here." },
+    { t: "t-footer", side: "left", tier: 3, text: "forty links. four of them work. the footer exists so the page feels substantial. it is not substantial. neither, today, are you and i." },
+    { t: "t-coda-head", side: "right", tier: 3, text: "and here, finally, the page stops performing. this is the only part that isn't trying to sell you anything." }
+  ];
+
+  var wrap = document.getElementById("wrap");
+  var body = document.body;
+
+  // build overlay layer inside #wrap
+  var layer = document.createElement("div");
+  layer.id = "anno-layer";
+  var svgNS = "http://www.w3.org/2000/svg";
+  var svg = document.createElementNS(svgNS, "svg");
+  svg.id = "leaders";
+  layer.appendChild(svg);
+  wrap.appendChild(layer);
+
+  // create note elements
+  NOTES.forEach(function (n, i) {
+    var el = document.createElement("div");
+    el.className = "note t" + n.tier;
+    el.dataset.target = n.t;
+    el.dataset.side = n.side;
+    var idx = ("0" + (i + 1)).slice(-2);
+    var inner = '<span class="idx">' + idx + " \u00b7 " + (n.tier === 3 ? "honest" : n.tier === 2 ? "cynical" : "note") + '</span>';
+    inner += '<span class="body">' + n.text + "</span>";
+    if (n.reply) { inner += '<span class="reply">' + n.reply + "</span>"; }
+    el.innerHTML = inner;
+    if (n.t === "t-coda-head") { el.classList.add("on-dark"); }
+
+    var line = document.createElementNS(svgNS, "line");
+    var dot = document.createElementNS(svgNS, "circle");
+    dot.setAttribute("r", "2.6");
+    n._el = el; n._line = line; n._dot = dot;
+    layer.appendChild(el);
+    svg.appendChild(line);
+    svg.appendChild(dot);
+
+    // dismiss interaction
+    el.addEventListener("click", function () {
+      el.classList.toggle("dismissed");
+      requestAnimationFrame(position);
+    });
+  });
+
+  var NOTE_W = 212;
+  var COL_REF = 640;     // widest content column (hero)
+  var EDGE = 2;          // note inset from wrap edge
+
+  function position() {
+    var wrapRect = wrap.getBoundingClientRect();
+    var wrapW = wrapRect.width;
+    var wrapTop = wrapRect.top + window.scrollY;
+
+    // enough gutter for a note on each side of the content column?
+    var gutter = (wrapW - COL_REF) / 2;
+    var inline = gutter < (NOTE_W + 20);
+    body.classList.toggle("inline-notes", inline);
+
+    var docH = wrap.offsetHeight;
+    svg.setAttribute("viewBox", "0 0 " + wrapW + " " + docH);
+    svg.setAttribute("width", wrapW);
+    svg.setAttribute("height", docH);
+
+    var colLeft = (wrapW - COL_REF) / 2;
+
+    NOTES.forEach(function (n) {
+      var target = document.getElementById(n.t);
+      if (!target) return;
+      var r = target.getBoundingClientRect();
+      var tTop = r.top + window.scrollY - wrapTop;
+      var tH = r.height;
+      var el = n._el, line = n._line, dot = n._dot;
+
+      if (inline) {
+        el.style.left = colLeft + "px";
+        el.style.right = "auto";
+        el.style.top = (tTop + tH + 8) + "px";
+        el.style.width = Math.min(COL_REF, wrapW - 16) + "px";
+        return;
+      }
+
+      el.style.width = NOTE_W + "px";
+      var anchorY = tTop + Math.min(tH / 2, 22);
+      var noteTop = Math.max(0, anchorY - 10);
+      el.style.top = noteTop + "px";
+
+      // target horizontal anchor, clamped to the content band
+      var tLeft = r.left + window.scrollX - wrapRect.left;
+      var tRight = tLeft + r.width;
+      var ny = noteTop + 12, tx, nx;
+
+      if (n.side === "right") {
+        var nleft = wrapW - NOTE_W - EDGE;
+        el.style.left = nleft + "px";
+        el.style.right = "auto";
+        tx = Math.min(tRight, nleft - 12);     // edge of target, not past the note
+        nx = nleft - 4;
+      } else {
+        el.style.left = EDGE + "px";
+        el.style.right = "auto";
+        tx = Math.max(tLeft, NOTE_W + EDGE + 12);
+        nx = NOTE_W + EDGE + 4;
+      }
+      line.setAttribute("x1", nx); line.setAttribute("y1", ny);
+      line.setAttribute("x2", tx); line.setAttribute("y2", anchorY);
+      dot.setAttribute("cx", tx); dot.setAttribute("cy", anchorY);
+    });
+  }
+
+  var seen = new WeakMap();
+  function reveal(n) {
+    if (!n || seen.get(n._el)) return;
+    seen.set(n._el, true);
+    position();
+    requestAnimationFrame(function () {
+      n._el.classList.add("show");
+      n._line.classList.add("lshow");
+      n._dot.classList.add("lshow");
+    });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      reveal(NOTES.find(function (x) { return x.t === e.target.id; }));
+    });
+  }, { rootMargin: "0px 0px -20% 0px", threshold: 0.12 });
+
+  NOTES.forEach(function (n) {
+    var t = document.getElementById(n.t);
+    if (t) io.observe(t);
+  });
+
+  // immediate sweep: reveal anything already within the first viewport
+  function initialSweep() {
+    var vh = window.innerHeight;
+    NOTES.forEach(function (n) {
+      var t = document.getElementById(n.t);
+      if (t && t.getBoundingClientRect().top < vh * 0.85) { reveal(n); }
+    });
+  }
+
+  // critique toggle
+  var toggle = document.getElementById("crit-toggle");
+  var lbl = toggle.querySelector(".lbl");
+  var critOn = true;
+  toggle.addEventListener("click", function () {
+    critOn = !critOn;
+    body.classList.toggle("crit-off", !critOn);
+    lbl.textContent = critOn ? "critique: on" : "critique: off";
+  });
+
+  // coda button
+  document.getElementById("t-coda-cta").addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // layout lifecycle
+  function reflow() { position(); }
+  window.addEventListener("resize", reflow);
+  window.addEventListener("load", reflow);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { setTimeout(position, 60); });
+  }
+  setTimeout(position, 120);
+  setTimeout(position, 600);
+
+  // expose hooks for tweaks panel
+  window.__plinth = {
+    setHonesty: function (level) {
+      // level: 'mild' (only t1), 'cynical' (t1+t2), 'brutal' (all)
+      NOTES.forEach(function (n) {
+        var show = level === "brutal" || (level === "cynical" && n.tier <= 2) || (level === "mild" && n.tier === 1);
+        n._el.style.display = show ? "" : "none";
+      });
+      position();
+    },
+    reflow: position
+  };
+})();
+</script>
+</body>
+</html>

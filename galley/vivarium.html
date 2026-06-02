@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vivarium — a closed ecology</title>
+<style>
+  :root {
+    --paper:    oklch(0.955 0.004 95);
+    --panel:    oklch(0.992 0.002 95);
+    --ink:      oklch(0.24 0.008 95);
+    --ink-2:    oklch(0.46 0.006 95);
+    --ink-3:    oklch(0.68 0.005 95);
+    --line:     oklch(0.87 0.004 95);
+    --line-2:   oklch(0.92 0.003 95);
+    --green:    oklch(0.60 0.13 150);
+    --green-2:  oklch(0.68 0.11 150);
+    --green-soft: oklch(0.60 0.13 150 / 0.14);
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    min-height: 100%;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 968px;
+  }
+
+  /* ---- Header ---- */
+  header.masthead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+  .title-block h1 {
+    font-size: 13px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title-block p {
+    margin: 4px 0 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    letter-spacing: 0.02em;
+  }
+  .clock {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    text-align: right;
+    letter-spacing: 0.04em;
+  }
+  .clock .big { color: var(--ink); font-size: 13px; }
+
+  /* ---- Layout ---- */
+  .stage {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  /* ---- Vivarium frame ---- */
+  .viv-wrap { position: relative; }
+  .viv-frame {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background: var(--panel);
+    border: 1px solid var(--ink);
+  }
+  #viv { display: block; width: 500px; height: 500px; cursor: crosshair; }
+
+  /* corner ticks */
+  .tick { position: absolute; width: 9px; height: 9px; pointer-events: none; }
+  .tick::before, .tick::after { content: ""; position: absolute; background: var(--ink); }
+  .tick::before { width: 9px; height: 1px; }
+  .tick::after  { width: 1px; height: 9px; }
+  .tick.tl { top: -1px; left: -1px; }
+  .tick.tr { top: -1px; right: -1px; }
+  .tick.tr::before { right: 0; } .tick.tr::after { right: 0; }
+  .tick.bl { bottom: -1px; left: -1px; } .tick.bl::before { bottom: 0; } .tick.bl::after { bottom: 0; }
+  .tick.br { bottom: -1px; right: -1px; } .tick.br::before { right: 0; bottom: 0; } .tick.br::after { right: 0; bottom: 0; }
+
+  .viv-caption {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* weather indicator under canvas */
+  .weather {
+    margin-top: 14px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 11px 13px;
+  }
+  .weather-row { display: flex; align-items: center; justify-content: space-between; }
+  .weather-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-2);
+  }
+  .weather-state { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; }
+  .wbar {
+    position: relative; height: 5px; margin-top: 10px;
+    background: var(--line-2); border-radius: 3px; overflow: hidden;
+  }
+  .wbar .mid { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--ink-3); }
+  .wbar .fill { position: absolute; top: 0; bottom: 0; transition: none; }
+  .wbar .fill.pos { left: 50%; background: var(--green); }
+  .wbar .fill.neg { right: 50%; background: var(--ink-2); }
+  .wbar-scale {
+    display:flex; justify-content: space-between; margin-top:5px;
+    font-family: var(--mono); font-size:9px; letter-spacing:0.08em; color: var(--ink-3);
+  }
+
+  /* ---- Controls ---- */
+  .controls {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  button.btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 9px 13px;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+  }
+  button.btn:hover { border-color: var(--ink-3); }
+  button.btn.active {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  button.btn.tool.rain.active { background: var(--green); border-color: var(--green); color: var(--panel); }
+  button.btn.tool.drought.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .sep { width: 1px; align-self: stretch; background: var(--line); margin: 2px 3px; }
+  .hint {
+    flex-basis: 100%;
+    font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+    letter-spacing: 0.03em; margin-top: 2px;
+  }
+  .hint b { color: var(--ink-2); font-weight: 700; }
+
+  .speed-group { display:flex; align-items:center; gap: 6px; margin-left: auto; }
+  .speed-group .lab { font-family: var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-3); }
+
+  /* ---- Right column: graphs + legend ---- */
+  .panel-side { display: flex; flex-direction: column; gap: 14px; }
+
+  .legend {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 12px 13px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+  .leg-item { display: flex; align-items: center; gap: 8px; }
+  .leg-glyph { width: 16px; height: 16px; flex: none; display:flex; align-items:center; justify-content:center; }
+  .leg-text { font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; color: var(--ink-2); line-height: 1.3; }
+  .leg-text b { display:block; color: var(--ink); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .graph-card {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 11px 13px 9px;
+  }
+  .graph-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 7px;
+  }
+  .graph-head .name {
+    display:flex; align-items:center; gap:8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-2);
+  }
+  .graph-head .val { font-family: var(--mono); font-weight: 700; }
+  .graph-head .val .num { font-size: 22px; color: var(--ink); }
+  .graph-head .val .pk { font-size: 10px; color: var(--ink-3); margin-left: 7px; letter-spacing: 0.05em; }
+  .gcanvas { display:block; width: 100%; height: 78px; }
+
+  .dot { width: 9px; height: 9px; flex: none; }
+  .dot.green { background: var(--green); border-radius: 50%; }
+  .dot.herb { border: 1.5px solid var(--ink-2); border-radius: 50%; background: transparent; }
+  .dot.pred { width:0;height:0; background:transparent; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid var(--ink); }
+
+  .readout {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 11px 13px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-2);
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+  }
+  .readout .k { color: var(--ink-3); }
+  .readout .v { color: var(--ink); }
+  .readout .status { color: var(--green-2); }
+  .readout .status.warn { color: var(--ink); }
+  .readout .status.dead { color: oklch(0.5 0.02 30); }
+
+  @media (max-width: 940px) {
+    .stage { grid-template-columns: 1fr; }
+    .viv-wrap { margin: 0 auto; }
+    .viv-frame, #viv { width: 100%; max-width: 500px; aspect-ratio: 1/1; height: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <header class="masthead">
+      <div class="title-block">
+        <h1>Vivarium</h1>
+        <p>a closed ecology · 500 × 500 · find equilibrium or collapse</p>
+      </div>
+      <div class="clock">
+        <div class="big" id="clk-day">DAY 000</div>
+        <div id="clk-gen">elapsed 00:00</div>
+      </div>
+    </header>
+
+    <div class="stage">
+      <!-- LEFT: vivarium -->
+      <div class="viv-wrap">
+        <div class="viv-frame">
+          <canvas id="viv" width="500" height="500"></canvas>
+          <span class="tick tl"></span><span class="tick tr"></span>
+          <span class="tick bl"></span><span class="tick br"></span>
+        </div>
+        <div class="viv-caption">
+          <span id="cap-pop">POP —</span>
+          <span id="cap-tool">TOOL · RAIN</span>
+        </div>
+
+        <div class="weather">
+          <div class="weather-row">
+            <span class="weather-label">Climate</span>
+            <span class="weather-state" id="weather-state">— temperate —</span>
+          </div>
+          <div class="wbar">
+            <div class="fill neg" id="wfill-neg"></div>
+            <div class="fill pos" id="wfill-pos"></div>
+            <div class="mid"></div>
+          </div>
+          <div class="wbar-scale"><span>DROUGHT</span><span>TEMPERATE</span><span>RAIN</span></div>
+        </div>
+
+        <div class="controls">
+          <button class="btn tool rain active" id="t-rain" data-tool="rain">☂ Rain</button>
+          <button class="btn tool drought" id="t-drought" data-tool="drought">☀ Drought</button>
+          <span class="sep"></span>
+          <button class="btn" id="b-pause">Pause</button>
+          <button class="btn" id="b-reset">Reset</button>
+          <div class="speed-group">
+            <span class="lab">Speed</span>
+            <button class="btn spd" data-spd="1">1×</button>
+            <button class="btn spd active" data-spd="2">2×</button>
+            <button class="btn spd" data-spd="4">4×</button>
+          </div>
+          <div class="hint">Selected tool active — <b>click anywhere in the vivarium</b> to apply a local weather front.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: instruments -->
+      <div class="panel-side">
+        <div class="legend">
+          <div class="leg-item">
+            <div class="leg-glyph"><span class="dot green"></span></div>
+            <div class="leg-text"><b>Plant</b>regrows</div>
+          </div>
+          <div class="leg-item">
+            <div class="leg-glyph"><span class="dot herb"></span></div>
+            <div class="leg-text"><b>Herbivore</b>grazes</div>
+          </div>
+          <div class="leg-item">
+            <div class="leg-glyph"><span class="dot pred"></span></div>
+            <div class="leg-text"><b>Predator</b>hunts</div>
+          </div>
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-head">
+            <div class="name"><span class="dot green"></span> Plants</div>
+            <div class="val"><span class="num" id="n-plant">0</span><span class="pk" id="pk-plant">pk 0</span></div>
+          </div>
+          <canvas class="gcanvas" id="g-plant"></canvas>
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-head">
+            <div class="name"><span class="dot herb"></span> Herbivores</div>
+            <div class="val"><span class="num" id="n-herb">0</span><span class="pk" id="pk-herb">pk 0</span></div>
+          </div>
+          <canvas class="gcanvas" id="g-herb"></canvas>
+        </div>
+
+        <div class="graph-card">
+          <div class="graph-head">
+            <div class="name"><span class="dot pred"></span> Predators</div>
+            <div class="val"><span class="num" id="n-pred">0</span><span class="pk" id="pk-pred">pk 0</span></div>
+          </div>
+          <canvas class="gcanvas" id="g-pred"></canvas>
+        </div>
+
+        <div class="readout" id="readout">
+          <div><span class="k">state</span> &nbsp; <span class="status" id="r-status">seeding…</span></div>
+          <div><span class="k">births</span> <span class="v" id="r-births">0</span> &nbsp; <span class="k">deaths</span> <span class="v" id="r-deaths">0</span></div>
+          <div><span class="k">fronts</span> <span class="v" id="r-fronts">0</span> &nbsp; <span class="k">peak pop</span> <span class="v" id="r-peak">0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------------------------------------------------------------- config
+  var W = 500, H = 500;
+  var CFG = {
+    plant: {
+      start: 20, baseCap: 95, baseGrowth: 8.0, // per second when empty
+      r: 2.4, matureR: 4.4, matureTime: 3.0
+    },
+    herb: {
+      start: 8, cap: 110, r: 4.4, sight: 96, speed: 45,
+      energy0: 46, eatGain: 24, metabolism: 4.0, moveCost: 0.012,
+      repro: 46, reproCost: 26, childEnergy: 26, reproCooldown: 0.9, maxE: 112
+    },
+    pred: {
+      start: 2, cap: 40, r: 6.4, sight: 145, speed: 58,
+      energy0: 125, eatGain: 49, metabolism: 4.4, moveCost: 0.02,
+      repro: 170, reproCost: 94, childEnergy: 52, reproCooldown: 10.0, maxE: 250,
+      catchPad: 4.5, digest: 5.2
+    },
+    weatherDecay: 0.085,   // per second toward 0
+    sampleEvery: 0.20,     // sim-seconds per graph sample
+    histLen: 200
+  };
+
+  var COL = {};
+  function readColors() {
+    var cs = getComputedStyle(document.documentElement);
+    COL.ink    = cs.getPropertyValue('--ink').trim();
+    COL.ink2   = cs.getPropertyValue('--ink-2').trim();
+    COL.ink3   = cs.getPropertyValue('--ink-3').trim();
+    COL.line   = cs.getPropertyValue('--line').trim();
+    COL.line2  = cs.getPropertyValue('--line-2').trim();
+    COL.green  = cs.getPropertyValue('--green').trim();
+    COL.green2 = cs.getPropertyValue('--green-2').trim();
+    COL.panel  = cs.getPropertyValue('--panel').trim();
+    COL.paper  = cs.getPropertyValue('--paper').trim();
+  }
+
+  // ---------------------------------------------------------------- canvas
+  var cv = document.getElementById('viv');
+  var ctx = cv.getContext('2d');
+  function setupHiDPI(canvas, c, cssW, cssH) {
+    var dpr = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return dpr;
+  }
+  setupHiDPI(cv, ctx, W, H);
+
+  // ---------------------------------------------------------------- state
+  var plants, herbs, preds;
+  var weather = 0;            // -1 drought .. +1 rain
+  var plantAccum = 0;
+  var ripples = [];
+  var rainStreaks = [];
+  var sim = {
+    running: true, speed: 2, time: 0, sampleT: 0,
+    births: 0, deaths: 0, fronts: 0, peak: 0,
+    statusKey: 'seeding'
+  };
+  var tool = 'rain';
+
+  // history buffers
+  var hist = { plant: [], herb: [], pred: [] };
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function dist2(ax, ay, bx, by) { var dx = ax - bx, dy = ay - by; return dx * dx + dy * dy; }
+
+  function makePlant(x, y, mature) {
+    return { x: x, y: y, age: mature ? CFG.plant.matureTime : 0 };
+  }
+  function makeHerb(x, y, e) {
+    return { x: x, y: y, vx: rnd(-1,1), vy: rnd(-1,1), e: e, cd: rnd(0, CFG.herb.reproCooldown), wob: rnd(0, 6.28) };
+  }
+  function makePred(x, y, e) {
+    return { x: x, y: y, vx: rnd(-1,1), vy: rnd(-1,1), e: e, cd: rnd(0, CFG.pred.reproCooldown), wob: rnd(0, 6.28), fed: 0 };
+  }
+
+  function seed() {
+    plants = []; herbs = []; preds = [];
+    var i;
+    for (i = 0; i < CFG.plant.start; i++) plants.push(makePlant(rnd(10, W-10), rnd(10, H-10), Math.random() < 0.5));
+    for (i = 0; i < CFG.herb.start; i++) herbs.push(makeHerb(rnd(40, W-40), rnd(40, H-40), CFG.herb.energy0));
+    for (i = 0; i < CFG.pred.start; i++) preds.push(makePred(rnd(60, W-60), rnd(60, H-60), CFG.pred.energy0));
+    weather = 0; plantAccum = 0; ripples = []; rainStreaks = [];
+    sim.time = 0; sim.sampleT = 0; sim.births = 0; sim.deaths = 0; sim.fronts = 0; sim.peak = 0;
+    sim.statusKey = 'seeding';
+    hist.plant = []; hist.herb = []; hist.pred = [];
+  }
+
+  // ---------------------------------------------------------------- update
+  function growthMult() { return Math.max(0.12, Math.min(2.0, 1 + 0.95 * weather)); }
+  function capacity()   { return Math.round(CFG.plant.baseCap * (1 + 0.42 * weather)); }
+
+  function step(dt) {
+    sim.time += dt;
+
+    // weather relaxes toward temperate
+    weather += (-weather) * Math.min(1, CFG.weatherDecay * dt);
+    if (Math.abs(weather) < 0.001) weather = 0;
+
+    // ---- plants regrow ----
+    var cap = capacity();
+    var ratio = plants.length / cap;
+    var lambda = CFG.plant.baseGrowth * growthMult() * dt * Math.max(0, 1 - ratio);
+    plantAccum += lambda;
+    while (plantAccum >= 1 && plants.length < cap * 1.4) {
+      plantAccum -= 1;
+      plants.push(makePlant(rnd(8, W-8), rnd(8, H-8), false));
+    }
+    var p;
+    for (p = 0; p < plants.length; p++) {
+      if (plants[p].age < CFG.plant.matureTime) plants[p].age += dt;
+    }
+
+    // ---- herbivores ----
+    var hb = CFG.herb;
+    for (var i = herbs.length - 1; i >= 0; i--) {
+      var h = herbs[i];
+      // find nearest plant within sight
+      var best = -1, bestD = hb.sight * hb.sight;
+      for (var j = 0; j < plants.length; j++) {
+        var d = dist2(h.x, h.y, plants[j].x, plants[j].y);
+        if (d < bestD) { bestD = d; best = j; }
+      }
+      // flee nearest predator (priority)
+      var fleeX = 0, fleeY = 0, fleeing = false;
+      var fd = (hb.sight * 0.72) * (hb.sight * 0.72);
+      for (var k = 0; k < preds.length; k++) {
+        var dp = dist2(h.x, h.y, preds[k].x, preds[k].y);
+        if (dp < fd) { fd = dp; fleeX = h.x - preds[k].x; fleeY = h.y - preds[k].y; fleeing = true; }
+      }
+      var tx, ty;
+      if (fleeing) {
+        var fl = Math.hypot(fleeX, fleeY) || 1; tx = fleeX / fl; ty = fleeY / fl;
+      } else if (best >= 0) {
+        var tdx = plants[best].x - h.x, tdy = plants[best].y - h.y;
+        var tl = Math.hypot(tdx, tdy) || 1; tx = tdx / tl; ty = tdy / tl;
+      } else {
+        h.wob += rnd(-0.6, 0.6) * dt * 8;
+        tx = Math.cos(h.wob); ty = Math.sin(h.wob);
+      }
+      // steer
+      h.vx += (tx - h.vx) * Math.min(1, 6 * dt);
+      h.vy += (ty - h.vy) * Math.min(1, 6 * dt);
+      var sp = Math.hypot(h.vx, h.vy) || 1;
+      h.vx /= sp; h.vy /= sp;
+      var spd = hb.speed * (fleeing ? 1.10 : 1);
+      h.x += h.vx * spd * dt; h.y += h.vy * spd * dt;
+      // bounce
+      if (h.x < 6) { h.x = 6; h.vx = Math.abs(h.vx); }
+      if (h.x > W-6) { h.x = W-6; h.vx = -Math.abs(h.vx); }
+      if (h.y < 6) { h.y = 6; h.vy = Math.abs(h.vy); }
+      if (h.y > H-6) { h.y = H-6; h.vy = -Math.abs(h.vy); }
+
+      // eat
+      if (best >= 0) {
+        var er = hb.r + CFG.plant.matureR;
+        if (dist2(h.x, h.y, plants[best].x, plants[best].y) < er * er) {
+          var mat = Math.min(1, plants[best].age / CFG.plant.matureTime);
+          h.e += hb.eatGain * (0.45 + 0.55 * mat);
+          if (h.e > hb.maxE) h.e = hb.maxE;
+          plants.splice(best, 1);
+        }
+      }
+
+      // metabolism (base cost + small movement cost)
+      h.e -= (hb.metabolism + hb.moveCost * spd) * dt;
+
+      h.cd -= dt;
+      // reproduce
+      if (h.e >= hb.repro && h.cd <= 0 && herbs.length < hb.cap) {
+        h.e -= hb.reproCost; h.cd = hb.reproCooldown;
+        herbs.push(makeHerb(h.x + rnd(-5,5), h.y + rnd(-5,5), hb.childEnergy));
+        sim.births++;
+      }
+      // death
+      if (h.e <= 0) { herbs.splice(i, 1); sim.deaths++; }
+    }
+
+    // ---- predators ----
+    var pr = CFG.pred;
+    for (var a = preds.length - 1; a >= 0; a--) {
+      var P = preds[a];
+      var bi = -1, bd = pr.sight * pr.sight;
+      for (var b = 0; b < herbs.length; b++) {
+        var dd = dist2(P.x, P.y, herbs[b].x, herbs[b].y);
+        if (dd < bd) { bd = dd; bi = b; }
+      }
+      var ptx, pty;
+      if (bi >= 0) {
+        var pdx = herbs[bi].x - P.x, pdy = herbs[bi].y - P.y;
+        var pl = Math.hypot(pdx, pdy) || 1; ptx = pdx / pl; pty = pdy / pl;
+      } else {
+        P.wob += rnd(-0.5, 0.5) * dt * 7;
+        ptx = Math.cos(P.wob); pty = Math.sin(P.wob);
+      }
+      P.vx += (ptx - P.vx) * Math.min(1, 5 * dt);
+      P.vy += (pty - P.vy) * Math.min(1, 5 * dt);
+      var psp = Math.hypot(P.vx, P.vy) || 1; P.vx /= psp; P.vy /= psp;
+      P.x += P.vx * pr.speed * dt; P.y += P.vy * pr.speed * dt;
+      if (P.x < 8) { P.x = 8; P.vx = Math.abs(P.vx); }
+      if (P.x > W-8) { P.x = W-8; P.vx = -Math.abs(P.vx); }
+      if (P.y < 8) { P.y = 8; P.vy = Math.abs(P.vy); }
+      if (P.y > H-8) { P.y = H-8; P.vy = -Math.abs(P.vy); }
+
+      // catch (rate-limited by digestion — Holling type-II functional response)
+      P.fed -= dt;
+      if (bi >= 0 && P.fed <= 0) {
+        var cr = pr.r + CFG.herb.r + pr.catchPad;
+        if (dist2(P.x, P.y, herbs[bi].x, herbs[bi].y) < cr * cr) {
+          P.e += pr.eatGain; if (P.e > pr.maxE) P.e = pr.maxE;
+          P.fed = pr.digest;
+          herbs.splice(bi, 1); sim.deaths++;
+        }
+      }
+
+      P.e -= pr.metabolism * dt;
+      P.cd -= dt;
+      if (P.e >= pr.repro && P.cd <= 0 && preds.length < pr.cap) {
+        P.e -= pr.reproCost; P.cd = pr.reproCooldown;
+        preds.push(makePred(P.x + rnd(-6,6), P.y + rnd(-6,6), pr.childEnergy));
+        sim.births++;
+      }
+      if (P.e <= 0) { preds.splice(a, 1); sim.deaths++; }
+    }
+  }
+
+  // ---------------------------------------------------------------- sampling
+  function sample() {
+    pushHist(hist.plant, plants.length);
+    pushHist(hist.herb, herbs.length);
+    pushHist(hist.pred, preds.length);
+  }
+  function pushHist(arr, v) {
+    arr.push(v);
+    if (arr.length > CFG.histLen) arr.shift();
+  }
+
+  // ---------------------------------------------------------------- render
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // subtle grid
+    ctx.strokeStyle = COL.line2;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (var gx = 50; gx < W; gx += 50) { ctx.moveTo(gx + 0.5, 0); ctx.lineTo(gx + 0.5, H); }
+    for (var gy = 50; gy < H; gy += 50) { ctx.moveTo(0, gy + 0.5); ctx.lineTo(W, gy + 0.5); }
+    ctx.stroke();
+
+    // weather wash
+    if (weather > 0.02) {
+      ctx.fillStyle = 'oklch(0.60 0.13 150 / ' + (0.05 * Math.min(1, weather)).toFixed(3) + ')';
+      ctx.fillRect(0, 0, W, H);
+    } else if (weather < -0.02) {
+      ctx.fillStyle = 'oklch(0.80 0.03 75 / ' + (0.06 * Math.min(1, -weather)).toFixed(3) + ')';
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // plants
+    var i;
+    ctx.fillStyle = COL.green;
+    for (i = 0; i < plants.length; i++) {
+      var pl = plants[i];
+      var mat = Math.min(1, pl.age / CFG.plant.matureTime);
+      var r = CFG.plant.r + (CFG.plant.matureR - CFG.plant.r) * mat;
+      ctx.globalAlpha = 0.5 + 0.5 * mat;
+      ctx.beginPath();
+      ctx.arc(pl.x, pl.y, r, 0, 6.2832);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // herbivores — open rings
+    ctx.lineWidth = 1.6;
+    for (i = 0; i < herbs.length; i++) {
+      var h = herbs[i];
+      var vit = Math.max(0.32, Math.min(1, h.e / 80));
+      ctx.strokeStyle = COL.ink2;
+      ctx.globalAlpha = 0.45 + 0.55 * vit;
+      ctx.beginPath();
+      ctx.arc(h.x, h.y, CFG.herb.r, 0, 6.2832);
+      ctx.stroke();
+      // tiny center dot
+      ctx.globalAlpha = 0.6 + 0.4 * vit;
+      ctx.fillStyle = COL.ink2;
+      ctx.beginPath();
+      ctx.arc(h.x, h.y, 1.1, 0, 6.2832);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // predators — filled triangles pointing along heading
+    ctx.fillStyle = COL.ink;
+    for (i = 0; i < preds.length; i++) {
+      var P = preds[i];
+      var ang = Math.atan2(P.vy, P.vx);
+      var rr = CFG.pred.r;
+      ctx.save();
+      ctx.translate(P.x, P.y);
+      ctx.rotate(ang);
+      ctx.beginPath();
+      ctx.moveTo(rr, 0);
+      ctx.lineTo(-rr * 0.72, rr * 0.72);
+      ctx.lineTo(-rr * 0.72, -rr * 0.72);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // rain streaks
+    if (weather > 0.05) {
+      ctx.strokeStyle = 'oklch(0.55 0.05 200 / 0.18)';
+      ctx.lineWidth = 1;
+      var n = Math.round(weather * 26);
+      ctx.beginPath();
+      for (i = 0; i < n; i++) {
+        var rx = Math.random() * W, ry = Math.random() * H;
+        ctx.moveTo(rx, ry); ctx.lineTo(rx - 2, ry + 7);
+      }
+      ctx.stroke();
+    } else if (weather < -0.05) {
+      ctx.fillStyle = 'oklch(0.55 0.04 70 / 0.16)';
+      var m = Math.round(-weather * 22);
+      for (i = 0; i < m; i++) {
+        ctx.fillRect(Math.random() * W, Math.random() * H, 1.4, 1.4);
+      }
+    }
+
+    // ripples (weather fronts)
+    for (i = ripples.length - 1; i >= 0; i--) {
+      var rp = ripples[i];
+      rp.t += 1 / 60;
+      var prog = rp.t / rp.life;
+      if (prog >= 1) { ripples.splice(i, 1); continue; }
+      var rad = rp.r0 + (rp.r1 - rp.r0) * prog;
+      ctx.globalAlpha = (1 - prog) * 0.7;
+      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = rp.type === 'rain' ? COL.green : COL.ink2;
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rad, 0, 6.2832);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ---------------------------------------------------------------- graphs
+  var gP = setupGraph('g-plant'), gH = setupGraph('g-herb'), gR = setupGraph('g-pred');
+  function setupGraph(id) {
+    var c = document.getElementById(id);
+    var cssW = c.clientWidth || 270, cssH = 78;
+    var dpr = setupHiDPI(c, c.getContext('2d'), cssW, cssH);
+    return { c: c, ctx: c.getContext('2d'), w: cssW, h: cssH, dpr: dpr };
+  }
+  function drawGraph(g, arr, color, fillSoft) {
+    var c = g.ctx, w = g.w, h = g.h;
+    c.clearRect(0, 0, w, h);
+    // baseline + grid
+    c.strokeStyle = COL.line2; c.lineWidth = 1;
+    c.beginPath();
+    c.moveTo(0, h - 0.5); c.lineTo(w, h - 0.5);
+    c.moveTo(0, h * 0.5); c.lineTo(w, h * 0.5);
+    c.stroke();
+
+    if (!arr.length) return;
+    var maxV = 1;
+    for (var i = 0; i < arr.length; i++) if (arr[i] > maxV) maxV = arr[i];
+    maxV = Math.max(maxV * 1.12, 4);
+    var n = CFG.histLen;
+    function X(idx) { return (idx / (n - 1)) * w; }
+    function Y(v) { return h - 2 - (v / maxV) * (h - 6); }
+
+    // align series to the right edge
+    var off = n - arr.length;
+
+    // soft fill
+    c.beginPath();
+    c.moveTo(X(off), h);
+    for (var k = 0; k < arr.length; k++) c.lineTo(X(off + k), Y(arr[k]));
+    c.lineTo(X(off + arr.length - 1), h);
+    c.closePath();
+    c.fillStyle = fillSoft;
+    c.fill();
+
+    // line
+    c.beginPath();
+    for (var m = 0; m < arr.length; m++) {
+      var x = X(off + m), y = Y(arr[m]);
+      if (m === 0) c.moveTo(x, y); else c.lineTo(x, y);
+    }
+    c.strokeStyle = color; c.lineWidth = 1.6;
+    c.lineJoin = 'round';
+    c.stroke();
+
+    // head dot
+    var lx = X(off + arr.length - 1), ly = Y(arr[arr.length - 1]);
+    c.fillStyle = color;
+    c.beginPath(); c.arc(lx, ly, 2.1, 0, 6.2832); c.fill();
+  }
+
+  // ---------------------------------------------------------------- HUD
+  var el = {
+    nPlant: g('n-plant'), nHerb: g('n-herb'), nPred: g('n-pred'),
+    pkPlant: g('pk-plant'), pkHerb: g('pk-herb'), pkPred: g('pk-pred'),
+    capPop: g('cap-pop'), capTool: g('cap-tool'),
+    wState: g('weather-state'), wPos: g('wfill-pos'), wNeg: g('wfill-neg'),
+    clkDay: g('clk-day'), clkGen: g('clk-gen'),
+    rStatus: g('r-status'), rBirths: g('r-births'), rDeaths: g('r-deaths'),
+    rFronts: g('r-fronts'), rPeak: g('r-peak')
+  };
+  function g(id) { return document.getElementById(id); }
+  var peakP = 0, peakH = 0, peakR = 0;
+
+  function updateHUD() {
+    var np = plants.length, nh = herbs.length, npr = preds.length;
+    el.nPlant.textContent = np; el.nHerb.textContent = nh; el.nPred.textContent = npr;
+    peakP = Math.max(peakP, np); peakH = Math.max(peakH, nh); peakR = Math.max(peakR, npr);
+    el.pkPlant.textContent = 'pk ' + peakP;
+    el.pkHerb.textContent = 'pk ' + peakH;
+    el.pkPred.textContent = 'pk ' + peakR;
+
+    var pop = nh + npr;
+    sim.peak = Math.max(sim.peak, pop + np);
+    el.capPop.textContent = 'POP · ' + np + ' / ' + nh + ' / ' + npr;
+    el.capTool.textContent = 'TOOL · ' + tool.toUpperCase();
+
+    // weather bar
+    var wp = Math.max(0, weather), wn = Math.max(0, -weather);
+    el.wPos.style.width = (wp * 50) + '%';
+    el.wNeg.style.width = (wn * 50) + '%';
+    var ws = 'temperate';
+    if (weather > 0.45) ws = 'heavy rain'; else if (weather > 0.12) ws = 'wet';
+    else if (weather < -0.45) ws = 'severe drought'; else if (weather < -0.12) ws = 'dry';
+    el.wState.textContent = '— ' + ws + ' —';
+    el.wState.style.color = weather > 0.12 ? COL.green2 : (weather < -0.12 ? COL.ink2 : COL.ink2);
+
+    // clock
+    var day = Math.floor(sim.time / 4); // 4 sim-sec = 1 "day"
+    el.clkDay.textContent = 'DAY ' + String(day).padStart(3, '0');
+    var sec = Math.floor(sim.time);
+    el.clkGen.textContent = 'elapsed ' + String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+
+    // status diagnosis
+    el.rBirths.textContent = sim.births;
+    el.rDeaths.textContent = sim.deaths;
+    el.rFronts.textContent = sim.fronts;
+    el.rPeak.textContent = sim.peak;
+
+    var statusTxt = 'stable', cls = 'status';
+    if (npr === 0 && nh === 0) { statusTxt = 'collapsed — barren'; cls = 'status dead'; }
+    else if (npr === 0) { statusTxt = 'predators extinct'; cls = 'status warn'; }
+    else if (nh === 0) { statusTxt = 'grazers extinct'; cls = 'status warn'; }
+    else if (np <= 3) { statusTxt = 'flora crashing'; cls = 'status warn'; }
+    else if (nh > 60) { statusTxt = 'grazer boom'; cls = 'status warn'; }
+    else { statusTxt = 'in equilibrium'; cls = 'status'; }
+    el.rStatus.textContent = statusTxt;
+    el.rStatus.className = cls;
+  }
+
+  // ---------------------------------------------------------------- loop
+  var last = performance.now(), acc = 0, FIXED = 1 / 60;
+  function frame(now) {
+   try {
+    var raw = (now - last) / 1000; last = now;
+    if (raw > 0.1) raw = 0.1;
+    if (sim.running) {
+      acc += raw * sim.speed;
+      var steps = 0;
+      while (acc >= FIXED && steps < 12) {
+        step(FIXED);
+        acc -= FIXED; steps++;
+        sim.sampleT += FIXED;
+        if (sim.sampleT >= CFG.sampleEvery) { sim.sampleT -= CFG.sampleEvery; sample(); }
+      }
+    }
+    draw();
+    drawGraph(gP, hist.plant, COL.green, 'oklch(0.60 0.13 150 / 0.12)');
+    drawGraph(gH, hist.herb, COL.ink2, 'oklch(0.46 0.006 95 / 0.10)');
+    drawGraph(gR, hist.pred, COL.ink, 'oklch(0.24 0.008 95 / 0.10)');
+    updateHUD();
+    requestAnimationFrame(frame);
+   } catch (err) {
+    document.title = 'FRAMEERR: ' + err.message;
+    var ro2 = document.getElementById('r-status');
+    if (ro2) ro2.textContent = 'FRAMEERR: ' + err.message;
+   }
+  }
+
+  // ---------------------------------------------------------------- interaction
+  function applyFront(x, y, type) {
+    sim.fronts++;
+    ripples.push({ x: x, y: y, t: 0, life: 0.9, r0: 6, r1: 96, type: type });
+    if (type === 'rain') {
+      weather = Math.min(1, weather + 0.55);
+      // seed plants locally
+      var add = 7;
+      for (var i = 0; i < add; i++) {
+        var a = Math.random() * 6.2832, rr = Math.random() * 60;
+        var px = Math.max(6, Math.min(W-6, x + Math.cos(a) * rr));
+        var py = Math.max(6, Math.min(H-6, y + Math.sin(a) * rr));
+        if (plants.length < capacity() * 1.5) plants.push(makePlant(px, py, Math.random() < 0.4));
+      }
+    } else {
+      weather = Math.max(-1, weather - 0.55);
+      // wither plants locally
+      for (var j = plants.length - 1; j >= 0; j--) {
+        if (dist2(plants[j].x, plants[j].y, x, y) < 70 * 70 && Math.random() < 0.7) plants.splice(j, 1);
+      }
+    }
+  }
+
+  cv.addEventListener('click', function (ev) {
+    var rect = cv.getBoundingClientRect();
+    var x = (ev.clientX - rect.left) * (W / rect.width);
+    var y = (ev.clientY - rect.top) * (H / rect.height);
+    applyFront(x, y, tool);
+  });
+
+  // tool buttons
+  g('t-rain').addEventListener('click', function () { setTool('rain'); });
+  g('t-drought').addEventListener('click', function () { setTool('drought'); });
+  function setTool(t) {
+    tool = t;
+    g('t-rain').classList.toggle('active', t === 'rain');
+    g('t-drought').classList.toggle('active', t === 'drought');
+  }
+
+  // pause / reset / speed
+  var bPause = g('b-pause');
+  bPause.addEventListener('click', function () {
+    sim.running = !sim.running;
+    bPause.textContent = sim.running ? 'Pause' : 'Resume';
+    bPause.classList.toggle('active', !sim.running);
+  });
+  g('b-reset').addEventListener('click', function () {
+    seed(); peakP = peakH = peakR = 0;
+    sim.running = true; bPause.textContent = 'Pause'; bPause.classList.remove('active');
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.btn.spd'), function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.btn.spd').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      sim.speed = parseInt(b.dataset.spd, 10);
+    });
+  });
+
+  // keyboard
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'r' || e.key === 'R') setTool('rain');
+    else if (e.key === 'd' || e.key === 'D') setTool('drought');
+    else if (e.key === ' ') { e.preventDefault(); bPause.click(); }
+  });
+
+  // ---------------------------------------------------------------- boot
+  window.__viv = {
+    step: step,
+    counts: function(){ return [plants.length, herbs.length, preds.length]; },
+    setW: function(v){ weather = v; },
+    reset: function(ov){
+      if (ov) { for (var grp in ov) { for (var key in ov[grp]) { CFG[grp][key] = ov[grp][key]; } } }
+      seed();
+    }
+  };
+  try {
+    readColors();
+    seed();
+    requestAnimationFrame(frame);
+  } catch (err) {
+    document.title = 'BOOTERR: ' + err.message;
+    var ro = document.getElementById('r-status');
+    if (ro) ro.textContent = 'ERR: ' + err.message;
+  }
+})();
+</script>
+</body>
+</html>

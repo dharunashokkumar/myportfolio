@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>City from a Seed</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  #stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #000;
+  }
+  #wrap {
+    position: relative;
+    transform-origin: center center;
+  }
+  #map {
+    display: block;
+    background: #07070a;
+    box-shadow: 0 0 0 1px rgba(232,230,224,0.07), 0 24px 80px -20px rgba(0,0,0,0.9);
+    cursor: crosshair;
+  }
+  /* fixed overlays inside the (unscaled) wrap, scaled with the map via JS transform on #wrap */
+  .hint {
+    position: absolute; left: 0; right: 0;
+    text-align: center;
+    color: rgba(232,230,224,0.62);
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+  #hintCenter {
+    top: 50%; transform: translateY(-50%);
+    font-size: 14px; letter-spacing: 0.22em;
+  }
+  #hintBottom { bottom: 14px; font-size: 11px; opacity: 0; letter-spacing: 0.18em; }
+  #label {
+    position: absolute; top: 12px; left: 14px;
+    color: rgba(232,230,224,0.34);
+    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    pointer-events: none;
+  }
+  #clock {
+    position: absolute; top: 12px; right: 14px;
+    color: rgba(232,230,224,0.34);
+    font-size: 10px; letter-spacing: 0.14em;
+    pointer-events: none; font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div id="wrap">
+      <canvas id="map" width="700" height="500"></canvas>
+      <div id="hintCenter" class="hint">click anywhere to plant a city</div>
+      <div id="hintBottom" class="hint">click again to plant a rival</div>
+      <div id="label">city from a seed</div>
+      <div id="clock"></div>
+    </div>
+  </div>
+
+<script>
+"use strict";
+(function () {
+  const W = 700, H = 500;
+  const RES = Math.min(window.devicePixelRatio || 1, 2);
+
+  // ---------- canvases ----------
+  const display = document.getElementById('map');
+  display.width = W * RES; display.height = H * RES;
+  display.style.width = W + 'px'; display.style.height = H + 'px';
+  const dctx = display.getContext('2d');
+  dctx.setTransform(RES, 0, 0, RES, 0, 0);
+
+  // persistent layer that roads & buildings accumulate onto (never cleared)
+  const road = document.createElement('canvas');
+  road.width = W * RES; road.height = H * RES;
+  const rctx = road.getContext('2d');
+  rctx.setTransform(RES, 0, 0, RES, 0, 0);
+  rctx.lineCap = 'round';
+
+  // static terrain background (1x, scaled up on display — subtle so blur is invisible)
+  const terrain = document.createElement('canvas');
+  terrain.width = W; terrain.height = H;
+  const tctx = terrain.getContext('2d');
+
+  // ---------- noise / terrain ----------
+  const SEED = (Math.random() * 100000) | 0;
+  function hash(ix, iy) {
+    let n = (ix * 1619 + iy * 31337 + SEED * 1013) | 0;
+    n = (n << 13) ^ n;
+    return 1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0;
+  }
+  function vnoise(x, y) {
+    const ix = Math.floor(x), iy = Math.floor(y);
+    const fx = x - ix, fy = y - iy;
+    const u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+    const a = hash(ix, iy), b = hash(ix + 1, iy), c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
+    return (a * (1 - u) + b * u) * (1 - v) + (c * (1 - u) + d * u) * v;
+  }
+  function fbm(x, y) {
+    let f = 0, amp = 0.5, freq = 1;
+    for (let i = 0; i < 4; i++) { f += amp * vnoise(x * freq, y * freq); amp *= 0.5; freq *= 2; }
+    return f;
+  }
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  // elevation 0..1
+  function elev(x, y) {
+    const e = fbm(x * 0.0062 + 10.5, y * 0.0062 + 5.2);
+    return clamp(e * 0.95 + 0.5, 0, 1);
+  }
+  const WATER = 0.30;
+  // population desirability 0..1: avoids deep water and high peaks
+  function pop(x, y) {
+    const e = elev(x, y);
+    if (e < WATER) return 0.04;
+    let p = 1.12 - Math.max(0, e - 0.50) * 2.4;
+    const v = fbm(x * 0.011 + 71, y * 0.011 + 33) * 0.5 + 0.5;
+    p *= 0.62 + 0.45 * clamp(v, 0, 1);
+    return clamp(p, 0.06, 1);
+  }
+
+  // ---------- render terrain (topographic, very dark) ----------
+  (function drawTerrain() {
+    const img = tctx.createImageData(W, H);
+    const d = img.data;
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const e = elev(x, y);
+        let r, g, b;
+        if (e < WATER) {
+          const dep = (WATER - e) / WATER; // 0..1
+          r = 6 - dep * 2; g = 9 - dep * 2; b = 15 - dep * 1;
+        } else {
+          const L = 9 + (e - WATER) * 14; // subtle lightening with elevation
+          // faint topographic contour lines
+          const t = e * 15;
+          const f = t - Math.floor(t);
+          const edge = Math.min(f, 1 - f);
+          const contour = Math.exp(-(edge * edge) / 0.0016) * 7;
+          r = L + contour + 1.5; g = L + contour + 0.6; b = L + contour - 0.5;
+        }
+        const i = (y * W + x) * 4;
+        d[i] = clamp(r, 0, 255); d[i + 1] = clamp(g, 0, 255); d[i + 2] = clamp(b, 0, 255); d[i + 3] = 255;
+      }
+    }
+    tctx.putImageData(img, 0, 0);
+  })();
+
+  // ---------- spatial grid for segments ----------
+  const CELL = 22;
+  const cols = Math.ceil(W / CELL), rows = Math.ceil(H / CELL);
+  const grid = new Array(cols * rows);
+  for (let i = 0; i < grid.length; i++) grid[i] = [];
+  function insertSeg(s) {
+    const steps = Math.max(1, Math.ceil(s.len / CELL));
+    let last = -1;
+    for (let i = 0; i <= steps; i++) {
+      const x = s.x1 + (s.x2 - s.x1) * i / steps, y = s.y1 + (s.y2 - s.y1) * i / steps;
+      const cx = clamp(Math.floor(x / CELL), 0, cols - 1), cy = clamp(Math.floor(y / CELL), 0, rows - 1);
+      const idx = cy * cols + cx;
+      if (idx !== last) { grid[idx].push(s); last = idx; }
+    }
+  }
+  function queryNear(x1, y1, x2, y2, pad) {
+    const minx = Math.min(x1, x2) - pad, maxx = Math.max(x1, x2) + pad;
+    const miny = Math.min(y1, y2) - pad, maxy = Math.max(y1, y2) + pad;
+    const cx0 = clamp(Math.floor(minx / CELL), 0, cols - 1), cx1 = clamp(Math.floor(maxx / CELL), 0, cols - 1);
+    const cy0 = clamp(Math.floor(miny / CELL), 0, rows - 1), cy1 = clamp(Math.floor(maxy / CELL), 0, rows - 1);
+    const out = []; const seen = new Set();
+    for (let cy = cy0; cy <= cy1; cy++) for (let cx = cx0; cx <= cx1; cx++) {
+      const cell = grid[cy * cols + cx];
+      for (let k = 0; k < cell.length; k++) { const s = cell[k]; if (!seen.has(s.id)) { seen.add(s.id); out.push(s); } }
+    }
+    return out;
+  }
+  function countVertsNear(x, y, r) {
+    const near = queryNear(x, y, x, y, r); const r2 = r * r; let n = 0;
+    for (const s of near) {
+      const dx = s.x2 - x, dy = s.y2 - y;
+      if (dx * dx + dy * dy < r2) n++;
+    }
+    return n;
+  }
+
+  // ---------- geometry ----------
+  function segInt(ax, ay, bx, by, cx, cy, dx, dy) {
+    const r1x = bx - ax, r1y = by - ay, r2x = dx - cx, r2y = dy - cy;
+    const den = r1x * r2y - r1y * r2x;
+    if (Math.abs(den) < 1e-9) return null;
+    const t = ((cx - ax) * r2y - (cy - ay) * r2x) / den;
+    const u = ((cx - ax) * r1y - (cy - ay) * r1x) / den;
+    if (t > 0.001 && t < 0.999 && u > 0.001 && u < 0.999)
+      return { t, x: ax + r1x * t, y: ay + r1y * t };
+    return null;
+  }
+  function projDist(px, py, ax, ay, bx, by) {
+    const dx = bx - ax, dy = by - ay; const l2 = dx * dx + dy * dy;
+    let t = l2 ? ((px - ax) * dx + (py - ay) * dy) / l2 : 0;
+    t = clamp(t, 0, 1);
+    const x = ax + dx * t, y = ay + dy * t;
+    const ex = px - x, ey = py - y;
+    return { d: Math.hypot(ex, ey), x, y };
+  }
+
+  // ---------- city state ----------
+  const SCALE = 155;            // density falloff scale
+  const HWY_LEN = 17, ST_LEN = 12.5;
+  const HWY_SPD = 7.6, ST_SPD = 10.5;
+  const SNAP = 11;
+  const MAX_SEG = 9000;
+
+  let segId = 0, segCount = 0;
+  const centers = [];
+  const sparks = [];           // growth-frontier dots {x,y,t}
+
+  // min-heap on .t
+  const heapA = [];
+  function hpush(x) {
+    heapA.push(x); let i = heapA.length - 1;
+    while (i > 0) { const p = (i - 1) >> 1; if (heapA[p].t <= heapA[i].t) break; const tmp = heapA[p]; heapA[p] = heapA[i]; heapA[i] = tmp; i = p; }
+  }
+  function hpop() {
+    const top = heapA[0], last = heapA.pop();
+    if (heapA.length) {
+      heapA[0] = last; let i = 0; const n = heapA.length;
+      for (;;) { let l = 2 * i + 1, r = l + 1, s = i;
+        if (l < n && heapA[l].t < heapA[s].t) s = l;
+        if (r < n && heapA[r].t < heapA[s].t) s = r;
+        if (s === i) break; const tmp = heapA[s]; heapA[s] = heapA[i]; heapA[i] = tmp; i = s; }
+    }
+    return top;
+  }
+
+  function distToCenter(x, y) {
+    let m = Infinity;
+    for (const c of centers) { const d = Math.hypot(x - c.x, y - c.y); if (d < m) m = d; }
+    return m;
+  }
+  function densityFactor(x, y) {
+    const dc = distToCenter(x, y);
+    const fall = Math.exp(-dc / SCALE);
+    return clamp(fall * pop(x, y), 0, 1);
+  }
+
+  const TAU = Math.PI * 2;
+  const jit = (a) => (Math.random() - 0.5) * 2 * a;
+
+  // candidate proposal -> object queued in heap
+  function propose(x, y, ang, len, hwy, city, t) {
+    return {
+      id: segId++, city, hwy, len,
+      x1: x, y1: y,
+      x2: x + Math.cos(ang) * len, y2: y + Math.sin(ang) * len,
+      t: t + len / (hwy ? HWY_SPD : ST_SPD),
+      ended: false
+    };
+  }
+
+  // pick highway heading: follow valleys / low slope
+  function chooseHwyDir(x, y, base) {
+    const e0 = elev(x, y);
+    let bestA = base, bestC = Infinity;
+    for (let i = 0; i < 7; i++) {
+      const a = base + (i / 6 - 0.5) * 1.0 + jit(0.04);
+      const ex = x + Math.cos(a) * HWY_LEN, ey = y + Math.sin(a) * HWY_LEN;
+      const e1 = elev(ex, ey);
+      const cost = Math.abs(e1 - e0) * 6.0 + Math.max(0, e1 - 0.5) * 4.0 + Math.abs(a - base) * 0.5
+                   + (e1 < WATER ? 3 : 0);
+      if (cost < bestC) { bestC = cost; bestA = a; }
+    }
+    return bestA;
+  }
+
+  function localConstraints(s) {
+    const near = queryNear(s.x1, s.y1, s.x2, s.y2, SNAP + 2);
+    // 1) nearest crossing
+    let bestT = Infinity, cross = null;
+    for (const o of near) {
+      if (o.x1 === s.x1 && o.y1 === s.y1) continue;
+      const r = segInt(s.x1, s.y1, s.x2, s.y2, o.x1, o.y1, o.x2, o.y2);
+      if (r && r.t < bestT) { bestT = r.t; cross = r; }
+    }
+    if (cross) { s.x2 = cross.x; s.y2 = cross.y; s.ended = true; }
+    else {
+      // 2) snap endpoint to nearby vertex
+      let vd = SNAP, vx = null, vy = null;
+      for (const o of near) {
+        const dd = Math.hypot(o.x2 - s.x2, o.y2 - s.y2);
+        if (dd < vd) { vd = dd; vx = o.x2; vy = o.y2; }
+      }
+      if (vx !== null) { s.x2 = vx; s.y2 = vy; s.ended = true; }
+      else {
+        // 3) extend onto a nearby segment body
+        let pd = SNAP, px = null, py = null;
+        for (const o of near) {
+          const pr = projDist(s.x2, s.y2, o.x1, o.y1, o.x2, o.y2);
+          if (pr.d < pd) { pd = pr.d; px = pr.x; py = pr.y; }
+        }
+        if (px !== null) { s.x2 = px; s.y2 = py; s.ended = true; }
+      }
+    }
+    // recompute length; reject degenerate / out of bounds / into deep water
+    s.len = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+    if (s.len < 3) return false;
+    if (s.x2 < 2 || s.x2 > W - 2 || s.y2 < 2 || s.y2 > H - 2) return false;
+    if (elev(s.x2, s.y2) < WATER) return false;
+    return true;
+  }
+
+  function tryQueue(x, y, ang, len, hwy, city, t) {
+    const c = propose(x, y, ang, len, hwy, city, t);
+    if (c.x2 < 2 || c.x2 > W - 2 || c.y2 < 2 || c.y2 > H - 2) return;
+    if (elev(c.x2, c.y2) < WATER) return;
+    // saturation check for streets
+    if (!hwy) {
+      const sat = countVertsNear(c.x2, c.y2, ST_LEN * 0.62);
+      if (sat > 4) return;
+    }
+    if (segCount + heapA.length > MAX_SEG) return;
+    hpush(c);
+  }
+
+  function expand(s) {
+    if (s.ended) return;
+    const x = s.x2, y = s.y2;
+    const ang = Math.atan2(s.y2 - s.y1, s.x2 - s.x1);
+    const dens = densityFactor(x, y);
+    if (s.hwy) {
+      tryQueue(x, y, chooseHwyDir(x, y, ang), HWY_LEN, true, s.city, s.t);          // continue
+      if (Math.random() < 0.05) {                                                   // branch highway
+        const side = Math.random() < 0.5 ? 1 : -1;
+        tryQueue(x, y, chooseHwyDir(x, y, ang + side * Math.PI / 2 + jit(0.25)), HWY_LEN, true, s.city, s.t);
+      }
+      if (Math.random() < 0.55 * dens + 0.08) {                                     // seed streets
+        const side = Math.random() < 0.5 ? 1 : -1;
+        tryQueue(x, y, ang + side * Math.PI / 2 + jit(0.12), ST_LEN, false, s.city, s.t);
+      }
+    } else {
+      const bend = (elev(x + Math.cos(ang + 1.57) * 8, y + Math.sin(ang + 1.57) * 8)
+                  - elev(x + Math.cos(ang - 1.57) * 8, y + Math.sin(ang - 1.57) * 8)) * 0.6;
+      if (Math.random() < 0.84 * dens + 0.06)                                       // continue street
+        tryQueue(x, y, ang + jit(0.07) + bend, ST_LEN, false, s.city, s.t);
+      if (Math.random() < 0.52 * dens)                                              // grid branches
+        tryQueue(x, y, ang + Math.PI / 2 + jit(0.1), ST_LEN, false, s.city, s.t);
+      if (Math.random() < 0.52 * dens)
+        tryQueue(x, y, ang - Math.PI / 2 + jit(0.1), ST_LEN, false, s.city, s.t);
+    }
+  }
+
+  // ---------- drawing committed elements onto the persistent road layer ----------
+  function drawSeg(s) {
+    if (s.hwy) {
+      rctx.strokeStyle = 'rgba(255,250,236,0.07)'; rctx.lineWidth = 3.4;
+      rctx.beginPath(); rctx.moveTo(s.x1, s.y1); rctx.lineTo(s.x2, s.y2); rctx.stroke();
+      rctx.strokeStyle = 'rgba(246,244,237,0.94)'; rctx.lineWidth = 1.5;
+      rctx.beginPath(); rctx.moveTo(s.x1, s.y1); rctx.lineTo(s.x2, s.y2); rctx.stroke();
+    } else {
+      rctx.strokeStyle = 'rgba(228,226,218,0.6)'; rctx.lineWidth = 0.85;
+      rctx.beginPath(); rctx.moveTo(s.x1, s.y1); rctx.lineTo(s.x2, s.y2); rctx.stroke();
+    }
+  }
+  function drawBuildings(s) {
+    const dens = densityFactor((s.x1 + s.x2) / 2, (s.y1 + s.y2) / 2);
+    if (dens < 0.12) return;
+    const ang = Math.atan2(s.y2 - s.y1, s.x2 - s.x1);
+    const nx = Math.cos(ang + Math.PI / 2), ny = Math.sin(ang + Math.PI / 2);
+    const tries = Math.random() < dens ? 2 : 1;
+    for (let i = 0; i < tries; i++) {
+      if (Math.random() > dens * 0.95) continue;
+      const along = (0.18 + Math.random() * 0.64) * s.len;
+      const side = Math.random() < 0.5 ? 1 : -1;
+      const off = 2.2 + Math.random() * 2.4;
+      const bx = s.x1 + (s.x2 - s.x1) * (along / s.len) + nx * side * off;
+      const by = s.y1 + (s.y2 - s.y1) * (along / s.len) + ny * side * off;
+      if (bx < 1 || bx > W - 1 || by < 1 || by > H - 1) continue;
+      if (elev(bx, by) < WATER) continue;
+      const w = 2 + Math.random() * 4, h = 2 + Math.random() * 4.5;
+      const a = 0.10 + dens * 0.16 + Math.random() * 0.05;
+      rctx.save();
+      rctx.translate(bx, by); rctx.rotate(ang);
+      rctx.fillStyle = 'rgba(226,223,213,' + a.toFixed(3) + ')';
+      rctx.fillRect(-w / 2, -h / 2, w, h);
+      rctx.restore();
+    }
+  }
+
+  // ---------- seeding a city ----------
+  function plant(x, y) {
+    // nudge off deep water toward land if needed
+    if (elev(x, y) < WATER) {
+      let best = { x, y, e: elev(x, y) };
+      for (let i = 0; i < 24; i++) {
+        const a = (i / 24) * TAU;
+        for (const rr of [18, 36, 54]) {
+          const px = clamp(x + Math.cos(a) * rr, 6, W - 6), py = clamp(y + Math.sin(a) * rr, 6, H - 6);
+          const e = elev(px, py); if (e > best.e) best = { x: px, y: py, e };
+        }
+      }
+      x = best.x; y = best.y;
+    }
+    centers.push({ x, y, born: simClock });
+    const base = Math.random() * TAU;
+    const n = 4 + (Math.random() < 0.5 ? 0 : 1);
+    for (let i = 0; i < n; i++) {
+      const a = chooseHwyDir(x, y, base + (i / n) * TAU);
+      tryQueue(x, y, a, HWY_LEN, true, centers.length - 1, simClock);
+    }
+    // marker pulse
+    sparks.push({ x, y, t: simClock, big: true });
+  }
+
+  // ---------- main loop ----------
+  let simClock = 0, last = performance.now(), started = false;
+  const clockEl = document.getElementById('clock');
+  const hintCenter = document.getElementById('hintCenter');
+  const hintBottom = document.getElementById('hintBottom');
+
+  function frame(now) {
+    let dt = (now - last) / 1000; last = now;
+    if (dt > 0.05) dt = 0.05;
+    if (started) simClock += dt;
+
+    // commit all ready segments (budgeted)
+    let budget = 320;
+    while (heapA.length && heapA[0].t <= simClock && budget-- > 0) {
+      const s = hpop();
+      if (!localConstraints(s)) continue;
+      s.len = Math.hypot(s.x2 - s.x1, s.y2 - s.y1);
+      insertSeg(s); drawSeg(s); segCount++;
+      if (!s.hwy) drawBuildings(s);
+      if (!s.ended) sparks.push({ x: s.x2, y: s.y2, t: simClock });
+      expand(s);
+    }
+    if (sparks.length > 1400) sparks.splice(0, sparks.length - 1400);
+
+    // ---- composite ----
+    dctx.clearRect(0, 0, W, H);
+    dctx.drawImage(terrain, 0, 0, W, H);
+    dctx.drawImage(road, 0, 0, W, H);
+
+    // frontier sparks + center markers
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const sp = sparks[i];
+      const age = simClock - sp.t;
+      const life = sp.big ? 1.6 : 0.75;
+      if (age > life) { sparks.splice(i, 1); continue; }
+      const k = 1 - age / life;
+      if (sp.big) {
+        dctx.strokeStyle = 'rgba(255,246,228,' + (0.5 * k).toFixed(3) + ')';
+        dctx.lineWidth = 1.2;
+        dctx.beginPath(); dctx.arc(sp.x, sp.y, 3 + (1 - k) * 16, 0, TAU); dctx.stroke();
+        dctx.fillStyle = 'rgba(255,248,232,' + (0.85 * Math.min(1, k + 0.2)).toFixed(3) + ')';
+        dctx.beginPath(); dctx.arc(sp.x, sp.y, 2.2, 0, TAU); dctx.fill();
+      } else {
+        dctx.fillStyle = 'rgba(255,247,230,' + (0.55 * k).toFixed(3) + ')';
+        dctx.beginPath(); dctx.arc(sp.x, sp.y, 1.3, 0, TAU); dctx.fill();
+      }
+    }
+
+    if (started) {
+      const t = Math.min(simClock, 999);
+      clockEl.textContent = (centers.length) + (centers.length > 1 ? ' cities · ' : ' city · ')
+        + segCount.toLocaleString() + ' roads · ' + t.toFixed(0) + 's';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---------- input ----------
+  display.addEventListener('click', (e) => {
+    const r = display.getBoundingClientRect();
+    const x = clamp((e.clientX - r.left) / r.width * W, 6, W - 6);
+    const y = clamp((e.clientY - r.top) / r.height * H, 6, H - 6);
+    if (!started) { started = true; last = performance.now(); }
+    plant(x, y);
+    hintCenter.style.opacity = '0';
+    hintBottom.style.opacity = centers.length === 1 ? '1' : '0';
+  });
+
+  // ---------- responsive scaling of the wrap ----------
+  const wrap = document.getElementById('wrap');
+  function fit() {
+    const m = 28;
+    const s = Math.min((window.innerWidth - m * 2) / W, (window.innerHeight - m * 2) / H);
+    wrap.style.transform = 'scale(' + Math.max(0.4, s) + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+})();
+</script>
+</body>
+</html>

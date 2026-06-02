@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>:: StarlitVoid :: Jess's Cyber Pad ::</title>
+<meta name="description" content="The personal homepage of StarlitVoid. Webmistress, aspiring 3D artist, MIDI archivist. Best viewed at 1024x768.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<style>
+  /* ============================================================
+   STARLITVOID :: stylesheet  (est. 2001, refurbished)
+   Iridescent / chrome Y2K aesthetic. Structure is tidy;
+   the VIBES are not.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=VT323&display=swap');
+
+:root{
+  /* chrome ramp */
+  --chrome-hi:#ffffff;
+  --chrome-1:#e8edf7;
+  --chrome-2:#aab6d4;
+  --chrome-3:#5d6b92;
+  --chrome-4:#28324f;
+  /* holo accents (web-safe-ish, max saturation energy) */
+  --pink:#ff3cc7;
+  --cyan:#3ff7ff;
+  --lime:#bdff2e;
+  --violet:#9a5cff;
+  --gold:#ffd23f;
+  /* surfaces */
+  --space:#0a0824;
+  --panel:#11103a;
+  --ink:#f3f0ff;
+  --comic:"Comic Sans MS","Comic Neue","Chalkboard SE",cursive;
+  --mono:"VT323","Lucida Console",monospace;
+}
+
+*{box-sizing:border-box;}
+
+html,body{margin:0;padding:0;}
+
+body{
+  font-family:var(--comic);
+  color:var(--ink);
+  background-color:var(--space);
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 65%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 80%, var(--cyan) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 22%, var(--pink) 50%, transparent 51%),
+    radial-gradient(2px 2px at 55% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 12% 88%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 92% 78%, var(--lime) 50%, transparent 51%),
+    radial-gradient(circle at 50% -10%, rgba(154,92,255,.45), transparent 55%),
+    radial-gradient(circle at 110% 120%, rgba(63,247,255,.30), transparent 50%),
+    linear-gradient(160deg,#160b3a 0%, #0a0824 55%, #1a0a30 100%);
+  background-attachment:fixed;
+  background-size:240px 240px,180px 180px,300px 300px,220px 220px,260px 260px,200px 200px,340px 340px,100% 100%,100% 100%,100% 100%;
+  min-height:100vh;
+  cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><polygon points='14,2 16.5,10.5 25,11 18,16.5 20.5,25.5 14,20 7.5,25.5 10,16.5 3,11 11.5,10.5' fill='%23fff' stroke='%23ff3cc7' stroke-width='1.2'/></svg>") 14 14, auto;
+}
+
+/* sparkle cursor-trail stars (spawned by JS) */
+.spark{
+  position:fixed;width:14px;height:14px;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  animation:sparkfade .7s ease-out forwards;
+  will-change:transform,opacity;
+}
+@keyframes sparkfade{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(160deg);}
+}
+
+/* ---------- the "desktop" outer frame ---------- */
+.desktop{
+  width:1000px;
+  max-width:calc(100vw - 8px);
+  margin:14px auto 40px;
+  background:
+    linear-gradient(180deg,var(--chrome-hi),var(--chrome-2) 14%,var(--chrome-3) 50%,var(--chrome-4) 51%,var(--chrome-3) 60%,var(--chrome-1) 100%);
+  border:2px solid #000;
+  border-radius:10px;
+  padding:5px;
+  box-shadow:0 0 0 2px var(--chrome-hi), 0 14px 50px rgba(0,0,0,.6), 0 0 60px rgba(154,92,255,.35);
+}
+.desktop-inner{
+  background:var(--panel);
+  border:2px solid #000;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  position:relative;
+  background:
+    radial-gradient(120% 160% at 18% -40%, rgba(255,255,255,.85), transparent 42%),
+    radial-gradient(60% 120% at 85% 130%, rgba(63,247,255,.5), transparent 60%),
+    linear-gradient(135deg,#2a0a50,#0a0824 45%,#08243a 100%);
+  border-bottom:2px solid #000;
+  padding:18px 16px 14px;
+  text-align:center;
+  overflow:hidden;
+}
+/* lens flare */
+.flare{
+  position:absolute;top:-30px;left:8%;width:120px;height:120px;pointer-events:none;
+  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,210,63,.55) 18%, rgba(255,60,199,.25) 38%, transparent 62%);
+  mix-blend-mode:screen;
+  animation:flarepulse 5s ease-in-out infinite;
+}
+.flare::after{
+  content:"";position:absolute;inset:38px;border-radius:50%;
+  background:radial-gradient(circle,#fff, rgba(63,247,255,.6),transparent 70%);
+}
+.flare.two{left:auto;right:6%;top:10px;width:70px;height:70px;animation-delay:1.5s;}
+@keyframes flarepulse{0%,100%{opacity:.55;transform:scale(.9);}50%{opacity:1;transform:scale(1.12);}}
+
+.chrome-logo{
+  font-family:"Arial Black","Arial",sans-serif;
+  font-weight:900;
+  font-size:64px;
+  letter-spacing:1px;
+  margin:0;
+  line-height:.95;
+  background:linear-gradient(180deg,#ffffff 0%,#dfe7fb 16%,#9fb0da 46%,#3a4a7a 50%,#7f8fc0 54%,#cfd9f5 78%,#ffffff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:1.5px #1a2240;
+  text-shadow:0 2px 0 rgba(0,0,0,.35), 0 0 26px rgba(63,247,255,.5);
+  filter:drop-shadow(0 3px 2px rgba(0,0,0,.5));
+}
+.chrome-logo .star{ -webkit-text-stroke:1px var(--pink); }
+.tagline{
+  font-family:var(--comic);
+  color:var(--cyan);
+  font-size:15px;margin:4px 0 0;
+  text-shadow:0 0 8px rgba(63,247,255,.8),1px 1px 0 #000;
+}
+
+/* marquee */
+.marquee{
+  margin-top:12px;background:#000;border:2px ridge var(--chrome-2);
+  overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:20px;
+  color:var(--lime);padding:3px 0;box-shadow:inset 0 0 14px rgba(189,255,46,.35);
+}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 26s linear infinite;}
+.marquee span b{color:var(--pink);}
+.marquee span i{color:var(--cyan);font-style:normal;}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+
+/* ---------- body: frames layout ---------- */
+.frames{display:flex;align-items:stretch;}
+.sidebar{
+  width:212px;flex:none;
+  background:linear-gradient(180deg,#1a0d44,#0c0a2e);
+  border-right:2px solid #000;
+  padding:14px 12px;
+}
+.content{flex:1;min-width:0;padding:20px 22px 26px;background:
+  radial-gradient(80% 60% at 100% 0%, rgba(154,92,255,.16), transparent 60%),
+  var(--panel);}
+
+/* ---------- nav buttons ---------- */
+.navlabel{
+  font-family:var(--mono);font-size:18px;color:var(--gold);text-align:center;
+  letter-spacing:2px;margin:0 0 8px;text-shadow:1px 1px 0 #000;
+}
+.nav{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.nav button{
+  font-family:var(--comic);font-weight:700;font-size:17px;cursor:inherit;
+  color:#16204a;text-align:left;padding:9px 12px;
+  border:2px outset var(--chrome-1);border-radius:6px;
+  background:linear-gradient(180deg,#fff,#cdd7f0 48%,#9fb0da 52%,#e7edfb);
+  box-shadow:0 2px 5px rgba(0,0,0,.4);
+  position:relative;transition:transform .08s;
+}
+.nav button:hover{background:linear-gradient(180deg,#fff,#ffe8fb 48%,#ff9fe6 52%,#ffd6f4);color:#5a0040;}
+.nav button:active{transform:translateY(1px);border-style:inset;}
+.nav button.active{
+  background:linear-gradient(180deg,#fff,#d3fff0 46%,#3ff7ff 54%,#bdff2e);
+  color:#063b2f;border-style:inset;
+  box-shadow:0 0 12px rgba(63,247,255,.7),inset 0 0 6px rgba(255,255,255,.6);
+}
+.nav button .blink{color:var(--pink);}
+
+/* sidebar widgets */
+.widget{
+  background:#0a0828;border:2px ridge var(--chrome-2);border-radius:6px;
+  padding:9px;margin-bottom:14px;
+}
+.widget h4{
+  margin:0 0 7px;font-family:var(--mono);font-size:16px;letter-spacing:1px;
+  color:var(--cyan);text-align:center;border-bottom:1px dashed #3a3a6a;padding-bottom:4px;
+}
+
+/* MIDI / winamp-ish player */
+.player .nowplay{font-family:var(--mono);font-size:15px;color:var(--lime);min-height:20px;
+  white-space:nowrap;overflow:hidden;}
+.viz{display:flex;align-items:flex-end;gap:2px;height:30px;margin:6px 0;}
+.viz i{flex:1;background:linear-gradient(180deg,var(--pink),var(--gold));border-radius:1px;height:20%;}
+.player.playing .viz i{animation:bounce .6s ease-in-out infinite;}
+.viz i:nth-child(2){animation-delay:.1s!important;}
+.viz i:nth-child(3){animation-delay:.25s!important;}
+.viz i:nth-child(4){animation-delay:.05s!important;}
+.viz i:nth-child(5){animation-delay:.3s!important;}
+.viz i:nth-child(6){animation-delay:.18s!important;}
+.viz i:nth-child(7){animation-delay:.4s!important;}
+.viz i:nth-child(8){animation-delay:.12s!important;}
+.viz i:nth-child(9){animation-delay:.34s!important;}
+@keyframes bounce{0%,100%{height:18%;}50%{height:95%;}}
+.player .controls{display:flex;gap:4px;margin-top:4px;}
+.player .controls button{flex:1;font-family:var(--mono);font-size:14px;cursor:inherit;
+  border:2px outset #8aa;background:linear-gradient(#dfe,#9ab);border-radius:4px;color:#012;}
+.player .controls button:active{border-style:inset;}
+.tracklist{list-style:none;margin:7px 0 0;padding:0;font-size:13px;font-family:var(--comic);}
+.tracklist li{padding:2px 4px;cursor:inherit;color:#cfe;border-radius:3px;}
+.tracklist li:hover{background:#241a55;color:#fff;}
+.tracklist li.sel{background:linear-gradient(90deg,var(--violet),transparent);color:#fff;font-weight:700;}
+.silent-note{font-family:var(--mono);font-size:12px;color:#8a86b8;text-align:center;margin-top:5px;}
+
+/* hit counter odometer */
+.odo{display:flex;justify-content:center;gap:3px;}
+.odo b{
+  font-family:var(--mono);font-size:26px;color:var(--lime);
+  background:#000;border:1px solid #2c2;border-radius:3px;
+  width:20px;text-align:center;line-height:1.1;
+  box-shadow:inset 0 0 6px rgba(40,255,40,.5);
+}
+.counter-cap{font-family:var(--mono);font-size:13px;color:#8a86b8;text-align:center;margin-top:5px;}
+
+.guest-plug{text-align:center;}
+.guest-plug a{font-family:var(--comic);font-weight:700;color:var(--pink);font-size:16px;text-decoration:none;}
+.guest-plug a:hover{text-decoration:underline;}
+.blink{animation:blink 1s steps(2,start) infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* ---------- content typography ---------- */
+.content h2{
+  font-family:"Arial Black",sans-serif;font-size:38px;margin:0 0 4px;
+  background:linear-gradient(180deg,#fff,#ffd6f4 40%,#ff3cc7 52%,#9a5cff 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:.6px #2a1040;filter:drop-shadow(0 2px 1px rgba(0,0,0,.5));
+  letter-spacing:.5px;
+}
+.subhead{font-family:var(--mono);font-size:17px;color:var(--gold);margin:0 0 16px;letter-spacing:1px;}
+.content p{font-size:16px;line-height:1.55;}
+.content a{color:var(--cyan);}
+.content a:hover{color:var(--pink);}
+.hr-holo{height:5px;border:0;margin:18px 0;border-radius:3px;
+  background:linear-gradient(90deg,var(--pink),var(--gold),var(--lime),var(--cyan),var(--violet),var(--pink));
+  background-size:300% 100%;animation:holo 6s linear infinite;box-shadow:0 0 10px rgba(255,255,255,.3);}
+@keyframes holo{0%{background-position:0 0;}100%{background-position:300% 0;}}
+
+.panel-section{display:none;animation:fadein .4s ease;}
+.panel-section.show{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* welcome / home */
+.welcome-box{
+  border:3px ridge var(--chrome-2);border-radius:8px;padding:18px 20px;
+  background:radial-gradient(120% 100% at 0% 0%, rgba(255,60,199,.12), transparent 55%),#0c0a30;
+}
+.under-construction{
+  display:flex;align-items:center;gap:12px;justify-content:center;margin:16px 0;
+  background:repeating-linear-gradient(45deg,#ffd23f 0 16px,#000 16px 32px);
+  border:3px solid #000;padding:8px;font-family:"Arial Black",sans-serif;
+}
+.under-construction span{
+  background:#000;color:var(--gold);padding:4px 12px;font-size:18px;letter-spacing:1px;
+  border:1px solid var(--gold);
+}
+.cone{width:34px;height:34px;flex:none;
+  background:linear-gradient(180deg,#ff7a1a,#ff7a1a 30%,#fff 30% 40%,#ff7a1a 40% 62%,#fff 62% 72%,#ff7a1a 72%);
+  clip-path:polygon(50% 0,72% 100%,28% 100%);}
+
+/* stat table (about) */
+.stats{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px;}
+.stats th,.stats td{border:1px solid #3a3a6a;padding:6px 9px;text-align:left;}
+.stats th{background:linear-gradient(180deg,#2a1a5a,#160b3a);color:var(--cyan);font-family:var(--mono);
+  letter-spacing:1px;width:42%;font-weight:400;}
+.stats td{background:#0c0a2e;}
+
+.avatar{width:130px;height:150px;float:right;margin:0 0 12px 16px;}
+
+/* placeholder imagery (striped) */
+.ph{
+  background:repeating-linear-gradient(45deg,#1c163f 0 10px,#241c52 10px 20px);
+  border:2px solid #4a3f86;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:var(--mono);font-size:13px;color:#a79fe0;padding:6px;
+  box-shadow:0 0 14px rgba(154,92,255,.25) inset;
+}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.proj{
+  border:2px outset var(--chrome-2);border-radius:8px;overflow:hidden;
+  background:linear-gradient(180deg,#13103e,#0a0826);
+  display:flex;flex-direction:column;
+}
+.proj .shot{height:118px;}
+.proj .body{padding:11px 12px 13px;}
+.proj h3{margin:0 0 4px;font-family:var(--comic);font-size:19px;color:var(--lime);}
+.proj .meta{font-family:var(--mono);font-size:13px;color:var(--gold);margin:0 0 6px;}
+.proj p{margin:0 0 9px;font-size:14px;line-height:1.45;color:#d8d3ff;}
+.proj .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px;}
+.proj .tags em{font-style:normal;font-family:var(--mono);font-size:12px;background:#241a55;color:var(--cyan);
+  border:1px solid #4a3f86;border-radius:10px;padding:1px 8px;}
+.btn-holo{
+  align-self:flex-start;font-family:var(--comic);font-weight:700;font-size:14px;cursor:inherit;
+  text-decoration:none;color:#161038;padding:6px 14px;border:2px outset #fff;border-radius:6px;
+  background:linear-gradient(90deg,var(--pink),var(--gold),var(--cyan));background-size:200% 100%;
+  animation:holo 4s linear infinite;box-shadow:0 2px 6px rgba(0,0,0,.4);
+}
+.btn-holo:active{border-style:inset;transform:translateY(1px);}
+.new-badge{font-family:var(--mono);font-size:12px;color:#fff;background:var(--pink);
+  border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:middle;box-shadow:0 0 8px var(--pink);}
+
+/* webrings */
+.webring{
+  border:3px ridge var(--chrome-2);border-radius:8px;padding:14px;margin-bottom:16px;
+  background:#0b0930;text-align:center;
+}
+.webring .title{font-family:var(--mono);font-size:18px;color:var(--gold);letter-spacing:1px;}
+.webring .members{font-size:14px;color:var(--cyan);margin:6px 0 10px;font-family:var(--mono);}
+.ring-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.ring-nav button{font-family:var(--comic);font-weight:700;font-size:15px;cursor:inherit;
+  padding:7px 14px;border:2px outset var(--chrome-1);border-radius:6px;color:#16204a;
+  background:linear-gradient(180deg,#fff,#cdd7f0 50%,#9fb0da 51%,#e7edfb);}
+.ring-nav button:active{border-style:inset;transform:translateY(1px);}
+.toast{
+  font-family:var(--mono);font-size:15px;color:var(--lime);margin-top:10px;min-height:20px;
+}
+.ring-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ring-list li{display:flex;align-items:center;gap:8px;background:#0d0b32;border:1px solid #3a3a6a;
+  border-radius:5px;padding:6px 8px;font-size:14px;}
+.ring-list .dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor;}
+
+/* guestbook */
+.gb-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  background:#0b0930;border:2px ridge var(--chrome-2);border-radius:8px;padding:14px;margin-bottom:18px;}
+.gb-form .full{grid-column:1/-1;}
+.gb-form label{display:block;font-family:var(--mono);font-size:14px;color:var(--cyan);margin-bottom:3px;letter-spacing:1px;}
+.gb-form input,.gb-form select,.gb-form textarea{
+  width:100%;font-family:var(--comic);font-size:15px;padding:7px 9px;border:2px inset #8899bb;
+  border-radius:4px;background:#f3f1ff;color:#161038;}
+.gb-form textarea{resize:vertical;min-height:64px;}
+.gb-form .submit{font-family:"Arial Black",sans-serif;font-size:16px;cursor:inherit;color:#161038;
+  border:2px outset #fff;border-radius:6px;padding:9px;
+  background:linear-gradient(90deg,var(--lime),var(--cyan),var(--pink));background-size:200% 100%;
+  animation:holo 4s linear infinite;}
+.gb-form .submit:active{border-style:inset;}
+.gb-entry{border:2px groove var(--chrome-3);border-radius:7px;padding:11px 13px;margin-bottom:11px;
+  background:linear-gradient(180deg,#100d36,#0a0826);}
+.gb-entry .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.gb-entry .who{font-family:var(--comic);font-weight:700;color:var(--lime);font-size:17px;}
+.gb-entry .who a{color:var(--cyan);}
+.gb-entry .when{font-family:var(--mono);font-size:13px;color:#8a86b8;}
+.gb-entry .mood{font-family:var(--mono);font-size:13px;color:var(--gold);}
+.gb-entry .msg{margin:6px 0 0;font-size:15px;line-height:1.5;color:#e8e4ff;}
+
+/* ---------- footer badges ---------- */
+.footer{
+  border-top:2px solid #000;background:linear-gradient(180deg,#0b0930,#08061f);
+  padding:16px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;
+}
+.badge{
+  font-family:var(--mono);font-size:13px;line-height:1.2;border:2px outset var(--chrome-3);
+  border-radius:4px;padding:6px 9px;text-align:center;color:#fff;
+  background:linear-gradient(180deg,#1a1450,#0c0a2e);min-width:90px;
+}
+.badge b{display:block;font-size:14px;}
+.badge.holo{background:linear-gradient(90deg,var(--pink),var(--gold),var(--lime),var(--cyan),var(--violet));
+  background-size:300% 100%;animation:holo 6s linear infinite;color:#160d2e;border-color:#fff;}
+.badge.holo b{color:#160d2e;}
+.badge.green{color:var(--lime);}
+.badge .res{color:var(--cyan);}
+.flagcounter{display:flex;flex-direction:column;gap:4px;}
+.flagrow{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
+.flag{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:12px;color:#cfe;}
+.flag i{width:16px;height:11px;display:inline-block;border:1px solid #000;border-radius:1px;}
+
+.copyright{font-family:var(--mono);font-size:13px;color:#7a76a8;text-align:center;padding:10px;}
+.copyright .holo-text{
+  background:linear-gradient(90deg,var(--pink),var(--cyan),var(--lime),var(--pink));
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:holo 5s linear infinite;font-weight:700;}
+
+/* tiny-screen nudge */
+.res-warn{display:none;}
+@media (max-width:680px){
+  .frames{flex-direction:column;}
+  .sidebar{width:auto;border-right:0;border-bottom:2px solid #000;}
+  .proj-grid,.gb-form,.ring-list{grid-template-columns:1fr;}
+  .chrome-logo{font-size:42px;}
+  .res-warn{display:block;font-family:var(--mono);color:var(--gold);text-align:center;
+    background:#000;padding:6px;font-size:14px;}
+}
+
+</style>
+<body>
+
+<div class="res-warn">&#9888; this site is best viewed at 1024&times;768. please maximize your window!</div>
+
+<div class="desktop">
+ <div class="desktop-inner">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="flare"></div>
+    <div class="flare two"></div>
+    <h1 class="chrome-logo"><span class="star">&#10022;</span> STARLITVOID <span class="star">&#10022;</span></h1>
+    <p class="tagline">~ the personal homepage of Jess ~ webmistress &middot; 3D dreamer &middot; midi archivist ~</p>
+    <div class="marquee"><span>
+      &#9733; WELCOME 2 MY CORNER OF CYBERSPACE &#9733;&nbsp;&nbsp; <b>NOW WITH 100% MORE CHROME!!</b>&nbsp;&nbsp;
+      <i>new renders in the gallery</i> &raquo;&raquo; please sign my guestbook b4 u leave &laquo;&laquo;
+      &nbsp;&nbsp; this page is under eternal construction &nbsp;&nbsp; <b>shoutout 2 everyone in the Iridescent Dreamers webring</b> &nbsp;&nbsp;
+      &#9733; thx 4 visiting &#9733;
+    </span></div>
+  </header>
+
+  <!-- ============ FRAMES: SIDEBAR + CONTENT ============ -->
+  <div class="frames">
+
+    <!-- ---- SIDEBAR ---- -->
+    <aside class="sidebar">
+      <p class="navlabel">&#9658; NAVIGATE &#9668;</p>
+      <nav class="nav">
+        <button data-section="home"><span class="blink">&#9733;</span> Home</button>
+        <button data-section="about">&#128100; About Me</button>
+        <button data-section="projects">&#128187; Projects</button>
+        <button data-section="webrings">&#128279; Webrings</button>
+        <button data-section="guestbook">&#9999; Guestbook</button>
+      </nav>
+
+      <!-- MIDI player -->
+      <div class="widget player">
+        <h4>&#9835; MIDI JUKEBOX &#9835;</h4>
+        <div class="nowplay">&#9834; loading&hellip;</div>
+        <div class="viz"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <ul class="tracklist">
+          <li data-title="canyon.mid">canyon.mid</li>
+          <li data-title="clouds3.mid">clouds3.mid</li>
+          <li data-title="finalboss.mid">finalboss.mid</li>
+          <li data-title="2cool4u.mid">2cool4u.mid</li>
+        </ul>
+        <div class="controls">
+          <button data-act="prev">&#9198;</button>
+          <button data-act="play">&#9654; PLAY</button>
+          <button data-act="next">&#9197;</button>
+        </div>
+        <p class="silent-note">(silent &mdash; your speakers r safe)</p>
+      </div>
+
+      <!-- Hit counter -->
+      <div class="widget">
+        <h4>&#128200; HIT COUNTER</h4>
+        <div class="odo" id="odo"></div>
+        <p class="counter-cap" id="you-are">you are visitor #&hellip;</p>
+      </div>
+
+      <!-- Guestbook plug -->
+      <div class="widget guest-plug">
+        <a href="#" data-goto="guestbook"><span class="blink">&#9755;</span> SIGN MY<br>GUESTBOOK! <span class="blink">&#9754;</span></a>
+      </div>
+    </aside>
+
+    <!-- ---- CONTENT ---- -->
+    <main class="content">
+
+      <!-- ===== HOME ===== -->
+      <section class="panel-section" id="sec-home">
+        <h2>Welcome!!</h2>
+        <p class="subhead">[ you have entered :: StarlitVoid v3.0 ]</p>
+        <div class="welcome-box">
+          <p>Hiya, and welcome to my little pocket of the World Wide Web! &#9728; I'm <b>Jess</b> &mdash;
+          17, perpetually online, and I make 3D art when my poor computer lets me. I built this site by hand in
+          Notepad (view source if u don't believe me &#128521;).</p>
+          <p>Grab a snack, the MIDI's already playing, and click around using the panel on the left.
+          Don't forget to <a href="#" data-goto="guestbook">sign the guestbook</a> before you sign off!</p>
+        </div>
+
+        <div class="under-construction">
+          <div class="cone"></div>
+          <span>UNDER CONSTRUCTION</span>
+          <div class="cone"></div>
+        </div>
+
+        <hr class="hr-holo">
+        <h3 style="font-family:var(--mono);color:var(--cyan);letter-spacing:1px;">&#9658; WHAT'S NEW</h3>
+        <ul style="font-size:16px;line-height:1.7;">
+          <li><b style="color:var(--lime)">05/29</b> &mdash; uploaded 2 new Bryce landscapes <span class="new-badge">NEW!</span></li>
+          <li><b style="color:var(--lime)">05/12</b> &mdash; joined the <a href="#" data-goto="webrings">Iridescent Dreamers</a> webring</li>
+          <li><b style="color:var(--lime)">04/28</b> &mdash; finally fixed the guestbook (sry it was broke 4 a month)</li>
+          <li><b style="color:var(--lime)">04/03</b> &mdash; added 2cool4u.mid to the jukebox</li>
+        </ul>
+      </section>
+
+      <!-- ===== ABOUT ===== -->
+      <section class="panel-section" id="sec-about">
+        <h2>About Me</h2>
+        <p class="subhead">[ a.k.a. who is StarlitVoid?? ]</p>
+
+        <div class="avatar ph" style="height:150px;">webmistress<br>self-portrait<br>(150&times;150)</div>
+        <p>Hey! The name's <b>Jess</b> but online everybody calls me StarlitVoid (long story, involves a
+        screensaver). I taught myself HTML the summer of '99 from a library book and I've been making
+        websites ever since. By day I'm a high-school junior; by night I'm rendering spheres on a checkerboard
+        floor and waiting 40 minutes for them to finish.</p>
+        <p>My dream is to make backgrounds for video games someday. For now I practice in Bryce 3D and a
+        cracked copy of 3D Studio my cousin gave me. I also collect MIDIs, hoard desktop wallpapers, and
+        run three webrings (badly).</p>
+
+        <hr class="hr-holo">
+        <h3 style="font-family:var(--mono);color:var(--gold);letter-spacing:1px;">&#9658; VITAL STATZ</h3>
+        <table class="stats">
+          <tr><th>Real name</th><td>Jess (last name's a secret, sry!)</td></tr>
+          <tr><th>Age / sign</th><td>17 / Aquarius &#9810;</td></tr>
+          <tr><th>Location</th><td>somewhere cold, EST timezone</td></tr>
+          <tr><th>Rig</th><td>Pentium III 733MHz, 256MB RAM (loaded!), 56k modem</td></tr>
+          <tr><th>Fav browser</th><td>Netscape Navigator 4.7 (IE is for squares)</td></tr>
+          <tr><th>Currently into</th><td>raytracing, glitter graphics, late-night ICQ</td></tr>
+          <tr><th>Fav bands</th><td>anything I can find a MIDI of</td></tr>
+          <tr><th>Pets</th><td>1 cat (Pixel), 6 Neopets, 12 pixel adoptables</td></tr>
+        </table>
+
+        <p style="margin-top:14px;font-family:var(--mono);color:#9a96c8;">
+          &#9993; e-mail me: starlitvoid &lt;at&gt; hotmail &lt;dot&gt; com &mdash; (typed out so the spam-bots can't get me!)
+        </p>
+      </section>
+
+      <!-- ===== PROJECTS ===== -->
+      <section class="panel-section" id="sec-projects">
+        <h2>My Projects</h2>
+        <p class="subhead">[ the stuff I actually made &mdash; sorted, dated &amp; documented ]</p>
+
+        <div class="proj-grid">
+
+          <div class="proj">
+            <div class="shot ph">render: floating crystal isle<br>(640&times;480 .jpg)</div>
+            <div class="body">
+              <h3>Bryce Dreamscapes <span class="new-badge">NEW!</span></h3>
+              <p class="meta">2001 &middot; status: ongoing &middot; 18 renders</p>
+              <p>A growing gallery of 3D landscapes &mdash; floating islands, alien sunsets, the obligatory
+              chrome sphere on a checkerboard. Each one has render times &amp; settings documented.</p>
+              <div class="tags"><em>Bryce 3D</em><em>raytracing</em><em>gallery</em></div>
+              <a class="btn-holo" href="#" onclick="return false">ENTER GALLERY &raquo;</a>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="shot ph">player skin mockup<br>(.gif)</div>
+            <div class="body">
+              <h3>The MIDI Crypt</h3>
+              <p class="meta">2000 &middot; status: maintained &middot; 240+ files</p>
+              <p>My personal MIDI archive, all tagged by game, genre &amp; sequencer. Organized in a real
+              category index &mdash; no broken links, I check them monthly. (I am very serious about this.)</p>
+              <div class="tags"><em>archive</em><em>audio</em><em>catalogued</em></div>
+              <a class="btn-holo" href="#" onclick="return false">BROWSE CRYPT &raquo;</a>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="shot ph">pixel dollz sheet<br>(.png)</div>
+            <div class="body">
+              <h3>Pixel Dollz Atelier</h3>
+              <p class="meta">2001 &middot; status: open for requests</p>
+              <p>Hand-pixeled adoptables &amp; dollz, drawn 1px at a time in MS Paint. Free to use if u
+              link back! Comes with a proper adoption certificate &amp; usage rules.</p>
+              <div class="tags"><em>pixel art</em><em>adoptables</em><em>MS Paint</em></div>
+              <a class="btn-holo" href="#" onclick="return false">ADOPT ONE &raquo;</a>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="shot ph">tutorial screenshot<br>(.gif)</div>
+            <div class="body">
+              <h3>HTML Tipz &amp; Trickz</h3>
+              <p class="meta">2000&ndash;01 &middot; status: 11 tutorials</p>
+              <p>Step-by-step guides on the stuff people email me about: chrome WordArt, marquees,
+              and yes &mdash; how to make a hit counter that actually works. Beginner friendly!</p>
+              <div class="tags"><em>tutorials</em><em>HTML</em><em>copy-paste</em></div>
+              <a class="btn-holo" href="#" onclick="return false">LEARN STUFF &raquo;</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== WEBRINGS ===== -->
+      <section class="panel-section" id="sec-webrings">
+        <h2>Webrings</h2>
+        <p class="subhead">[ surf the ring &mdash; discover other rad sites ]</p>
+
+        <div class="webring" data-webring>
+          <div class="title">&#10022; The Iridescent Dreamers Webring &#10022;</div>
+          <div class="members">site #7 of 9 &middot; est. 2001 &middot; keeper: StarlitVoid</div>
+          <div class="ring-nav">
+            <button data-ring="prev">&laquo; PREV</button>
+            <button data-ring="random">&#10022; RANDOM</button>
+            <button data-ring="list">&#9776; LIST ALL</button>
+            <button data-ring="next">NEXT &raquo;</button>
+          </div>
+          <div class="toast">&#9658; click a button to surf the ring &hellip;</div>
+        </div>
+
+        <h3 style="font-family:var(--mono);color:var(--cyan);letter-spacing:1px;">&#9658; RINGS I'M IN</h3>
+        <ul class="ring-list">
+          <li><span class="dot" style="color:var(--pink)"></span> Iridescent Dreamers <em style="margin-left:auto;font-style:normal;font-family:var(--mono);color:#8a86b8;">(keeper)</em></li>
+          <li><span class="dot" style="color:var(--cyan)"></span> 3D Render Junkies</li>
+          <li><span class="dot" style="color:var(--lime)"></span> MIDI Maniacs United</li>
+          <li><span class="dot" style="color:var(--gold)"></span> Pixel Dollz Collective</li>
+          <li><span class="dot" style="color:var(--violet)"></span> Netscape 4 Loyalists</li>
+          <li><span class="dot" style="color:var(--pink)"></span> The Glitter Graphics Guild</li>
+        </ul>
+
+        <hr class="hr-holo">
+        <p style="font-family:var(--mono);color:#9a96c8;font-size:15px;">
+          want to join the Iridescent Dreamers? &#9993; e-mail me your URL &amp; a 88&times;31 button.
+          rules: must be ad-light, no frames-only sites, &amp; you gotta link back. that's it!
+        </p>
+      </section>
+
+      <!-- ===== GUESTBOOK ===== -->
+      <section class="panel-section" id="sec-guestbook">
+        <h2>Guestbook</h2>
+        <p class="subhead">[ <span id="gb-count">0</span> souls have signed &mdash; add yours! ]</p>
+
+        <form class="gb-form" id="gb-form" autocomplete="off">
+          <div>
+            <label for="gb-name">Your name / handle *</label>
+            <input id="gb-name" name="name" type="text" maxlength="40" placeholder="xX_CoolHandle_Xx">
+          </div>
+          <div>
+            <label for="gb-url">Your homepage URL</label>
+            <input id="gb-url" name="url" type="text" maxlength="80" placeholder="geocities.com/...">
+          </div>
+          <div class="full">
+            <label for="gb-mood">Current mood</label>
+            <select id="gb-mood" name="mood">
+              <option>stoked</option><option>nostalgic</option><option>2 cool</option>
+              <option>vibing</option><option>online</option><option>tired (homework)</option>
+            </select>
+          </div>
+          <div class="full">
+            <label for="gb-msg">Message *</label>
+            <textarea id="gb-msg" name="msg" maxlength="500" placeholder="say something nice... or ask me how I did the chrome text!"></textarea>
+          </div>
+          <button class="submit full" type="submit">&#9999; SIGN THE GUESTBOOK &#9999;</button>
+        </form>
+        <p id="gb-thanks" style="display:none;font-family:var(--mono);color:var(--lime);text-align:center;">
+          &#10024; thanx 4 signing!! ur entry is at the top &#10024;
+        </p>
+
+        <div id="gb-entries"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============ FOOTER BADGES ============ -->
+  <div class="footer">
+    <div class="badge holo"><b>&#9819; COOL SITE</b>OF THE DAY</div>
+    <div class="badge"><b style="color:var(--gold)">&#9733;&#9733;&#9733;&#9733;&#9733;</b>GeoCities pick</div>
+    <div class="badge green"><b>BEST VIEWED IN</b>Netscape 4.7</div>
+    <div class="badge"><b>GET</b>Internet Explorer 5</div>
+    <div class="badge"><b>best viewed at</b><span class="res">1024&times;768</span></div>
+    <div class="badge"><b>made with</b>Notepad &amp; &#9829;</div>
+    <div class="badge"><b>HTML</b>4.01 valid!</div>
+    <div class="badge flagcounter">
+      <b style="font-size:13px;color:var(--cyan)">&#9873; VISITORS</b>
+      <div class="flagrow">
+        <span class="flag"><i style="background:linear-gradient(#b22,#fff,#b22)"></i>US 8.2k</span>
+        <span class="flag"><i style="background:linear-gradient(90deg,#06c,#fff,#c00)"></i>UK 1.1k</span>
+        <span class="flag"><i style="background:linear-gradient(90deg,#c00,#fff)"></i>CA 940</span>
+      </div>
+      <div class="flagrow">
+        <span class="flag"><i style="background:linear-gradient(90deg,#000,#c00,#fc0)"></i>DE 612</span>
+        <span class="flag"><i style="background:linear-gradient(#fff,#c00)"></i>JP 488</span>
+        <span class="flag"><i style="background:linear-gradient(90deg,#093,#fff,#c00)"></i>+44 more</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">
+    &copy; 2001&ndash;2026 <span class="holo-text">StarlitVoid</span> &middot; all rights reserved &middot; do not steal my graphics!!
+    &middot; this site has been <span class="holo-text">eternally under construction</span> since 08/1999
+  </div>
+
+ </div>
+</div>
+
+<script>/* ============================================================
+   STARLITVOID :: behaviors
+   Clean little modules under all that chrome. No globals leak
+   beyond SV.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var SV = {};
+
+  /* ---------- NAVIGATION (frames-style section swap) ---------- */
+  SV.nav = function () {
+    var btns = document.querySelectorAll(".nav button[data-section]");
+    var panels = document.querySelectorAll(".panel-section");
+    function show(id) {
+      panels.forEach(function (p) { p.classList.toggle("show", p.id === "sec-" + id); });
+      btns.forEach(function (b) { b.classList.toggle("active", b.dataset.section === id); });
+      try { history.replaceState(null, "", "#" + id); } catch (e) {}
+      var c = document.querySelector(".content");
+      if (c) c.scrollTop = 0;
+    }
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () { show(b.dataset.section); });
+    });
+    // deep-link + guestbook plug
+    document.querySelectorAll("[data-goto]").forEach(function (el) {
+      el.addEventListener("click", function (e) { e.preventDefault(); show(el.dataset.goto); });
+    });
+    var start = (location.hash || "").replace("#", "");
+    var valid = ["home", "about", "projects", "webrings", "guestbook"];
+    show(valid.indexOf(start) >= 0 ? start : "home");
+  };
+
+  /* ---------- HIT COUNTER (persistent odometer) ---------- */
+  SV.counter = function () {
+    var box = document.getElementById("odo");
+    if (!box) return;
+    var KEY = "sv_hits";
+    var n = parseInt(localStorage.getItem(KEY) || "0", 10);
+    if (!n) n = 13370;            // a respectable starting figure
+    n += 1;                        // YOU are the latest visitor
+    localStorage.setItem(KEY, String(n));
+    var s = String(n).padStart(7, "0");
+    box.innerHTML = "";
+    s.split("").forEach(function (d) {
+      var b = document.createElement("b"); b.textContent = d; box.appendChild(b);
+    });
+    var you = document.getElementById("you-are");
+    if (you) you.textContent = "You are visitor #" + n;
+  };
+
+  /* ---------- MIDI PLAYER (silent, all vibes) ---------- */
+  SV.player = function () {
+    var root = document.querySelector(".player");
+    if (!root) return;
+    var now = root.querySelector(".nowplay");
+    var items = root.querySelectorAll(".tracklist li");
+    var playBtn = root.querySelector("[data-act='play']");
+    var playing = false, current = 0;
+    function select(i) {
+      current = i;
+      items.forEach(function (li, k) { li.classList.toggle("sel", k === i); });
+      now.textContent = "\u266A " + items[i].dataset.title;
+    }
+    function setPlaying(p) {
+      playing = p;
+      root.classList.toggle("playing", p);
+      playBtn.textContent = p ? "\u23F8 PAUSE" : "\u25B6 PLAY";
+    }
+    items.forEach(function (li, i) {
+      li.addEventListener("click", function () { select(i); setPlaying(true); });
+    });
+    playBtn.addEventListener("click", function () { setPlaying(!playing); });
+    root.querySelector("[data-act='next']").addEventListener("click", function () {
+      select((current + 1) % items.length); setPlaying(true);
+    });
+    root.querySelector("[data-act='prev']").addEventListener("click", function () {
+      select((current - 1 + items.length) % items.length); setPlaying(true);
+    });
+    select(0); setPlaying(true); // autoplay (silently) like it's 2001
+  };
+
+  /* ---------- WEBRING ---------- */
+  SV.webring = function () {
+    var ring = document.querySelector("[data-webring]");
+    if (!ring) return;
+    var sites = [
+      "NeonKitten.geocities.com", "xX_DragonForge_Xx.tripod.com", "PixelPetz.angelfire.com",
+      "TheMidiCrypt.50megs.com", "GlitterGrrl2001.geocities.com", "RetroRayTrace.homestead.com",
+      "StarlitVoid.geocities.com", "CyberToadz.tripod.com", "MoonRunes.angelfire.com"
+    ];
+    var toast = ring.querySelector(".toast");
+    var here = sites.indexOf("StarlitVoid.geocities.com");
+    function warp(to, label) {
+      toast.textContent = "\u27A4 " + label + " :: warping to " + to + " \u2026";
+      var dots = 0, t = setInterval(function () {
+        dots = (dots + 1) % 4;
+        toast.textContent = "\u27A4 " + label + " :: warping to " + to + " " + Array(dots + 1).join(".");
+      }, 250);
+      setTimeout(function () {
+        clearInterval(t);
+        toast.textContent = "\u2715 connection refused \u2014 site moved to MySpace. (it's 2026 out there!)";
+      }, 1600);
+    }
+    ring.querySelector("[data-ring='prev']").addEventListener("click", function () {
+      var i = (here - 1 + sites.length) % sites.length; warp(sites[i], "PREV");
+    });
+    ring.querySelector("[data-ring='next']").addEventListener("click", function () {
+      var i = (here + 1) % sites.length; warp(sites[i], "NEXT");
+    });
+    ring.querySelector("[data-ring='random']").addEventListener("click", function () {
+      var i; do { i = Math.floor(Math.random() * sites.length); } while (i === here);
+      warp(sites[i], "RANDOM");
+    });
+    ring.querySelector("[data-ring='list']").addEventListener("click", function () {
+      toast.textContent = "\u2630 " + sites.length + " rad sites in this ring (see roster below)";
+    });
+  };
+
+  /* ---------- GUESTBOOK (persistent) ---------- */
+  SV.guestbook = function () {
+    var form = document.getElementById("gb-form");
+    var list = document.getElementById("gb-entries");
+    var count = document.getElementById("gb-count");
+    if (!form || !list) return;
+    var KEY = "sv_guestbook";
+    var seed = [
+      { name: "WebMasterDave", url: "geocities.com/siliconvalley", mood: "stoked",
+        msg: "AWESOME site!! how did u do the chrome text?? plz email me the code. signing all the guestbooks today, this one's the best one!!", when: "08/14/2001 11:42 PM" },
+      { name: "~*~MidiQueen~*~", url: "", mood: "nostalgic",
+        msg: "omg canyon.mid was the FIRST song i ever sequenced. thank u for keeping the dream alive. <3 added u to my links page!", when: "09/02/2001 04:17 PM" },
+      { name: "dial_up_warrior", url: "", mood: "patient",
+        msg: "took 4 mins to load on my 56k but TOTALLY worth it. the renders are sick. how long does bryce take per frame??", when: "10/30/2001 09:55 PM" }
+    ];
+    var entries;
+    try { entries = JSON.parse(localStorage.getItem(KEY)) || seed; }
+    catch (e) { entries = seed; }
+
+    function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+    function render() {
+      list.innerHTML = "";
+      entries.forEach(function (en) {
+        var who = en.url
+          ? '<a href="#" onclick="return false">' + esc(en.name) + "</a>"
+          : esc(en.name);
+        var url = en.url ? ' <span class="when">&laquo; ' + esc(en.url) + " &raquo;</span>" : "";
+        var div = document.createElement("div");
+        div.className = "gb-entry";
+        div.innerHTML =
+          '<div class="top"><span class="who">' + who + url + "</span>" +
+          '<span class="when">' + esc(en.when) + "</span></div>" +
+          '<div class="mood">mood: ' + esc(en.mood) + "</div>" +
+          '<p class="msg">' + esc(en.msg) + "</p>";
+        list.appendChild(div);
+      });
+      if (count) count.textContent = entries.length;
+    }
+    function stamp() {
+      var d = new Date();
+      function p(n){return String(n).padStart(2,"0");}
+      var h = d.getHours(), ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12;
+      return p(d.getMonth()+1)+"/"+p(d.getDate())+"/"+d.getFullYear()+" "+p(h)+":"+p(d.getMinutes())+" "+ap;
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      var name = f.name.value.trim(); if (!name) { f.name.focus(); return; }
+      var msg = f.msg.value.trim(); if (!msg) { f.msg.focus(); return; }
+      entries.unshift({
+        name: name, url: f.url.value.trim(), mood: f.mood.value,
+        msg: msg, when: stamp()
+      });
+      try { localStorage.setItem(KEY, JSON.stringify(entries)); } catch (e2) {}
+      render();
+      form.reset();
+      var ok = document.getElementById("gb-thanks");
+      if (ok) { ok.style.display = "block"; setTimeout(function(){ok.style.display="none";}, 4000); }
+    });
+    render();
+  };
+
+  /* ---------- CURSOR SPARKLE TRAIL ---------- */
+  SV.sparkles = function () {
+    var colors = ["#ff3cc7", "#3ff7ff", "#bdff2e", "#ffd23f", "#9a5cff", "#ffffff"];
+    var last = 0;
+    var svg = function (c) {
+      return "url(\"data:image/svg+xml;utf8," + encodeURIComponent(
+        "<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'>" +
+        "<polygon points='7,0 8.6,5.4 14,7 8.6,8.6 7,14 5.4,8.6 0,7 5.4,5.4' fill='" + c + "'/></svg>"
+      ) + "\")";
+    };
+    window.addEventListener("mousemove", function (e) {
+      var t = Date.now();
+      if (t - last < 38) return;       // throttle
+      last = t;
+      var s = document.createElement("div");
+      s.className = "spark";
+      s.style.left = e.clientX + "px";
+      s.style.top = e.clientY + "px";
+      s.style.backgroundImage = svg(colors[(Math.random() * colors.length) | 0]);
+      s.style.backgroundSize = "100% 100%";
+      document.body.appendChild(s);
+      setTimeout(function () { s.remove(); }, 700);
+    }, { passive: true });
+  };
+
+  /* ---------- BOOT ---------- */
+  document.addEventListener("DOMContentLoaded", function () {
+    SV.nav();
+    SV.counter();
+    SV.player();
+    SV.webring();
+    SV.guestbook();
+    SV.sparkles();
+  });
+
+  window.SV = SV;
+})();
+</script>
+</body>
+</html>
