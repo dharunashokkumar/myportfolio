@@ -46,7 +46,7 @@ Standalone single-file experiments (CPU architecture explorer, shader wallpapers
   - `css/responsive.css` — the global `@media screen` breakpoints and the `@media print` block.
   - `css/modules.css` — `.featured_post`, wiki/about, contact-grid, timeline, project-card components, `#secret-lock`, vault, top-slider (each keeps its own embedded media queries).
   - **Cascade order is load-bearing** — the partials are sequential slices of the old monolith; keep the `@import` order in `main.css` unchanged.
-- Page-scoped stylesheets (each linked only from its one page, never `@import`ed into `main.css`): `css/resume.css` (resume.html — the Instrument Serif + Inter + Caveat micro-system, kept isolated), `css/opensource.css` (opensource.html), `css/lpulabs.css` (projects/lpulabs.html).
+- Page-scoped stylesheets (each linked only from its one page, never `@import`ed into `main.css`): `css/resume.css` (resume.html — layout for the collapsible resume sections, scoped to `.resume-page`; uses the global Merriweather/greyscale system, no separate fonts), `css/opensource.css` (opensource.html), `css/lpulabs.css` (projects/lpulabs.html).
 - `img/` — site imagery (`main.webp`, `lpulogo.jpeg`, still-life PNGs, etc.).
 - `files/dharun-ashokkumar-resume.pdf` — the downloadable resume.
 - `favicon/favicon.png` — referenced from every page's `<head>`.
@@ -71,7 +71,7 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 - **Animation: almost none.** Drawer `max-height 0.4s`, footer fade `0.6s`, link hover `0.3s`, thumblist arrow `0.2s`. **No shimmer, parallax, or scroll-driven effects.**
 - One shadow exists site-wide: `0 2px 8px rgba(0,0,0,.08)` on the top-slider drawer only.
 - Body ink is `#555`, never `#000` or `#333` (those are reserved for `:active` state and infobox labels).
-- The resume page (`resume.html`) is the **one** page allowed its own micro-system (Instrument Serif + Inter + Caveat). Do not extend that escape hatch to any other page.
+- Every page, including `resume.html`, uses the global system (Merriweather, greyscale, lowercase). There is no per-page font escape hatch — don't introduce one.
 - **Voice:** first-person, lowercase, contractions ok, short sentences, no marketing verbs.
 
 ## Conventions
@@ -80,6 +80,11 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 - Every page shares the same header/nav and links to `css/main.css`.
 - Google Analytics tag `G-DGWHDZMCF6` is included in every page's `<head>`.
 - SEO: structured data (Schema.org JSON-LD), Open Graph, and Twitter Card meta are present on key pages; `sitemap.xml` and `robots.txt` live at root. **New content pages (projects, reflections) must be added to `sitemap.xml` manually.**
+
+## Git
+
+- **No AI attribution in commits.** Do not add a `Co-Authored-By` trailer (or any "Generated with Claude" / AI mention) to commit messages or PR bodies.
+- Work is committed directly to `main` (trunk-based; the repo root deploys to dharunashokkumar.com). Only commit or push when asked.
 
 ## Vault (PIN-protected page)
 

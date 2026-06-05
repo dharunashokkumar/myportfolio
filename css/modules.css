@@ -14,7 +14,7 @@
 }
 
 .wiki-title {
-  border-bottom: 1px solid #a2a9b1;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 0.25rem;
   margin-bottom: 0.5rem;
 }
@@ -27,8 +27,8 @@
 .wiki-infobox {
   float: right;
   width: 260px;
-  border: 1px solid #a2a9b1;
-  background: #f8f9fa;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
   margin: 0 0 1.5rem 1.5rem;
   font-size: 0.75rem;
   line-height: 1.3;
@@ -37,7 +37,7 @@
 .wiki-infobox .infobox-image {
   padding: 0.5rem;
   text-align: center;
-  background: #f8f9fa;
+  background: #f8f8f8;
 }
 
 .wiki-infobox .infobox-image img {
@@ -72,8 +72,8 @@
 }
 
 .wiki-toc {
-  background: #f8f9fa;
-  border: 1px solid #a2a9b1;
+  background: #f8f8f8;
+  border: 1px solid #ccc;
   padding: 0.75rem 1rem;
   display: inline-block;
   margin: 1rem 0;
@@ -107,19 +107,19 @@
 
 .wiki-table th,
 .wiki-table td {
-  border: 1px solid #a2a9b1;
+  border: 1px solid #ccc;
   padding: 0.4rem 0.6rem;
   text-align: left;
   color: #555;
 }
 
 .wiki-table th {
-  background: #eaecf0;
+  background: #eee;
   font-weight: 900;
 }
 
 .wiki-table tr:nth-child(even) {
-  background: #f8f9fa;
+  background: #f8f8f8;
 }
 
 @media screen and (max-width: 540px) {
@@ -144,8 +144,13 @@
 .contact-card {
   border: 1px solid #ddd;
   padding: 1rem;
-  background: #f8f9fa;
+  background: #f8f8f8;
   text-align: left;
+  transition: border-color 0.3s;
+}
+
+.contact-card:hover {
+  border-color: #999;
 }
 
 .contact-card h3 {
@@ -307,7 +312,7 @@
 
 /* Featured Items */
 .timeline-item.featured {
-  background: #f8f9fa;
+  background: #f8f8f8;
   padding: 1.5em;
   margin-left: auto;
   /* Change from "-1.5em" */
