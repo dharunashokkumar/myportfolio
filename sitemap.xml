@@ -4,49 +4,49 @@
 
   <url>
     <loc>https://dharunashokkumar.com/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/about.html</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects.html</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
 <url>
     <loc>https://dharunashokkumar.com/reflections.html</loc>
-  <lastmod>2026-05-29</lastmod>
+  <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/resume.html</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/opensource.html</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/contact.html</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -60,9 +60,23 @@
 
   <url>
     <loc>https://dharunashokkumar.com/lfprojects/index.html</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://dharunashokkumar.com/lfprojects/project.html?slug=coredns</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://dharunashokkumar.com/lfprojects/project.html?slug=openexr</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <url>
@@ -207,49 +221,49 @@
 
   <url>
     <loc>https://dharunashokkumar.com/projects/open-clearing-engine.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/indie-market-analyst.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/alt-data-platform-india.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/vmmanager.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/lpulabs.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/rler.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.72</priority>
   </url>
 
   <url>
     <loc>https://dharunashokkumar.com/projects/cs-archive.html</loc>
-    <lastmod>2026-05-29</lastmod>
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -1,5 +1,5 @@
 # robots.txt for dharunashokkumar.com
-# Updated: 2026-04-13
+# Updated: 2026-06-10
 
 User-agent: *
 Allow: /
@@ -7,16 +7,11 @@ Disallow: /vault.html
 
 # Keep static assets crawlable for rendering and rich results
 Allow: /css/
-Allow: /js/
 Allow: /img/
 Allow: /favicon/
 
 # Keep public content areas crawlable
 Allow: /projects/
-Allow: /reflections/
 Allow: /lfprojects/
-
-# Avoid indexing raw markdown source files used by lfprojects renderer
-Disallow: /lfprojects/projects/
 
 Sitemap: https://dharunashokkumar.com/sitemap.xml
