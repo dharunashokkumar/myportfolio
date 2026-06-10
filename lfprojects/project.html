@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>project | linux foundation projects</title>
+  <meta name="description" content="notes from exploring a linux foundation project — part of a documented journey through all 765 linux foundation projects by dharun ashokkumar.">
+  <meta name="author" content="Dharun Ashokkumar">
+  <link rel="canonical" href="https://dharunashokkumar.com/lfprojects/project.html" id="canonical-link">
+  <link rel="icon" href="/favicon/favicon.png">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dharun Ashokkumar">
+  <meta property="og:title" content="linux foundation projects | dharun ashokkumar" id="og-title">
+  <meta property="og:description" content="notes from exploring a linux foundation project." id="og-description">
+  <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../css/main.css">
 
   <!-- google analytics -->
@@ -410,10 +420,23 @@
       var params = new URLSearchParams(window.location.search);
       var slug = params.get('slug');
 
+      // tell crawlers not to index empty or unknown project pages
+      function setNoindex() {
+        var m = document.createElement('meta');
+        m.name = 'robots';
+        m.content = 'noindex, follow';
+        document.head.appendChild(m);
+      }
+
       if (!slug) {
         container.innerHTML = '<div class="error-message"><h2>project not found</h2><p>no project slug specified.</p><a class="back-link" href="index.html">&larr; back to all projects</a></div>';
+        setNoindex();
         return;
       }
+
+      // point search engines at the slug url as the canonical for this page
+      var canonical = document.getElementById('canonical-link');
+      canonical.setAttribute('href', 'https://dharunashokkumar.com/lfprojects/project.html?slug=' + encodeURIComponent(slug));
 
       fetch('projects.json')
         .then(function(res) { return res.json(); })
@@ -429,12 +452,26 @@
           if (!project) {
             container.innerHTML = '<div class="error-message"><h2>project not found</h2><p>"' + slug + '" does not match any project in the directory.</p><a class="back-link" href="index.html">&larr; back to all projects</a></div>';
             document.title = 'not found | linux foundation projects';
+            setNoindex();
             return;
           }
 
-          document.title = project.name.toLowerCase() + ' | linux foundation projects';
+          document.title = project.name.toLowerCase() + ' | linux foundation projects | dharun ashokkumar';
 
           var projectStatus = project.status || 'not started';
+
+          // unexplored projects are stubs — keep them out of the index
+          if (projectStatus === 'not started') setNoindex();
+
+          var pageDesc = 'notes on ' + project.name.toLowerCase() +
+            (project.categories && project.categories.length ? ' (' + project.categories.join(', ').toLowerCase() + ')' : '') +
+            ' — from a documented journey through all 765 linux foundation projects.';
+          var descMeta = document.querySelector('meta[name="description"]');
+          if (descMeta) descMeta.setAttribute('content', pageDesc);
+          var ogTitle = document.getElementById('og-title');
+          if (ogTitle) ogTitle.setAttribute('content', project.name.toLowerCase() + ' | linux foundation projects');
+          var ogDesc = document.getElementById('og-description');
+          if (ogDesc) ogDesc.setAttribute('content', pageDesc);
 
           // fetch the markdown file
           fetch(project.md_file)
