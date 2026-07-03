@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>a backtest that ignores costs is fiction | Dharun Ashokkumar</title>
+    <meta name="description" content="a note on modelling indian trading costs and point-in-time correctness — why honesty in financial software is the load-bearing wall, not a feature.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharunashokkumar.com/reflections/backtest-costs.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="a backtest that ignores costs is fiction">
+    <meta property="og:description" content="modelling indian trading costs and point-in-time correctness — why honesty is the load-bearing wall.">
+    <meta property="og:url" content="https://dharunashokkumar.com/reflections/backtest-costs.html">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="a backtest that ignores costs is fiction">
+    <meta name="twitter:description" content="cost models, lookahead bias, and point-in-time correctness in market tooling.">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "a backtest that ignores costs is fiction",
+      "description": "a note on modelling indian trading costs and point-in-time correctness — why honesty in financial software is the load-bearing wall, not a feature.",
+      "url": "https://dharunashokkumar.com/reflections/backtest-costs.html",
+      "datePublished": "2026-05-12",
+      "dateModified": "2026-05-29",
+      "inLanguage": "en-GB",
+      "keywords": "backtesting, point-in-time, lookahead bias, indian cost model, quantitative finance",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+      "mainEntityOfPage": "https://dharunashokkumar.com/reflections/backtest-costs.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharunashokkumar.com"},
+        {"@type":"ListItem","position":2,"name":"Reflections","item":"https://dharunashokkumar.com/reflections.html"},
+        {"@type":"ListItem","position":3,"name":"a backtest that ignores costs is fiction","item":"https://dharunashokkumar.com/reflections/backtest-costs.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <p class="list-note"><a href="/reflections.html">← reflections</a></p>
+        <h1>a backtest that ignores costs is fiction</h1>
+        <p class="inline-meta">2026.05 · backtesting, point-in-time, quant</p>
+
+        <p>the first version of every backtest i wrote was a lie. it bought at the close, sold later, and reported a number that felt great. then i added the indian cost model to <a href="/projects/indie-market-analyst.html">indie market analyst</a> — stt, stamp duty, exchange charges, sebi fees, gst, brokerage — and a lot of "strategies" quietly died. good. they were never alive.</p>
+        <p>the second lie is subtler: lookahead. it's terrifyingly easy to let a backtest peek at data it couldn't have known yet. that's why in <a href="/projects/alt-data-platform-india.html">the alt-data platform</a> i made point-in-time correctness structural — every feature carries the date it was published, and every read filters to what was knowable at the as-of moment. there's no api to see the future. you have to build the constraint into the foundation, because if you leave it to discipline, you will cheat without noticing.</p>
+        <p>honesty in financial software isn't a feature you add. it's the load-bearing wall.</p>
+
+        <hr class="dotted">
+        <p style="text-align:center; opacity:0.5;">written by <a href="https://dharunashokkumar.com">dharun ashokkumar</a> · <a href="/reflections.html">more reflections</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

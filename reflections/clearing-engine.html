@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWHDZMCF6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DGWHDZMCF6');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>why i built a clearing engine i'll probably never run in production | Dharun Ashokkumar</title>
+    <meta name="description" content="a note on building an event-sourced, deterministic clearing &amp; settlement engine in rust — and why correctness requirements shape the code more than the finance does.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharunashokkumar.com/reflections/clearing-engine.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="why i built a clearing engine i'll probably never run in production">
+    <meta property="og:description" content="a note on building an event-sourced, deterministic clearing &amp; settlement engine in rust — and why correctness requirements shape the code.">
+    <meta property="og:url" content="https://dharunashokkumar.com/reflections/clearing-engine.html">
+    <meta property="og:image" content="https://dharunashokkumar.com/img/main.webp">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="why i built a clearing engine i'll probably never run in production">
+    <meta name="twitter:description" content="event sourcing, determinism, and why the correctness requirements shape the code.">
+    <meta name="twitter:image" content="https://dharunashokkumar.com/img/main.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "why i built a clearing engine i'll probably never run in production",
+      "description": "a note on building an event-sourced, deterministic clearing & settlement engine in rust — and why correctness requirements shape the code more than the finance does.",
+      "url": "https://dharunashokkumar.com/reflections/clearing-engine.html",
+      "datePublished": "2026-05-20",
+      "dateModified": "2026-05-29",
+      "inLanguage": "en-GB",
+      "keywords": "clearing house, settlement, event sourcing, determinism, rust, learning by building",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharunashokkumar.com" },
+      "mainEntityOfPage": "https://dharunashokkumar.com/reflections/clearing-engine.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharunashokkumar.com"},
+        {"@type":"ListItem","position":2,"name":"Reflections","item":"https://dharunashokkumar.com/reflections.html"},
+        {"@type":"ListItem","position":3,"name":"why i built a clearing engine i'll probably never run in production","item":"https://dharunashokkumar.com/reflections/clearing-engine.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharunashokkumar.com">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <p class="list-note"><a href="/reflections.html">← reflections</a></p>
+        <h1>why i built a clearing engine i'll probably never run in production</h1>
+        <p class="inline-meta">2026.05 · rust, clearing &amp; settlement, event sourcing</p>
+
+        <p>i kept reading the phrase "the clearing house novates the trade" and realising i didn't actually understand it. so i built one. <a href="/projects/open-clearing-engine.html">open clearing engine</a> takes executed trades and runs them through the same pipeline a real clearing corporation uses — novation, position keeping, multilateral netting, settlement — with a span risk engine on top.</p>
+        <p>the thing that surprised me wasn't the finance. it was how much the <em>correctness</em> requirements shape the code. i made it event-sourced and deterministic not because it's fashionable, but because that's the only way to replay a settlement run and prove it produces a byte-identical result. once you pin a golden output file and refuse to let the engine drift from it, you stop trusting your own assumptions and start trusting the tests.</p>
+        <p>i'll never run this against real money. that was never the point. i wanted the concept to live in my hands instead of in a textbook, and now it does.</p>
+
+        <hr class="dotted">
+        <p style="text-align:center; opacity:0.5;">written by <a href="https://dharunashokkumar.com">dharun ashokkumar</a> · <a href="/reflections.html">more reflections</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

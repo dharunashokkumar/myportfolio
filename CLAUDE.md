@@ -12,7 +12,7 @@ There is no build step, linter, or test suite. Three ways to develop:
 
 - Open any `.html` file directly in a browser.
 - Use VS Code **Live Server** (port `5501`, set in `.vscode/settings.json`).
-- Serve the root with any static server (e.g. `python -m http.server 5501`) — required for the `lfprojects/` sub-app because it fetches JSON/Markdown at runtime, which file:// blocks.
+- Serve the root with any static server (e.g. `python -m http.server 5501`).
 
 Deployment is whatever pushes the repo root to `dharunashokkumar.com` (treat the working tree as the deployable artifact — no transform happens).
 
@@ -22,16 +22,8 @@ Deployment is whatever pushes the repo root to `dharunashokkumar.com` (treat the
 `index.html`, `projects.html`, `reflections.html`, `resume.html`, `about.html`, `contact.html`, `opensource.html`, `galley.html`, `vault.html` (PIN-protected).
 
 - The PDF preview/download (embedded `<object>` + download buttons) lives in a collapsible "document & download" section inside `resume.html`; there is no separate preview page.
-- `reflections.html` is a single index page; there is **no** `reflections/` directory. New reflections currently live inline on that page.
+- `reflections.html` is the index page: a list of post links (`.reflect-list`). Individual reflections are standalone pages in `reflections/` (e.g. `clearing-engine.html`), each using the `.post` container like `projects/*.html`. **Adding a reflection:** create `reflections/<slug>.html`, add a `<li>` to the `.reflect-list` on `reflections.html`, add a `blogPost` entry to that page's JSON-LD, and add the URL to `sitemap.xml`.
 - `projects/` holds individual project write-ups as standalone HTML pages (currently `lpulabs.html`, `sysadmin.html`) plus a `projects/asset/` folder for their images.
-
-### `lfprojects/` — Linux Foundation projects explorer (self-contained sub-app)
-- `index.html` — listing page. Fetches `projects.json` at runtime and renders cards client-side.
-- `project.html?slug=<slug>` — detail template. Reads the `slug` URL param, looks it up in `projects.json`, then `fetch`es and renders the markdown file from `lfprojects/projects/<slug>.md` client-side.
-- `projects.json` — single source of truth for the project list (each entry includes `slug` and `md_file`).
-- `lfprojects/projects/*.md` — one markdown file per project.
-
-**Adding a new LF project:** append an entry to `projects.json` *and* create the matching `projects/<slug>.md`. Both are required; the listing won't show entries missing either side cleanly.
 
 ### `galley/` — interactive experiments
 Standalone single-file experiments (CPU architecture explorer, shader wallpapers, organic loaders, htop widget, year-in-pixels, satisfying buttons, etc.). Each is self-contained (its own inline CSS/JS) and is linked from `galley.html`. **Adding a new experiment:** drop the file in `galley/` and add a link card on `galley.html`. They are not auto-discovered.

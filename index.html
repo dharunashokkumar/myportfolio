@@ -237,45 +237,6 @@
 
   </head>
   <body>
-    <!-- Top Slider Tab -->
-    <div class="top-slider" id="topSlider">
-      <div class="top-slider-drawer">
-        <div class="top-slider-panel">
-          <p>i am currently exploring all 765 linux foundation projects. want to see what i've found so far?</p>
-          
-          <a href="lfprojects/index.html" class="slider-btn">explore it</a>
-        </div>
-      </div>
-      <div class="top-slider-tab" id="sliderTab" onclick="toggleSlider()">
-        <svg class="tab-tux" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- body -->
-          <ellipse cx="50" cy="90" rx="30" ry="35" fill="#333"/>
-          <!-- belly -->
-          <ellipse cx="50" cy="95" rx="20" ry="25" fill="#f5f5f5"/>
-          <!-- head -->
-          <circle cx="50" cy="50" r="22" fill="#333"/>
-          <!-- face -->
-          <ellipse cx="50" cy="54" rx="15" ry="13" fill="#f5f5f5"/>
-          <!-- left eye -->
-          <circle cx="43" cy="47" r="4" fill="#fff"/>
-          <circle cx="44" cy="47" r="2" fill="#111"/>
-          <!-- right eye -->
-          <circle cx="57" cy="47" r="4" fill="#fff"/>
-          <circle cx="58" cy="47" r="2" fill="#111"/>
-          <!-- beak -->
-          <path d="M44 56 Q50 64 56 56 Q50 60 44 56Z" fill="#f4a623"/>
-          <!-- left flipper waving -->
-          <path d="M20 78 Q8 90 16 108 Q20 104 24 95 Q22 85 25 78Z" fill="#333"/>
-          <!-- right flipper pointing up at tab -->
-          <path d="M80 78 Q88 68 85 55 Q82 58 78 65 Q76 75 75 80Z" fill="#333"/>
-          <!-- feet -->
-          <ellipse cx="40" cy="124" rx="10" ry="5" fill="#f4a623"/>
-          <ellipse cx="60" cy="124" rx="10" ry="5" fill="#f4a623"/>
-        </svg>
-        <span class="tab-label" id="tabLabel">pull me down!</span>
-        <span class="tab-arrow" id="tabArrow">&#9660;</span>
-      </div>
-    </div>
 
     <!-- Lock Icon - Top Right -->
     <a href="#" id="secret-lock" title="secret vault" onclick="promptSecretPin(); return false;">
@@ -319,6 +280,14 @@
 
             currently pursuing btech computer science at <span class="lpu-inline-badge"><img src="img/lpulogo.jpeg" alt="" class="lpu-inline-logo" aria-hidden="true" /><a href="https://www.lpu.in/" target="_blank" class="lpu-inline-link">lovely professional university</a></span>, punjab. i contribute to open source and believe in building in public.</p>
 
+            <div class="start-here">
+              <h2>start here</h2>
+              <ul>
+                <li><a href="projects/open-clearing-engine.html">open clearing engine</a> <span class="sh-note">— a clearing &amp; settlement engine in rust, built to actually understand how novation and netting work.</span></li>
+                <li><a href="reflections.html">reflections</a> <span class="sh-note">— short, honest notes from building the things on my projects page.</span></li>
+                <li><a href="opensource.html">open source</a> <span class="sh-note">— what i've shipped and contributed in public.</span></li>
+              </ul>
+            </div>
 
             <p>i <a href="projects.html">make</a>, <a href="reflections.html">reflect</a>, and <a href="resume.html">learn</a>.</p>
 
@@ -372,17 +341,6 @@
             alert("wrong pin.");
           }
         });
-      }
-    </script>
-    <script>
-      function toggleSlider() {
-        var slider = document.getElementById('topSlider');
-        var arrow = document.getElementById('tabArrow');
-        var label = document.getElementById('tabLabel');
-        slider.classList.toggle('open');
-        var isOpen = slider.classList.contains('open');
-        arrow.innerHTML = isOpen ? '&#9650;' : '&#9660;';
-        label.textContent = isOpen ? 'push me up!' : 'pull me down!';
       }
     </script>
     </body>

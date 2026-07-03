@@ -12,6 +12,5 @@ Allow: /favicon/
 
 # Keep public content areas crawlable
 Allow: /projects/
-Allow: /lfprojects/
 
 Sitemap: https://dharunashokkumar.com/sitemap.xml
