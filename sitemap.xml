@@ -1,285 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://dharunashokkumar.com/</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://dharun.dev/</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/about.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
+    <loc>https://dharun.dev/about.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://dharun.dev/projects.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
 <url>
-    <loc>https://dharunashokkumar.com/reflections.html</loc>
-  <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://dharun.dev/reflections.html</loc>
+  <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/reflections/clearing-engine.html</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/reflections/clearing-engine.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/reflections/backtest-costs.html</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/reflections/backtest-costs.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/reflections/vmmanager-in-c.html</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/reflections/vmmanager-in-c.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/reflections/rust-slower.html</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/reflections/rust-slower.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/reflections/building-in-public.html</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/reflections/building-in-public.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/resume.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://dharun.dev/resume.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/opensource.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <loc>https://dharun.dev/opensource.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/contact.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://dharun.dev/contact.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://dharun.dev/galley.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/cpu-architecture-explorer.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <loc>https://dharun.dev/galley/cpu-architecture-explorer.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/liquid-menu.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/liquid-menu.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/poster-generator.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/poster-generator.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/iridescent-tarot.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/iridescent-tarot.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/installer.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/installer.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/shader-wallpapers.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/shader-wallpapers.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/organic-loaders.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/organic-loaders.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/satisfying-buttons.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/satisfying-buttons.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/progress-bar-zoo.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/progress-bar-zoo.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/cursor-effects.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/cursor-effects.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/split-flap-ticker.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/split-flap-ticker.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/constellation-maker.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/constellation-maker.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/noise-gallery.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/noise-gallery.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/glyph-evolution.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/glyph-evolution.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/typing-playground.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/typing-playground.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/year-in-pixels.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/year-in-pixels.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/password-manager-onboarding.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/password-manager-onboarding.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/boot-sequence.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/boot-sequence.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/homelab-status.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/homelab-status.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/galley/htop-widget.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://dharun.dev/galley/htop-widget.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/open-clearing-engine.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://dharun.dev/projects/open-clearing-engine.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/indie-market-analyst.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://dharun.dev/projects/indie-market-analyst.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/alt-data-platform-india.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <loc>https://dharun.dev/projects/alt-data-platform-india.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/vmmanager.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <loc>https://dharun.dev/projects/vmmanager.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/lpulabs.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <loc>https://dharun.dev/projects/lpulabs.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/rler.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
+    <loc>https://dharun.dev/projects/rler.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
   <url>
-    <loc>https://dharunashokkumar.com/projects/cs-archive.html</loc>
-    <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://dharun.dev/projects/cs-archive.html</loc>
+    <lastmod>2026-07-16</lastmod>
   </url>
 
 </urlset>

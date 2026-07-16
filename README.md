@@ -2,7 +2,7 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,100:e94560&height=120&section=header&text=My+Portfolio&fontSize=45&fontColor=ffffff&animation=fadeIn&fontAlignY=65" width="100%"/>
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-dharunashokkumar.com-e94560?style=for-the-badge)](https://dharunashokkumar.com)
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-dharun.dev-e94560?style=for-the-badge)](https://dharun.dev)
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -15,7 +15,7 @@
 
 ## 🌐 Live Site
 
-👉 **[dharunashokkumar.com](https://dharunashokkumar.com)**
+👉 **[dharun.dev](https://dharun.dev)**
 
 ---
 
@@ -44,7 +44,7 @@ This is my personal developer portfolio — built from scratch with pure HTML, C
 
 ## 📬 Contact
 
-- 🌐 [dharunashokkumar.com](https://dharunashokkumar.com)
+- 🌐 [dharun.dev](https://dharun.dev)
 - 💼 [LinkedIn](https://linkedin.com/in/dharunashokkumar)
 - 📸 [Instagram](https://instagram.com/dharun_._ashok)
 

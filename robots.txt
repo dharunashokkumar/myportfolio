@@ -1,16 +1,9 @@
-# robots.txt for dharunashokkumar.com
-# Updated: 2026-06-10
+# robots.txt for dharun.dev
+# Updated: 2026-07-16
+# vault.html is excluded via its own noindex meta tag (crawlers must be
+# able to fetch it to see the noindex, so it is not Disallowed here).
 
 User-agent: *
 Allow: /
-Disallow: /vault.html
 
-# Keep static assets crawlable for rendering and rich results
-Allow: /css/
-Allow: /img/
-Allow: /favicon/
-
-# Keep public content areas crawlable
-Allow: /projects/
-
-Sitemap: https://dharunashokkumar.com/sitemap.xml
+Sitemap: https://dharun.dev/sitemap.xml

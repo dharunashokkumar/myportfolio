@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Static personal portfolio website for **dharunashokkumar.com**. Pure HTML, CSS, and vanilla JavaScript — no build tools, no frameworks, no package manager, no dependencies.
+Static personal portfolio website for **dharun.dev**. Pure HTML, CSS, and vanilla JavaScript — no build tools, no frameworks, no package manager, no dependencies.
+
+> Domain note: `dharunashokkumar.com` is the previous domain (retired July 2026). Never reference it anywhere on the site — including the former `archive.dharunashokkumar.com` subdomain, whose links were deliberately removed in July 2026.
 
 ## Development
 
@@ -14,7 +16,7 @@ There is no build step, linter, or test suite. Three ways to develop:
 - Use VS Code **Live Server** (port `5501`, set in `.vscode/settings.json`).
 - Serve the root with any static server (e.g. `python -m http.server 5501`).
 
-Deployment is whatever pushes the repo root to `dharunashokkumar.com` (treat the working tree as the deployable artifact — no transform happens).
+Deployment is whatever pushes the repo root to `dharun.dev` (treat the working tree as the deployable artifact — no transform happens).
 
 ## Architecture
 
@@ -76,7 +78,7 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 ## Git
 
 - **No AI attribution in commits.** Do not add a `Co-Authored-By` trailer (or any "Generated with Claude" / AI mention) to commit messages or PR bodies.
-- Work is committed directly to `main` (trunk-based; the repo root deploys to dharunashokkumar.com). Only commit or push when asked.
+- Work is committed directly to `main` (trunk-based; the repo root deploys to dharun.dev). Only commit or push when asked.
 
 ## Vault (PIN-protected page)
 
