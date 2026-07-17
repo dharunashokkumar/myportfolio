@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aisoul — privacy policy</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    background: #0B0B0D; color: rgba(255,255,255,.92);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    max-width: 680px; margin: 0 auto; padding: 48px 24px 96px;
+  }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -.01em; }
+  h2 { font-size: 18px; font-weight: 600; margin-top: 40px; }
+  p, li { color: rgba(255,255,255,.60); }
+  strong { color: rgba(255,255,255,.92); font-weight: 600; }
+  a { color: #8FB8C9; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .muted { color: rgba(255,255,255,.38); font-size: 13px; }
+</style>
+</head>
+<body>
+<h1>aisoul — privacy policy</h1>
+<p class="muted">effective 17 july 2026 · applies to the android app “AiSoul” (com.aisoul.app)</p>
+
+<p><strong>The short version: we run no servers and can see none of your data.</strong>
+aisoul is a local-first AI app. Everything it knows about you lives as plain
+files on your phone, readable and deletable by you. The app has no accounts,
+no analytics, no ads, and no crash-reporting SDKs. The developer collects
+nothing.</p>
+
+<h2>what the app stores, and where</h2>
+<ul>
+  <li><strong>Your harness</strong> — conversations, memories, notes, and
+  widget definitions are files in the app's private storage on your device.
+  They never leave it except as described below.</li>
+  <li><strong>Your API keys</strong> — encrypted with a key held in the
+  Android Keystore, on the device. Keys are never included in backups, never
+  logged, and never sent anywhere except to the AI provider they belong to.</li>
+</ul>
+
+<h2>where data can travel — only at your direction</h2>
+<ul>
+  <li><strong>Your AI provider.</strong> When you chat, your message and the
+  context files you've built are sent to the AI provider <em>you</em>
+  configured (Anthropic, OpenAI, Google Gemini, or a compatible endpoint you
+  chose), using your own API key, over HTTPS. That data is handled under your
+  provider's terms — aisoul adds no middleman and keeps no copy anywhere else.</li>
+  <li><strong>Your Google Drive (optional).</strong> If you enable backup,
+  the app archives your harness, encrypts it <em>on the phone</em> with a
+  passphrase only you know (Argon2id + AES-256-GCM), and uploads it to an
+  “AiSoul Backups” folder in your own Drive. Google receives only the
+  encrypted archive and cannot read it; neither can we. The app uses the
+  narrow <code>drive.file</code> permission, so it can only ever see files it
+  created. aisoul's use of information received from Google APIs adheres to the
+  <a href="https://developers.google.com/terms/api-services-user-data-policy">Google
+  API Services User Data Policy</a>, including the Limited Use requirements.</li>
+  <li><strong>Reports you send.</strong> “Report this response” opens an
+  email in your own mail app containing exactly the response text shown to
+  you — nothing is sent unless you send it.</li>
+</ul>
+
+<h2>what we collect</h2>
+<p><strong>Nothing.</strong> No accounts, no telemetry, no analytics, no
+advertising identifiers, no device fingerprinting. We operate no backend that
+could receive your data.</p>
+
+<h2>deleting your data</h2>
+<ul>
+  <li>Every file the AI knows you by is visible in the in-app file browser
+  and deletable there; “forget everything” wipes its memory.</li>
+  <li>Uninstalling the app deletes all on-device data.</li>
+  <li>Drive backups are ordinary files in your own Drive — delete the
+  “AiSoul Backups” folder at any time, or disconnect Drive in settings.</li>
+</ul>
+
+<h2>children</h2>
+<p>aisoul is not directed at children under 13 and does not knowingly process
+their data.</p>
+
+<h2>changes</h2>
+<p>If this policy changes, the new version is published at this address with
+a new effective date. The app never gains data collection silently.</p>
+
+<h2>contact</h2>
+<p>Questions or source requests (busybox GPL-2.0 written offer):
+<a href="mailto:me@dharun.dev">me@dharun.dev</a></p>
+</body>
+</html>
