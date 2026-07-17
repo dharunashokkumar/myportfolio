@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aisoul — an ai that grows around you</title>
+<meta name="description" content="aisoul is a personal AI harness that lives on your phone. Local-first, no backend, your own API keys, encrypted backup to your own Google Drive.">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    background: #0B0B0D; color: rgba(255,255,255,.92);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    max-width: 680px; margin: 0 auto; padding: 48px 24px 96px;
+  }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 4px; }
+  h2 { font-size: 18px; font-weight: 600; margin-top: 40px; }
+  p, li { color: rgba(255,255,255,.60); }
+  strong { color: rgba(255,255,255,.92); font-weight: 600; }
+  a { color: #8FB8C9; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .muted { color: rgba(255,255,255,.38); font-size: 13px; }
+  .tagline { color: rgba(255,255,255,.60); font-size: 18px; margin-top: 0; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 10px; }
+  footer {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  footer p { font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>aisoul</h1>
+<p class="tagline">an ai that grows around you</p>
+
+<p><strong>aisoul is a personal AI harness that lives on your phone.</strong>
+Not a chat wrapper — a harness: a persistent agent with a file-based soul,
+memory that compounds over time, real tools it can use with your permission,
+and a home screen it reshapes around your life.</p>
+
+<p>Your AI, your keys, your files, your Drive. No account, no backend, no
+subscription. Everything the AI knows about you lives as plain files on your
+device — readable, editable, and deletable by you.</p>
+
+<h2>what it does</h2>
+<ul>
+  <li><strong>The soul interview.</strong> On first launch the AI interviews
+  you, then drafts its own identity and its picture of you as two plain text
+  files. You review and edit both before anything starts.</li>
+  <li><strong>Memory that compounds.</strong> After each conversation, a
+  distill pass turns what mattered into small markdown files. A memory screen
+  shows exactly what was learned, when — each entry deletable in one tap.</li>
+  <li><strong>Real tools, gated by you.</strong> The agent can read and write
+  its files and run commands in a sandboxed terminal shipped inside the app —
+  every action is visible in chat, and anything beyond its basics needs your
+  explicit approval.</li>
+  <li><strong>An adaptive dashboard.</strong> The AI notices what you
+  actually do and proposes widgets — server status, countdowns, daily notes.
+  You see a plain-language summary of what a widget may touch, approve it,
+  and its capabilities are frozen from then on.</li>
+  <li><strong>Encrypted backup to your own Google Drive.</strong> Optional.
+  If you enable it, aisoul archives your files, encrypts them on the phone
+  with a passphrase only you know, and stores the archive in an "AiSoul
+  Backups" folder in your own Google Drive using the narrow
+  <code>drive.file</code> permission — it can only ever see files it created.
+  Neither Google nor the developer can read your backups. Details in the
+  <a href="privacy">privacy policy</a>.</li>
+</ul>
+
+<h2>bring your own key</h2>
+<p>aisoul works with the AI provider you choose — Anthropic, OpenAI, Google
+Gemini, or any OpenAI-compatible endpoint — using your own API key, stored
+encrypted on your device. The app talks to exactly two kinds of servers: your
+AI provider and, if you enable backup, your own Google Drive. The developer
+runs no servers and can see none of your data.</p>
+
+<h2>get the app</h2>
+<p>aisoul is an Android app (<code>com.aisoul.app</code>), free, currently in
+final testing ahead of its Google Play release. Questions, early access, or
+anything else: <a href="mailto:me@dharun.dev">me@dharun.dev</a>.</p>
+
+<footer>
+  <p><a href="privacy">privacy policy</a> · <a href="terms">terms of service</a> · <a href="mailto:me@dharun.dev">contact</a></p>
+  <p class="muted">made by <a href="https://dharun.dev">dharun ashokkumar</a></p>
+</footer>
+</body>
+</html>
