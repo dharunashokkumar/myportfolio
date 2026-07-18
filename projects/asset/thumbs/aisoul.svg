@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="aisoul">
+  <rect width="600" height="400" fill="#eef0f0"/>
+  <rect x="10" y="10" width="580" height="380" fill="none" stroke="#d8d8d8" stroke-width="2"/>
+  <text x="40" y="74" font-family="Courier New, monospace" font-size="17" letter-spacing="3" fill="#9a9a9a">KOTLIN · COMPOSE · ANDROID</text>
+  <text x="36" y="235" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="bold" fill="#333">aisoul</text>
+  <text x="40" y="356" font-family="Georgia, serif" font-size="20" fill="#888">a personal ai harness, local-first</text>
+</svg>
