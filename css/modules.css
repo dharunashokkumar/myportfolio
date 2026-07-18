@@ -683,18 +683,41 @@
 /* reflections index list */
 .reflect-list {
   list-style: none;
-  margin: 1.4rem 0 0;
+  margin: 1.4rem auto 0;
   padding: 0;
+  max-width: 42rem;
 }
 
 .reflect-list li {
+  position: relative;
   margin: 0 0 1.6rem;
-  padding: 0 0 1.4rem;
-  border-bottom: 1px dotted #ccc;
+  padding: 1rem 2.4rem 1.4rem 1.2rem;
+  border: 1px dotted #ccc;
+  border-radius: 8px;
+  text-align: left;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.reflect-list li:hover {
+  background-color: #fafafa;
+  border-color: #999;
+}
+
+.reflect-list li:hover .title {
+  color: #000;
+}
+
+.reflect-list li:hover .reflect-arrow {
+  color: #000;
+  transform: translate(2px, -2px);
 }
 
 .reflect-list li:last-child {
-  border-bottom: 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.reflect-list li a {
+  text-decoration: none;
 }
 
 .reflect-list .title {
@@ -709,4 +732,13 @@
 
 .reflect-list p {
   margin: 0;
+}
+
+.reflect-list .reflect-arrow {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  font-size: 1rem;
+  color: #999;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
