@@ -72,7 +72,7 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 
 - All visible text is lowercase (enforced by `text-transform: lowercase` on `<html>`). Author copy in lowercase; don't rely on CSS to fix capitalization (it won't catch alt text, titles, or JSON-LD).
 - Every page shares the same header/nav and links to `css/main.css`.
-- Google Analytics tag `G-DGWHDZMCF6` is included in every page's `<head>`.
+- Google Analytics tag `G-6EGD879ZLL` is included in every page's `<head>`, as the first thing inside `<head>`. It is the only property — the previous tag `G-DGWHDZMCF6` was removed in July 2026 and must not be reintroduced. **New pages must include the snippet manually.**
 - SEO: structured data (Schema.org JSON-LD), Open Graph, and Twitter Card meta are present on key pages; `sitemap.xml` and `robots.txt` live at root. **New content pages (projects, reflections) must be added to `sitemap.xml` manually.**
 
 ## Git
