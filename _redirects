@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects.
+# The experiments directory was renamed explorer/ -> galley/ (commit 529ec58);
+# the old paths were left returning 404. 301 them so old links and any
+# remaining search results land on the real page.
+/explorer      /galley          301
+/explorer/*    /galley/:splat   301

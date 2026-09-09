@@ -1,0 +1,14 @@
+# Cloudflare Pages headers.
+#
+# design-system/ is a Claude Design handoff bundle, not site content. Its files
+# are deployed with the repo root but must never be indexed: the reference/
+# snapshots are byte-for-byte copies of real pages (duplicate titles and
+# descriptions) and still carry canonicals pointing at the retired previous
+# domain. They are marked read-only ground truth, so noindex is applied here as
+# a header instead of by editing them.
+/design-system/*
+  X-Robots-Tag: noindex, nofollow
+
+# galley/ experiments already carry a meta noindex; this backstops it.
+/galley/*
+  X-Robots-Tag: noindex, nofollow

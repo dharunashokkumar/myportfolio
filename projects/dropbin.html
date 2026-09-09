@@ -17,7 +17,7 @@
     <meta name="description" content="Dropbin — upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Zero-dependency Node client, HMAC-signed share links, and nothing that lists what is stored. MIT licensed.">
     <meta name="keywords" content="dropbin, cloudflare worker file sharing, r2 bucket upload, pin file transfer, zero dependency cli, self-hosted file sharing, wrangler deploy, serverless file upload">
     <meta name="author" content="Dharun Ashokkumar">
-    <link rel="canonical" href="https://dharun.dev/projects/dropbin.html">
+    <link rel="canonical" href="https://dharun.dev/projects/dropbin">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
 
@@ -30,7 +30,7 @@
     <meta property="og:site_name" content="Dharun Ashokkumar">
     <meta property="og:title" content="Dropbin | Instant File Sharing on One Cloudflare Worker &amp; R2">
     <meta property="og:description" content="Upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Nothing lists what is stored.">
-    <meta property="og:url" content="https://dharun.dev/projects/dropbin.html">
+    <meta property="og:url" content="https://dharun.dev/projects/dropbin">
     <meta property="og:image" content="https://dharun.dev/img/main.webp">
     <meta property="og:image:alt" content="Dropbin — file sharing on one Cloudflare Worker and one R2 bucket">
     <meta property="og:locale" content="en_GB">
@@ -57,7 +57,7 @@
       "name": "Dropbin",
       "alternateName": "dropbin",
       "description": "Instant file sharing on one Cloudflare Worker and one R2 bucket. Uploading returns a 4-digit PIN; anyone with the PIN and the password can take the file back out from a browser or a terminal. Nothing lists what is stored, and a PIN holds exactly one thing.",
-      "url": "https://dharun.dev/projects/dropbin.html",
+      "url": "https://dharun.dev/projects/dropbin",
       "codeRepository": "https://github.com/dharunashokkumar/dropbin",
       "programmingLanguage": ["JavaScript", "Shell", "PowerShell"],
       "runtimePlatform": "Cloudflare Workers",
@@ -100,28 +100,28 @@
           "position": 1,
           "name": "Install and authenticate",
           "text": "Run npm install, then npx wrangler login, which opens a browser once.",
-          "url": "https://dharun.dev/projects/dropbin.html#setup"
+          "url": "https://dharun.dev/projects/dropbin#setup"
         },
         {
           "@type": "HowToStep",
           "position": 2,
           "name": "Create the bucket and deploy",
           "text": "Run npx wrangler r2 bucket create dropbin, then npx wrangler deploy. That prints a workers.dev URL which already works.",
-          "url": "https://dharun.dev/projects/dropbin.html#setup"
+          "url": "https://dharun.dev/projects/dropbin#setup"
         },
         {
           "@type": "HowToStep",
           "position": 3,
           "name": "Point it at your own domain",
           "text": "Add a custom_domain route to wrangler.toml and deploy again. Wrangler creates the DNS record itself.",
-          "url": "https://dharun.dev/projects/dropbin.html#setup"
+          "url": "https://dharun.dev/projects/dropbin#setup"
         },
         {
           "@type": "HowToStep",
           "position": 4,
           "name": "Set the access password",
           "text": "Run npx wrangler secret put ACCESS_PASSWORD. Until you do, the password is changeme, which is a fallback in code rather than in wrangler.toml.",
-          "url": "https://dharun.dev/projects/dropbin.html#setup"
+          "url": "https://dharun.dev/projects/dropbin#setup"
         }
       ]
     }
@@ -167,8 +167,8 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         {"@type":"ListItem","position":1,"name":"Home","item":"https://dharun.dev"},
-        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharun.dev/projects.html"},
-        {"@type":"ListItem","position":3,"name":"Dropbin","item":"https://dharun.dev/projects/dropbin.html"}
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharun.dev/projects"},
+        {"@type":"ListItem","position":3,"name":"Dropbin","item":"https://dharun.dev/projects/dropbin"}
       ]
     }
     </script>
@@ -179,12 +179,12 @@
         <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
         <nav>
           <ul>
-            <li><a href="/index.html">home</a></li>
-            <li><a href="/projects.html">projects</a></li>
-            <li><a href="/reflections.html">reflections</a></li>
-            <li><a href="/resume.html">resume</a></li>
-            <li><a href="/about.html">about</a></li>
-            <li><a href="/contact.html">contact</a></li>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
       </div>
@@ -475,18 +475,18 @@ curl -X DELETE "https://files.dharun.dev/4821?p=$PASS"        <span class="cmt">
 
         <hr>
 
-        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects.html">all projects</a></p>
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects">all projects</a></p>
       </div>
 
       <div id="footer">
         <nav>
           <ul>
-            <li><a href="/index.html">home</a></li>
-            <li><a href="/projects.html">projects</a></li>
-            <li><a href="/reflections.html">reflections</a></li>
-            <li><a href="/resume.html">resume</a></li>
-            <li><a href="/about.html">about</a></li>
-            <li><a href="/contact.html">contact</a></li>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
       </div>

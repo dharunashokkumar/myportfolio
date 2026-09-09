@@ -1,10 +1,13 @@
 # robots.txt for dharun.dev
-# Updated: 2026-07-16
-# vault.html is excluded via its own noindex meta tag (crawlers must be
-# able to fetch it to see the noindex, so it is not Disallowed here).
+# Updated: 2026-09-09
+#
+# Nothing is Disallowed on purpose. Pages that should stay out of the index
+# (vault.html, galley/*, design-system/*) carry a noindex instead — either a
+# meta robots tag or the X-Robots-Tag header set in _headers. A crawler has to
+# be able to FETCH a page to see a noindex, so Disallow would defeat it and
+# leave those URLs stuck in "blocked by robots.txt" limbo.
 
 User-agent: *
 Allow: /
-Disallow: /galley/
 
 Sitemap: https://dharun.dev/sitemap.xml

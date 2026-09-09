@@ -3,116 +3,116 @@
 
   <url>
     <loc>https://dharun.dev/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/about.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/about</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects.html</loc>
+    <loc>https://dharun.dev/projects</loc>
     <lastmod>2026-09-09</lastmod>
   </url>
 
 <url>
-    <loc>https://dharun.dev/reflections.html</loc>
-  <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/reflections</loc>
+  <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/reflections/clearing-engine.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/reflections/backtest-costs.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/reflections/vmmanager-in-c.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/reflections/rust-slower.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/reflections/building-in-public.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/reflections/lfx-mumbai-2026.html</loc>
-    <lastmod>2026-07-18</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/resume.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/opensource.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/contact.html</loc>
-    <lastmod>2026-07-16</lastmod>
-  </url>
-
-  <url>
-    <loc>https://dharun.dev/projects/termcall.html</loc>
+    <loc>https://dharun.dev/reflections/clearing-engine</loc>
     <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/dropbin.html</loc>
+    <loc>https://dharun.dev/reflections/backtest-costs</loc>
     <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/open-clearing-engine.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/reflections/vmmanager-in-c</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/indie-market-analyst.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/reflections/rust-slower</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/alt-data-platform-india.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/reflections/building-in-public</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/reflections/lfx-mumbai-2026</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/resume</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/opensource</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/contact</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/projects/termcall</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/projects/dropbin</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/projects/open-clearing-engine</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/projects/indie-market-analyst</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+
+  <url>
+    <loc>https://dharun.dev/projects/alt-data-platform-india</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
     <url>
-      <loc>https://dharun.dev/projects/vmmanager.html</loc>
-      <lastmod>2026-07-16</lastmod>
+      <loc>https://dharun.dev/projects/vmmanager</loc>
+      <lastmod>2026-09-09</lastmod>
     </url>
     <url>
-      <loc>https://dharun.dev/projects/aisoul.html</loc>
-      <lastmod>2026-07-18</lastmod>
+      <loc>https://dharun.dev/projects/aisoul</loc>
+      <lastmod>2026-09-09</lastmod>
     </url>
 
   <url>
-    <loc>https://dharun.dev/projects/lpulabs.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/projects/lpulabs</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/rler.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/projects/rler</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
   <url>
-    <loc>https://dharun.dev/projects/cs-archive.html</loc>
-    <lastmod>2026-07-16</lastmod>
+    <loc>https://dharun.dev/projects/cs-archive</loc>
+    <lastmod>2026-09-09</lastmod>
   </url>
 
 </urlset>

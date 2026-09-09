@@ -59,14 +59,14 @@
 
         </ul>
 
-        <p class="vault-back"><a href="index.html">← back to home</a></p>
+        <p class="vault-back"><a href="/">← back to home</a></p>
       </div>
     </div>
 
     <script>
       // Protect vault: redirect if not authenticated
       if (sessionStorage.getItem('vault_access') !== 'granted') {
-        window.location.href = 'index.html';
+        window.location.href = '/';
       }
     </script>
   </body>

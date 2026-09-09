@@ -1,0 +1,4 @@
+# Search Console / analytics exports downloaded into the repo root.
+# The repo root is the deployable artifact, so anything committed here is
+# published at dharun.dev — keep local exports out.
+*.zip
