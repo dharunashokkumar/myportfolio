@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6EGD879ZLL');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Dropbin | Instant File Sharing on One Cloudflare Worker &amp; R2 | Dharun Ashokkumar</title>
+    <meta name="description" content="Dropbin — upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Zero-dependency Node client, HMAC-signed share links, and nothing that lists what is stored. MIT licensed.">
+    <meta name="keywords" content="dropbin, cloudflare worker file sharing, r2 bucket upload, pin file transfer, zero dependency cli, self-hosted file sharing, wrangler deploy, serverless file upload">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/projects/dropbin.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="Dropbin | Instant File Sharing on One Cloudflare Worker &amp; R2">
+    <meta property="og:description" content="Upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Nothing lists what is stored.">
+    <meta property="og:url" content="https://dharun.dev/projects/dropbin.html">
+    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image:alt" content="Dropbin — file sharing on one Cloudflare Worker and one R2 bucket">
+    <meta property="og:locale" content="en_GB">
+    <meta property="article:author" content="Dharun Ashokkumar">
+    <meta property="article:published_time" content="2026-09-09">
+    <meta property="article:section" content="Projects">
+    <meta property="article:tag" content="Cloudflare Workers">
+    <meta property="article:tag" content="R2">
+    <meta property="article:tag" content="CLI">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="Dropbin | File Sharing on One Cloudflare Worker &amp; R2">
+    <meta name="twitter:description" content="Upload a file, get a 4-digit PIN. One Worker, one R2 bucket, a web UI and two served CLI clients. Nothing lists what is stored.">
+    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+
+    <!-- Schema.org: SoftwareSourceCode -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "Dropbin",
+      "alternateName": "dropbin",
+      "description": "Instant file sharing on one Cloudflare Worker and one R2 bucket. Uploading returns a 4-digit PIN; anyone with the PIN and the password can take the file back out from a browser or a terminal. Nothing lists what is stored, and a PIN holds exactly one thing.",
+      "url": "https://dharun.dev/projects/dropbin.html",
+      "codeRepository": "https://github.com/dharunashokkumar/dropbin",
+      "programmingLanguage": ["JavaScript", "Shell", "PowerShell"],
+      "runtimePlatform": "Cloudflare Workers",
+      "license": "https://opensource.org/licenses/MIT",
+      "datePublished": "2026-09-09",
+      "dateModified": "2026-09-09",
+      "keywords": "cloudflare workers, r2 object storage, file sharing, pin, zero-dependency cli, wrangler, serverless, hmac share links",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "maintainer": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "isAccessibleForFree": true,
+      "targetProduct": {
+        "@type": "SoftwareApplication",
+        "name": "dropbin",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Linux, Windows",
+        "softwareVersion": "1.1.0",
+        "downloadUrl": "https://github.com/dharunashokkumar/dropbin/releases",
+        "installUrl": "https://www.npmjs.com/package/dropbin",
+        "softwareRequirements": "Node.js 18 or newer for the db client; a Cloudflare account with R2 for the server",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    }
+    </script>
+    <!-- Schema.org: HowTo — deploying it -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Deploy dropbin on Cloudflare Workers and R2",
+      "description": "Deploy your own dropbin instance: install dependencies, create an R2 bucket, deploy the Worker, then set the access password as a secret.",
+      "totalTime": "PT5M",
+      "tool": [
+        { "@type": "HowToTool", "name": "Node.js 18 or newer" },
+        { "@type": "HowToTool", "name": "A Cloudflare account with R2 enabled" },
+        { "@type": "HowToTool", "name": "Wrangler" }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Install and authenticate",
+          "text": "Run npm install, then npx wrangler login, which opens a browser once.",
+          "url": "https://dharun.dev/projects/dropbin.html#setup"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Create the bucket and deploy",
+          "text": "Run npx wrangler r2 bucket create dropbin, then npx wrangler deploy. That prints a workers.dev URL which already works.",
+          "url": "https://dharun.dev/projects/dropbin.html#setup"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Point it at your own domain",
+          "text": "Add a custom_domain route to wrangler.toml and deploy again. Wrangler creates the DNS record itself.",
+          "url": "https://dharun.dev/projects/dropbin.html#setup"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Set the access password",
+          "text": "Run npx wrangler secret put ACCESS_PASSWORD. Until you do, the password is changeme, which is a fallback in code rather than in wrangler.toml.",
+          "url": "https://dharun.dev/projects/dropbin.html#setup"
+        }
+      ]
+    }
+    </script>
+    <!-- Schema.org: FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does a dropbin PIN hold?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Exactly one thing. Upload a file and the PIN holds that file. Upload a folder and it is zipped on your machine first, so the PIN holds one zip, and downloading gives that zip straight back. Uploading to a PIN you have already used replaces what was there." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can anyone list the files stored in a dropbin instance?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing lists what is stored, anywhere. The only number either front end reports is how much room is left. You need the PIN and the password to take a file back out." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does dropbin cost anything to run?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It is built to fit the Cloudflare free plans: Workers Free at 100,000 requests a day, and R2 Free at 10 GB with 1M class-A and 10M class-B operations a month. The free-plan request body cap of 100 MB is the per-upload ceiling." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do dropbin share links work without a password?",
+          "acceptedAnswer": { "@type": "Answer", "text": "db open and db qr sign a link instead of just linking it. The k parameter carries an expiry and an HMAC of the PIN keyed on the password. Nothing is stored, it opens exactly that one PIN, it is read-only, and it lasts a week." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a way to use dropbin without installing anything?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Worker serves a shell client already pointed at your host, fetched with curl and run with bash. PowerShell gets the same client at /cli.ps1. Plain curl works too, with the password as basic auth." }
+        }
+      ]
+    }
+    </script>
+    <!-- Schema.org: Breadcrumb -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharun.dev"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharun.dev/projects.html"},
+        {"@type":"ListItem","position":3,"name":"Dropbin","item":"https://dharun.dev/projects/dropbin.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">javascript · cloudflare workers · r2</span>
+          <h1>dropbin</h1>
+          <p class="tagline">upload a file, get a 4-digit pin. one worker, one bucket, and nothing that lists what's inside.</p>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/dropbin" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            view source on github
+          </a>
+          <a class="btn-ghost" href="https://www.npmjs.com/package/dropbin" target="_blank" rel="noopener">the package on npm ↗</a>
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/dropbin/releases" target="_blank" rel="noopener">releases ↗</a>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">javascript</span>
+          <span class="tag">cloudflare workers</span>
+          <span class="tag">r2</span>
+          <span class="tag">serverless</span>
+          <span class="tag">cli</span>
+          <span class="tag">zero dependencies</span>
+          <span class="tag">hmac share links</span>
+          <span class="tag">mit</span>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>what it is</h2>
+        <p>there are two things you can do — <strong>upload</strong> and <strong>download</strong> — and the whole tool is built around only those two. uploading gets you a <strong>pin</strong>; anyone with the pin <em>and</em> the password can take the thing back out, in a browser or in a terminal. nothing lists what is stored, anywhere. the only number either front end reports is how much room is left.</p>
+        <p>a pin holds exactly one thing. upload a file and the pin holds that file. upload a folder and it's zipped on your machine first, so the pin holds one zip — and downloading gives you that zip straight back.</p>
+
+        <div class="term">
+          <div class="term-bar"><span>terminal</span><span class="term-host">files.dharun.dev</span></div>
+<pre> dropbin  files.dharun.dev
+ ----------------------------------------------------------------------
+   1  upload     a file or a folder
+   2  download   with a pin
+ ----------------------------------------------------------------------
+ [#.....................]  9.71 GB free of 10.0 GB   6 pin(s) stored
+ 1 or 2 to choose, q to quit</pre>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-value">1 + 1</span><span class="spec-label">one worker, one bucket</span></div>
+          <div class="spec"><span class="spec-value">zero</span><span class="spec-label">runtime dependencies</span></div>
+          <div class="spec"><span class="spec-value">9000</span><span class="spec-label">4-digit pins, then 6</span></div>
+          <div class="spec"><span class="spec-value">mit</span><span class="spec-label">license</span></div>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>how it fits together</h2>
+        <p>one worker holds everything: the web dialogs, the api, and — as plain text with the host swapped in on the way out — the two shell clients and the two installers. r2 holds the bytes. there's no database, no queue, and no build step.</p>
+
+        <figure class="arch">
+          <svg viewBox="0 0 600 300" role="img" aria-labelledby="arch1-title arch1-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch1-title">dropbin architecture</title>
+            <desc id="arch1-desc">four clients — a browser, the db command, the served shell client, and plain curl — all speak to one cloudflare worker, which reads and writes one r2 bucket.</desc>
+            <g font-family="Merriweather, Georgia, serif" font-size="11" fill="#555">
+              <text x="20" y="24" font-size="9.5" letter-spacing="1.6" fill="#999">CLIENTS</text>
+              <rect x="20" y="36" width="130" height="34" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="57">browser · web ui</text>
+              <rect x="20" y="82" width="130" height="34" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="103">db · node client</text>
+              <rect x="20" y="128" width="130" height="34" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="149">drop · shell client</text>
+              <rect x="20" y="174" width="130" height="34" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="195">plain curl</text>
+
+              <path d="M150 53 H210" stroke="#999" fill="none"/>
+              <path d="M150 99 H210" stroke="#999" fill="none"/>
+              <path d="M150 145 H210" stroke="#999" fill="none"/>
+              <path d="M150 191 H210" stroke="#999" fill="none"/>
+              <path d="M204 49 l6 4 -6 4z" fill="#999"/>
+              <path d="M204 95 l6 4 -6 4z" fill="#999"/>
+              <path d="M204 141 l6 4 -6 4z" fill="#999"/>
+              <path d="M204 187 l6 4 -6 4z" fill="#999"/>
+
+              <text x="212" y="24" font-size="9.5" letter-spacing="1.6" fill="#999">EDGE</text>
+              <rect x="212" y="36" width="176" height="172" fill="none" stroke="#555"/>
+              <text x="228" y="60" font-size="12" font-weight="bold" fill="#333">cloudflare worker</text>
+              <line x1="212" y1="72" x2="388" y2="72" stroke="#e0e0e0"/>
+              <text x="228" y="92">password gate</text>
+              <text x="228" y="112">pin allocation</text>
+              <text x="228" y="132">the two web dialogs</text>
+              <text x="228" y="152">/cli · /cli.ps1</text>
+              <text x="228" y="172">/install.sh · .ps1</text>
+              <text x="228" y="192">hmac share links</text>
+
+              <path d="M388 122 H452" stroke="#999" fill="none"/>
+              <path d="M446 118 l6 4 -6 4z" fill="#999"/>
+              <text x="396" y="114" font-size="9.5" fill="#999">get / put</text>
+
+              <text x="454" y="24" font-size="9.5" letter-spacing="1.6" fill="#999">STORAGE</text>
+              <rect x="454" y="90" width="126" height="64" fill="#f8f9fa" stroke="#555"/>
+              <text x="470" y="118" font-size="12" font-weight="bold" fill="#333">r2 bucket</text>
+              <text x="470" y="138" font-size="10" fill="#777">one object per pin</text>
+
+              <line x1="20" y1="240" x2="580" y2="240" stroke="#e0e0e0"/>
+              <text x="20" y="262" font-size="10" fill="#888">no database · no listing endpoint · the meter is the only number reported</text>
+              <text x="20" y="280" font-size="10" fill="#888">folders are zipped by the client, never by the worker — cpu stays free</text>
+            </g>
+          </svg>
+          <figcaption>everything the tool does happens in one worker; r2 is the only state.</figcaption>
+        </figure>
+
+        <h2>the pin flow</h2>
+        <p>a pin is 4 digits by default — 9000 of them, checked for collisions before one is handed out, and widened to 6 digits if they ever all fill up. a custom pin is anything up to 64 characters that isn't a slash, a control character, or a reserved word.</p>
+
+        <figure class="arch">
+          <svg viewBox="0 0 600 210" role="img" aria-labelledby="arch2-title arch2-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch2-title">upload and download flow</title>
+            <desc id="arch2-desc">upload sends a file or a locally zipped folder, the worker finds a free pin and stores one object; download presents a pin and password, the worker reports what the pin holds and streams the bytes back.</desc>
+            <g font-family="Merriweather, Georgia, serif" font-size="10.5" fill="#555">
+              <text x="20" y="22" font-size="9.5" letter-spacing="1.6" fill="#999">UPLOAD</text>
+              <rect x="20" y="34" width="112" height="30" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="32" y="53">file or folder</text>
+              <path d="M132 49 H176" stroke="#999" fill="none"/><path d="M170 45 l6 4 -6 4z" fill="#999"/>
+              <rect x="176" y="34" width="112" height="30" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="188" y="53">zipped locally</text>
+              <path d="M288 49 H332" stroke="#999" fill="none"/><path d="M326 45 l6 4 -6 4z" fill="#999"/>
+              <rect x="332" y="34" width="112" height="30" fill="none" stroke="#555"/>
+              <text x="344" y="53">free pin found</text>
+              <path d="M444 49 H488" stroke="#999" fill="none"/><path d="M482 45 l6 4 -6 4z" fill="#999"/>
+              <rect x="488" y="34" width="92" height="30" fill="#f8f9fa" stroke="#555"/>
+              <text x="500" y="53" font-weight="bold" fill="#333">pin 4821</text>
+
+              <line x1="20" y1="96" x2="580" y2="96" stroke="#e0e0e0"/>
+
+              <text x="20" y="126" font-size="9.5" letter-spacing="1.6" fill="#999">DOWNLOAD</text>
+              <rect x="20" y="138" width="112" height="30" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="32" y="157">pin + password</text>
+              <path d="M132 153 H176" stroke="#999" fill="none"/><path d="M170 149 l6 4 -6 4z" fill="#999"/>
+              <rect x="176" y="138" width="112" height="30" fill="none" stroke="#555"/>
+              <text x="188" y="157">worker checks</text>
+              <path d="M288 153 H332" stroke="#999" fill="none"/><path d="M326 149 l6 4 -6 4z" fill="#999"/>
+              <rect x="332" y="138" width="112" height="30" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="344" y="157">name, size, date</text>
+              <path d="M444 153 H488" stroke="#999" fill="none"/><path d="M482 149 l6 4 -6 4z" fill="#999"/>
+              <rect x="488" y="138" width="92" height="30" fill="#f8f9fa" stroke="#555"/>
+              <text x="500" y="157" font-weight="bold" fill="#333">bytes back</text>
+
+              <text x="20" y="196" font-size="10" fill="#888">a download never overwrites — a second copy becomes holiday.png.1</text>
+            </g>
+          </svg>
+          <figcaption>two paths, and the tool deliberately has no third one.</figcaption>
+        </figure>
+
+        <hr class="dotted">
+
+        <h2 id="setup">setup · deploy your own</h2>
+        <p>four commands, about five minutes. you need node 18 or newer, and r2 enabled on the cloudflare account.</p>
+
+        <ol class="setup-steps">
+          <li>
+            <span class="step-title">install and log in</span>
+            <div class="term">
+              <div class="term-bar"><span>sh</span></div>
+<pre>npm install
+npx wrangler login                       <span class="cmt"># opens a browser, once</span></pre>
+            </div>
+          </li>
+          <li>
+            <span class="step-title">create the bucket, then deploy</span>
+            <div class="term">
+              <div class="term-bar"><span>sh</span></div>
+<pre>npx wrangler r2 bucket create dropbin    <span class="cmt"># needs R2 on the account</span>
+npx wrangler deploy</pre>
+            </div>
+            <p>that prints a <code>https://dropbin.&lt;you&gt;.workers.dev</code> url, which already works.</p>
+          </li>
+          <li>
+            <span class="step-title">point it at your own domain</span>
+            <div class="term">
+              <div class="term-bar"><span>wrangler.toml</span></div>
+<pre>[[routes]]
+pattern = "files.example.com"
+custom_domain = true</pre>
+            </div>
+            <p>deploy again. the zone has to be on the same cloudflare account; wrangler makes the dns record itself.</p>
+          </li>
+          <li>
+            <span class="step-title">set the password</span>
+            <div class="term">
+              <div class="term-bar"><span>sh</span></div>
+<pre>npx wrangler secret put ACCESS_PASSWORD  <span class="cmt"># takes effect at once</span>
+npx wrangler secret list                 <span class="cmt"># [] means it is still changeme</span></pre>
+            </div>
+            <p>it's <code>changeme</code> until you set one — and that fallback lives in the code, not in <code>wrangler.toml</code>, which deliberately keeps the password out of <code>[vars]</code>. changing it invalidates every browser cookie and every outstanding share link, since those are signed with the password as the key.</p>
+          </li>
+        </ol>
+
+        <h2>setup · install the client</h2>
+        <p>anyone who uses this more than once should install the tool. one command, then <code>db</code> is on the path.</p>
+
+        <div class="term">
+          <div class="term-bar"><span>sh</span><span class="term-host">macos · linux · wsl</span></div>
+<pre>curl -fsSL https://files.dharun.dev/install.sh | sh
+npm i -g dropbin                         <span class="cmt"># or, anywhere npm is</span></pre>
+        </div>
+
+        <div class="term">
+          <div class="term-bar"><span>powershell</span><span class="term-host">windows</span></div>
+<pre>irm https://files.dharun.dev/install.ps1 | iex</pre>
+        </div>
+
+        <p>all three land the same thing: a zero-dependency node package (18 or newer) installing <code>db</code>, with <code>dropbin</code> as a longer alias. fetched from a deployment, an installer bakes that host into the shim it writes, so the <code>db</code> it leaves behind already points at your instance — <code>DROP_HOST</code> still overrides it.</p>
+
+        <div class="spec-table">
+          <table>
+            <tr><th>installer</th><th>files</th><th>the <span class="mono">db</span> shim</th></tr>
+            <tr><td><span class="mono">install.sh</span></td><td><span class="mono">~/.local/share/dropbin</span></td><td><span class="mono">~/.local/bin</span></td></tr>
+            <tr><td><span class="mono">install.ps1</span></td><td><span class="mono">%LOCALAPPDATA%\dropbin\app</span></td><td><span class="mono">…\dropbin\bin</span>, added to <span class="mono">PATH</span></td></tr>
+          </table>
+        </div>
+
+        <h2>the db command</h2>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>db up ./holiday.png            <span class="cmt"># a file, random pin</span>
+db up ./holiday.png photos     <span class="cmt"># a file, your own pin</span>
+db up ./project                <span class="cmt"># a folder — zipped here, then sent</span>
+db get 4821                    <span class="cmt"># save it in this folder</span>
+db view 4821                   <span class="cmt"># print it here, if it is text</span>
+db qr 4821                     <span class="cmt"># a code to point a phone at</span>
+db open 4821                   <span class="cmt"># look at it in a browser</span>
+db rm 4821                     <span class="cmt"># throw the pin away</span>
+db free                        <span class="cmt"># how much room is left</span></pre>
+        </div>
+
+        <p>the password is asked for on every run and stored nowhere — there's no config file and no token cache. <code>DROP_PASS</code> skips the prompt for scripts and ci, <code>DROP_HOST</code> points <code>db</code> at another deployment. <code>db up</code> and <code>db get</code> print the one useful line on stdout and everything else on stderr, so they pipe cleanly.</p>
+
+        <h2>nothing to install</h2>
+        <p>for a one-off, or a machine without node: the worker hands you a shell client, already pointed at your host.</p>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>bash &lt;(curl -s https://files.dharun.dev/cli)
+irm https://files.dharun.dev/cli.ps1 -OutFile drop.ps1 ; ./drop.ps1   <span class="cmt"># windows</span></pre>
+        </div>
+        <p>or skip the clients entirely and use curl:</p>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>export PASS=changeme
+curl -T ./holiday.png "https://:$PASS@files.dharun.dev/up/"   <span class="cmt"># upload</span>
+curl -OJ "https://files.dharun.dev/4821?p=$PASS"              <span class="cmt"># download</span>
+curl -X DELETE "https://files.dharun.dev/4821?p=$PASS"        <span class="cmt"># throw it away</span></pre>
+        </div>
+        <p><code>curl -T</code> only appends the local filename when the url ends in <code>/</code> and has no query string — hence the basic-auth form above. in powershell write <code>curl.exe</code>; bare <code>curl</code> is an alias for <code>Invoke-WebRequest</code>.</p>
+
+        <hr class="dotted">
+
+        <h2>the api</h2>
+        <div class="spec-table">
+          <table>
+            <tr><th>method</th><th>path</th><th>what it does</th></tr>
+            <tr><td><span class="mono">GET</span></td><td><span class="mono">/</span></td><td>the two options and the meter</td></tr>
+            <tr><td><span class="mono">GET</span></td><td><span class="mono">/PIN</span></td><td>a browser looks at it, everything else downloads it</td></tr>
+            <tr><td><span class="mono">GET</span></td><td><span class="mono">/PIN?info=1</span></td><td>what the pin holds, without fetching it</td></tr>
+            <tr><td><span class="mono">GET</span></td><td><span class="mono">/PIN?k=EXP.SIG</span></td><td>a share link: that one pin, read-only, no password</td></tr>
+            <tr><td><span class="mono">PUT</span></td><td><span class="mono">/up</span></td><td>raw-body upload — <span class="mono">X-Name</span>, <span class="mono">X-Pin</span></td></tr>
+            <tr><td><span class="mono">POST</span></td><td><span class="mono">/up</span></td><td>multipart: one file field, optional pin</td></tr>
+            <tr><td><span class="mono">DELETE</span></td><td><span class="mono">/PIN</span></td><td>throw the pin away</td></tr>
+            <tr><td><span class="mono">GET</span></td><td><span class="mono">/cli</span> · <span class="mono">/cli.ps1</span></td><td>the clients, pre-pointed at this host</td></tr>
+          </table>
+        </div>
+
+        <h2>share links</h2>
+        <p><code>db open</code> and <code>db qr</code> hand a link to something that can't be asked for a password — a browser, or a phone pointed at a code — so they sign one instead of just linking it. <code>?k=</code> is an expiry and an hmac of the pin, keyed on the password: nothing is stored anywhere, it opens exactly that one pin, it's read-only, and it lasts a week.</p>
+
+        <div class="feat-list">
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>uploads are sandboxed</strong> — every stored file is served with <code>Content-Security-Policy: sandbox</code> and <code>nosniff</code>, so an uploaded page can't act on the origin</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>one pin, one thing</strong> — uploading to a pin you've used replaces what was there</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>no expiry job</strong> — files live until you delete them</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>the meter is a display figure</strong> — <code>QUOTA_GB</code> counts down from r2's free 10 gb; it isn't an enforced cap</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>100 mb an upload</strong> — that's the free-plan worker request-body ceiling, not a choice</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>it works with javascript off</strong> — except folders, which are zipped in the browser so the worker never spends cpu on them</span></div>
+        </div>
+
+        <div class="callout">the interesting constraint here was cpu, not storage. a free-plan worker gets ten milliseconds a request, so zipping a folder on the server was never going to work — the client does it, and uploads stay pure i/o with no ceiling at all.</div>
+
+        <p class="callout" style="border:none;font-style:normal;opacity:0.55;">mit licensed. deploys, github releases and npm publishes are run by hand, not by a workflow. the threat model and hardening notes are in <a href="https://github.com/dharunashokkumar/dropbin/blob/main/SECURITY.md" target="_blank" rel="noopener">security.md</a>.</p>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects.html">all projects</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

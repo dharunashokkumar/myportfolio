@@ -16,7 +16,7 @@
 
     <title>Projects | Dharun Ashokkumar — Rust, Python & C Systems Software</title>
 
-    <meta name="description" content="Software projects by Dharun Ashokkumar — an open source contributor and infrastructure enthusiast: a Rust clearing & settlement engine, Indian-market analysis tooling, an alt-data platform, a GTK4 virtualization manager in C, server/self-hosting setups, and browser-based lab platforms. Mostly open source.">
+    <meta name="description" content="Software projects by Dharun Ashokkumar — an open source contributor and infrastructure enthusiast: terminal video calls in Go, serverless file sharing on Cloudflare Workers and R2, a Rust clearing & settlement engine, Indian-market analysis tooling, an alt-data platform, and a GTK4 virtualization manager in C. Mostly open source.">
     <meta name="author" content="Dharun Ashokkumar">
 
     <!-- Canonical URL -->
@@ -37,7 +37,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Dharun Ashokkumar">
     <meta property="og:title" content="Projects | Dharun Ashokkumar — Rust, Python & C Systems Software">
-    <meta property="og:description" content="Projects by an open source contributor and infrastructure enthusiast: a Rust clearing engine, Indian-market tooling, alt-data platform, GTK4 VM manager in C, server setups, and lab platforms. Mostly open source.">
+    <meta property="og:description" content="Projects by an open source contributor and infrastructure enthusiast: terminal video calls in Go, serverless file sharing on Cloudflare, a Rust clearing engine, Indian-market tooling, and a GTK4 VM manager in C. Mostly open source.">
     <meta property="og:url" content="https://dharun.dev/projects.html">
 	<meta property="og:image" content="https://dharun.dev/img/main.webp">
     <meta property="og:image:alt" content="Technology Projects Showcase">
@@ -48,7 +48,7 @@
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
     <meta name="twitter:title" content="Projects | Dharun Ashokkumar — Rust, Python & C Systems Software">
-    <meta name="twitter:description" content="Projects by an open source contributor and infra/servers enthusiast: Rust clearing engine, Indian-market tooling, GTK4 VM manager in C, server setups, and lab platforms.">
+    <meta name="twitter:description" content="Projects by an open source contributor and infra/servers enthusiast: terminal video calls in Go, Cloudflare file sharing, a Rust clearing engine, Indian-market tooling, and a GTK4 VM manager in C.">
 	<meta name="twitter:image" content="https://dharun.dev/img/main.webp">
 
     <!-- Schema.org structured data -->
@@ -70,7 +70,7 @@
         }
       },
       "datePublished": "2020-01-01",
-      "dateModified": "2025-11-13",
+      "dateModified": "2026-09-09",
       "inLanguage": "en-GB",
       "isPartOf": {
         "@type": "WebSite",
@@ -102,6 +102,30 @@
             "position": 1,
             "item": {
               "@type": "SoftwareSourceCode",
+              "name": "Termcall",
+              "description": "Chat rooms and video calls that live in your terminal, rendered as characters. A Go client, a Cloudflare Worker with one Durable Object per room, and peer-to-peer WebRTC video.",
+              "url": "https://dharun.dev/projects/termcall.html",
+              "codeRepository": "https://github.com/dharunashokkumar/termcall",
+              "programmingLanguage": "Go"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "SoftwareSourceCode",
+              "name": "Dropbin",
+              "description": "Instant file sharing on one Cloudflare Worker and one R2 bucket. Upload a file, get a 4-digit PIN; nothing lists what is stored.",
+              "url": "https://dharun.dev/projects/dropbin.html",
+              "codeRepository": "https://github.com/dharunashokkumar/dropbin",
+              "programmingLanguage": "JavaScript"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "SoftwareSourceCode",
               "name": "Open Clearing Engine",
               "description": "NSCCL-grade clearing and settlement engine in Rust: novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic.",
               "url": "https://dharun.dev/projects/open-clearing-engine.html",
@@ -111,7 +135,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 2,
+            "position": 4,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "Indie Market Analyst",
@@ -123,7 +147,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 5,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "Alternative Data Platform — Indian Equities",
@@ -135,7 +159,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 6,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "VMManager",
@@ -147,7 +171,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 5,
+            "position": 7,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "AiSoul",
@@ -158,7 +182,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 6,
+            "position": 8,
             "item": {
               "@type": "TechArticle",
               "name": "LPU Labs",
@@ -168,7 +192,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 7,
+            "position": 9,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "RLER",
@@ -180,7 +204,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 8,
+            "position": 10,
             "item": {
               "@type": "SoftwareSourceCode",
               "name": "CS Archive",
@@ -221,6 +245,34 @@
 <h1>projects</h1>
 <p class="list-note">selected work. most pages link straight to the source on github.</p>
 <ul class="archive thumblist">
+	<li>
+	<a href="/projects/termcall.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/termcall.svg" alt="termcall" />
+		</div>
+		<p>
+			<span class="title">termcall</span>
+			<span class="date">2026</span>
+			<span class="excerpt">terminal chat rooms &amp; video calls drawn in characters</span>
+			<span class="categories tags">go,&nbsp;webrtc,&nbsp;durable objects</span>
+		</p>
+	</a>
+</li>
+
+	<li>
+	<a href="/projects/dropbin.html">
+		<div class="thumbnail">
+			<img src="/projects/asset/thumbs/dropbin.svg" alt="dropbin" />
+		</div>
+		<p>
+			<span class="title">dropbin</span>
+			<span class="date">2026</span>
+			<span class="excerpt">upload a file, get a 4-digit pin — one worker, one bucket</span>
+			<span class="categories tags">javascript,&nbsp;cloudflare,&nbsp;r2</span>
+		</p>
+	</a>
+</li>
+
 	<li>
 	<a href="/projects/open-clearing-engine.html">
 		<div class="thumbnail">

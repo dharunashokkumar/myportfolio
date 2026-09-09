@@ -742,3 +742,183 @@
   color: #999;
   transition: color 0.3s ease, transform 0.3s ease;
 }
+
+/* ==================================================
+   project page: setup blocks, diagrams, key/value tables
+   greyscale only · border-radius 0 · no shadow · no motion
+   code keeps its own case — the global lowercase must not touch it
+   ================================================== */
+.term {
+  max-width: 36rem;
+  margin: 1.2rem auto;
+  border: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  text-align: left;
+}
+
+.term .term-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+
+.term .term-bar .term-host {
+  text-transform: none;
+  color: #999;
+}
+
+.term pre {
+  margin: 0;
+  padding: 0.8rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.72rem;
+  line-height: 1.25rem;
+  color: #333;
+  text-transform: none;
+  white-space: pre;
+  -moz-tab-size: 2;
+  tab-size: 2;
+}
+
+.term pre .cmt {
+  color: #999;
+}
+
+p code,
+li code,
+td code,
+.feat-text code {
+  font-family: monospace;
+  font-size: 0.74rem;
+  text-transform: none;
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  padding: 0 0.22rem;
+  color: #333;
+}
+
+/* numbered setup ladder */
+.setup-steps {
+  max-width: 36rem;
+  margin: 1.5rem auto;
+  padding: 0;
+  list-style: none;
+  counter-reset: setup;
+  text-align: left;
+}
+
+.setup-steps > li {
+  counter-increment: setup;
+  position: relative;
+  padding-left: 2.1rem;
+  margin-bottom: 1.4rem;
+}
+
+.setup-steps > li::before {
+  content: counter(setup);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  line-height: 1.4rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.setup-steps > li .step-title {
+  display: block;
+  font-weight: 900;
+  color: #333;
+}
+
+.setup-steps > li .term {
+  margin: 0.6rem 0 0;
+  max-width: 100%;
+}
+
+.setup-steps > li p {
+  margin: 0.3rem 0 0;
+  max-width: 100%;
+}
+
+/* architecture figure */
+.arch {
+  max-width: 36rem;
+  margin: 1.8rem auto;
+  text-align: left;
+}
+
+.arch svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e0e0e0;
+}
+
+/* what is authored in the diagram is what renders — the global
+   lowercase must not rewrite a path or an env var drawn in it */
+.arch svg text {
+  text-transform: none;
+}
+
+.arch figcaption {
+  font-size: 0.7425rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+/* key/value + reference tables */
+.spec-table {
+  max-width: 36rem;
+  margin: 1.5rem auto;
+  overflow-x: auto;
+}
+
+.spec-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.7425rem;
+}
+
+.spec-table th,
+.spec-table td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.45rem 0.6rem;
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-weight: 900;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+.spec-table td:first-child {
+  white-space: nowrap;
+  color: #333;
+}
+
+.spec-table .mono {
+  font-family: monospace;
+  text-transform: none;
+  color: #333;
+}
+
+@media screen and (max-width: 700px) {
+  .term pre {
+    font-size: 0.68rem;
+  }
+}

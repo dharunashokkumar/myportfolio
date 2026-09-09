@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6EGD879ZLL');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Termcall | Terminal Video Calls &amp; Chat Rooms in Go, Rendered as ASCII | Dharun Ashokkumar</title>
+    <meta name="description" content="Termcall — chat rooms and video calls that live in your terminal, with the video drawn in characters. One Go binary with ffmpeg embedded, one Cloudflare Worker, a Durable Object per room, and peer-to-peer WebRTC video with three render modes. MIT licensed.">
+    <meta name="keywords" content="termcall, terminal video call, ascii video chat, go tui, webrtc mesh, cloudflare durable objects, braille rendering, terminal chat room, cli video call">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/projects/termcall.html">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="Termcall | Terminal Video Calls &amp; Chat Rooms in Go">
+    <meta property="og:description" content="Chat rooms and video calls that live in your terminal. The video is characters. One Go binary, one Cloudflare Worker, and peer-to-peer WebRTC frames.">
+    <meta property="og:url" content="https://dharun.dev/projects/termcall.html">
+    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image:alt" content="Termcall — terminal video calls rendered as characters">
+    <meta property="og:locale" content="en_GB">
+    <meta property="article:author" content="Dharun Ashokkumar">
+    <meta property="article:published_time" content="2026-09-09">
+    <meta property="article:section" content="Projects">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="WebRTC">
+    <meta property="article:tag" content="Terminal">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="Termcall | Terminal Video Calls &amp; Chat Rooms in Go">
+    <meta name="twitter:description" content="Chat rooms and video calls that live in your terminal. The video is characters — three render modes, peer-to-peer frames, one binary.">
+    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+
+    <!-- Schema.org: SoftwareSourceCode -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "Termcall",
+      "alternateName": "termcall",
+      "description": "Chat rooms and video calls that live in your terminal, with the video rendered as characters. A Go client with ffmpeg embedded, a Cloudflare Worker and one Durable Object per room for chat and handshake, and peer-to-peer WebRTC for video frames.",
+      "url": "https://dharun.dev/projects/termcall.html",
+      "codeRepository": "https://github.com/dharunashokkumar/termcall",
+      "programmingLanguage": ["Go", "JavaScript"],
+      "runtimePlatform": "Cloudflare Workers, Durable Objects",
+      "license": "https://opensource.org/licenses/MIT",
+      "datePublished": "2026-09-09",
+      "dateModified": "2026-09-09",
+      "keywords": "terminal video call, ascii video, braille rendering, webrtc mesh, cloudflare durable objects, go tui, peer-to-peer, chat room",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "maintainer": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "isAccessibleForFree": true,
+      "targetProduct": {
+        "@type": "SoftwareApplication",
+        "name": "termcall",
+        "alternateName": "tc",
+        "applicationCategory": "CommunicationApplication",
+        "operatingSystem": "macOS, Linux, Windows",
+        "softwareVersion": "1.0.0",
+        "downloadUrl": "https://github.com/dharunashokkumar/termcall/releases",
+        "softwareRequirements": "A terminal with 24-bit colour; ffmpeg rides inside the release binary",
+        "featureList": [
+          "Chat rooms for up to 10 people",
+          "ASCII video calls for up to 4 people",
+          "Three render modes: blocks, ascii, braille",
+          "Peer-to-peer WebRTC video, no relay"
+        ],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    }
+    </script>
+    <!-- Schema.org: HowTo — installing it -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Install termcall and start a terminal video call",
+      "description": "Install the termcall binary with one command, run tc, then create or join a room with a six-character code.",
+      "totalTime": "PT2M",
+      "tool": [
+        { "@type": "HowToTool", "name": "A terminal with 24-bit colour" },
+        { "@type": "HowToTool", "name": "A webcam, for video calls" }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Install the binary",
+          "text": "On macOS or Linux run the install.sh one-liner; on Windows run the install.ps1 one-liner in PowerShell. Release binaries carry ffmpeg inside, so there is nothing to install alongside.",
+          "url": "https://dharun.dev/projects/termcall.html#setup"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Run tc and pick a mode",
+          "text": "Run tc. Choose a chat room, a video call, or the camera check that lets you try the render modes before anyone sees you.",
+          "url": "https://dharun.dev/projects/termcall.html#setup"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Create or join a room",
+          "text": "Creating gives you a six-character code. Codes avoid 0, O, 1, I and L so one read down a phone line survives the trip. Anyone with the code and tc can join.",
+          "url": "https://dharun.dev/projects/termcall.html#setup"
+        }
+      ]
+    }
+    </script>
+    <!-- Schema.org: FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many people can join a termcall room?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Chat rooms hold up to 10 people. Video calls stop at 4, because video is a full mesh: everyone connects to everyone, the cost climbs as the square, and a fifth person makes it worse for everyone already there." }
+        },
+        {
+          "@type": "Question",
+          "name": "What actually crosses the wire in a termcall video call?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A JPEG, not characters. Each terminal renders locally, which is why the render mode can change mid-call and why every tile fits whatever size your window happens to be. It is also smaller: ANSI colour codes are bulky enough that a screenful compresses no better than a photograph. A frame is about 1.5 KB." }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the three termcall render modes?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Blocks is the default: each cell is a half-block character carrying two colours, so one cell shows two pixels in 24-bit colour. ASCII uses one character per cell chosen by brightness. Braille packs 2x4 dots per cell for four times the resolution, thresholded per cell, which makes it find edges." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does termcall need a server for video?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Only for the handshake. Chat is relayed through a Durable Object, but after the WebRTC handshake video frames go directly between terminals and Cloudflare carries nothing further. That split is a billing decision as much as an architectural one." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to install ffmpeg to use termcall?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Release binaries carry a build of ffmpeg inside, which takes the binary from about 7 MB to about 40 MB. A system ffmpeg on PATH is still preferred at runtime when there is one, so the unpacking is skipped for anyone who already has it." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are termcall rooms stored anywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. When the last person leaves, the room is deleted and its code is free again. Idle rooms hibernate, so holding one open bills no duration." }
+        }
+      ]
+    }
+    </script>
+    <!-- Schema.org: Breadcrumb -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharun.dev"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://dharun.dev/projects.html"},
+        {"@type":"ListItem","position":3,"name":"Termcall","item":"https://dharun.dev/projects/termcall.html"}
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">go · webrtc · cloudflare durable objects</span>
+          <h1>termcall</h1>
+          <p class="tagline">chat rooms and video calls that live in your terminal. the video is characters.</p>
+        </div>
+
+        <div class="project-actions">
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/termcall" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.001 12.001 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            view source on github
+          </a>
+          <a class="btn-ghost" href="https://call.dharun.dev" target="_blank" rel="noopener">call.dharun.dev ↗</a>
+          <a class="btn-ghost" href="https://github.com/dharunashokkumar/termcall/releases" target="_blank" rel="noopener">download a binary ↗</a>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">go</span>
+          <span class="tag">webrtc</span>
+          <span class="tag">cloudflare workers</span>
+          <span class="tag">durable objects</span>
+          <span class="tag">tui</span>
+          <span class="tag">ascii video</span>
+          <span class="tag">ffmpeg</span>
+          <span class="tag">mit</span>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>what it is</h2>
+        <p>a terminal is a grid of characters, and a webcam frame is a grid of pixels. termcall is what happens when you take that correspondence seriously: a video call where every participant is drawn into your terminal, in colour, at whatever size your window happens to be.</p>
+        <p>one binary. nothing to install alongside it — ffmpeg rides along inside.</p>
+
+        <div class="term">
+          <div class="term-bar"><span>terminal</span><span class="term-host">call.dharun.dev</span></div>
+<pre>$ tc
+
+  termcall
+
+  1  chat room       talk to up to 10 people
+  2  video call      ASCII video, up to 4 people
+  3  camera check    see yourself, try the render modes</pre>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-value">~1.5 kb</span><span class="spec-label">a video frame</span></div>
+          <div class="spec"><span class="spec-value">4</span><span class="spec-label">people on a video call</span></div>
+          <div class="spec"><span class="spec-value">3</span><span class="spec-label">render modes</span></div>
+          <div class="spec"><span class="spec-value">mit</span><span class="spec-label">license</span></div>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>how it works</h2>
+        <p>one cloudflare worker, one durable object per room, and a go client. no database, no build step, no framework. the whole design is one split: <strong>chat goes through the durable object; video does not.</strong></p>
+
+        <figure class="arch">
+          <svg viewBox="0 0 600 320" role="img" aria-labelledby="arch1-title arch1-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch1-title">termcall architecture: chat relayed, video peer-to-peer</title>
+            <desc id="arch1-desc">chat messages travel from each terminal to a durable object and are fanned back out to the room. video only uses the worker for the webrtc handshake; after that, frames travel directly between terminals.</desc>
+            <g font-family="Merriweather, Georgia, serif" font-size="11" fill="#555">
+              <text x="20" y="24" font-size="9.5" letter-spacing="1.6" fill="#999">CHAT — RELAYED</text>
+              <rect x="20" y="40" width="104" height="32" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="60">you</text>
+              <rect x="20" y="92" width="104" height="32" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="34" y="112">them</text>
+              <path d="M124 56 H190 V78" stroke="#999" fill="none"/>
+              <path d="M124 108 H190 V86" stroke="#999" fill="none"/>
+              <path d="M186 74 l4 6 4 -6z" fill="#999"/>
+
+              <rect x="196" y="66" width="150" height="32" fill="none" stroke="#555"/>
+              <text x="210" y="86" font-weight="bold" fill="#333">durable object</text>
+              <path d="M346 82 H408" stroke="#999" fill="none"/><path d="M402 78 l6 4 -6 4z" fill="#999"/>
+              <rect x="408" y="66" width="120" height="32" fill="#f8f9fa" stroke="#ccc"/>
+              <text x="422" y="86">everyone, fanned out</text>
+              <text x="20" y="146" font-size="10" fill="#888">text is small and rare, so relaying it costs almost nothing</text>
+
+              <line x1="20" y1="164" x2="580" y2="164" stroke="#e0e0e0"/>
+
+              <text x="20" y="192" font-size="9.5" letter-spacing="1.6" fill="#999">VIDEO — PEER TO PEER</text>
+              <rect x="20" y="208" width="104" height="32" fill="#f8f9fa" stroke="#555"/>
+              <text x="34" y="228">your terminal</text>
+              <rect x="420" y="208" width="108" height="32" fill="#f8f9fa" stroke="#555"/>
+              <text x="434" y="228">their terminal</text>
+
+              <path d="M72 208 V186 H274" stroke="#999" fill="none" stroke-dasharray="3 3"/>
+              <path d="M474 208 V186 H346" stroke="#999" fill="none" stroke-dasharray="3 3"/>
+              <rect x="274" y="172" width="72" height="28" fill="none" stroke="#999" stroke-dasharray="3 3"/>
+              <text x="286" y="190" font-size="10" fill="#777">worker</text>
+              <text x="248" y="212" font-size="9.5" fill="#999">handshake only</text>
+
+              <path d="M124 224 H414" stroke="#555" fill="none"/>
+              <path d="M408 220 l6 4 -6 4z" fill="#555"/>
+              <path d="M130 220 l-6 4 6 4z" fill="#555"/>
+              <text x="212" y="256" font-size="10" fill="#888">frames, direct — cloudflare carries nothing</text>
+
+              <line x1="20" y1="276" x2="580" y2="276" stroke="#e0e0e0"/>
+              <text x="20" y="298" font-size="10" fill="#888">relaying 10 fps from four people would be 24,000 requests in a ten-minute call.</text>
+              <text x="20" y="314" font-size="10" fill="#888">the same call peer-to-peer costs about twenty messages, all of them handshake.</text>
+            </g>
+          </svg>
+          <figcaption>the split is a billing decision as much as an architectural one — cloudflare charges a request per incoming websocket message.</figcaption>
+        </figure>
+
+        <h2>a mesh, not a server</h2>
+        <p>everyone connects to everyone. at four people that's three connections each, which is exactly why video rooms stop at four: the cost of a mesh climbs as the square, and a fifth person makes it worse for everyone already there.</p>
+
+        <figure class="arch">
+          <svg viewBox="0 0 600 240" role="img" aria-labelledby="arch2-title arch2-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch2-title">the video mesh at two, three and four people</title>
+            <desc id="arch2-desc">two people need one connection, three need three, four need six. the count grows as the square of the room, which is why video rooms are capped at four.</desc>
+            <g font-family="Merriweather, Georgia, serif" font-size="10.5" fill="#555">
+              <text x="20" y="26" font-size="9.5" letter-spacing="1.6" fill="#999">CONNECTIONS IN THE MESH</text>
+
+              <line x1="60" y1="120" x2="140" y2="120" stroke="#999"/>
+              <circle cx="60" cy="120" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="140" cy="120" r="9" fill="#f8f9fa" stroke="#555"/>
+              <text x="72" y="184" font-size="11" font-weight="bold" fill="#333">2 people</text>
+              <text x="78" y="202" font-size="10" fill="#888">1 link</text>
+
+              <line x1="250" y1="90" x2="210" y2="150" stroke="#999"/>
+              <line x1="250" y1="90" x2="290" y2="150" stroke="#999"/>
+              <line x1="210" y1="150" x2="290" y2="150" stroke="#999"/>
+              <circle cx="250" cy="90" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="210" cy="150" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="290" cy="150" r="9" fill="#f8f9fa" stroke="#555"/>
+              <text x="222" y="184" font-size="11" font-weight="bold" fill="#333">3 people</text>
+              <text x="230" y="202" font-size="10" fill="#888">3 links</text>
+
+              <line x1="420" y1="90" x2="500" y2="90" stroke="#999"/>
+              <line x1="420" y1="150" x2="500" y2="150" stroke="#999"/>
+              <line x1="420" y1="90" x2="420" y2="150" stroke="#999"/>
+              <line x1="500" y1="90" x2="500" y2="150" stroke="#999"/>
+              <line x1="420" y1="90" x2="500" y2="150" stroke="#999"/>
+              <line x1="500" y1="90" x2="420" y2="150" stroke="#999"/>
+              <circle cx="420" cy="90" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="500" cy="90" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="420" cy="150" r="9" fill="#f8f9fa" stroke="#555"/>
+              <circle cx="500" cy="150" r="9" fill="#f8f9fa" stroke="#555"/>
+              <text x="428" y="184" font-size="11" font-weight="bold" fill="#333">4 people</text>
+              <text x="436" y="202" font-size="10" fill="#888">6 links · the cap</text>
+
+              <line x1="20" y1="218" x2="580" y2="218" stroke="#e0e0e0"/>
+              <text x="20" y="236" font-size="10" fill="#888">a fifth person would need 10 links, and each of the four already there would pay for it</text>
+            </g>
+          </svg>
+          <figcaption>the cap isn't a limitation of the code — it's the point at which the mesh stops being kind to the people already in the room.</figcaption>
+        </figure>
+
+        <h2>what crosses the wire is a jpeg</h2>
+        <p>not characters. each terminal renders locally, which is why you can change mode mid-call and why every tile fits whatever size your window happens to be. it's also <em>smaller</em>: ansi colour codes are bulky enough that a screenful compresses no better than a photograph of the same scene. a frame is about 1.5 kb, so a full four-way call sends roughly 45 kb/s upstream.</p>
+
+        <figure class="arch">
+          <svg viewBox="0 0 600 150" role="img" aria-labelledby="arch3-title arch3-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="arch3-title">the frame pipeline</title>
+            <desc id="arch3-desc">a webcam frame is captured by ffmpeg, encoded as a jpeg, sent over webrtc, decoded on the far side, auto-levelled, and only then drawn into terminal cells in the mode that terminal has chosen.</desc>
+            <g font-family="Merriweather, Georgia, serif" font-size="10" fill="#555">
+              <text x="20" y="24" font-size="9.5" letter-spacing="1.6" fill="#999">SENDING TERMINAL</text>
+              <rect x="20" y="36" width="84" height="30" fill="#f8f9fa" stroke="#ccc"/><text x="32" y="55">webcam</text>
+              <path d="M104 51 H132" stroke="#999" fill="none"/><path d="M126 47 l6 4 -6 4z" fill="#999"/>
+              <rect x="132" y="36" width="84" height="30" fill="#f8f9fa" stroke="#ccc"/><text x="144" y="55">ffmpeg</text>
+              <path d="M216 51 H244" stroke="#999" fill="none"/><path d="M238 47 l6 4 -6 4z" fill="#999"/>
+              <rect x="244" y="36" width="84" height="30" fill="none" stroke="#555"/><text x="256" y="55">jpeg ~1.5 kb</text>
+              <path d="M328 51 H356" stroke="#555" fill="none"/><path d="M350 47 l6 4 -6 4z" fill="#555"/>
+              <rect x="356" y="36" width="98" height="30" fill="#f8f9fa" stroke="#555"/><text x="368" y="55">webrtc, direct</text>
+
+              <path d="M405 66 V86 H150" stroke="#999" fill="none"/><path d="M156 82 l-6 4 6 4z" fill="#999"/>
+
+              <text x="20" y="106" font-size="9.5" letter-spacing="1.6" fill="#999">RECEIVING TERMINAL</text>
+              <rect x="132" y="96" width="84" height="30" fill="#f8f9fa" stroke="#ccc"/><text x="144" y="115">decode</text>
+              <path d="M216 111 H244" stroke="#999" fill="none"/><path d="M238 107 l6 4 -6 4z" fill="#999"/>
+              <rect x="244" y="96" width="84" height="30" fill="#f8f9fa" stroke="#ccc"/><text x="256" y="115">auto-levels</text>
+              <path d="M328 111 H356" stroke="#999" fill="none"/><path d="M350 107 l6 4 -6 4z" fill="#999"/>
+              <rect x="356" y="96" width="98" height="30" fill="none" stroke="#555"/><text x="368" y="115">your render mode</text>
+              <path d="M454 111 H482" stroke="#999" fill="none"/><path d="M476 107 l6 4 -6 4z" fill="#999"/>
+              <rect x="482" y="96" width="98" height="30" fill="#f8f9fa" stroke="#555"/><text x="494" y="115" font-weight="bold" fill="#333">cells on screen</text>
+            </g>
+          </svg>
+          <figcaption>rendering at the far end is what makes the mode a local choice, and the tile size a local one too.</figcaption>
+        </figure>
+
+        <h2>the three render modes</h2>
+        <p><code>m</code> cycles them mid-call, and it applies to everyone on your screen.</p>
+
+        <div class="feat-list">
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>blocks</strong> — the default. each cell is <code>▀</code> carrying two colours, the foreground painting the top half and the background the bottom, so one cell shows two pixels in full 24-bit colour. the most picture per character.</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>ascii</strong> — one character per cell, chosen from <code>.:-=+*#%@</code> by brightness and tinted with the colour it stands for. the classic look, half the vertical detail.</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>braille</strong> — 2×4 dots per cell, so four times the resolution, with colour per cell rather than per dot. thresholded against each cell's own average, which makes it find edges. good for outlines, weaker on flat colour.</span></div>
+        </div>
+
+        <div class="callout">all three run through auto-levels first. a webcam indoors puts almost everything it sees into a narrow band — measuring one gave a picture living entirely between luminance 125 and 140 — and a ten-step ramp maps that whole range onto a single character. stretching what's actually there across the full range is the difference between a picture and a texture.</div>
+
+        <hr class="dotted">
+
+        <h2 id="setup">setup · install it</h2>
+        <p>one command. release binaries carry ffmpeg inside, so there's nothing to install alongside.</p>
+
+        <ol class="setup-steps">
+          <li>
+            <span class="step-title">install the binary</span>
+            <div class="term">
+              <div class="term-bar"><span>sh</span><span class="term-host">macos · linux</span></div>
+<pre>curl -fsSL https://call.dharun.dev/install.sh | sh</pre>
+            </div>
+            <div class="term">
+              <div class="term-bar"><span>powershell</span><span class="term-host">windows</span></div>
+<pre>irm https://call.dharun.dev/install.ps1 | iex</pre>
+            </div>
+            <p>or take one from <a href="https://github.com/dharunashokkumar/termcall/releases" target="_blank" rel="noopener">the releases page</a>.</p>
+          </li>
+          <li>
+            <span class="step-title">run it, and try the camera first</span>
+            <div class="term">
+              <div class="term-bar"><span>sh</span></div>
+<pre>tc</pre>
+            </div>
+            <p>option <code>3</code> is a camera check — you see yourself and can cycle the render modes before anyone else does.</p>
+          </li>
+          <li>
+            <span class="step-title">create a room, or join one</span>
+            <p>creating gives you a six-character code; anyone with the code and <code>tc</code> can join. codes avoid <code>0</code>, <code>O</code>, <code>1</code>, <code>I</code> and <code>L</code>, so one read down a phone line survives the trip. rooms aren't stored — when the last person leaves, the room is deleted and its code is free again.</p>
+          </li>
+        </ol>
+
+        <h2>keys, in a room</h2>
+        <div class="spec-table">
+          <table>
+            <tr><th>key</th><th>what it does</th></tr>
+            <tr><td><span class="mono">enter</span></td><td>send a message</td></tr>
+            <tr><td><span class="mono">↑ ↓</span></td><td>scroll back through the transcript</td></tr>
+            <tr><td><span class="mono">m</span></td><td>change the video render mode</td></tr>
+            <tr><td><span class="mono">esc</span></td><td>leave</td></tr>
+          </table>
+        </div>
+
+        <h2>setup · build it yourself</h2>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>go build -o tc ./cmd/tc          <span class="cmt"># needs a system ffmpeg for video</span>
+go test ./...                    <span class="cmt"># unit tests; no server needed</span>
+
+cd worker &amp;&amp; npm run dev         <span class="cmt"># wrangler dev on 127.0.0.1:8787</span>
+TC_HOST=http://127.0.0.1:8787 go test ./...   <span class="cmt"># integration too</span></pre>
+        </div>
+        <p>the integration tests are skipped unless <code>TC_HOST</code> is set, because what they check — that create refuses a live code, that a room fills up, that two peers complete a webrtc handshake — are decisions the real server makes. testing them against a mock would only prove the mock agrees with itself.</p>
+
+        <p>to build a release binary carrying ffmpeg:</p>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>tools/fetch-ffmpeg.sh linux amd64
+GOOS=linux GOARCH=amd64 go build -tags embedffmpeg -ldflags "-s -w" ./cmd/tc</pre>
+        </div>
+        <p>that takes the binary from about 7 mb to about 40 mb. it's worth it: a person downloads one file and it works. a system ffmpeg on <code>PATH</code> is still preferred at runtime when there is one, so the unpacking is skipped for anyone who already has it.</p>
+
+        <div class="spec-table">
+          <table>
+            <tr><th>environment variable</th><th>what it sets</th></tr>
+            <tr><td><span class="mono">TC_HOST</span></td><td>the server to use, default <span class="mono">call.dharun.dev</span></td></tr>
+            <tr><td><span class="mono">TC_FFMPEG</span></td><td>a specific ffmpeg to use instead of searching</td></tr>
+          </table>
+        </div>
+
+        <hr class="dotted">
+
+        <h2>staying inside the free tier</h2>
+        <p>everything runs on cloudflare's free plan, and it isn't close.</p>
+
+        <div class="spec-table">
+          <table>
+            <tr><th>resource</th><th>free allowance</th><th>what termcall uses</th></tr>
+            <tr><td>worker requests</td><td>100,000/day</td><td>~1,000 for ten people chatting a hundred messages each</td></tr>
+            <tr><td>durable objects</td><td>free plan, sqlite-backed</td><td>one per live room, hibernating when idle</td></tr>
+            <tr><td>video relay</td><td>—</td><td>none; peer-to-peer after the handshake</td></tr>
+          </table>
+        </div>
+
+        <p>idle rooms hibernate, so holding a room open bills no duration. keepalives are protocol-level websocket pings, which the runtime answers at the edge without waking the durable object — an application-level ping would bill a request every time.</p>
+
+        <p>the one thing that may eventually need something else is turn, the relay for networks too strict for peer-to-peer to cross. <code>/ice</code> serves the list, so adding one is three secrets on the worker and no client update:</p>
+        <div class="term">
+          <div class="term-bar"><span>sh</span></div>
+<pre>npx wrangler secret put TURN_URL     <span class="cmt"># turn:host:3478</span>
+npx wrangler secret put TURN_USER
+npx wrangler secret put TURN_PASS</pre>
+        </div>
+
+        <p class="callout" style="border:none;font-style:normal;opacity:0.55;">mit licensed. release binaries bundle a gplv3 build of ffmpeg, run as a separate program rather than linked — see <a href="https://github.com/dharunashokkumar/termcall/blob/main/NOTICE" target="_blank" rel="noopener">notice</a>.</p>
+
+        <hr>
+
+        <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects.html">all projects</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+            <li><a href="/projects.html">projects</a></li>
+            <li><a href="/reflections.html">reflections</a></li>
+            <li><a href="/resume.html">resume</a></li>
+            <li><a href="/about.html">about</a></li>
+            <li><a href="/contact.html">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>
