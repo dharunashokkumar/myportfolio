@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,900;1,300;1,900&display=swap");
+/* Merriweather now lives in fonts.css, self-hosted and linked from <head>.
+ * It used to be @import-ed here, which buried the font request three hops
+ * deep in a render-blocking chain. Do not reintroduce an @import. */
 
 html {
   text-transform: lowercase;

@@ -35,3 +35,10 @@
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
   Cache-Control: public, max-age=3600
+
+# Fonts are immutable: the filenames pin a specific Merriweather cut (v33) and the
+# files are never edited in place — a new cut would land under a new name. A year of
+# cache with no revalidation is safe and keeps repeat visits off the network entirely.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *

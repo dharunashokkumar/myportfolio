@@ -31,7 +31,19 @@
     <link rel="icon" href="/favicon/favicon.png">
     <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
 
-    <link rel="stylesheet" type="text/css" href='css/main.css'>
+    <!-- Stylesheets are linked individually and in cascade order. They used to be
+         one link to css/main.css, which @import-ed the five partials; @import is
+         invisible to the preload scanner, so each file was only discovered after
+         its parent parsed - five serial round trips of render-blocking CSS to
+         deliver ~10 KB. Link order is cascade order, so this is equivalent.
+         Keep this order. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -290,7 +302,7 @@
 
             <p>student and open source infrastructure enthusiast from india. i love working with servers, self-hosting, and building reliable backend systems — from a <a href="projects/open-clearing-engine">clearing &amp; settlement engine</a> to <a href="projects/lpulabs">cloud lab platforms</a> to <a href="projects">market tooling</a>.
 
-            currently pursuing btech computer science at <span class="lpu-inline-badge"><img src="img/lpulogo.jpeg" alt="" class="lpu-inline-logo" aria-hidden="true" /><a href="https://www.lpu.in/" target="_blank" class="lpu-inline-link">lovely professional university</a></span>, punjab. i contribute to open source and believe in building in public.</p>
+            currently pursuing btech computer science at <span class="lpu-inline-badge"><img src="img/lpulogo.webp" alt="" class="lpu-inline-logo" aria-hidden="true" width="64" height="64" /><a href="https://www.lpu.in/" target="_blank" class="lpu-inline-link">lovely professional university</a></span>, punjab. i contribute to open source and believe in building in public.</p>
 
             <div class="start-here">
               <h2>start here</h2>
@@ -305,7 +317,7 @@
 
             <p>see my <span class="highlight"><a href="/opensource">open source contributions</a></span> here.....</p>
 
-            <p><img src="img/main.webp" title="image credit: meret vollenweider and sam nguyen, 201510" alt="Dharun Ashokkumar — student and open source infrastructure enthusiast from India" /></p>
+            <p><img src="img/main.webp" title="image credit: meret vollenweider and sam nguyen, 201510" alt="Dharun Ashokkumar — student and open source infrastructure enthusiast from India" width="1024" height="1024" /></p>
 
             <p>i work with docker, linux, RabbitMQ, MongoDB, and DevOps tools. my interests span web development, cloud infrastructure, cybersecurity, and machine learning.</p>
 

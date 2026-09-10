@@ -33,15 +33,18 @@ Standalone single-file experiments (CPU architecture explorer, shader wallpapers
 > Historical note: this directory used to be called `explorer/`; it was renamed to `galley/` in commit `529ec58`. If you see old references, update them.
 
 ### Shared front-end assets
-- `css/main.css` — single global stylesheet entry point. It only `@import`s, in order, five ordered partials that together hold the whole shared system (Merriweather, lowercase text-transform globally on `<html>`):
+- The shared system is six stylesheets, **linked individually from every page's `<head>` in this exact order** (Merriweather, lowercase text-transform globally on `<html>`):
+  - `css/fonts.css` — the eight self-hosted Merriweather `@font-face` blocks. Nothing else.
   - `css/base.css` — reset, html/body, typography, headings/lists/blockquote, `#container`/header/footer/nav.
   - `css/layout.css` — images, `.video*`, `div.media` / `.item` / `.item-halfwidth`, captions.
   - `css/components.css` — links, `.social-links`, `.nav-grid`, header nav, archive pages & `.thumblist`, single-post meta.
   - `css/responsive.css` — the global `@media screen` breakpoints and the `@media print` block.
   - `css/modules.css` — `.featured_post`, wiki/about, contact-grid, timeline, project-card components, `#secret-lock`, vault, top-slider (each keeps its own embedded media queries).
-  - **Cascade order is load-bearing** — the partials are sequential slices of the old monolith; keep the `@import` order in `main.css` unchanged.
-- Page-scoped stylesheets (each linked only from its one page, never `@import`ed into `main.css`): `css/resume.css` (resume.html — layout for the collapsible resume sections, scoped to `.resume-page`; uses the global Merriweather/greyscale system, no separate fonts), `css/opensource.css` (opensource.html), `css/lpulabs.css` (projects/lpulabs.html).
-- `img/` — site imagery (`main.webp`, `lpulogo.jpeg`, still-life PNGs, etc.).
+  - **Cascade order is load-bearing** — the partials are sequential slices of the old monolith. Link order *is* cascade order, so keep these six `<link>` tags in this order and keep any page-scoped sheet after them.
+  - **Never reintroduce `@import`.** There used to be a `css/main.css` that did nothing but `@import` the partials, and `base.css` in turn `@import`-ed Google Fonts. `@import` is invisible to the browser's preload scanner, so each file was only discovered once its parent had been fetched and parsed: `html → main.css → base.css → googleapis css → gstatic woff2`. That was five serial render-blocking round trips to deliver ~10 KB of CSS, and it was the single largest cost in the page's load. `main.css` has been deleted; add new partials as another `<link>`, not an `@import`.
+- Page-scoped stylesheets (each linked only from its one page, and always *after* the six above): `css/resume.css` (resume.html — layout for the collapsible resume sections, scoped to `.resume-page`; uses the global Merriweather/greyscale system, no separate fonts), `css/opensource.css` (opensource.html), `css/lpulabs.css` (projects/lpulabs.html).
+- `fonts/` — the four self-hosted Merriweather `.woff2` files (latin and latin-ext, roman and italic). They are Google's own files, unmodified; `css/fonts.css` is Google's CSS with the URLs rewritten, so rendering is identical. Only latin and latin-ext are kept — no page that loads the global system contains a character in the cyrillic or vietnamese ranges. `_headers` caches them `immutable` for a year, so a different cut must land under a **new filename**. Every page also `<link rel="preload">`s `merriweather-latin-normal.woff2`, the roman body face.
+- `img/` — site imagery (`main.webp`, `lpulogo.webp`, still-life PNGs, etc.). `main.webp` is 1024×1024 and must stay that size: it is the `og:image`/`twitter:image` on every page and those `og:image:width`/`height` tags say 1024. (Lighthouse calls it oversized for its 371px slot; that assumes a 1× display and is wrong for the 2–3× phones that actually load it.) `img/lpulogo.jpeg` is kept only because the read-only `design-system/` snapshots reference it — live pages use `img/lpulogo.webp`.
 - `files/dharun-ashokkumar-resume.pdf` — the downloadable resume.
 - `favicon/favicon.png` — referenced from every page's `<head>`.
 
@@ -71,7 +74,7 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 ## Conventions
 
 - All visible text is lowercase (enforced by `text-transform: lowercase` on `<html>`). Author copy in lowercase; don't rely on CSS to fix capitalization (it won't catch alt text, titles, or JSON-LD).
-- Every page shares the same header/nav and links to `css/main.css`.
+- Every page shares the same header/nav, and carries the same `<head>` block: a `preload` for the roman body font followed by the six global stylesheet `<link>`s in cascade order. Copy it verbatim from an existing page — **new pages must include it manually**, with the right relative prefix (`css/…` at the root, `../css/…` under `projects/` and `reflections/`).
 - Google Analytics tag `G-6EGD879ZLL` is included in every page's `<head>`, as the first thing inside `<head>`. It is the only property — the previous tag `G-DGWHDZMCF6` was removed in July 2026 and must not be reintroduced. **New pages must include the snippet manually.**
 - SEO: structured data (Schema.org JSON-LD), Open Graph, and Twitter Card meta are present on key pages; `sitemap.xml` and `robots.txt` live at root. **New content pages (projects, reflections) must be added to `sitemap.xml` manually.**
 
