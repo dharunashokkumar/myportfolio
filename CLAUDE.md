@@ -75,6 +75,28 @@ This is a **Claude Design** handoff bundle. Treat it as ground truth for visual 
 - Google Analytics tag `G-6EGD879ZLL` is included in every page's `<head>`, as the first thing inside `<head>`. It is the only property — the previous tag `G-DGWHDZMCF6` was removed in July 2026 and must not be reintroduced. **New pages must include the snippet manually.**
 - SEO: structured data (Schema.org JSON-LD), Open Graph, and Twitter Card meta are present on key pages; `sitemap.xml` and `robots.txt` live at root. **New content pages (projects, reflections) must be added to `sitemap.xml` manually.**
 
+## AI & machine-readable surface
+
+The site is meant to be read, quoted and cited by AI assistants, not just ranked by search engines. Four root files carry that, and **all of them are maintained by hand — nothing is generated at build time, because there is no build**:
+
+- `llms.txt` — the [llmstxt.org](https://llmstxt.org) entry point: an H1, a blockquote summary, then linked sections (start here / projects / reflections / contact / optional). Keep it to one screen of scannable links.
+- `llms-full.txt` — the whole profile in a single fetch, so a model never has to stitch pages together. Numbered sections, plain assertions, and a closing Q&A block phrased the way people actually ask. **Every claim in it must already be true on a real page** — it is a mirror, not a place to add new facts.
+- `feed.xml` — Atom feed for `reflections/`. Newest entry first. `<updated>` on the feed must match the newest entry's `<updated>`.
+- `<key>.txt` — IndexNow key file (the filename is the key, and the file contains only that key). Used to push URL changes to Bing/Copilot, Yandex and Seznam. See below.
+
+Discovery is wired three ways: `robots.txt` names the AI crawlers explicitly and lists both `sitemap.xml` and `feed.xml` as sitemaps; every indexable page carries `<link rel="alternate">` tags for the feed and `llms.txt`; `_headers` pins the content types (`text/plain` for the llms files, `application/atom+xml` for the feed) and opens CORS on them so browser-side agents can fetch without a proxy.
+
+**Adding a reflection** now also means: add an `<entry>` to `feed.xml`, bump the feed's `<updated>`, and add the post to the reflections list in both `llms.txt` and `llms-full.txt`. **Adding a project** means adding it to the projects list in both llms files. Bump `Last updated:` in `llms-full.txt` whenever it changes.
+
+**Pinging IndexNow** after a deploy (instant recrawl for Bing/Copilot, Yandex, Seznam — Google ignores it):
+
+```sh
+KEY=$(basename "$(ls *.txt | grep -E '^[0-9a-f]{32}\.txt$')" .txt)
+curl -sS "https://api.indexnow.org/indexnow?url=https://dharun.dev/&key=$KEY"
+```
+
+Submit a changed page by swapping the `url=` value. One URL per request on that endpoint; the JSON bulk endpoint takes a list.
+
 ## Git
 
 - **No AI attribution in commits.** Do not add a `Co-Authored-By` trailer (or any "Generated with Claude" / AI mention) to commit messages or PR bodies.

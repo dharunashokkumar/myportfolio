@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>dharun ashokkumar — reflections</title>
+  <subtitle>notes from building a clearing engine in rust, honest backtests for indian markets, a vm manager in c, and other projects — written while learning in public.</subtitle>
+  <link href="https://dharun.dev/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://dharun.dev/reflections" rel="alternate" type="text/html"/>
+  <id>https://dharun.dev/</id>
+  <updated>2026-07-18T00:00:00+00:00</updated>
+  <icon>https://dharun.dev/favicon/favicon.png</icon>
+  <logo>https://dharun.dev/img/main.webp</logo>
+  <rights>© Dharun Ashokkumar</rights>
+
+  <author>
+    <name>Dharun Ashokkumar</name>
+    <uri>https://dharun.dev</uri>
+    <email>dharuna457@gmail.com</email>
+  </author>
+
+  <entry>
+    <title>linux foundation, lfx, and a trip to mumbai i didn't pay for</title>
+    <link href="https://dharun.dev/reflections/lfx-mumbai-2026" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/lfx-mumbai-2026</id>
+    <published>2026-06-19T00:00:00+00:00</published>
+    <updated>2026-07-18T00:00:00+00:00</updated>
+    <summary>on being a linux foundation member, contributor, and maintainer — and being funded by the lfx mentorship travel grant to attend the linux foundation open source summit 2026 in mumbai, june 16-18.</summary>
+    <category term="open source"/>
+    <category term="linux foundation"/>
+  </entry>
+
+  <entry>
+    <title>why i built a clearing engine i'll probably never run in production</title>
+    <link href="https://dharun.dev/reflections/clearing-engine" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/clearing-engine</id>
+    <published>2026-05-20T00:00:00+00:00</published>
+    <updated>2026-05-29T00:00:00+00:00</updated>
+    <summary>a note on building an event-sourced, deterministic clearing &amp; settlement engine in rust — and why correctness requirements shape the code more than the finance does.</summary>
+    <category term="rust"/>
+    <category term="systems"/>
+  </entry>
+
+  <entry>
+    <title>a backtest that ignores costs is fiction</title>
+    <link href="https://dharun.dev/reflections/backtest-costs" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/backtest-costs</id>
+    <published>2026-05-12T00:00:00+00:00</published>
+    <updated>2026-05-29T00:00:00+00:00</updated>
+    <summary>a note on modelling indian trading costs and point-in-time correctness — why honesty in financial software is the load-bearing wall, not a feature.</summary>
+    <category term="markets"/>
+    <category term="python"/>
+  </entry>
+
+  <entry>
+    <title>rust keeps making me slower, and that's the point</title>
+    <link href="https://dharun.dev/reflections/rust-slower" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/rust-slower</id>
+    <published>2026-05-05T00:00:00+00:00</published>
+    <updated>2026-05-29T00:00:00+00:00</updated>
+    <summary>a note on how the rust borrow checker changed the way i scope and design work — shipping a small correct thing over a big handwavy one.</summary>
+    <category term="rust"/>
+  </entry>
+
+  <entry>
+    <title>building in public, even the unfinished and the archived</title>
+    <link href="https://dharun.dev/reflections/building-in-public" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/building-in-public</id>
+    <published>2026-04-10T00:00:00+00:00</published>
+    <updated>2026-05-29T00:00:00+00:00</updated>
+    <summary>a note on why i leave unfinished and archived projects live — showing the workshop instead of the showroom, and what learning in public actually looks like.</summary>
+    <category term="building in public"/>
+  </entry>
+
+  <entry>
+    <title>i wrote a vm manager in c on purpose</title>
+    <link href="https://dharun.dev/reflections/vmmanager-in-c" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/vmmanager-in-c</id>
+    <published>2026-03-18T00:00:00+00:00</published>
+    <updated>2026-05-29T00:00:00+00:00</updated>
+    <summary>a note on building vmmanager in c against libvirt and the incus rest api — choosing the hard path on purpose to learn where the complexity actually lives.</summary>
+    <category term="c"/>
+    <category term="virtualisation"/>
+  </entry>
+
+</feed>

@@ -1,13 +1,137 @@
 # robots.txt for dharun.dev
-# Updated: 2026-09-09
+# Updated: 2026-09-10
 #
 # Nothing is Disallowed on purpose. Pages that should stay out of the index
 # (vault.html, galley/*, design-system/*) carry a noindex instead — either a
 # meta robots tag or the X-Robots-Tag header set in _headers. A crawler has to
 # be able to FETCH a page to see a noindex, so Disallow would defeat it and
 # leave those URLs stuck in "blocked by robots.txt" limbo.
+#
+# The AI crawlers below are named explicitly rather than left to the wildcard.
+# Two reasons: some agents only read their own named block, and two of them
+# (Google-Extended, Applebot-Extended) are pure opt-in/opt-out switches for AI
+# grounding and training that a wildcard rule does not speak to. Naming them is
+# an explicit yes. This site wants to be read, quoted and cited by assistants.
+#
+# Machine-readable summaries for language models:
+#   https://dharun.dev/llms.txt       — index, one screen
+#   https://dharun.dev/llms-full.txt  — the whole profile in one fetch
 
 User-agent: *
 Allow: /
 
+# --- AI assistants & AI search ---------------------------------------------
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google (Gemini / AI Overviews grounding — separate from Googlebot)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Microsoft / Copilot
+User-agent: bingbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+# Meta
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# ByteDance
+User-agent: Bytespider
+Allow: /
+
+# Common Crawl — the corpus behind many models
+User-agent: CCBot
+Allow: /
+
+# Internet Archive
+User-agent: ia_archiver
+Allow: /
+
+User-agent: archive.org_bot
+Allow: /
+
+# Diffbot / Timpi / other index builders
+User-agent: Diffbot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: omgili
+Allow: /
+
+# Google and Bing both accept an Atom feed as a sitemap; listing it gives new
+# reflections a faster discovery path than waiting for a full sitemap recrawl.
 Sitemap: https://dharun.dev/sitemap.xml
+Sitemap: https://dharun.dev/feed.xml

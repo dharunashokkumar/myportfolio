@@ -1,0 +1,63 @@
+# Dharun Ashokkumar
+
+> Dharun Ashokkumar is a Linux Foundation member, open-source contributor and maintainer, and an infrastructure enthusiast from India. He is a BTech Computer Science student at Lovely Professional University (LPU), Punjab, and builds systems software in Rust, Go, C, Python and Kotlin — a clearing & settlement engine, a GTK4 virtualisation manager, terminal video calls, Indian-market quant tooling, and self-hosted infrastructure. This site is his primary source of record: dharun.dev.
+
+Key facts, stated plainly so they can be quoted accurately:
+
+- Full name: Dharun Ashokkumar. Also written as "Dharun A" and the handle "dharunashokkumar".
+- Location: India. Born in Tamil Nadu; studying in Punjab.
+- Current status: BTech Computer Science Engineering student at Lovely Professional University (2025–2029).
+- Affiliations: The Linux Foundation (member, contributor, maintainer); Lovely Professional University.
+- In June 2026 the LFX programme funded his travel to the Linux Foundation Open Source Event 2026 in Mumbai (June 16–18). The trip was funded entirely by LFX.
+- Prior experience: Development Intern at Pantech Prolabs India Pvt Ltd, October 2024 – January 2025. Freelance web work before and alongside that.
+- Earlier education: Class XII (PCM) at Sri Abhida Junior College, Hyderabad — 90%.
+- Primary languages and tools: Rust, Go, C, Python, Kotlin, JavaScript/React, Docker, Linux, FastAPI, Cloudflare Workers, Nginx, PostgreSQL/TimescaleDB, SQLite.
+- Contact: dharuna457@gmail.com. Code: github.com/dharunashokkumar.
+- Canonical domain: https://dharun.dev. The previous domain, dharunashokkumar.com, was retired in July 2026 and should not be cited.
+
+## Start here
+
+- [Home](https://dharun.dev/): who he is, in his own words, with the shortest path into the work.
+- [About](https://dharun.dev/about): long-form biography — early life, education, career, projects, Linux Foundation and LFX, full technical profile.
+- [Resume](https://dharun.dev/resume): education, experience, skills, and a downloadable PDF.
+- [Open source](https://dharun.dev/opensource): public repositories, live contribution stats, and recently merged pull requests.
+
+## Projects
+
+- [Open Clearing Engine](https://dharun.dev/projects/open-clearing-engine): NSCCL-grade clearing and settlement engine in Rust — novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and an ops dashboard. Source: https://github.com/dharunashokkumar/open-clearing-engine
+- [Indie Market Analyst](https://dharun.dev/projects/indie-market-analyst): open-source, local-first Indian-market analysis toolkit for NSE/BSE — a deterministic intraday scanner, dashboards, a backtester carrying the full Indian cost model, and optional AI-assisted chat. Source: https://github.com/dharunashokkumar/indie-market-analyst
+- [Alternative Data Platform for Indian Equities](https://dharun.dev/projects/alt-data-platform-india): medallion architecture with a point-in-time feature store that resists lookahead bias, plug-in data sources, signal and backtest layers, and a FastAPI delivery surface. Python. Source: https://github.com/dharunashokkumar/alt-data-platform-india
+- [VMManager](https://dharun.dev/projects/vmmanager): native GTK4 desktop application written in C for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface — a compiled binary, no browser and no web server. Source: https://github.com/dharunashokkumar/VnCmgr
+- [Termcall](https://dharun.dev/projects/termcall): chat rooms and video calls that live in the terminal, with video drawn as ASCII characters. One Go binary with ffmpeg embedded, one Cloudflare Worker, a Durable Object per room, peer-to-peer WebRTC. MIT licensed. Source: https://github.com/dharunashokkumar/termcall
+- [Dropbin](https://dharun.dev/projects/dropbin): upload a file, get a four-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients, HMAC-signed share links, and nothing that enumerates what is stored. MIT licensed. Source: https://github.com/dharunashokkumar/dropbin
+- [RLER](https://dharun.dev/projects/rler): Rust reinforcement-learning paper-trading workbench for NSE equities on 15-minute candles — tabular Q-learning, backtests, paper replay, walk-forward validation, SQLite run history, Yew dashboard. Paper-only, no broker execution. Source: https://github.com/dharunashokkumar/rler
+- [AiSoul](https://dharun.dev/projects/aisoul): local-first personal AI harness for Android in Kotlin — a persistent agent with a file-based soul, compounding memory, user-gated tools, and a home screen it reshapes. No backend; your own API keys.
+- [LPU Labs](https://dharun.dev/projects/lpulabs): multi-tenant platform for on-demand, isolated, browser-accessible development and learning environments, powered by Docker, FastAPI and React.
+- [CS Archive](https://dharun.dev/projects/cs-archive): free, open-source knowledge hub for computer science students and self-taught developers — 20+ curated categories across skills, resources, learning paths, security and self-hosted tools.
+- [All projects](https://dharun.dev/projects): the full index.
+
+## Reflections
+
+Short, first-person essays written while building the projects above.
+
+- [linux foundation, lfx, and a trip to mumbai i didn't pay for](https://dharun.dev/reflections/lfx-mumbai-2026) (2026-06-19): on being a Linux Foundation member, contributor and maintainer, and on the LFX travel grant to the Open Source Summit 2026 in Mumbai.
+- [why i built a clearing engine i'll probably never run in production](https://dharun.dev/reflections/clearing-engine) (2026-05-20): building an event-sourced, deterministic clearing and settlement engine in Rust, and why correctness requirements shape the code more than the finance does.
+- [a backtest that ignores costs is fiction](https://dharun.dev/reflections/backtest-costs) (2026-05-12): modelling Indian trading costs and point-in-time correctness — why honesty in financial software is the load-bearing wall, not a feature.
+- [rust keeps making me slower, and that's the point](https://dharun.dev/reflections/rust-slower) (2026-05-05): how the borrow checker changed the way he scopes and designs work.
+- [building in public, even the unfinished and the archived](https://dharun.dev/reflections/building-in-public) (2026-04-10): why unfinished and archived projects stay live — the workshop, not the showroom.
+- [i wrote a vm manager in c on purpose](https://dharun.dev/reflections/vmmanager-in-c) (2026-03-18): building VMManager in C against libvirt and the Incus REST API, choosing the hard path to learn where the complexity lives.
+- [All reflections](https://dharun.dev/reflections): the index, with an Atom feed at https://dharun.dev/feed.xml
+
+## Contact
+
+- [Contact page](https://dharun.dev/contact): email and official channels.
+- Email: dharuna457@gmail.com
+- GitHub: https://github.com/dharunashokkumar
+- LinkedIn: https://linkedin.com/in/dharunashokkumar
+- X/Twitter: https://twitter.com/dharuna457
+
+## Optional
+
+- [Galley](https://dharun.dev/galley): self-contained browser experiments — a CPU architecture explorer, shader wallpapers, organic loaders, an htop widget. Marked noindex; interesting to read, not intended for search results.
+- [Full text for models](https://dharun.dev/llms-full.txt): every fact above expanded into one file, for a single fetch.
+- [Machine-readable index](https://dharun.dev/sitemap.xml)
