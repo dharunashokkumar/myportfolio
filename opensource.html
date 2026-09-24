@@ -134,7 +134,7 @@
           "name": "Does Dharun Ashokkumar contribute to open source?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Dharun Ashokkumar maintains a public GitHub profile at github.com/dharunashokkumar where he publishes most of his work openly. Notable open-source projects include Open Clearing Engine (a Rust NSCCL-grade clearing and settlement engine), Indie Market Analyst (an Indian-market analysis toolkit), an alternative-data platform for Indian equities, VMManager (a C/GTK4 virtualization manager), and CS Archive (a computer-science knowledge hub). He believes in building in public."
+            "text": "Yes. Dharun Ashokkumar maintains a public GitHub profile at github.com/dharunashokkumar where he publishes most of his work openly. Notable open-source projects include Open Clearing Engine (a Rust experimental clearing and settlement engine), Indie Market Analyst (an Indian-market analysis toolkit), an alternative-data platform for Indian equities, VMManager (a C/GTK4 virtualization manager), and CS Archive (a computer-science knowledge hub). He believes in building in public."
           }
         },
         {
@@ -164,7 +164,7 @@
       "@type": "ItemList",
       "name": "Featured open-source projects by Dharun Ashokkumar",
       "itemListElement": [
-        {"@type":"ListItem","position":1,"item":{"@type":"SoftwareSourceCode","name":"Open Clearing Engine","codeRepository":"https://github.com/dharunashokkumar/open-clearing-engine","programmingLanguage":"Rust","description":"NSCCL-grade clearing and settlement engine in Rust."}},
+        {"@type":"ListItem","position":1,"item":{"@type":"SoftwareSourceCode","name":"Open Clearing Engine","codeRepository":"https://github.com/dharunashokkumar/open-clearing-engine","programmingLanguage":"Rust","description":"experimental clearing and settlement engine in Rust."}},
         {"@type":"ListItem","position":2,"item":{"@type":"SoftwareSourceCode","name":"Indie Market Analyst","codeRepository":"https://github.com/dharunashokkumar/indie-market-analyst","programmingLanguage":"Python","description":"Open-source Indian-market analysis toolkit."}},
         {"@type":"ListItem","position":3,"item":{"@type":"SoftwareSourceCode","name":"Alternative Data Platform — Indian Equities","codeRepository":"https://github.com/dharunashokkumar/alt-data-platform-india","programmingLanguage":"Python","description":"Point-in-time alternative-data platform with a medallion architecture."}},
         {"@type":"ListItem","position":4,"item":{"@type":"SoftwareSourceCode","name":"VMManager","codeRepository":"https://github.com/dharunashokkumar/VnCmgr","programmingLanguage":"C","description":"Native GTK4 desktop app for managing QEMU/KVM VMs and Incus/LXD containers."}},
@@ -175,8 +175,10 @@
     </script>
 
     <link rel="stylesheet" type="text/css" href="css/opensource.css">
+    <link rel="stylesheet" href="css/editorial.css">
   </head>
-  <body>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
     <div id="container" class="opensource-page"><div id="header">
 	<h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1><nav>
 	<ul><li>
@@ -218,7 +220,7 @@
 <ul class="featured-projects">
   <li class="fp">
     <div class="fp-top"><span class="fp-name">open clearing engine</span><span class="fp-lang">rust · apache-2.0</span></div>
-    <p class="fp-desc">nsccl-grade clearing &amp; settlement engine: novation, multilateral netting, span portfolio risk, event-sourced and deterministic, with a rest/ws api and ops dashboard.</p>
+    <p class="fp-desc">experimental clearing &amp; settlement engine: novation, multilateral netting, span portfolio risk, event-sourced and deterministic, with a rest/ws api and ops dashboard.</p>
     <div class="fp-links"><a href="https://github.com/dharunashokkumar/open-clearing-engine" target="_blank" rel="noopener">source ↗</a><a href="/projects/open-clearing-engine">case study →</a></div>
   </li>
   <li class="fp">
@@ -233,7 +235,7 @@
   </li>
   <li class="fp">
     <div class="fp-top"><span class="fp-name">vmmanager</span><span class="fp-lang">c · gtk4 · gpl-3.0</span></div>
-    <p class="fp-desc">native gtk4 desktop app for managing qemu/kvm virtual machines and incus/lxd containers from one window. a single compiled binary — no browser, no web server, no runtime deps.</p>
+    <p class="fp-desc">native gtk4 desktop app for managing qemu/kvm virtual machines and incus/lxd containers from one window. a single compiled binary — no browser, no web server, native library integrations.</p>
     <div class="fp-links"><a href="https://github.com/dharunashokkumar/VnCmgr" target="_blank" rel="noopener">source ↗</a><a href="/projects/vmmanager">case study →</a></div>
   </li>
   <li class="fp">
@@ -248,7 +250,7 @@
   </li>
 </ul>
 
-<h1>recently merged pull requests</h1>
+<h1 id="contributions">recently merged pull requests</h1>
 
 <ul id="pr-list" class="repo-list">
   <li class="skeleton skeleton-repo"></li>

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>VMManager | Native GTK4 Desktop App for QEMU/KVM &amp; Incus/LXD in C | Dharun Ashokkumar</title>
-    <meta name="description" content="VMManager — a native GTK4 desktop application, written in C, for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface. Think Proxmox, but a compiled binary on your desktop: no browser, no web server, no runtime dependencies.">
+    <meta name="description" content="VMManager — a native GTK4 desktop application, written in C, for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface. Think Proxmox, but a compiled binary on your desktop: a native desktop interface using gtk4, libvirt, and libcurl.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/vmmanager">
     <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
@@ -41,7 +41,7 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
     <meta property="og:title" content="VMManager | Native GTK4 App for QEMU/KVM &amp; Incus/LXD in C">
-    <meta property="og:description" content="Think Proxmox, but a compiled C binary on your desktop. Manage QEMU/KVM VMs and Incus/LXD containers — no browser, no web server, no runtime dependencies.">
+    <meta property="og:description" content="Think Proxmox, but a compiled C binary on your desktop. Manage QEMU/KVM VMs and Incus/LXD containers — a native desktop interface using gtk4, libvirt, and libcurl.">
     <meta property="og:url" content="https://dharun.dev/projects/vmmanager">
     <meta property="og:image" content="https://dharun.dev/img/main.webp">
     <meta property="og:locale" content="en_GB">
@@ -82,8 +82,10 @@
       ]
     }
     </script>
+    <link rel="stylesheet" href="../css/editorial.css">
   </head>
-  <body>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
     <div id="container" class="post">
       <div id="header">
         <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
@@ -129,9 +131,15 @@
         <hr class="dotted">
 
         <h2>what it is</h2>
-        <p>think proxmox — but as a compiled c binary on your desktop. no browser, no web server, no runtime dependencies. one binary that manages both qemu/kvm virtual machines and incus/lxd containers from a single gtk4 interface.</p>
+        <p>think proxmox — but as a compiled c binary on your desktop. a native desktop interface using gtk4, libvirt, and libcurl. one binary that manages both qemu/kvm virtual machines and incus/lxd containers from a single gtk4 interface.</p>
         <p>i wrote it in c on purpose. i wanted to talk to libvirt directly as a c library, drive the incus rest api over its unix socket with libcurl, and feel where the real complexity in virtualization management lives — instead of letting a high-level framework hide it from me.</p>
 
+        <section class="project-status" aria-labelledby="status-title">
+          <h2 id="status-title">where it stands</h2>
+          <p><strong>documented implementation:</strong> a gtk4 app with vm and container lifecycle controls, snapshots, monitoring, and console access. the source and setup requirements are available in the repository.</p>
+          <p><strong>scope:</strong> a desktop management client for an existing virtualization setup. it depends on the relevant host services and libraries.</p>
+          <p><a href="https://github.com/dharunashokkumar/VnCmgr">inspect the source and setup ↗</a></p>
+        </section>
         <h2>what it does</h2>
         <div class="feat-list">
           <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>dashboard</strong> — real-time cpu, ram, and disk monitoring plus vm/container counts, refreshing every few seconds</span></div>
@@ -152,6 +160,15 @@
           <div class="spec"><span class="spec-value">gpl-3.0</span><span class="spec-label">license</span></div>
         </div>
 
+        <section class="field-notes" id="field-notes" aria-labelledby="field-title">
+          <h2 id="field-title">engineering field notes</h2>
+          <dl>
+            <dt>the hard part</dt><dd>memory ownership around gtk widgets, parsing api responses, and handling a socket that stops responding.</dd>
+            <dt>the tradeoff</dt><dd>c and direct library calls take more care than a higher-level wrapper. they also make the boundaries of the system visible.</dd>
+            <dt>what i'd improve next</dt><dd>make connection loss, recovery, and failed operations easier to understand from the interface.</dd>
+          </dl>
+          <p><a href="/reflections/vmmanager-in-c">why i wrote a vm manager in c →</a></p>
+        </section>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a></p>

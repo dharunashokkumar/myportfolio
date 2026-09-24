@@ -24,7 +24,7 @@ Key facts, stated plainly so they can be quoted accurately:
 
 ## Projects
 
-- [Open Clearing Engine](https://dharun.dev/projects/open-clearing-engine): NSCCL-grade clearing and settlement engine in Rust — novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and an ops dashboard. Source: https://github.com/dharunashokkumar/open-clearing-engine
+- [Open Clearing Engine](https://dharun.dev/projects/open-clearing-engine): experimental clearing and settlement engine in Rust — novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and an ops dashboard. Source: https://github.com/dharunashokkumar/open-clearing-engine
 - [Indie Market Analyst](https://dharun.dev/projects/indie-market-analyst): open-source, local-first Indian-market analysis toolkit for NSE/BSE — a deterministic intraday scanner, dashboards, a backtester carrying the full Indian cost model, and optional AI-assisted chat. Source: https://github.com/dharunashokkumar/indie-market-analyst
 - [Alternative Data Platform for Indian Equities](https://dharun.dev/projects/alt-data-platform-india): medallion architecture with a point-in-time feature store that resists lookahead bias, plug-in data sources, signal and backtest layers, and a FastAPI delivery surface. Python. Source: https://github.com/dharunashokkumar/alt-data-platform-india
 - [VMManager](https://dharun.dev/projects/vmmanager): native GTK4 desktop application written in C for managing QEMU/KVM virtual machines and Incus/LXD containers from one interface — a compiled binary, no browser and no web server. Source: https://github.com/dharunashokkumar/VnCmgr

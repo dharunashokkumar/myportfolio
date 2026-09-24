@@ -15,9 +15,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Dharun Ashokkumar | Linux Foundation Member, Contributor & Maintainer | Student & Infrastructure Enthusiast</title>
+    <title>Dharun Ashokkumar | Systems, Linux &amp; Open Source</title>
 
-    <meta name="description" content="Dharun Ashokkumar is a Linux Foundation member, contributor, and maintainer, and an open source infrastructure enthusiast from India — he loves self-hosting, Linux servers, Docker, and building reliable backend systems. LFX funded his travel to the Linux Foundation Open Source Event 2026 in Mumbai (June 16-18). LPU BTech CSE student who loves working on servers, infrastructure, and everything self-hosted.">
+    <meta name="description" content="I build systems to understand how they work. Explore my Rust clearing engine, browser-based labs, native virtualization tools, and notes from building in public.">
     <meta name="author" content="Dharun Ashokkumar">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://dharun.dev/">
@@ -48,8 +48,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dharun Ashokkumar" />
-    <meta property="og:title" content="Dharun Ashokkumar | Linux Foundation Member, Contributor & Maintainer">
-    <meta property="og:description" content="Linux Foundation member, contributor, and maintainer from India — loves self-hosting, Linux servers, Docker, and building reliable backend systems. LFX funded his travel to the Open Source Event 2026 in Mumbai, June 16-18.">
+    <meta property="og:title" content="Dharun Ashokkumar | Systems, Linux &amp; Open Source">
+    <meta property="og:description" content="I build systems to understand how they work. Explore my Rust clearing engine, browser-based labs, native virtualization tools, and notes from building in public.">
     <meta property="og:url" content="https://dharun.dev/">
     <meta property="og:image" content="https://dharun.dev/img/main.webp" />
     <meta property="og:image:alt" content="Dharun Ashokkumar - Software Developer">
@@ -61,8 +61,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="Dharun Ashokkumar — Linux Foundation Member, Contributor & Maintainer">
-    <meta name="twitter:description" content="Linux Foundation member, contributor, and maintainer. LFX funded his travel to the Open Source Event 2026 in Mumbai, June 16-18. Loves self-hosting, Linux, Docker, and reliable backend systems.">
+    <meta name="twitter:title" content="Dharun Ashokkumar | Systems, Linux &amp; Open Source">
+    <meta name="twitter:description" content="I build systems to understand how they work. Explore my Rust clearing engine, browser-based labs, native virtualization tools, and notes from building in public.">
     <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
 
     <!-- Additional SEO Meta -->
@@ -259,8 +259,10 @@
     }
     </script>
 
+    <link rel="stylesheet" href="css/editorial.css">
   </head>
-  <body>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
 
     <!-- Lock Icon - Top Right -->
     <a href="#" id="secret-lock" title="secret vault" onclick="promptSecretPin(); return false;">
@@ -298,32 +300,128 @@
             </nav>
         </div>
         <div id="content">
-            <h2>hello, i'm dharun ashokkumar</h2>
 
-            <p>student and open source infrastructure enthusiast from india. i love working with servers, self-hosting, and building reliable backend systems — from a <a href="projects/open-clearing-engine">clearing &amp; settlement engine</a> to <a href="projects/lpulabs">cloud lab platforms</a> to <a href="projects">market tooling</a>.
+            <section class="home-intro" aria-labelledby="intro-title">
+              <p class="eyebrow">hello, i'm dharun ashokkumar · india</p>
+              <h2 id="intro-title">i build systems to understand how they work.</h2>
+              <p>from linux infrastructure to a clearing engine in rust. i like getting close to the machinery: how a container stays isolated, how a virtual machine starts, how a trade becomes a settlement.</p>
+              <p>i'm studying computer science at <a href="https://www.lpu.in/">lovely professional university</a>, and sharing the code and the lessons along the way.</p>
+              <div class="intro-actions">
+                <a class="primary-link" href="#selected-work">explore my work →</a>
+                <a href="contact">work with me ↗</a>
+              </div>
+              <p class="small-note">open to internships, freelance work, and open-source collaboration.</p>
+              <p class="small-note proof-note">follow the work: <a href="https://github.com/dharunashokkumar/open-clearing-engine">clearing-engine source</a> · <a href="projects/lpulabs#interface">lpu labs in screenshots</a> · <a href="opensource#contributions">merged contributions</a></p>
+            </section>
 
-            currently pursuing btech computer science at <span class="lpu-inline-badge"><img src="img/lpulogo.webp" alt="" class="lpu-inline-logo" aria-hidden="true" width="64" height="64" /><a href="https://www.lpu.in/" target="_blank" class="lpu-inline-link">lovely professional university</a></span>, punjab. i contribute to open source and believe in building in public.</p>
+            <section class="selected-work" id="selected-work" aria-labelledby="selected-title">
+              <h2 id="selected-title">three things i've built</h2>
+              <p class="small-note">different problems. the same need to see what's happening underneath.</p>
+              <article class="selected-project">
+                <figure class="project-preview" aria-label="illustrative clearing example: 210 units of obligations become 60 units payable after netting">
+                  <span>three members · one clearing house</span>
+                  <strong>210 → 60</strong>
+                  <span>sample units, before &amp; after netting</span>
+                </figure>
+                <div>
+                  <h3><a href="projects/open-clearing-engine">open clearing engine</a></h3>
+                  <p>what happens after a trade? a rust implementation of novation, netting, and settlement, with an event log that can be replayed.</p>
+                  <p class="small-note">research project · embedded implementation · replay tests documented</p>
+                  <p class="project-links"><a href="projects/open-clearing-engine#clearing-demo">try the walkthrough →</a><a href="projects/open-clearing-engine#field-notes">engineering notes →</a></p>
+                </div>
+              </article>
+              <article class="selected-project">
+                <figure class="project-preview preview-screenshot">
+                  <img src="projects/asset/lpulabsassets/lpu-labs-dashboard-overview.webp" alt="lpu labs dashboard showing browser-accessible lab environments" width="800" height="500" loading="lazy">
+                  <figcaption>the lab dashboard</figcaption>
+                </figure>
+                <div>
+                  <h3><a href="projects/lpulabs">lpu labs</a></h3>
+                  <p>a development environment should be a browser tab away. this platform brings together docker orchestration, per-user networks, and persistent storage.</p>
+                  <p class="small-note">fastapi + react + docker · 20+ environments in the documented catalog</p>
+                  <p class="project-links"><a href="projects/lpulabs#interface">see the interface →</a><a href="projects/lpulabs#field-notes">the tradeoffs →</a></p>
+                </div>
+              </article>
+              <article class="selected-project">
+                <figure class="project-preview" aria-label="vmmanager architecture: a GTK4 application connects to libvirt and the Incus API">
+                  <strong>one gtk4 window</strong>
+                  <span aria-hidden="true">↓</span>
+                  <span>libvirt &nbsp; / &nbsp; incus api</span>
+                  <span>virtual machines &nbsp; / &nbsp; containers</span>
+                </figure>
+                <div>
+                  <h3><a href="projects/vmmanager">vmmanager</a></h3>
+                  <p>virtual machines and containers in one native desktop app. written in c to work directly with the libraries and sockets underneath.</p>
+                  <p class="small-note">c + gtk4 · two management backends · source available</p>
+                  <p class="project-links"><a href="https://github.com/dharunashokkumar/VnCmgr">read the source ↗</a><a href="reflections/vmmanager-in-c">why i chose c →</a></p>
+                </div>
+              </article>
+              <p><a href="projects">all projects →</a></p>
+            </section>
 
-            <div class="start-here">
-              <h2>start here</h2>
-              <ul>
-                <li><a href="projects/open-clearing-engine">open clearing engine</a> <span class="sh-note">— a clearing &amp; settlement engine in rust, built to actually understand how novation and netting work.</span></li>
-                <li><a href="reflections">reflections</a> <span class="sh-note">— short, honest notes from building the things on my projects page.</span></li>
-                <li><a href="opensource">open source</a> <span class="sh-note">— what i've shipped and contributed in public.</span></li>
-              </ul>
+            <section class="reading-section workbench" aria-labelledby="workbench-title">
+              <h2 id="workbench-title">on my workbench</h2>
+              <p class="small-note">a working reading list · updated <time datetime="2026-09-24">24 september 2026</time></p>
+              <dl>
+                <div><dt>building</dt><dd><a href="projects/open-clearing-engine">clearing infrastructure</a> — following a trade all the way to a replayable settlement result.</dd></div>
+                <div><dt>learning</dt><dd><a href="projects/lpulabs#field-notes">linux isolation</a> — where a container's network, storage, and resource boundaries meet.</dd></div>
+                <div><dt>debugging notes</dt><dd><a href="reflections/vmmanager-in-c">vm connection handling</a> — memory ownership and sockets that stop talking.</dd></div>
+              </dl>
+              <p class="small-note">these threads come from my project notes. <a href="reflections">read the longer versions →</a></p>
+            </section>
+
+            <section class="reading-section" aria-labelledby="homelab-title">
+              <h2 id="homelab-title">inside the homelab</h2>
+              <p>an architecture sketch of the systems i work with. open a layer to explore its job and the engineering question behind it.</p>
+              <p class="small-note">based on lpu labs and vmmanager; this is a learning map, not a live inventory or status dashboard.</p>
+              <div class="homelab-map">
+                <div class="map-root"><strong>linux host</strong><small>compute, networking, and storage underneath it all</small></div>
+                <div class="map-branches">
+                  <details class="map-node">
+                    <summary>01 · browser labs</summary>
+                    <p><strong>runs:</strong> development environments managed through fastapi and docker, with browser access through kasmvnc or code-server.</p>
+                    <p><strong>why:</strong> make a prepared environment accessible without local installation.</p>
+                    <p><strong>the question:</strong> how do you reclaim idle compute without removing a user's work?</p>
+                    <p><a href="projects/lpulabs">explore lpu labs →</a></p>
+                  </details>
+                  <details class="map-node">
+                    <summary>02 · virtual machines</summary>
+                    <p><strong>runs:</strong> qemu/kvm virtual machines managed through libvirt; incus containers through a separate api.</p>
+                    <p><strong>why:</strong> keep both management paths in one native desktop interface.</p>
+                    <p><strong>the lesson:</strong> a quiet dashboard hides memory ownership and connections that can fail.</p>
+                    <p><a href="reflections/vmmanager-in-c">read the field note →</a></p>
+                  </details>
+                  <details class="map-node">
+                    <summary>03 · networks &amp; volumes</summary>
+                    <p><strong>runs:</strong> per-user docker networks and persistent volumes in the lab platform.</p>
+                    <p><strong>why:</strong> separate users' traffic and keep files beyond a container's lifetime.</p>
+                    <p><strong>the question:</strong> which resources belong to a session, and which belong to the user?</p>
+                    <p><a href="projects/lpulabs#field-notes">read the tradeoffs →</a></p>
+                  </details>
+                  <details class="map-node">
+                    <summary>04 · observability</summary>
+                    <p><strong>runs:</strong> prometheus metrics, structured logs, and container health checks in the documented lab architecture.</p>
+                    <p><strong>why:</strong> make resource usage and lifecycle events inspectable.</p>
+                    <p><strong>the question:</strong> can the logs explain a failed launch without reproducing it?</p>
+                    <p><a href="projects/lpulabs">see the system →</a></p>
+                  </details>
+                </div>
+              </div>
+            </section>
+
+            <section class="reading-section" aria-labelledby="notes-title">
+              <h2 id="notes-title">notes from the work</h2>
+              <p><a href="reflections/clearing-engine">why i built a clearing engine i'll probably never run in production</a><br><span class="small-note">what replayability taught me about correctness.</span></p>
+              <p><a href="reflections/backtest-costs">a backtest that ignores costs is fiction</a><br><span class="small-note">the assumptions that disappear when transaction costs arrive.</span></p>
+              <p><a href="reflections">all reflections →</a></p>
+            </section>
+
+            <div class="portrait-note">
+              <img src="img/main.webp" alt="watercolor figure with a cardboard box on their head" width="1024" height="1024" loading="lazy">
+              <p>i started with arduino projects. somewhere along the way, the questions grew into whole systems. <a href="about">more about me →</a></p>
             </div>
-
-            <p>i <a href="projects">make</a>, <a href="reflections">reflect</a>, and <a href="resume">learn</a>.</p>
-
-            <p>see my <span class="highlight"><a href="/opensource">open source contributions</a></span> here.....</p>
-
-            <p><img src="img/main.webp" title="image credit: meret vollenweider and sam nguyen, 201510" alt="Dharun Ashokkumar — student and open source infrastructure enthusiast from India" width="1024" height="1024" /></p>
-
-            <p>i work with docker, linux, RabbitMQ, MongoDB, and DevOps tools. my interests span web development, cloud infrastructure, cybersecurity, and machine learning.</p>
-
             <p>also: <a href="galley">my galley</a></p>
-
-            <p><a href="reflections">read my thoughts</a>, or <a href="mailto:dharuna457@gmail.com?subject=hello.">say hello</a>.</p>
+            <p>have something interesting to build? <a href="mailto:me@dharun.dev">say hello</a>, or <a href="resume">read my resume</a>.</p>
 
             <div class="social-links">
                 <a href="https://github.com/dharunashokkumar" title="Dharun Ashokkumar on GitHub" target="_blank" rel="me noopener">

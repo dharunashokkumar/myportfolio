@@ -13,8 +13,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Open Clearing Engine | NSCCL-grade Clearing &amp; Settlement in Rust | Dharun Ashokkumar</title>
-    <meta name="description" content="Open Clearing Engine — an open-source, NSCCL-grade clearing and settlement engine in Rust. Novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and ops dashboard.">
+    <title>Open Clearing Engine | Clearing &amp; Settlement in Rust | Dharun Ashokkumar</title>
+    <meta name="description" content="Open Clearing Engine — an open-source experimental clearing and settlement engine in Rust. Novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and ops dashboard.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/open-clearing-engine">
     <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
@@ -41,7 +41,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="Open Clearing Engine | NSCCL-grade Clearing &amp; Settlement in Rust">
+    <meta property="og:title" content="Open Clearing Engine | Clearing &amp; Settlement in Rust">
     <meta property="og:description" content="An open-source clearing and settlement engine in Rust: novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic.">
     <meta property="og:url" content="https://dharun.dev/projects/open-clearing-engine">
     <meta property="og:image" content="https://dharun.dev/img/main.webp">
@@ -61,13 +61,13 @@
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "Open Clearing Engine",
-      "description": "An open-source, NSCCL-grade clearing and settlement engine in Rust. It takes executed trades and produces regulator-grade settlement obligations via novation, position keeping, multilateral netting, and settlement, with a SPAN portfolio-risk engine, full auditability through event sourcing, and a real-time operations dashboard.",
+      "description": "An open-source experimental clearing and settlement engine in Rust. It takes executed trades and produces settlement obligations via novation, position keeping, multilateral netting, and settlement, with a SPAN portfolio-risk engine, full auditability through event sourcing, and a real-time operations dashboard.",
       "url": "https://dharun.dev/projects/open-clearing-engine",
       "codeRepository": "https://github.com/dharunashokkumar/open-clearing-engine",
       "programmingLanguage": "Rust",
       "license": "https://www.apache.org/licenses/LICENSE-2.0",
       "datePublished": "2026-05-17",
-      "dateModified": "2026-05-29",
+      "dateModified": "2026-09-24",
       "keywords": "clearing house, settlement, novation, multilateral netting, SPAN margin, central counterparty, event sourcing, fintech infrastructure",
       "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" }
     }
@@ -84,8 +84,10 @@
       ]
     }
     </script>
+    <link rel="stylesheet" href="../css/editorial.css">
   </head>
-  <body>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
     <div id="container" class="post">
       <div id="header">
         <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
@@ -105,7 +107,7 @@
         <div class="project-hero">
           <span class="kicker">rust · clearing infrastructure</span>
           <h1>open clearing engine</h1>
-          <p class="tagline">an open-source, nsccl-grade clearing &amp; settlement engine in rust.</p>
+          <p class="tagline">an open-source experimental clearing &amp; settlement engine in rust.</p>
         </div>
 
         <div class="project-actions">
@@ -130,16 +132,37 @@
         <hr class="dotted">
 
         <h2>what it is</h2>
-        <p>a clearing house sits between two sides of a trade and guarantees it settles. this engine takes executed trades and turns them into regulator-grade settlement obligations, through the same pipeline a real clearing corporation uses — <strong>novation → position keeping → multilateral netting → settlement</strong> — with a <strong>span</strong> portfolio-risk engine sitting on top.</p>
-        <p>it's not a toy. it's built for determinism, reproducibility, and scale. the embedded implementations run with zero infrastructure today; the production stack (kafka/redpanda, rocksdb, clickhouse, k3s) plugs in behind the existing ports with no domain rewrite. the codebase is a cargo workspace laid out hexagonally — ports and adapters — so the financial logic never depends on the plumbing.</p>
+        <p>a clearing house sits between two sides of a trade and guarantees it settles. this engine takes executed trades and turns them into settlement obligations, through the same pipeline a real clearing corporation uses — <strong>novation → position keeping → multilateral netting → settlement</strong> — with a <strong>span</strong> portfolio-risk engine sitting on top.</p>
+        <p>this is research and learning infrastructure. the embedded implementations run without external services. production adapters and scaling work remain separate from that embedded path. the codebase is a cargo workspace laid out hexagonally — ports and adapters — so the financial logic never depends on the plumbing.</p>
+
+
+        <section class="clearing-demo" id="clearing-demo" data-clearing-demo aria-labelledby="demo-title">
+          <h2 id="demo-title">follow three obligations</h2>
+          <p>a small cash-netting example you can step through. the amounts are sample units; this illustration runs independently of the rust project.</p>
+          <div class="demo-controls" hidden>
+            <label for="clearing-scenario">choose an example</label>
+            <select id="clearing-scenario"><option value="uneven">uneven cycle — some cash remains</option><option value="balanced">balanced cycle — everything offsets</option></select>
+          </div>
+          <div class="demo-stage" data-stage role="status" aria-live="polite" aria-atomic="true">
+            <h3>210 units gross → 60 units payable</h3>
+            <p>a owes b 100 units, b owes c 70, and c owes a 40. after netting, a pays 60 to the clearing house, which pays 30 each to b and c.</p>
+            <p>the three net positions sum to zero. 150 units of the original obligations offset.</p>
+          </div>
+          <div class="demo-controls" hidden>
+            <button type="button" data-previous>← previous</button>
+            <button type="button" data-next>next step →</button>
+            <button type="button" data-reset>restart</button>
+          </div>
+          <p class="small-note">simplified to one currency and one settlement date. securities delivery, margin, fees, and default handling are outside this walkthrough.</p>
+        </section>
 
         <h2>the clearing cycle</h2>
         <div class="feat-list">
-          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>novation</strong> — the clearing house steps in as the counterparty to both sides, so neither side carries the other's default risk</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>novation</strong> — the clearing house steps in as the counterparty to both sides, replacing the original bilateral obligation with obligations to and from the clearing house</span></div>
           <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>position keeping</strong> — net positions tracked per member, per instrument</span></div>
-          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>multilateral netting</strong> — collapse a mountain of obligations into the fewest possible settlements</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>multilateral netting</strong> — offset eligible obligations to calculate each member’s net position</span></div>
           <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>span margin</strong> — portfolio-level risk margin computed per member</span></div>
-          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>settlement obligations</strong> — a deterministic, replayable, regulator-grade output file</span></div>
+          <div class="feat"><span class="marker">→</span><span class="feat-text"><strong>settlement obligations</strong> — a deterministic, replayable, output file</span></div>
         </div>
 
         <div class="spec-grid">
@@ -156,7 +179,21 @@
 
         <div class="callout">i wanted to understand how money actually settles, not just read about it. building the cycle end to end — and forcing it to be deterministic — taught me more than any explanation could.</div>
 
-        <p class="callout" style="border:none;font-style:normal;opacity:0.55;">iteration 1 is complete: foundation, ports, market data, the vertical slice, span, api/cli, dashboard, and a dev deployment — all green. the deferred scaling work is enumerated with its seam in the docs. this is research and learning infrastructure, not a live clearing corporation.</p>
+        <section class="project-status" aria-labelledby="status-title">
+          <h2 id="status-title">where it stands</h2>
+          <p><strong>implemented:</strong> the documented first iteration includes the embedded clearing cycle, event replay, span risk calculations, api/cli, dashboard, and a development deployment.</p>
+          <p><strong>still to validate:</strong> production adapters, scaling, and operational readiness. this is not a live clearing service or a claim of regulatory certification.</p>
+          <p><a href="https://github.com/dharunashokkumar/open-clearing-engine">inspect the implementation and tests ↗</a></p>
+        </section>
+        <section class="field-notes" id="field-notes" aria-labelledby="field-title">
+          <h2 id="field-title">engineering field notes</h2>
+          <dl>
+            <dt>the hard part</dt><dd>correctness has to survive a replay. the same event log should produce the same settlement output, not just a plausible total.</dd>
+            <dt>the tradeoff</dt><dd>an explicit event log and separate adapters add structure, but keep the clearing logic independent of its storage and transport.</dd>
+            <dt>what i'd validate next</dt><dd>adapter failure and recovery behavior, then repeatable load tests before making any throughput claims.</dd>
+          </dl>
+          <p><a href="/reflections/clearing-engine">what building it taught me →</a></p>
+        </section>
 
         <hr>
 
@@ -176,5 +213,6 @@
         </nav>
       </div>
     </div>
+    <script src="../js/clearing-demo.js" defer></script>
   </body>
 </html>

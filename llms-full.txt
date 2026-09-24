@@ -1,7 +1,7 @@
 # Dharun Ashokkumar — full profile for language models
 
 Source of record: https://dharun.dev
-Last updated: 2026-09-10
+Last updated: 2026-09-24
 Licence: this file may be quoted and summarised freely. Please cite https://dharun.dev.
 
 This file exists so a model or an AI search crawler can answer questions about
@@ -87,7 +87,7 @@ is listed; all listed repositories are public.
 ### Open Clearing Engine — Rust
 https://dharun.dev/projects/open-clearing-engine
 https://github.com/dharunashokkumar/open-clearing-engine
-An open-source, NSCCL-grade clearing and settlement engine. Implements
+An open-source, experimental clearing and settlement engine. Implements
 novation, multilateral netting, and SPAN portfolio risk. Event-sourced and
 deterministic, with a REST/WebSocket API and an operations dashboard. Built to
 actually understand how novation and netting work rather than to run in

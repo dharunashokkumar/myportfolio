@@ -111,33 +111,32 @@
     }
     </script>
     <link rel="stylesheet" type="text/css" href="../css/lpulabs.css">
+    <link rel="stylesheet" href="../css/editorial.css">
   </head>
-  <body>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
     <div id="container" class="post"><div id="header">
-	        <h1>
+          <h1>
                 <a href="https://dharun.dev">Dharun Ashokkumar</a>
             </h1>
                         <nav>
-            	<ul><li>
-            				<a href="/">home</a>
-            			</li><li>
-            				<a href="/projects">projects</a>
-            			</li><li>
-            				<a href="/reflections">reflections</a>
-            			</li><li>
-            				<a href="/resume">resume</a>
-            			</li><li>
-            				<a href="/about">about</a>
-            			</li><li>
-            				<a href="../contact">contact</a>
-            			</li></ul>
+              <ul><li>
+                    <a href="/">home</a>
+                  </li><li>
+                    <a href="/projects">projects</a>
+                  </li><li>
+                    <a href="/reflections">reflections</a>
+                  </li><li>
+                    <a href="/resume">resume</a>
+                  </li><li>
+                    <a href="/about">about</a>
+                  </li><li>
+                    <a href="../contact">contact</a>
+                  </li></ul>
             </nav>
         </div><div id="content">
-        <h1 class="title">
-	
-</h1>
-    <div id="container">
-      <div id="header">
+    <div class="labs-overview">
+      <div class="labs-heading">
         <img src="./asset/lpulabsassets/lpu-university-wordmark.webp" alt="LPU Labs Logo" style="width: 280px; max-width: 36rem; margin: 0 auto 0.5rem; display: block;">
         <h1><a href="/" style="border:none;">LPU labs</a></h1>
         <nav>
@@ -145,7 +144,7 @@
         </nav>
       </div>
 
-      <div id="content">
+      <div class="labs-content">
 
         <!-- ── hero ── -->
         <div class="labs-hero">
@@ -155,7 +154,7 @@
         </div>
 
         <!-- ── hero screenshot ── -->
-        <div class="media-full">
+        <div class="media-full" id="interface">
           <div class="img-placeholder ratio-16-9">
             <div class="spinner"><div class="ring"></div><span class="label">loading</span></div>
             <img data-src="./asset/lpulabsassets/lpu-labs-dashboard-overview.webp" alt="lpu labs — dashboard overview" />
@@ -166,6 +165,12 @@
         <hr class="dotted">
 
         <!-- ── what is lpu labs ── -->
+        <section class="project-status" aria-labelledby="status-title">
+          <h2 id="status-title">where it stands</h2>
+          <p><strong>documented build:</strong> the screenshots below show the dashboard, environment catalog, browser terminals, and supporting services.</p>
+          <p><strong>scope:</strong> this is a project walkthrough. the catalog describes available environment types; it is not a measured user count or an uptime claim.</p>
+          <p><a href="#interface">inspect the interface ↑</a> · <a href="#field-notes">read the engineering notes ↓</a></p>
+        </section>
         <h2>what is lpu labs?</h2>
         <p>lpu labs is a <strong>platform-as-a-service (paas)</strong> layer above docker, abstracting container complexity into a web-based interface. users authenticate via oauth2 or email/password, then provision pre-configured lab environments — ubuntu desktop, kali linux, devops toolchains, data science stacks — or database services through a react frontend.</p>
         <p>the platform enforces isolation at the network layer — each user receives a dedicated docker network, preventing cross-user traffic. persistent volumes ensure data survives container restarts.</p>
@@ -370,11 +375,20 @@
           <span class="tech-tag">nginx</span>
         </div>
 
-        
+
 
         <hr class="dotted">
 
         <!-- ── academic context ── -->
+        <section class="field-notes" id="field-notes" aria-labelledby="field-title">
+          <h2 id="field-title">engineering field notes</h2>
+          <dl>
+            <dt>the hard part</dt><dd>a lab is more than a running container. its user, network, stored files, and compute limits need consistent lifecycles.</dd>
+            <dt>the tradeoff</dt><dd>persistent volumes let a session end without discarding the user's files. that also means compute cleanup and storage cleanup need separate rules.</dd>
+            <dt>what i'd validate next</dt><dd>repeat launch, stop, and reconnect cycles; check network boundaries between users; and confirm files survive the expected restarts.</dd>
+          </dl>
+          <p>related: <a href="/reflections/building-in-public">why i document work in progress →</a></p>
+        </section>
         <h2>project scope</h2>
         <p>lpu labs spans multiple engineering domains — demonstrating real-world application of <strong>cloud computing</strong>, <strong>educational technology</strong>, <strong>devops automation</strong>, <strong>cybersecurity training infrastructure</strong>, and <strong>distributed systems architecture</strong>.</p>
         <p>the platform serves practical use cases in cybersecurity training, software development education, and computer science labs — while exhibiting advanced concepts in network engineering, async web architecture, and multi-tenant resource management.</p>
@@ -400,6 +414,8 @@
     </div>
 
     <!-- ── lightbox modal ── -->
+      </div>
+    </div>
     <div class="lightbox-modal" id="lightboxModal">
       <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox()">×</button>
@@ -438,7 +454,7 @@
           });
         });
 
-        // ── lightbox functionality ── 
+        // ── lightbox functionality ──
         const smallImages = document.querySelectorAll('.img-placeholder.small-img');
         const lightboxModal = document.getElementById('lightboxModal');
         const lightboxImg = document.getElementById('lightboxImg');
@@ -448,7 +464,7 @@
           placeholder.addEventListener('click', function() {
             const img = placeholder.querySelector('img');
             const caption = placeholder.parentElement.querySelector('.img-caption');
-            
+
             if (img && img.src && img.src !== window.location.href) {
               lightboxImg.src = img.src;
               lightboxImg.alt = img.alt;
