@@ -359,47 +359,53 @@
               <p><a href="projects">all projects →</a></p>
             </section>
 
-            <section class="reading-section workbench" aria-labelledby="workbench-title">
-              <h2 id="workbench-title">on my workbench</h2>
-              <p class="small-note">a working reading list · updated <time datetime="2026-09-24">24 september 2026</time></p>
-              <dl>
-                <div><dt>building</dt><dd><a href="projects/open-clearing-engine">clearing infrastructure</a> — following a trade all the way to a replayable settlement result.</dd></div>
-                <div><dt>learning</dt><dd><a href="projects/lpulabs#field-notes">linux isolation</a> — where a container's network, storage, and resource boundaries meet.</dd></div>
-                <div><dt>debugging notes</dt><dd><a href="reflections/vmmanager-in-c">vm connection handling</a> — memory ownership and sockets that stop talking.</dd></div>
-              </dl>
-              <p class="small-note">these threads come from my project notes. <a href="reflections">read the longer versions →</a></p>
+            <section class="home-section" aria-labelledby="workbench-title">
+              <div class="home-section-head">
+                <h2 id="workbench-title">on my workbench</h2>
+                <p class="small-note">a working reading list · updated <time datetime="2026-09-24">24 september 2026</time></p>
+              </div>
+              <div class="home-section-body">
+                <dl class="label-rows">
+                  <div><dt>building</dt><dd><a href="projects/open-clearing-engine">clearing infrastructure</a> — following a trade all the way to a replayable settlement result.</dd></div>
+                  <div><dt>learning</dt><dd><a href="projects/lpulabs#field-notes">linux isolation</a> — where a container's network, storage, and resource boundaries meet.</dd></div>
+                  <div><dt>debugging notes</dt><dd><a href="reflections/vmmanager-in-c">vm connection handling</a> — memory ownership and sockets that stop talking.</dd></div>
+                </dl>
+                <p class="small-note">these threads come from my project notes. <a href="reflections">read the longer versions →</a></p>
+              </div>
             </section>
 
-            <section class="reading-section" aria-labelledby="homelab-title">
-              <h2 id="homelab-title">inside the homelab</h2>
-              <p>an architecture sketch of the systems i work with. open a layer to explore its job and the engineering question behind it.</p>
-              <p class="small-note">based on lpu labs and vmmanager; this is a learning map, not a live inventory or status dashboard.</p>
-              <div class="homelab-map">
-                <div class="map-root"><strong>linux host</strong><small>compute, networking, and storage underneath it all</small></div>
-                <div class="map-branches">
-                  <details class="map-node">
-                    <summary>01 · browser labs</summary>
+            <section class="home-section" aria-labelledby="homelab-title">
+              <div class="home-section-head">
+                <h2 id="homelab-title">inside the homelab</h2>
+                <p class="small-note">a learning map, not a live inventory or status dashboard.</p>
+              </div>
+              <div class="home-section-body">
+                <p>an architecture sketch of the systems i work with, based on lpu labs and vmmanager. open a layer to explore its job and the engineering question behind it.</p>
+                <div class="layer-list">
+                  <p class="layer-root"><strong>linux host</strong><span class="small-note">compute, networking, and storage underneath it all</span></p>
+                  <details class="layer">
+                    <summary><span class="layer-num">01</span>browser labs</summary>
                     <p><strong>runs:</strong> development environments managed through fastapi and docker, with browser access through kasmvnc or code-server.</p>
                     <p><strong>why:</strong> make a prepared environment accessible without local installation.</p>
                     <p><strong>the question:</strong> how do you reclaim idle compute without removing a user's work?</p>
                     <p><a href="projects/lpulabs">explore lpu labs →</a></p>
                   </details>
-                  <details class="map-node">
-                    <summary>02 · virtual machines</summary>
+                  <details class="layer">
+                    <summary><span class="layer-num">02</span>virtual machines</summary>
                     <p><strong>runs:</strong> qemu/kvm virtual machines managed through libvirt; incus containers through a separate api.</p>
                     <p><strong>why:</strong> keep both management paths in one native desktop interface.</p>
                     <p><strong>the lesson:</strong> a quiet dashboard hides memory ownership and connections that can fail.</p>
                     <p><a href="reflections/vmmanager-in-c">read the field note →</a></p>
                   </details>
-                  <details class="map-node">
-                    <summary>03 · networks &amp; volumes</summary>
+                  <details class="layer">
+                    <summary><span class="layer-num">03</span>networks &amp; volumes</summary>
                     <p><strong>runs:</strong> per-user docker networks and persistent volumes in the lab platform.</p>
                     <p><strong>why:</strong> separate users' traffic and keep files beyond a container's lifetime.</p>
                     <p><strong>the question:</strong> which resources belong to a session, and which belong to the user?</p>
                     <p><a href="projects/lpulabs#field-notes">read the tradeoffs →</a></p>
                   </details>
-                  <details class="map-node">
-                    <summary>04 · observability</summary>
+                  <details class="layer">
+                    <summary><span class="layer-num">04</span>observability</summary>
                     <p><strong>runs:</strong> prometheus metrics, structured logs, and container health checks in the documented lab architecture.</p>
                     <p><strong>why:</strong> make resource usage and lifecycle events inspectable.</p>
                     <p><strong>the question:</strong> can the logs explain a failed launch without reproducing it?</p>
@@ -409,19 +415,52 @@
               </div>
             </section>
 
-            <section class="reading-section" aria-labelledby="notes-title">
-              <h2 id="notes-title">notes from the work</h2>
-              <p><a href="reflections/clearing-engine">why i built a clearing engine i'll probably never run in production</a><br><span class="small-note">what replayability taught me about correctness.</span></p>
-              <p><a href="reflections/backtest-costs">a backtest that ignores costs is fiction</a><br><span class="small-note">the assumptions that disappear when transaction costs arrive.</span></p>
-              <p><a href="reflections">all reflections →</a></p>
+            <section class="home-section" aria-labelledby="notes-title">
+              <div class="home-section-head">
+                <h2 id="notes-title">notes from the work</h2>
+              </div>
+              <div class="home-section-body">
+                <ul class="note-list">
+                  <li><a href="reflections/clearing-engine">why i built a clearing engine i'll probably never run in production</a><span class="small-note">what replayability taught me about correctness.</span></li>
+                  <li><a href="reflections/backtest-costs">a backtest that ignores costs is fiction</a><span class="small-note">the assumptions that disappear when transaction costs arrive.</span></li>
+                </ul>
+                <p class="section-more"><a href="reflections">all reflections →</a></p>
+              </div>
             </section>
 
-            <div class="portrait-note">
-              <img src="img/main.webp" alt="watercolor figure with a cardboard box on their head" width="1024" height="1024" loading="lazy">
-              <p>i started with arduino projects. somewhere along the way, the questions grew into whole systems. <a href="about">more about me →</a></p>
-            </div>
-            <p>also: <a href="galley">my galley</a></p>
-            <p>have something interesting to build? <a href="mailto:me@dharun.dev">say hello</a>, or <a href="resume">read my resume</a>.</p>
+            <section class="home-section" aria-labelledby="about-title">
+              <div class="home-section-head">
+                <h2 id="about-title">about me</h2>
+              </div>
+              <div class="home-section-body about-note">
+                <img src="img/main.webp" alt="watercolor figure with a cardboard box on their head" width="1024" height="1024" loading="lazy">
+                <p>i started with arduino projects. somewhere along the way, the questions grew into whole systems. <a href="about">more about me →</a></p>
+              </div>
+            </section>
+
+            <section class="home-section" aria-labelledby="index-title">
+              <div class="home-section-head">
+                <h2 id="index-title">around the site</h2>
+              </div>
+              <div class="home-section-body">
+                <nav class="site-index" aria-labelledby="index-title">
+                  <ul class="label-rows">
+                    <li><a href="projects">projects</a><span>write-ups of what i've built. most link to the source.</span></li>
+                    <li><a href="opensource">open source</a><span>repositories and recently merged pull requests.</span></li>
+                    <li><a href="reflections">reflections</a><span>notes written while learning in public.</span></li>
+                    <li><a href="galley">galley</a><span>small browser experiments. one idea each.</span></li>
+                    <li><a href="resume">resume</a><span>the full document, with a pdf to download.</span></li>
+                  </ul>
+                </nav>
+              </div>
+            </section>
+
+            <section class="home-section" aria-labelledby="hello-title">
+              <div class="home-section-head">
+                <h2 id="hello-title">say hello</h2>
+              </div>
+              <div class="home-section-body">
+                <p>have something interesting to build? <a href="mailto:me@dharun.dev">say hello</a>, or <a href="resume">read my resume</a>.</p>
 
             <div class="social-links">
                 <a href="https://github.com/dharunashokkumar" title="Dharun Ashokkumar on GitHub" target="_blank" rel="me noopener">
@@ -445,6 +484,8 @@
                     </svg>
                 </a>
             </div>
+              </div>
+            </section>
       </div><div id="footer">
     </div>
 </div>
