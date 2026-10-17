@@ -173,6 +173,11 @@
   font-size: 0.75rem;
 }
 
+/* razorpay payment / subscription button forms on contact.html#support */
+.contact-card form {
+  margin: 0;
+}
+
 @media screen and (max-width: 540px) {
   .contact-grid {
     grid-template-columns: 1fr;
