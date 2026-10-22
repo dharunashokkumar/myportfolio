@@ -6,7 +6,7 @@
   <link href="https://dharun.dev/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://dharun.dev/reflections" rel="alternate" type="text/html"/>
   <id>https://dharun.dev/</id>
-  <updated>2026-07-18T00:00:00+00:00</updated>
+  <updated>2026-10-22T00:00:00+00:00</updated>
   <icon>https://dharun.dev/favicon/favicon.png</icon>
   <logo>https://dharun.dev/img/main.webp</logo>
   <rights>© Dharun Ashokkumar</rights>
@@ -16,6 +16,18 @@
     <uri>https://dharun.dev</uri>
     <email>dharuna457@gmail.com</email>
   </author>
+
+  <entry>
+    <title>a home server that runs without me</title>
+    <link href="https://dharun.dev/reflections/home-server" rel="alternate" type="text/html"/>
+    <link href="https://dharun.dev/reflections/asset/pve-journey.mp4" rel="enclosure" type="video/mp4"/>
+    <id>https://dharun.dev/reflections/home-server</id>
+    <published>2026-10-22T00:00:00+00:00</published>
+    <updated>2026-10-22T00:00:00+00:00</updated>
+    <summary>a note on building a proxmox home server in seventeen days before leaving for college — made to survive power cuts with no ups, watch itself, and replace google photos and drive — with a seven-minute video of the build.</summary>
+    <category term="homelab"/>
+    <category term="self-hosting"/>
+  </entry>
 
   <entry>
     <title>linux foundation, lfx, and a trip to mumbai i didn't pay for</title>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6EGD879ZLL');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>a home server that runs without me | Dharun Ashokkumar</title>
+    <meta name="description" content="seventeen days before leaving for college, i built a proxmox home server that survives power cuts with no ups, watches itself, and let me leave google. the build, the mistakes, and a seven-minute video of the whole thing.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/reflections/home-server">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#555555">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. They used to be
+         one link to css/main.css, which @import-ed the five partials; @import is
+         invisible to the preload scanner, so each file was only discovered after
+         its parent parsed - five serial round trips of render-blocking CSS to
+         deliver ~10 KB. Link order is cascade order, so this is equivalent.
+         Keep this order. -->
+    <link rel="preload" href="../fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../css/components.css">
+    <link rel="stylesheet" type="text/css" href="../css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../css/modules.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="a home server that runs without me">
+    <meta property="og:description" content="a proxmox home server built in seventeen days, made to survive power cuts with no ups and run on its own from 2,000 km away. the build, the mistakes, and a seven-minute video.">
+    <meta property="og:url" content="https://dharun.dev/reflections/home-server">
+    <meta property="og:image" content="https://dharun.dev/reflections/asset/pve-journey-poster.webp">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="a home server that runs without me: 17 days to build it, 2,000 km from home to college, 0 technical people near the box">
+    <meta property="og:video" content="https://dharun.dev/reflections/asset/pve-journey.mp4">
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:width" content="1920">
+    <meta property="og:video:height" content="1080">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="a home server that runs without me">
+    <meta name="twitter:description" content="a proxmox home server built in seventeen days, made to survive power cuts and run on its own from 2,000 km away. with a seven-minute video.">
+    <meta name="twitter:image" content="https://dharun.dev/reflections/asset/pve-journey-poster.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "a home server that runs without me",
+      "description": "seventeen days before leaving for college, i built a proxmox home server that survives power cuts with no ups, watches itself, and let me leave google. the build, the mistakes, and a seven-minute video of the whole thing.",
+      "url": "https://dharun.dev/reflections/home-server",
+      "datePublished": "2026-10-22",
+      "dateModified": "2026-10-22",
+      "inLanguage": "en-GB",
+      "image": "https://dharun.dev/reflections/asset/pve-journey-poster.webp",
+      "keywords": "homelab, home server, proxmox ve, self-hosting, power cuts, crash-safe, immich, nextcloud, cloudflare tunnel, tailscale, monitoring, honeynet",
+      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "mainEntityOfPage": "https://dharun.dev/reflections/home-server",
+      "video": {
+        "@type": "VideoObject",
+        "name": "pve — a homelab story",
+        "description": "the whole build in seven minutes: parts, build day, the vrm bottleneck, proxmox and the network, power cuts, leaving google, the stack, monitoring, what broke, and going remote.",
+        "thumbnailUrl": "https://dharun.dev/reflections/asset/pve-journey-poster.webp",
+        "uploadDate": "2026-10-22",
+        "duration": "PT7M27S",
+        "contentUrl": "https://dharun.dev/reflections/asset/pve-journey.mp4",
+        "inLanguage": "en"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://dharun.dev"},
+        {"@type":"ListItem","position":2,"name":"Reflections","item":"https://dharun.dev/reflections"},
+        {"@type":"ListItem","position":3,"name":"a home server that runs without me","item":"https://dharun.dev/reflections/home-server"}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../css/editorial.css">
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <p class="list-note"><a href="/reflections">← reflections</a></p>
+        <h1>a home server that runs without me</h1>
+        <p class="inline-meta">2026.10 · homelab, proxmox, self-hosting</p>
+
+        <p>in september 2026 i had seventeen days before leaving home for college, two thousand kilometres away. the plan was simple to say and annoying to do: build a server at home that runs on its own, survives power cuts, and lets me leave google behind. this is how it went, mistakes included.</p>
+
+        <figure class="work-shot">
+          <video controls playsinline preload="metadata" width="1920" height="1080" poster="asset/pve-journey-poster.webp" style="height:auto; display:block; border:1px solid #ddd; box-sizing:border-box;">
+            <source src="asset/pve-journey.mp4" type="video/mp4">
+            <track kind="captions" srclang="en" label="english" src="asset/pve-journey.en.vtt">
+            your browser can't play this video. <a href="asset/pve-journey.mp4">download it</a> instead.
+          </video>
+          <figcaption>pve — a homelab story. the whole build in seven and a half minutes, captions included. the rest of this page is the same story, slower.</figcaption>
+        </figure>
+
+        <h2>the brief</h2>
+
+        <p>the constraints shaped everything. there's no ups, so every power cut is a hard power-off. the home fibre line has a public ip that changes whenever it feels like it, and the isp blocks inbound web ports. and once i left, the only help near the box would be my mum, guided over a camera, pressing a power button.</p>
+
+        <p>so every decision had one test: is this safe to make from two thousand kilometres away? that question ended up mattering more than any spec.</p>
+
+        <h2>the parts, and the parts that changed</h2>
+
+        <p>i picked an intel core i9-14900k for the core count and the built-in graphics, 32 gb of ram, a 1 tb nvme for the system, and a 2 tb nas hard drive for data.</p>
+
+        <p>then the orders fell apart. the motherboard and ram were delayed, so i cancelled them and bought replacements at a local shop the same day. a spare board i had turned out to be the wrong socket. the ssd order was cancelled too. a day before the build, half the parts list had changed. lesson one, before a single screw: when the deadline is close, buy locally and stop waiting on couriers.</p>
+
+        <h2>build day</h2>
+
+        <p>build day was the second of october. i checked the socket pins with a torch, set the cpu straight down, and put the ram in the two slots the board marks as first. i made one wiring mistake: the front audio plug went onto the front-panel header, which it physically fits. a photo caught it before power-on. i photograph every small header now.</p>
+
+        <p>it posted first try. then i noticed the cpu sitting at ninety degrees doing nothing. the aio's lights were on, so it looked fine, but the pump was on a header that never powered it. i moved it to the cpu fan header at full speed and idle dropped to thirty-four. a full memory test came back with zero errors. lights prove nothing; rpm does.</p>
+
+        <h2>the real bottleneck wasn't the cpu</h2>
+
+        <p>stress testing showed the limit was the motherboard's power stage, the vrm, not the chip. at 180 watts it hit 105 degrees in fifty-five seconds while the cpu itself was perfectly happy. a budget board under a flagship cpu will do that.</p>
+
+        <p>so i capped the chip at 90 watts sustained and zip-tied a spare case fan right over the power stage. thirty minutes at full load, side panels on: flat at sixty-seven degrees. it's not elegant. it works, and it's measured. this box spends its life at light load anyway, so the cap costs me almost nothing i'd notice.</p>
+
+        <h2>proxmox, and always two ways in</h2>
+
+        <p>proxmox ve went on the nvme. password logins went off. tailscale gives me private admin access from any network. since the isp blocks inbound web ports, public apps leave through a cloudflare tunnel, with cloudflare access in front of anything sensitive.</p>
+
+        <p>the rule i care about most: there are always two independent ways in. tailscale first, a cloudflare-protected ssh path second, and later a hardened direct ssh path as a third. i never change two of them in the same session. and any risky network change runs behind a ten-minute dead-man switch that undoes itself unless i log back in and cancel it. if i lock myself out, the box lets me back in by itself.</p>
+
+        <h2>built for power cuts</h2>
+
+        <p>with no ups, a power cut has to be a normal event, not an incident. the bios powers the box on when mains comes back. the kernel reboots itself on a panic or a hang, because this board's hardware watchdog turned out not to work. i only learned that by crashing the kernel on purpose while i was still home to press reset. every disk is ext4 with safe caching, every database has fsync on, and a small guard restarts tailscale if it gets stuck during boot.</p>
+
+        <p>cold boots still took up to thirteen minutes, and nothing was technically wrong. the kernel log explained it: every container disk had multi-mount protection on, which waits about forty-two seconds after an unclean stop, one container at a time. i turned it off, reordered the boot, and pulled the plug twice in a row, the second time in the middle of booting. twenty-two guests came back in fifty-three seconds.</p>
+
+        <h2>leaving google</h2>
+
+        <p>this was the part i'd been waiting for. my photos went into immich: 3,471 photos and videos, albums included. drive, notes and an old hard drive went into nextcloud: 166,685 files, 147.6 gb. i checksum-verified every file. zero mismatches.</p>
+
+        <p>but data only counts once a restore works. every night the guests are backed up to the hard drive, and photos and files get a second, deduplicated copy with restic. at eight every morning a check pushes an alert to my phone if any backup is older than a day. i've tested restores, not just assumed them. "configured", "test-restored" and "actually backed up last night" turned out to be three different states, and i had to learn that the hard way.</p>
+
+        <h2>what runs on it</h2>
+
+        <p>today the box runs about thirty guests: photos, files, a password manager, a document archive with tamil and hindi ocr, media with live tv, a private git server, automations, speed tests, and a code editor in the browser. none of them is special. each one goes through the same crash-safe checklist before it counts as done.</p>
+
+        <h2>it watches itself</h2>
+
+        <p>i can't walk over and look at it, so it has to tell me. prometheus and grafana track temperatures and power, loki collects logs from every guest, and uptime kuma checks each app.</p>
+
+        <p>but a dead server can't report its own death. so a small aws lambda checks it from the outside every minute and runs a public status page. a power cut now sends exactly two pushes to my phone: down, and back. that's the whole alerting philosophy: if a push doesn't need me to do something, it shouldn't exist.</p>
+
+        <h2>building for other people</h2>
+
+        <p>once it was stable, i started building on it for others. <a href="https://api.dharun.dev" target="_blank" rel="noopener">api.dharun.dev</a> serves free, open apis for indian developers: pincodes, ifsc codes, panchang and more. every push to main runs ci and ships a release. the server pulls it, health-checks it, and rolls back on its own if it fails.</p>
+
+        <p>i also built a honeynet: a virtual machine on its own sealed network running eleven honeypots, an ai-generated fake shell, and a real operating system behind a proxy that resets every six hours. attack logs flow into grafana, and repeat attackers get banned at the edge. it's the most fun thing on the box and the one i trust least, which is why it lives behind its own wall.</p>
+
+        <h2>what broke</h2>
+
+        <p>plenty. my ai assistant once deleted the server's <code>/dev/null</code> with a stray filler command, and ssh died with it. only the physical console could fix it. from punjab, that would have meant asking my mum to cut the power. now a guard blocks destructive commands, and a timer recreates the file within thirty seconds if it ever disappears again.</p>
+
+        <p>turning on the firewall silently broke tailscale access to the guests, and my rollout test missed it because i never tested from a tailnet device to a guest. a power cut seconds after a config write left a dns file empty. and the isp router quietly dropped its port-forwarding rules until it was restarted. every one of them got a fix, and a test that would have caught it.</p>
+
+        <h2>how i ran it</h2>
+
+        <p>i ran the whole project with claude code as a pair sysadmin, in a private repo that is the source of truth for the box. every change gets a changelog entry with a rollback. anything that could wipe data, cut remote access, or expose something to the internet needs my explicit yes. and every mistake becomes one line in a lessons file. there are about a hundred and fifty of them now. that file is the most useful thing in the repo, more than any config.</p>
+
+        <h2>leaving home</h2>
+
+        <p>on the twenty-first of october i was in my hostel in punjab, two thousand kilometres from the box. the drill passed: every app and every admin path, from hostel wi-fi. in the week around the move it took several real power cuts, and came back on its own every time.</p>
+
+        <p>one box, built in a month, that runs without me. what i actually learned isn't any one tool. it's that "works" is the easy part. the hard part is "keeps working when nobody is there", and you only get that by breaking it on purpose while someone still is.</p>
+
+        <hr class="dotted">
+        <p style="text-align:center; opacity:0.5;">written by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/reflections">more reflections</a></p>
+      </div>
+
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:05.627
+in september 2026, i had seventeen days before leaving home for college,
+
+2
+00:00:05.627 --> 00:00:07.693
+two thousand kilometres away.
+
+3
+00:00:07.693 --> 00:00:13.034
+the plan: build a server at home that runs on its own, survives power cuts,
+
+4
+00:00:13.034 --> 00:00:15.313
+and lets me leave google behind.
+
+5
+00:00:15.313 --> 00:00:18.090
+this is how it went, mistakes included.
+
+6
+00:00:20.600 --> 00:00:22.335
+the constraints were tight.
+
+7
+00:00:22.335 --> 00:00:25.356
+no ups, so every power cut is a hard power-off.
+
+8
+00:00:25.356 --> 00:00:29.149
+a home fibre line with a changing ip and no open web ports.
+
+9
+00:00:29.149 --> 00:00:34.419
+and once i left, the only help near the box would be my mum, guided over a camera.
+
+10
+00:00:34.419 --> 00:00:39.240
+so every decision had to be safe to make from two thousand kilometres away.
+
+11
+00:00:41.700 --> 00:00:46.967
+i picked an intel core i9-14900k for its core count and built-in graphics,
+
+12
+00:00:46.967 --> 00:00:51.949
+thirty-two gigabytes of ram, a one-terabyte nvme drive for the system,
+
+13
+00:00:51.949 --> 00:00:55.010
+and a two-terabyte nas hard drive for data.
+
+14
+00:00:55.700 --> 00:00:57.469
+then the orders fell apart.
+
+15
+00:00:57.469 --> 00:00:59.894
+the motherboard and ram were delayed,
+
+16
+00:00:59.894 --> 00:01:04.677
+so i cancelled them and bought replacements at a local shop the same day.
+
+17
+00:01:04.677 --> 00:01:09.133
+a spare board i had turned out to use the wrong socket for this cpu.
+
+18
+00:01:09.133 --> 00:01:11.230
+the ssd order was cancelled too.
+
+19
+00:01:11.230 --> 00:01:14.900
+a day before the build, half the parts list had changed.
+
+20
+00:01:17.400 --> 00:01:19.824
+build day was the second of october.
+
+21
+00:01:19.824 --> 00:01:24.267
+i checked the socket pins with a torch, set the cpu straight down,
+
+22
+00:01:24.267 --> 00:01:28.172
+and put the ram in the two slots the board marks as first.
+
+23
+00:01:28.172 --> 00:01:33.289
+i made one wiring mistake: the audio cable went onto the front-panel header.
+
+24
+00:01:33.289 --> 00:01:35.780
+the photos caught it before power-on.
+
+25
+00:01:36.500 --> 00:01:39.420
+first power-on: it posted on the first try.
+
+26
+00:01:39.420 --> 00:01:42.680
+but the cpu sat at ninety degrees doing nothing.
+
+27
+00:01:42.680 --> 00:01:45.871
+the pump was on a header that never powered it.
+
+28
+00:01:45.871 --> 00:01:51.847
+i moved it to the cpu fan header at full speed, and idle dropped to thirty-four degrees.
+
+29
+00:01:51.847 --> 00:01:54.360
+then a full memory test: zero errors.
+
+30
+00:01:56.900 --> 00:02:00.079
+stress testing showed the real limit wasn't the cpu.
+
+31
+00:02:00.079 --> 00:02:02.341
+it was the motherboard's power stage.
+
+32
+00:02:02.341 --> 00:02:07.598
+at a hundred and eighty watts it hit a hundred and five degrees in fifty-five seconds.
+
+33
+00:02:07.598 --> 00:02:10.471
+so i capped the chip at ninety watts sustained,
+
+34
+00:02:10.471 --> 00:02:13.956
+and zip-tied a spare case fan right over the power stage.
+
+35
+00:02:13.956 --> 00:02:17.440
+thirty minutes at full load: flat at sixty-seven degrees.
+
+36
+00:02:19.900 --> 00:02:23.836
+i installed proxmox ve on the nvme, turned off password logins,
+
+37
+00:02:23.836 --> 00:02:27.773
+and set up tailscale for private admin access from any network.
+
+38
+00:02:27.773 --> 00:02:32.896
+my isp blocks inbound web ports, so public apps leave through a cloudflare tunnel,
+
+39
+00:02:32.896 --> 00:02:36.270
+with cloudflare access in front of anything sensitive.
+
+40
+00:02:37.000 --> 00:02:40.214
+the rule is: always two independent ways in.
+
+41
+00:02:40.214 --> 00:02:44.305
+tailscale first, a cloudflare-protected ssh path second,
+
+42
+00:02:44.305 --> 00:02:47.811
+and later a hardened direct ssh port as a third.
+
+43
+00:02:47.811 --> 00:02:56.650
+any risky network change runs behind a ten-minute dead-man switch that undoes itself unless i confirm i can still log in.
+
+44
+00:02:59.200 --> 00:03:02.623
+with no ups, a power cut has to be a normal event.
+
+45
+00:03:02.623 --> 00:03:05.772
+the bios powers the box on when mains returns.
+
+46
+00:03:05.772 --> 00:03:08.989
+the kernel reboots itself on a panic or a hang,
+
+47
+00:03:08.989 --> 00:03:13.234
+because this board's hardware watchdog turned out not to work.
+
+48
+00:03:13.234 --> 00:03:17.752
+every disk is ext4 with safe caching, every database has fsync on,
+
+49
+00:03:17.752 --> 00:03:22.270
+and a small guard restarts tailscale if it gets stuck during boot.
+
+50
+00:03:23.000 --> 00:03:25.825
+cold boots still took up to thirteen minutes.
+
+51
+00:03:25.825 --> 00:03:30.723
+the kernel log showed why: every container disk had multi-mount protection on,
+
+52
+00:03:30.723 --> 00:03:35.934
+which waits about forty-two seconds after an unclean stop, one container at a time.
+
+53
+00:03:35.934 --> 00:03:40.454
+i turned it off, reordered the boot, and pulled the plug twice in a row,
+
+54
+00:03:40.454 --> 00:03:42.338
+once in the middle of booting.
+
+55
+00:03:42.338 --> 00:03:45.540
+twenty-two guests came back in fifty-three seconds.
+
+56
+00:03:48.000 --> 00:03:51.769
+then the part i'd been waiting for: leaving google.
+
+57
+00:03:51.769 --> 00:03:58.421
+my photos went into immich: three thousand four hundred and seventy-one photos and videos,
+
+58
+00:03:58.421 --> 00:03:59.604
+albums included.
+
+59
+00:03:59.604 --> 00:04:03.669
+drive, notes and an old hard drive went into nextcloud:
+
+60
+00:04:03.669 --> 00:04:09.286
+a hundred and sixty-six thousand files, a hundred and forty-seven gigabytes.
+
+61
+00:04:09.286 --> 00:04:11.577
+i checksum-verified every file.
+
+62
+00:04:11.577 --> 00:04:12.760
+zero mismatches.
+
+63
+00:04:13.500 --> 00:04:15.961
+data only counts once a restore works.
+
+64
+00:04:15.961 --> 00:04:21.788
+every night the guests are backed up to the hard drive, and photos and files get a second,
+
+65
+00:04:21.788 --> 00:04:23.731
+deduplicated copy with restic.
+
+66
+00:04:23.731 --> 00:04:29.752
+at eight every morning a check pushes an alert to my phone if any backup is older than a day.
+
+67
+00:04:29.752 --> 00:04:32.990
+and i have tested restores, not just assumed them.
+
+68
+00:04:35.500 --> 00:04:40.806
+today the box runs about thirty guests: photos, files, a password manager,
+
+69
+00:04:40.806 --> 00:04:46.973
+a document archive with tamil and hindi ocr, media with live tv, a private git server,
+
+70
+00:04:46.973 --> 00:04:51.131
+automations, speed tests and a code editor in the browser.
+
+71
+00:04:51.131 --> 00:04:54.860
+each one goes through the same crash-safe checklist.
+
+72
+00:04:57.400 --> 00:05:00.948
+i can't walk over and look at it, so it watches itself.
+
+73
+00:05:00.948 --> 00:05:06.690
+prometheus and grafana track temperatures and power, loki collects logs from every guest,
+
+74
+00:05:06.690 --> 00:05:08.754
+and uptime kuma checks each app.
+
+75
+00:05:08.754 --> 00:05:11.657
+but a dead server can't report its own death,
+
+76
+00:05:11.657 --> 00:05:17.593
+so a small aws lambda checks it from the outside every minute and runs a public status page.
+
+77
+00:05:17.593 --> 00:05:21.270
+a power cut now sends exactly two pushes: down, and back.
+
+78
+00:05:23.800 --> 00:05:26.786
+then i started building for other people.
+
+79
+00:05:26.786 --> 00:05:33.339
+api dot dharun dot dev serves free, open apis for indian developers: pincodes, ifsc codes,
+
+80
+00:05:33.339 --> 00:05:34.650
+panchang and more.
+
+81
+00:05:34.650 --> 00:05:38.073
+every push to main runs ci and ships a release.
+
+82
+00:05:38.073 --> 00:05:43.680
+the server pulls it, health-checks it, and rolls back on its own if it fails.
+
+83
+00:05:44.400 --> 00:05:49.032
+i also built a honeynet: a virtual machine on its own sealed network,
+
+84
+00:05:49.032 --> 00:05:52.589
+running eleven honeypots, an ai-generated fake shell,
+
+85
+00:05:52.589 --> 00:05:57.355
+and a real operating system behind a proxy that resets every six hours.
+
+86
+00:05:57.355 --> 00:06:02.390
+attack logs flow into grafana, and repeat attackers get banned at the edge.
+
+87
+00:06:04.900 --> 00:06:05.947
+plenty broke.
+
+88
+00:06:05.947 --> 00:06:12.877
+my ai assistant once deleted the server's dev null with a stray command, and ssh died.
+
+89
+00:06:12.877 --> 00:06:16.099
+now a guard blocks destructive commands,
+
+90
+00:06:16.099 --> 00:06:20.370
+and a timer recreates the file within thirty seconds.
+
+91
+00:06:20.370 --> 00:06:25.687
+turning on the firewall silently broke tailscale access to guests.
+
+92
+00:06:25.687 --> 00:06:28.427
+a power cut left a dns file empty.
+
+93
+00:06:28.427 --> 00:06:33.342
+and the isp router quietly dropped its port-forwarding rules.
+
+94
+00:06:33.342 --> 00:06:35.920
+every one got a fix, and a test.
+
+95
+00:06:36.600 --> 00:06:40.569
+i ran the whole project with claude code as a pair sysadmin,
+
+96
+00:06:40.569 --> 00:06:43.611
+in a private repo that is the source of truth.
+
+97
+00:06:43.611 --> 00:06:47.051
+every change gets a changelog entry with a rollback.
+
+98
+00:06:47.051 --> 00:06:49.366
+risky actions need my explicit yes.
+
+99
+00:06:49.366 --> 00:06:52.872
+and every mistake becomes one line in a lessons file.
+
+100
+00:06:52.872 --> 00:06:55.650
+there are a hundred and fifty of them now.
+
+101
+00:06:58.200 --> 00:07:02.395
+on the twenty-first of october i was in my hostel in punjab,
+
+102
+00:07:02.395 --> 00:07:04.983
+two thousand kilometres from the box.
+
+103
+00:07:04.983 --> 00:07:09.737
+the drill passed: every app and every admin path, from hostel wi-fi.
+
+104
+00:07:09.737 --> 00:07:13.933
+in the week around the move it took several real power cuts,
+
+105
+00:07:13.933 --> 00:07:16.450
+and came back on its own every time.
+
+106
+00:07:17.200 --> 00:07:20.596
+one box, built in a month, that runs without me.
+
+107
+00:07:20.596 --> 00:07:26.610
+i'm dharun ashokkumar, a computer science student who likes systems that fail safely.

@@ -40,6 +40,7 @@ Key facts, stated plainly so they can be quoted accurately:
 
 Short, first-person essays written while building the projects above.
 
+- [a home server that runs without me](https://dharun.dev/reflections/home-server) (2026-10-22): building a Proxmox home server in seventeen days before leaving for college — crash-safe with no UPS, self-monitoring, replacing Google Photos and Drive with Immich and Nextcloud — with a seven-minute video of the build.
 - [linux foundation, lfx, and a trip to mumbai i didn't pay for](https://dharun.dev/reflections/lfx-mumbai-2026) (2026-06-19): on being a Linux Foundation member, contributor and maintainer, and on the LFX travel grant to the Open Source Summit 2026 in Mumbai.
 - [why i built a clearing engine i'll probably never run in production](https://dharun.dev/reflections/clearing-engine) (2026-05-20): building an event-sourced, deterministic clearing and settlement engine in Rust, and why correctness requirements shape the code more than the finance does.
 - [a backtest that ignores costs is fiction](https://dharun.dev/reflections/backtest-costs) (2026-05-12): modelling Indian trading costs and point-in-time correctness — why honesty in financial software is the load-bearing wall, not a feature.

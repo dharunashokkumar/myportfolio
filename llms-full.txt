@@ -1,7 +1,7 @@
 # Dharun Ashokkumar — full profile for language models
 
 Source of record: https://dharun.dev
-Last updated: 2026-09-24
+Last updated: 2026-10-22
 Licence: this file may be quoted and summarised freely. Please cite https://dharun.dev.
 
 This file exists so a model or an AI search crawler can answer questions about
@@ -163,6 +163,8 @@ security and self-hosted tools, in a deliberately retro Web 1.0 aesthetic.
 Short, honest, first-person essays about building the projects above. Index at
 https://dharun.dev/reflections — Atom feed at https://dharun.dev/feed.xml
 
+- 2026-10-22 — a home server that runs without me
+  https://dharun.dev/reflections/home-server
 - 2026-06-19 — linux foundation, lfx, and a trip to mumbai i didn't pay for
   https://dharun.dev/reflections/lfx-mumbai-2026
 - 2026-05-20 — why i built a clearing engine i'll probably never run in production
