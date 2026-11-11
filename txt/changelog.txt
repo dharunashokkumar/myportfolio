@@ -1,6 +1,8 @@
 changelog · dharun.dev
 ======================
 
+2026-11-11  site        added three reading paths to the home page and
+                         tab completion in the terminal.
 2026-11-11  site        removed google analytics; switched to
                          cloudflare web analytics.
 2026-11-11  site        added /now, /uses, /colophon, /homelab, this

@@ -13,6 +13,14 @@
   </author>
 
   <entry>
+    <title>site: added three reading paths to the home page and tab completion in the terminal.</title>
+    <link href="https://dharun.dev/" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-11-22</id>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>added three reading paths to the home page and tab completion in the terminal.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
     <title>site: removed google analytics; switched to cloudflare web analytics.</title>
     <link href="https://dharun.dev/colophon" rel="alternate" type="text/html"/>
     <id>https://dharun.dev/changelog#2026-11-11-21</id>

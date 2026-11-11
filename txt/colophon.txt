@@ -17,8 +17,8 @@ an explainer      4.8 kb   16.1 kb    2.5 kb   118.6 kb
 a reflection      2.4 kb   15.4 kb    2.5 kb   115.6 kb
 now               2.3 kb   15.4 kb    2.5 kb   115.5 kb
 
-refuses to: track you across sites, load fonts or css from a third party,
-animate for decoration, or need javascript to be read.
+refuses to: track you across sites, load fonts or css from a third
+party, animate for decoration, or need javascript to be read.
 
 --
 html version: https://dharun.dev/colophon

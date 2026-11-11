@@ -66,6 +66,7 @@
       if (e.key === 'ArrowUp' && hpos > 0) { hpos--; input.value = history[hpos]; e.preventDefault(); }
       else if (e.key === 'ArrowDown') { hpos = Math.min(history.length, hpos + 1); input.value = history[hpos] || ''; e.preventDefault(); }
       else if (e.key === 'Escape') hide();
+      else if (e.key === 'Tab' && input.value.trim()) { e.preventDefault(); complete(); }
     });
     panel.append(bar, out, form);
     (document.querySelector('#container') || document.body).append(panel);
@@ -80,6 +81,23 @@
 
   function hide() {
     if (panel) panel.hidden = true;
+  }
+
+  const COMMANDS = ['help', 'ls', 'cat', 'open', 'cd', 'pwd', 'whoami', 'uptime', 'man', 'clear', 'exit'];
+
+  // Tab completes a command, or a page name after one. Several matches are listed.
+  async function complete() {
+    await loadIndex();
+    const parts = input.value.split(/\s+/);
+    const last = parts[parts.length - 1].toLowerCase();
+    let pool = COMMANDS;
+    if (parts.length > 1) {
+      pool = parts[0] === 'man' ? ['dharun'] : index.pages.map((p) => p.name);
+      if (parts[0] === 'ls') pool = ['projects', 'reflections', 'explainers'];
+    }
+    const hits = pool.filter((name) => name.startsWith(last));
+    if (hits.length === 1) { parts[parts.length - 1] = hits[0]; input.value = parts.join(' ') + ' '; }
+    else if (hits.length > 1) print(hits.join('  '));
   }
 
   function find(name) {
@@ -102,6 +120,7 @@
           'uptime            how the home server is doing',
           'man dharun        the about page, as a man page',
           'clear             clear the screen',
+          'tab               complete a command or a page name',
           'exit              close this panel',
         ].join('\n'));
         break;

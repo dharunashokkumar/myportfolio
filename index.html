@@ -337,9 +337,9 @@
               </div>
               <div class="home-section-body">
                 <ul class="changelog">
-                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">site</span><a href="colophon">removed google analytics; switched to cloudflare web analytics.</a></li>
-                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">site</span><a href="now">added /now, /uses, /colophon, /homelab, this changelog and a terminal mode.</a></li>
-                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">explainer</span><a href="explainers/home-server-public-service">how to run a public service from a home server.</a></li>
+                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">site</span><span class="what"><a href="#paths-title">added three reading paths to the home page and tab completion in the terminal.</a></span></li>
+                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">site</span><span class="what"><a href="colophon">removed google analytics; switched to cloudflare web analytics.</a></span></li>
+                  <li><time datetime="2026-11-11">2026-11-11</time><span class="area">site</span><span class="what"><a href="now">added /now, /uses, /colophon, /homelab, this changelog and a terminal mode.</a></span></li>
                 </ul>
                 <p class="section-more"><a href="changelog">the whole changelog →</a></p>
               </div>
@@ -352,6 +352,20 @@
               <div class="home-section-body about-note">
                 <img src="img/main.webp" alt="watercolor figure with a cardboard box on their head" width="1024" height="1024" loading="lazy">
                 <p>i started with arduino projects. somewhere along the way, the questions grew into whole systems. <a href="about">more about me →</a></p>
+              </div>
+            </section>
+
+            <section class="home-section" aria-labelledby="paths-title">
+              <div class="home-section-head">
+                <h2 id="paths-title">where to start</h2>
+                <p>three routes through the site, by how long you have.</p>
+              </div>
+              <div class="home-section-body">
+                <dl class="label-rows">
+                  <div><dt>ten minutes</dt><dd>if you're hiring: <a href="projects/ds-labs">d's labs</a>, then <a href="opensource">merged pull requests</a>, then <a href="resume">the resume</a>.</dd></div>
+                  <div><dt>an hour</dt><dd>if you're an engineer: <a href="projects/open-clearing-engine">the clearing engine</a> and <a href="reflections/clearing-engine">why i built it</a>, <a href="explainers/home-server-public-service">the home-server explainer</a>, then <a href="reflections/vmmanager-in-c">a vm manager in c, on purpose</a>.</dd></div>
+                  <div><dt>no hurry</dt><dd>if you're curious: <a href="reflections/home-server">the server that runs without me</a>, <a href="homelab">what broke on it</a>, <a href="colophon">how this site is made</a>, and the lock in the corner.</dd></div>
+                </dl>
               </div>
             </section>
 
