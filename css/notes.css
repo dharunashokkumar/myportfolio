@@ -1,0 +1,24 @@
+/* Margin notes, for reflections and explainers. Linked after the six globals (and
+   editorial.css) on post pages only.
+
+   markup, placed right after the sentence it annotates, inside the paragraph:
+     <span class="sidenote-ref" aria-hidden="true"></span><small class="sidenote"><span class="note-kind">note</span> ...</small>
+   kinds: "note" (an aside or a source), "later, yyyy-mm-dd" (added after publishing),
+   "from the code" (a link to the exact line). told apart by the label, never by colour.
+
+   wide screens: the note floats into the right margin beside its line.
+   narrow screens: it drops to an indented, numbered aside directly under the sentence. */
+.post #content { counter-reset: sidenote; }
+.sidenote-ref { counter-increment: sidenote; font-size: .7em; line-height: 0; vertical-align: super; padding-left: .1em; }
+.sidenote-ref::after { content: counter(sidenote); }
+.sidenote { display: block; margin: .7rem 0 .7rem 1rem; padding-left: .8rem; border-left: 1px solid #ccc; font-size: .85rem; line-height: 1.6; color: #666; text-align: left; }
+.sidenote::before { content: counter(sidenote) "."; font-weight: 900; margin-right: .4rem; }
+.sidenote .note-kind { font-weight: 900; margin-right: .3rem; }
+
+@media screen and (min-width: 1100px) {
+  .sidenote { float: right; clear: right; width: 14rem; margin: .3rem -16.5rem .8rem 0; }
+}
+
+@media print {
+  .sidenote { float: none; width: auto; margin: .5rem 0 .5rem 1rem; }
+}

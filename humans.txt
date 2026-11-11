@@ -1,0 +1,19 @@
+/* TEAM */
+  made by: dharun ashokkumar
+  site: https://dharun.dev
+  contact: me@dharun.dev
+  from: india
+
+/* THANKS */
+  the stacey cms, whose default stylesheet this one grew out of.
+  sorkin type, for merriweather.
+  everyone whose pull request review taught me something.
+
+/* SITE */
+  last update: 2026/11/11
+  language: english
+  standards: html, css, a little javascript. no framework, no build step.
+  typeface: merriweather, self-hosted.
+  analytics: cloudflare web analytics. no cookies.
+  how it's made: https://dharun.dev/colophon
+  as plain text: curl -L dharun.dev

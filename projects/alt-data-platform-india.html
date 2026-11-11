@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Alternative Data Platform for Indian Equities | Point-in-Time Feature Store | Dharun Ashokkumar</title>
-    <meta name="description" content="An alternative-data platform for Indian equities: medallion architecture with a point-in-time feature store (anti-lookahead), plug-in data sources, signal and backtest layers, and a FastAPI delivery surface. Built in Python.">
+    <title>alt-data platform: a point-in-time feature store · dharun ashokkumar</title>
+    <meta name="description" content="an alternative-data platform for indian equities in python: medallion architecture and a feature store that makes lookahead bias impossible to write.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/alt-data-platform-india">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -40,18 +32,20 @@
 
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="Alternative Data Platform for Indian Equities | Point-in-Time Feature Store">
-    <meta property="og:description" content="Find information that moves stocks in the physical world before it hits financial statements. Medallion architecture, anti-lookahead feature store, plug-in sources.">
+    <meta property="og:title" content="alt-data platform: a point-in-time feature store · dharun ashokkumar">
+    <meta property="og:description" content="an alternative-data platform for indian equities in python: medallion architecture and a feature store that makes lookahead bias impossible to write.">
     <meta property="og:url" content="https://dharun.dev/projects/alt-data-platform-india">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-alt-data-platform-india.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="Alternative Data Platform for Indian Equities">
-    <meta name="twitter:description" content="Medallion architecture, anti-lookahead point-in-time feature store, plug-in data sources, signal and backtest layers.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="alt-data platform: a point-in-time feature store · dharun ashokkumar">
+    <meta name="twitter:description" content="an alternative-data platform for indian equities in python: medallion architecture and a feature store that makes lookahead bias impossible to write.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-alt-data-platform-india.png">
 
     <script type="application/ld+json">
     {
@@ -65,7 +59,7 @@
       "datePublished": "2026-05-17",
       "dateModified": "2026-05-29",
       "keywords": "alternative data, point-in-time feature store, medallion architecture, quantitative finance, factor investing, backtesting",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" }
+      "author": { "@id": "https://dharun.dev/#person" }
     }
     </script>
     <script type="application/ld+json">
@@ -80,6 +74,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -143,6 +141,25 @@
         <h2>the rule that runs through everything</h2>
         <p>point-in-time correctness is structural, not a checkbox. every feature carries <strong>(feature_date, published_date, as_of_date)</strong>, and every read goes through one function that filters to what was actually knowable at the as-of moment. there's simply no api to see the future — which is the single most common way a backtest lies to you.</p>
 
+        <section class="demo" id="as-of" data-asof-demo aria-labelledby="asof-title">
+          <h2 id="asof-title">move the as-of date</h2>
+          <p>a backtest on a given day may only use what was <em>published</em> by then. drag the date. rows that weren't known yet get struck through. that is lookahead bias, made visible.</p>
+          <label for="asof-range">as of <output data-asof-label>15 july</output></label>
+          <input id="asof-range" type="range" min="0" max="30" value="14" hidden>
+          <table>
+            <thead><tr><th scope="col">feature</th><th scope="col">about</th><th scope="col">published</th></tr></thead>
+            <tbody data-asof-rows>
+              <tr data-pub="3"><td>daily power demand</td><td>2 july</td><td>4 july</td></tr>
+              <tr data-pub="9"><td>monthly auto sales</td><td>june</td><td>10 july</td></tr>
+              <tr data-pub="13"><td>cpi inflation</td><td>june</td><td>14 july</td></tr>
+              <tr data-pub="17"><td>quarterly results, company a</td><td>april to june</td><td>18 july</td></tr>
+              <tr data-pub="24"><td>quarterly results, company b</td><td>april to june</td><td>25 july</td></tr>
+              <tr data-pub="29"><td>daily power demand, revised</td><td>2 july</td><td>30 july</td></tr>
+            </tbody>
+          </table>
+          <p class="demo-status" data-asof-status role="status" aria-live="polite">an illustrative month; the rows are made up to show the rule, not real releases.</p>
+        </section>
+
         <div class="spec-grid">
           <div class="spec"><span class="spec-value">python</span><span class="spec-label">language</span></div>
           <div class="spec"><span class="spec-value">posoco</span><span class="spec-label">working vertical slice</span></div>
@@ -152,6 +169,14 @@
 
         <div class="callout">i wanted to build the boring, correct part first — the part that stops you fooling yourself — and only then add sources. the anti-lookahead feature store is the whole point.</div>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/reflections/backtest-costs">a backtest that ignores costs is fiction</a></li>
+            <li><a href="/projects/indie-market-analyst">indie market analyst</a></li>
+            <li><a href="/projects/open-clearing-engine">open clearing engine</a></li>
+          </ul>
+        </nav>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a></p>
@@ -168,7 +193,10 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/asof-demo.js" defer></script>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

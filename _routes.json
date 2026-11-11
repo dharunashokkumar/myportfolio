@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/css/*",
+    "/js/*",
+    "/fonts/*",
+    "/img/*",
+    "/favicon/*",
+    "/files/*",
+    "/txt/*",
+    "/galley/*",
+    "/design-system/*",
+    "/projects/asset/*",
+    "/reflections/asset/*",
+    "/.well-known/*",
+    "/vault"
+  ]
+}

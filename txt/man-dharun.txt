@@ -1,0 +1,39 @@
+DHARUN(1)                  dharun.dev manual                  DHARUN(1)
+
+NAME
+       dharun - builds systems software, runs d's labs
+
+SYNOPSIS
+       dharun [--rust | --go | --c] [--self-host] problem
+
+DESCRIPTION
+       dharun ashokkumar builds systems software in rust, go and c, and
+       runs d's labs: browser lab environments served from a server at
+       home.
+
+       started with arduino at school, then raspberry pi and esp32,
+       then servers and the software around them. studies computer
+       science at lovely professional university, punjab, 2025 to 2029.
+       was a development intern at pantech prolabs, october 2024 to
+       january 2025.
+
+OPTIONS
+       --rust     clearing engine, rler
+       --go       termcall
+       --c        vmmanager
+       --self-host
+                  d's labs and about thirty services on one home server
+
+FILES
+       /homelab   the machine
+       /now       this month
+       /uses      the tools
+
+BUGS
+       chooses the longer route on purpose, when the point is to learn
+       what the abstraction hides.
+
+SEE ALSO
+       https://github.com/dharunashokkumar, me@dharun.dev
+
+dharun.dev                     november 2026                   DHARUN(1)

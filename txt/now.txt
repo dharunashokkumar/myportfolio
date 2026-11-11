@@ -1,0 +1,20 @@
+now
+===
+
+updated 11 november 2026. updated on the first of each month.
+
+building      d's labs, for real users: limits, cleanup, and what
+              happens when a worker dies halfway through starting a lab.
+running       the home server, from two thousand kilometres away.
+learning      linux isolation: where a container's network, storage and
+              resource boundaries meet, and where they leak.
+still on      open clearing engine: a trade, all the way to a replayable
+              settlement result.
+writing       one explainer a month. the first: how to run a public
+              service from a home server.
+studying      second year of a btech in computer science, lovely
+              professional university, punjab.
+
+--
+html version: https://dharun.dev/now
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

@@ -1,20 +1,10 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6EGD879ZLL');
-</script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>page not found | Dharun Ashokkumar</title>
+    <title>page not found · dharun ashokkumar</title>
     <meta name="robots" content="noindex, follow">
 
     <link rel="icon" href="/favicon/favicon.png">
@@ -33,7 +23,11 @@
     <link rel="stylesheet" type="text/css" href="/css/components.css">
     <link rel="stylesheet" type="text/css" href="/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="/css/modules.css">
-    <link rel="stylesheet" href="css/editorial.css">
+    <link rel="stylesheet" href="/css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -66,13 +60,17 @@
             </nav>
         </div>
         <div id="content">
-            <h2>404 — this page doesn't exist</h2>
-
-            <p>the page you were looking for has moved, was renamed, or never existed.</p>
-
-            <p>try the <a href="/">home page</a>, browse my <a href="/projects">projects</a>, or <a href="mailto:dharuna457@gmail.com?subject=broken link.">tell me what broke</a>.</p>
+            <div class="short-page">
+            <h2>404</h2>
+            <p class="answer">you are in a directory with no index. it is dark, and the url you typed is not here.</p>
+            <p>exits are <a href="/">home</a>, <a href="/projects">projects</a>, and <a href="javascript:history.back()" onclick="history.back(); return false;">back</a>.</p>
+            <p>there is a <a href="/changelog">changelog</a> on the floor. it might say where the page went.</p>
+            <p class="small-note">if a link on this site brought you here, <a href="mailto:me@dharun.dev?subject=broken%20link">tell me what broke</a>.</p>
+            </div>
       </div><div id="footer">
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
     </div>
 </div>
+    <script src="/js/shell.js" defer></script>
     </body>
 </html>

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>how to run a public service from a home server · dharun ashokkumar</title>
+    <meta name="description" content="don't open ports. run an outbound tunnel, then design for the house: a changing address, power cuts, a forgetful router and nobody there to press a button.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/explainers/home-server-public-service">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <link rel="alternate" type="text/plain" title="plain-text version of this page" href="https://dharun.dev/explainers/home-server-public-service.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="../fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../css/components.css">
+    <link rel="stylesheet" type="text/css" href="../css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../css/modules.css">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="how to run a public service from a home server · dharun ashokkumar">
+    <meta property="og:description" content="don't open ports. run an outbound tunnel, then design for the house: a changing address, power cuts, a forgetful router and nobody there to press a button.">
+    <meta property="og:url" content="https://dharun.dev/explainers/home-server-public-service">
+    <meta property="og:image" content="https://dharun.dev/img/og/explainers-home-server-public-service.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="article:published_time" content="2026-11-11">
+    <meta property="article:modified_time" content="2026-11-11">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="how to run a public service from a home server · dharun ashokkumar">
+    <meta name="twitter:description" content="don't open ports. run an outbound tunnel, then design for the house: a changing address, power cuts, a forgetful router and nobody there to press a button.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/explainers-home-server-public-service.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "how to run a public service from a home server",
+      "description": "don't open ports. run an outbound tunnel, then design for the house: a changing address, power cuts, a forgetful router and nobody there to press a button.",
+      "url": "https://dharun.dev/explainers/home-server-public-service",
+      "mainEntityOfPage": "https://dharun.dev/explainers/home-server-public-service",
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "publisher": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "image": "https://dharun.dev/img/og/explainers-home-server-public-service.png",
+      "keywords": "home server, self-hosting, cloudflare tunnel, port forwarding, power cuts, proxmox, homelab, uptime",
+      "proficiencyLevel": "Beginner",
+      "wordCount": 1012
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Explainers",
+          "item": "https://dharun.dev/explainers"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "how to run a public service from a home server",
+          "item": "https://dharun.dev/explainers/home-server-public-service"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../css/editorial.css">
+    <link rel="stylesheet" href="../css/notes.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <article id="content">
+        <p class="list-note"><a href="/explainers">← explainers</a></p>
+        <h1>how to run a public service from a home server</h1>
+        <p class="inline-meta">explainer · self-hosting · <time datetime="2026-11-11">11 november 2026</time></p>
+
+        <p class="answer">to run a public service from a home server, don't open ports on your router. run an outbound tunnel from the server to an edge network, and let the edge take the public traffic. then design for the house itself: the address changes, the power cuts out, the router forgets things, and nobody is there to press a button. make each of those a normal event the server recovers from on its own.</p>
+
+        <p>that's the whole answer. the rest of this page is the worked example: the box that runs <a href="/projects/ds-labs">d's labs</a> and about thirty other services from my family's home, while i'm two thousand kilometres away.</p>
+
+        <h2>why not just forward a port</h2>
+        <p>the textbook way is to forward ports 80 and 443 on the router to the server and point a dns record at your public address. at home, three things break that.</p>
+        <ul>
+          <li>the isp blocks inbound web ports. mine does.</li>
+          <li>the public address changes whenever the isp feels like it, so a dns record goes stale.</li>
+          <li>the router is consumer hardware. mine quietly dropped its port-forwarding rules until it was restarted.</li>
+        </ul>
+        <p>a tunnel turns the problem around. a small daemon on the server dials <em>out</em> to the edge network and holds the connection open. visitors connect to the edge, and the edge sends their requests back down that connection. nothing inbound is needed, so the blocked ports, the changing address and the forgetful router stop mattering.<span class="sidenote-ref" aria-hidden="true"></span><small class="sidenote"><span class="note-kind">note</span> i use a cloudflare tunnel. the idea isn't cloudflare-specific; any reverse tunnel to a machine with a public address works the same way.</small></p>
+
+        <div class="term">
+          <div class="term-bar"><span>the request path</span></div>
+<pre>  visitor ──https──▶ edge network
+                         │
+                         │  the tunnel: one connection that
+                         │  the server opened, outbound
+                         ▼
+                 ┌───────────────────┐
+  house          │ tunnel daemon     │  (its own small container)
+                 │       │           │
+                 │       ▼           │
+                 │ the service       │
+                 └───────────────────┘
+
+  nothing listens on the router. there is no port to scan.</pre>
+        </div>
+
+        <h2>the house is the hard part</h2>
+        <p>getting traffic in takes an afternoon. keeping the service up when nobody is home takes the rest of the month. every decision gets one test: is this safe to do from two thousand kilometres away?</p>
+
+        <h3>power cuts</h3>
+        <p>with no ups, a power cut is a hard power-off, so it has to be routine. four settings do most of the work: the bios powers the box on when mains returns, the kernel reboots itself on a panic or a hang, every disk is ext4 with safe caching, and every database runs with fsync on. then you pull the plug on purpose, while you're still there to press reset.</p>
+
+        <h3>a worked example: the thirteen-minute boot</h3>
+        <p>after a power cut my server came back, but slowly. a cold boot took up to thirteen minutes, and nothing was technically wrong.</p>
+        <table class="plain">
+          <thead><tr><th scope="col"></th><th scope="col">before</th><th scope="col">after</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">wait per container after an unclean stop</th><td>about 42 s</td><td>0 s</td></tr>
+            <tr><th scope="row">containers waiting</th><td>one at a time</td><td>none</td></tr>
+            <tr><th scope="row">full cold boot</th><td>up to 13 min</td><td>22 guests in 53 s</td></tr>
+          </tbody>
+        </table>
+        <p>the kernel log explained it. every container disk had multi-mount protection on, which waits about forty-two seconds after an unclean stop to be sure no other machine is using the disk. on a single host there is no other machine, so i turned it off and reordered the boot. then i pulled the plug twice in a row, the second time in the middle of booting.<span class="sidenote-ref" aria-hidden="true"></span><small class="sidenote"><span class="note-kind">note</span> multi-mount protection is an ext4 feature for shared storage. it guards against two hosts mounting one disk. it's a real safety feature on a cluster and pure delay on a single box.</small></p>
+
+        <h3>the machine has limits the spec sheet doesn't</h3>
+        <p>stress testing showed my limit was the motherboard's power stage, not the cpu: 105 degrees in fifty-five seconds at 180 watts. i capped the chip at 90 watts sustained and zip-tied a spare fan over the power stage. thirty minutes at full load, side panels on: flat at sixty-seven degrees. a home server spends its life at light load, so the cap costs almost nothing. measure it before you trust it.</p>
+
+        <h3>always two ways in</h3>
+        <p>if you lock yourself out, the fix is a long trip or a phone call to someone at home. so there are always two independent ways in: a private network for admin first, a second path through the edge as a fallback. never change both in the same session. any risky network change runs behind a ten-minute dead-man switch that undoes itself unless you log back in and cancel it.</p>
+
+        <h3>a dead server can't report its own death</h3>
+        <p>monitoring that runs on the box goes down with the box. something outside has to check it. mine checks every minute from the outside, and a power cut sends exactly two pushes to my phone: down, and back. if an alert doesn't need me to do something, it shouldn't exist.</p>
+
+        <h2>where it breaks</h2>
+        <ul>
+          <li><strong>the edge sees your traffic.</strong> the tunnel's https ends at the edge network, so you're trusting it with what passes through. put a login in front of anything sensitive, and keep the really private things off the tunnel entirely.</li>
+          <li><strong>request size limits.</strong> an edge network can cap the size of one request. cloudflare's free plan caps a request body at 100 mb, so my file sync uploads in 50 mb chunks.</li>
+          <li><strong>tests that miss a path.</strong> turning on the firewall silently broke private-network access to the guests. my rollout test passed because it never tried from a private-network device to a guest. the test does now.</li>
+          <li><strong>tools with too much reach.</strong> my ai assistant once deleted the server's <code>/dev/null</code> with a stray command, and ssh died with it. only the physical console could fix it. now a guard blocks destructive commands, and a timer recreates the file within thirty seconds.</li>
+        </ul>
+
+        <h2>the short version</h2>
+        <ol>
+          <li>tunnel out; open nothing in.</li>
+          <li>make a power cut boring, then cause one on purpose.</li>
+          <li>keep two ways in, and change only one at a time.</li>
+          <li>watch it from outside the house.</li>
+          <li>a backup only counts once you've restored from it.</li>
+        </ol>
+
+        <p class="cite-as">cite as: dharun ashokkumar, "how to run a public service from a home server", dharun.dev, 11 november 2026. <a href="/explainers/home-server-public-service.txt">plain-text version</a>.</p>
+
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/homelab">the machine this is about</a></li>
+            <li><a href="/reflections/home-server">a home server that runs without me</a>, the build story</li>
+            <li><a href="/projects/ds-labs">d's labs</a>, the service it runs</li>
+          </ul>
+        </nav>
+      </article>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="../js/shell.js" defer></script>
+  </body>
+</html>

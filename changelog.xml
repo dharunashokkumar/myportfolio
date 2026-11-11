@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>dharun ashokkumar — changelog</title>
+  <subtitle>one line per thing shipped, across d's labs, the home server, other projects and dharun.dev.</subtitle>
+  <link href="https://dharun.dev/changelog.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://dharun.dev/changelog" rel="alternate" type="text/html"/>
+  <id>https://dharun.dev/changelog</id>
+  <updated>2026-11-11T00:00:00+00:00</updated>
+  <icon>https://dharun.dev/favicon/favicon.png</icon>
+  <author>
+    <name>Dharun Ashokkumar</name>
+    <uri>https://dharun.dev</uri>
+  </author>
+
+  <entry>
+    <title>site: removed google analytics; switched to cloudflare web analytics.</title>
+    <link href="https://dharun.dev/colophon" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-11-21</id>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>removed google analytics; switched to cloudflare web analytics.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>site: added /now, /uses, /colophon, /homelab, this changelog and a terminal mode.</title>
+    <link href="https://dharun.dev/now" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-11-20</id>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>added /now, /uses, /colophon, /homelab, this changelog and a terminal mode.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>explainer: how to run a public service from a home server.</title>
+    <link href="https://dharun.dev/explainers/home-server-public-service" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-11-19</id>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>how to run a public service from a home server.</summary>
+    <category term="explainer"/>
+  </entry>
+  <entry>
+    <title>d&#x27;s labs: gave d&#x27;s labs its own page, with a step-through of starting a lab.</title>
+    <link href="https://dharun.dev/projects/ds-labs" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-11-18</id>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>gave d&#x27;s labs its own page, with a step-through of starting a lab.</summary>
+    <category term="d&#x27;s labs"/>
+  </entry>
+  <entry>
+    <title>reflection: a home server that runs without me, with a seven-minute build video.</title>
+    <link href="https://dharun.dev/reflections/home-server" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-10-22-17</id>
+    <updated>2026-10-22T00:00:00+00:00</updated>
+    <summary>a home server that runs without me, with a seven-minute build video.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>homelab: left home. the server passed the remote drill from hostel wi-fi.</title>
+    <link href="https://dharun.dev/homelab" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-10-21-16</id>
+    <updated>2026-10-21T00:00:00+00:00</updated>
+    <summary>left home. the server passed the remote drill from hostel wi-fi.</summary>
+    <category term="homelab"/>
+  </entry>
+  <entry>
+    <title>site: added a razorpay support section to the contact page.</title>
+    <link href="https://dharun.dev/contact" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-10-17-15</id>
+    <updated>2026-10-17T00:00:00+00:00</updated>
+    <summary>added a razorpay support section to the contact page.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>homelab: build day. the server posted first try.</title>
+    <link href="https://dharun.dev/reflections/home-server" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-10-02-14</id>
+    <updated>2026-10-02T00:00:00+00:00</updated>
+    <summary>build day. the server posted first try.</summary>
+    <category term="homelab"/>
+  </entry>
+  <entry>
+    <title>site: rewrote the home page and added the clearing walkthrough.</title>
+    <link href="https://dharun.dev/projects/open-clearing-engine#clearing-demo" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-09-24-13</id>
+    <updated>2026-09-24T00:00:00+00:00</updated>
+    <summary>rewrote the home page and added the clearing walkthrough.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>site: self-hosted merriweather and flattened the render-blocking css chain.</title>
+    <link href="https://dharun.dev/colophon" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-09-10-12</id>
+    <updated>2026-09-10T00:00:00+00:00</updated>
+    <summary>self-hosted merriweather and flattened the render-blocking css chain.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>site: added llms.txt, an atom feed and an explicit crawler policy.</title>
+    <link href="https://dharun.dev/llms.txt" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-09-10-11</id>
+    <updated>2026-09-10T00:00:00+00:00</updated>
+    <summary>added llms.txt, an atom feed and an explicit crawler policy.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>projects: wrote up dropbin and termcall.</title>
+    <link href="https://dharun.dev/projects/dropbin" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-09-09-10</id>
+    <updated>2026-09-09T00:00:00+00:00</updated>
+    <summary>wrote up dropbin and termcall.</summary>
+    <category term="projects"/>
+  </entry>
+  <entry>
+    <title>projects: wrote up aisoul.</title>
+    <link href="https://dharun.dev/projects/aisoul" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-07-18-9</id>
+    <updated>2026-07-18T00:00:00+00:00</updated>
+    <summary>wrote up aisoul.</summary>
+    <category term="projects"/>
+  </entry>
+  <entry>
+    <title>site: moved the site to dharun.dev.</title>
+    <link href="https://dharun.dev/" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-07-16-8</id>
+    <updated>2026-07-16T00:00:00+00:00</updated>
+    <summary>moved the site to dharun.dev.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>reflection: lfx and a trip to mumbai i didn&#x27;t pay for.</title>
+    <link href="https://dharun.dev/reflections/lfx-mumbai-2026" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-06-19-7</id>
+    <updated>2026-06-19T00:00:00+00:00</updated>
+    <summary>lfx and a trip to mumbai i didn&#x27;t pay for.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>reflection: why i built a clearing engine i&#x27;ll probably never run in production.</title>
+    <link href="https://dharun.dev/reflections/clearing-engine" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-05-20-6</id>
+    <updated>2026-05-20T00:00:00+00:00</updated>
+    <summary>why i built a clearing engine i&#x27;ll probably never run in production.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>projects: published open clearing engine.</title>
+    <link href="https://dharun.dev/projects/open-clearing-engine" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-05-17-5</id>
+    <updated>2026-05-17T00:00:00+00:00</updated>
+    <summary>published open clearing engine.</summary>
+    <category term="projects"/>
+  </entry>
+  <entry>
+    <title>reflection: a backtest that ignores costs is fiction.</title>
+    <link href="https://dharun.dev/reflections/backtest-costs" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-05-12-4</id>
+    <updated>2026-05-12T00:00:00+00:00</updated>
+    <summary>a backtest that ignores costs is fiction.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>reflection: rust keeps making me slower, and that&#x27;s the point.</title>
+    <link href="https://dharun.dev/reflections/rust-slower" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-05-05-3</id>
+    <updated>2026-05-05T00:00:00+00:00</updated>
+    <summary>rust keeps making me slower, and that&#x27;s the point.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>reflection: building in public, even the unfinished and the archived.</title>
+    <link href="https://dharun.dev/reflections/building-in-public" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-04-10-2</id>
+    <updated>2026-04-10T00:00:00+00:00</updated>
+    <summary>building in public, even the unfinished and the archived.</summary>
+    <category term="reflection"/>
+  </entry>
+  <entry>
+    <title>reflection: i wrote a vm manager in c on purpose.</title>
+    <link href="https://dharun.dev/reflections/vmmanager-in-c" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-03-18-1</id>
+    <updated>2026-03-18T00:00:00+00:00</updated>
+    <summary>i wrote a vm manager in c on purpose.</summary>
+    <category term="reflection"/>
+  </entry>
+</feed>

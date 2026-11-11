@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>dharun ashokkumar — reflections</title>
-  <subtitle>notes from building a clearing engine in rust, honest backtests for indian markets, a vm manager in c, and other projects — written while learning in public.</subtitle>
+  <title>dharun ashokkumar — reflections and explainers</title>
+  <subtitle>explainers that answer one question with a worked example, and reflections on what building d's labs, a home server, a clearing engine in rust and a vm manager in c taught me.</subtitle>
   <link href="https://dharun.dev/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://dharun.dev/reflections" rel="alternate" type="text/html"/>
   <id>https://dharun.dev/</id>
-  <updated>2026-10-22T00:00:00+00:00</updated>
+  <updated>2026-11-11T00:00:00+00:00</updated>
   <icon>https://dharun.dev/favicon/favicon.png</icon>
   <logo>https://dharun.dev/img/main.webp</logo>
   <rights>© Dharun Ashokkumar</rights>
@@ -14,8 +14,20 @@
   <author>
     <name>Dharun Ashokkumar</name>
     <uri>https://dharun.dev</uri>
-    <email>dharuna457@gmail.com</email>
+    <email>me@dharun.dev</email>
   </author>
+
+  <entry>
+    <title>how to run a public service from a home server</title>
+    <link href="https://dharun.dev/explainers/home-server-public-service" rel="alternate" type="text/html"/>
+    <link href="https://dharun.dev/explainers/home-server-public-service.txt" rel="alternate" type="text/plain"/>
+    <id>https://dharun.dev/explainers/home-server-public-service</id>
+    <published>2026-11-11T00:00:00+00:00</published>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>explainer. don't open ports: run an outbound tunnel, then design for the house — a changing address, power cuts, a forgetful router, and nobody there to press a button.</summary>
+    <category term="explainer"/>
+    <category term="self-hosting"/>
+  </entry>
 
   <entry>
     <title>a home server that runs without me</title>
@@ -23,21 +35,21 @@
     <link href="https://dharun.dev/reflections/asset/pve-journey.mp4" rel="enclosure" type="video/mp4"/>
     <id>https://dharun.dev/reflections/home-server</id>
     <published>2026-10-22T00:00:00+00:00</published>
-    <updated>2026-10-22T00:00:00+00:00</updated>
+    <updated>2026-11-11T00:00:00+00:00</updated>
     <summary>a note on building a proxmox home server in seventeen days before leaving for college — made to survive power cuts with no ups, watch itself, and replace google photos and drive — with a seven-minute video of the build.</summary>
     <category term="homelab"/>
     <category term="self-hosting"/>
   </entry>
 
   <entry>
-    <title>linux foundation, lfx, and a trip to mumbai i didn't pay for</title>
+    <title>lfx and a trip to mumbai i didn't pay for</title>
     <link href="https://dharun.dev/reflections/lfx-mumbai-2026" rel="alternate" type="text/html"/>
     <id>https://dharun.dev/reflections/lfx-mumbai-2026</id>
     <published>2026-06-19T00:00:00+00:00</published>
-    <updated>2026-07-18T00:00:00+00:00</updated>
-    <summary>on being a linux foundation member, contributor, and maintainer — and being funded by the lfx mentorship travel grant to attend the linux foundation open source summit 2026 in mumbai, june 16-18.</summary>
+    <updated>2026-11-11T00:00:00+00:00</updated>
+    <summary>lfx, the linux foundation's mentorship programme, funded my travel to the open source summit 2026 in mumbai, june 16-18. what three days there taught me about open source.</summary>
     <category term="open source"/>
-    <category term="linux foundation"/>
+    <category term="lfx"/>
   </entry>
 
   <entry>

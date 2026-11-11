@@ -1,0 +1,44 @@
+d's labs
+========
+
+browser lab environments, served from a server at home. i build it and i
+run it. anyone can sign up. open it at https://labs.dharun.dev
+
+what you can do in it
+---------------------
+
+labs          40 one-click environments: kali, ubuntu, jenkins, gitlab,
+              airflow, kafka, keycloak, minio, n8n, grafana, jupyter,
+              juice shop, dvwa, metasploitable and more. or build your
+              own stack.
+skills        guided, timed courses. a checker verifies the work inside
+              the container. 9 tracks, 6 timed challenges.
+ctf           flags, dynamic scoring, first-blood bonuses, hints, teams,
+              a scoreboard.
+ranges        multi-machine attack scenarios on networks with no
+              internet, with an active directory domain controller.
+
+starting a lab, step by step
+----------------------------
+
+  1  request accepted     POST /labs/kali/start -> 202 accepted
+  2  job queued           a worker picks it up from redis
+  3  lab host woken       the student-container vm wakes if asleep
+  4  network created      a private docker network per user
+  5  container started    capped at 2 cpu and 4 gb, volume attached
+  6  login gate ready     GET /labs/kali/ready -> 200 ready
+
+decisions i'd defend
+--------------------
+
+admin         the admin console is a separate server. the public api has
+              no admin endpoints.
+slow work     never blocks a request. the api answers 202 and the worker
+              does the rest.
+ssh           no lab runs sshd. one gateway docker-execs in as you,
+              never as root.
+storage       the frontend keeps its access token in memory only.
+
+--
+html version: https://dharun.dev/projects/ds-labs
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

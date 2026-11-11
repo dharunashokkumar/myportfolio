@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>explainers: questions answered from things i built · dharun ashokkumar</title>
+    <meta name="description" content="one question a month, answered with a worked example from something i actually built: self-hosting, docker, clearing and settlement, and systems.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/explainers">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="explainers: questions answered from things i built · dharun ashokkumar">
+    <meta property="og:description" content="one question a month, answered with a worked example from something i actually built: self-hosting, docker, clearing and settlement, and systems.">
+    <meta property="og:url" content="https://dharun.dev/explainers">
+    <meta property="og:image" content="https://dharun.dev/img/og/explainers.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="explainers: questions answered from things i built · dharun ashokkumar">
+    <meta name="twitter:description" content="one question a month, answered with a worked example from something i actually built: self-hosting, docker, clearing and settlement, and systems.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/explainers.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "explainers",
+      "description": "one question a month, answered with a worked example from something i actually built: self-hosting, docker, clearing and settlement, and systems.",
+      "url": "https://dharun.dev/explainers",
+      "dateModified": "2026-11-11",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "isPartOf": {
+        "@id": "https://dharun.dev/#website"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://dharun.dev/explainers/home-server-public-service",
+            "name": "how to run a public service from a home server"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Explainers",
+          "item": "https://dharun.dev/explainers"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main id="content" class="short-page">
+        <h1>explainers</h1>
+        <p class="page-meta">one a month. each answers a question someone would actually type, with a worked example from a project i built. each has a <a href="/explainers/home-server-public-service.txt">plain-text twin</a> for reading in a terminal or quoting.</p>
+
+        <ul class="reflect-list">
+          <li>
+            <a href="/explainers/home-server-public-service"><span class="title">how to run a public service from a home server</span></a>
+            <span class="reflect-arrow" aria-hidden="true">→</span>
+            <span class="inline-meta">2026.11 · self-hosting, homelab</span>
+            <p>don't open ports. run an outbound tunnel, then design for the house: a changing address, power cuts, a forgetful router, and nobody there to press a button.</p>
+          </li>
+        </ul>
+
+        <p class="small-note">the more personal posts, about what building something taught me, are in <a href="/reflections">reflections</a>. both come through the <a href="/feed.xml">atom feed</a>.</p>
+      </main>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="js/shell.js" defer></script>
+  </body>
+</html>

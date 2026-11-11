@@ -1,0 +1,40 @@
+changelog · dharun.dev
+======================
+
+2026-11-11  site        removed google analytics; switched to
+                         cloudflare web analytics.
+2026-11-11  site        added /now, /uses, /colophon, /homelab, this
+                         changelog and a terminal mode.
+2026-11-11  explainer   how to run a public service from a home server.
+2026-11-11  d's labs    gave d's labs its own page, with a step-through
+                         of starting a lab.
+2026-10-22  reflection  a home server that runs without me, with a
+                         seven-minute build video.
+2026-10-21  homelab     left home. the server passed the remote drill
+                         from hostel wi-fi.
+2026-10-17  site        added a razorpay support section to the contact
+                         page.
+2026-10-02  homelab     build day. the server posted first try.
+2026-09-24  site        rewrote the home page and added the clearing
+                         walkthrough.
+2026-09-10  site        self-hosted merriweather and flattened the
+                         render-blocking css chain.
+2026-09-10  site        added llms.txt, an atom feed and an explicit
+                         crawler policy.
+2026-09-09  projects    wrote up dropbin and termcall.
+2026-07-18  projects    wrote up aisoul.
+2026-07-16  site        moved the site to dharun.dev.
+2026-06-19  reflection  lfx and a trip to mumbai i didn't pay for.
+2026-05-20  reflection  why i built a clearing engine i'll probably
+                         never run in production.
+2026-05-17  projects    published open clearing engine.
+2026-05-12  reflection  a backtest that ignores costs is fiction.
+2026-05-05  reflection  rust keeps making me slower, and that's the
+                         point.
+2026-04-10  reflection  building in public, even the unfinished and the
+                         archived.
+2026-03-18  reflection  i wrote a vm manager in c on purpose.
+
+--
+html version: https://dharun.dev/changelog
+feed: https://dharun.dev/changelog.xml

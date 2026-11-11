@@ -1,0 +1,19 @@
+reflections
+===========
+
+first-person notes from building things.
+
+2026-10-22    a home server that runs without me
+2026-06-19    lfx and a trip to mumbai i didn't pay for
+2026-05-20    why i built a clearing engine i'll probably never run in
+              production
+2026-05-12    a backtest that ignores costs is fiction
+2026-05-05    rust keeps making me slower, and that's the point
+2026-04-10    building in public, even the unfinished and the archived
+2026-03-18    i wrote a vm manager in c on purpose
+
+read them at https://dharun.dev/reflections
+
+--
+html version: https://dharun.dev/reflections
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

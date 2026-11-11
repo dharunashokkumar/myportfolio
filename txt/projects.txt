@@ -1,0 +1,29 @@
+projects
+========
+
+what i've built. most link to the source.
+
+d's labs      browser lab environments from a server at home. fastapi,
+              react, docker. /projects/ds-labs
+termcall      terminal chat rooms and video calls drawn in characters.
+              go, webrtc. /projects/termcall
+dropbin       upload a file, get a four-digit pin. one worker, one
+              bucket. /projects/dropbin
+clearing      open clearing engine: clearing and settlement in rust.
+              /projects/open-clearing-engine
+indie market  indian-market scanner and backtester with every charge.
+              python. /projects/indie-market-analyst
+alt-data      a point-in-time alt-data platform for indian equities.
+              /projects/alt-data-platform-india
+vmmanager     gtk4 desktop app for qemu/kvm and incus, in c.
+              /projects/vmmanager
+aisoul        a local-first personal ai harness for android, in kotlin.
+              /projects/aisoul
+rler          a reinforcement-learning paper trader for nse, in rust.
+              /projects/rler
+cs archive    an open-source cs knowledge hub, 20+ categories.
+              /projects/cs-archive
+
+--
+html version: https://dharun.dev/projects
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

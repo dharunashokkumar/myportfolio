@@ -42,3 +42,55 @@
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
+
+# Changelog feed, second Atom feed.
+/changelog.xml
+  Content-Type: application/atom+xml; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# Plain-text twins of explainers: quotable by models, same rules as the llms files.
+/explainers/*.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# Terminal-mode text pages (what `curl -L dharun.dev` returns). They duplicate the
+# HTML pages, so they stay out of search results; the HTML is canonical. No
+# Content-Type here: /txt/ also holds index.html, and Pages infers text/plain for .txt.
+/txt/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex
+
+/txt/index.json
+  Content-Type: application/json; charset=utf-8
+
+/humans.txt
+  Content-Type: text/plain; charset=utf-8
+
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8
+
+# CSS, JS and images are edited in place under the same names, so no `immutable`:
+# a day of cache, then serve stale while revalidating.
+/css/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/js/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/img/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# 103 Early Hints: Cloudflare turns these Link headers into early hints, so the
+# browser starts on the font and the six global stylesheets while the HTML is
+# still in flight. Same order as the <link> tags; do not merge the files.
+/*
+  Link: </fonts/merriweather-latin-normal.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin
+  Link: </css/fonts.css>; rel=preload; as=style
+  Link: </css/base.css>; rel=preload; as=style
+  Link: </css/layout.css>; rel=preload; as=style
+  Link: </css/components.css>; rel=preload; as=style
+  Link: </css/responsive.css>; rel=preload; as=style
+  Link: </css/modules.css>; rel=preload; as=style

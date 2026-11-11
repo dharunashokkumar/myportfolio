@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>homelab: the server at home that runs d's labs · dharun ashokkumar</title>
+    <meta name="description" content="the real home server behind d's labs: an i9-14900k on proxmox ve, about thirty guests, no ups, and a dated list of everything that broke.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/homelab">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <link rel="alternate" type="text/plain" title="plain-text version of this page" href="https://dharun.dev/txt/homelab.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="homelab: the server at home that runs d's labs · dharun ashokkumar">
+    <meta property="og:description" content="the real home server behind d's labs: an i9-14900k on proxmox ve, about thirty guests, no ups, and a dated list of everything that broke.">
+    <meta property="og:url" content="https://dharun.dev/homelab">
+    <meta property="og:image" content="https://dharun.dev/img/og/homelab.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="homelab: the server at home that runs d's labs · dharun ashokkumar">
+    <meta name="twitter:description" content="the real home server behind d's labs: an i9-14900k on proxmox ve, about thirty guests, no ups, and a dated list of everything that broke.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/homelab.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "the homelab",
+      "description": "the real home server behind d's labs: an i9-14900k on proxmox ve, about thirty guests, no ups, and a dated list of everything that broke.",
+      "url": "https://dharun.dev/homelab",
+      "dateModified": "2026-11-11",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "isPartOf": {
+        "@id": "https://dharun.dev/#website"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Homelab",
+          "item": "https://dharun.dev/homelab"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main id="content" class="short-page">
+        <h1>the homelab</h1>
+        <p class="page-meta">updated <time datetime="2026-11-11">11 november 2026</time> · one machine, at my family's home, two thousand kilometres from where i study.</p>
+
+        <p>this is the inventory, not a sketch. it's the box that runs <a href="/projects/ds-labs">d's labs</a> and about thirty other guests. <a href="/reflections/home-server">the build story, with a video, is here</a>.</p>
+
+        <h2 id="status">status</h2>
+        <p class="status-line">live status isn't wired up to this page yet. when it is, this line will say when the server last spoke. until then, the incidents below are the honest record.</p>
+
+        <h2 id="machine">the machine</h2>
+        <dl class="label-rows">
+          <div><dt>cpu</dt><dd>intel core i9-14900k, 8 performance and 16 efficiency cores. its built-in graphics mean no graphics card.</dd></div>
+          <div><dt>board</dt><dd>gigabyte b760m ds3h, micro-atx. its power stage is the weak point, not the cpu.</dd></div>
+          <div><dt>memory</dt><dd>32 gb ddr4-3200, two sticks.</dd></div>
+          <div><dt>system disk</dt><dd>1 tb wd_black sn7100 nvme.</dd></div>
+          <div><dt>data disk</dt><dd>2 tb wd red plus, a cmr nas drive.</dd></div>
+          <div><dt>cooling</dt><dd>a 360 mm msi aio, plus a spare case fan zip-tied over the power stage. that fan took it from 85 to 67 degrees at full load.</dd></div>
+          <div><dt>power</dt><dd>corsair rm850e. the cpu is capped at 90 watts sustained and 125 watts burst, because the board's power stage hit 105 degrees in 55 seconds at 180 watts.</dd></div>
+          <div><dt>case</dt><dd>msi mag forge 120a.</dd></div>
+          <div><dt>network</dt><dd>2.5 gbe to a home fibre line whose public address changes whenever it likes, and whose isp blocks inbound web ports.</dd></div>
+          <div><dt>ups</dt><dd>none for the server, so every power cut is a hard power-off. the fibre router has a small battery of its own.</dd></div>
+        </dl>
+
+        <h2 id="diagram">how traffic reaches it</h2>
+        <div class="term">
+          <div class="term-bar"><span>diagram</span><span class="term-host">no addresses, on purpose</span></div>
+<pre>  internet
+     │
+  cloudflare      tunnels go out from the house, so no
+     │            inbound port is needed. a login sits
+     │            in front of anything sensitive.
+  ┌──┴──────────────────────────────────────────────┐
+  │ proxmox ve        the host                      │
+  ├─────────────────────────────────────────────────┤
+  │ containers        photos, files, passwords,     │
+  │                   documents, git, rss, apis,    │
+  │                   monitoring, backups           │
+  │ virtual machines  d's labs front door (always)  │
+  │                   d's labs lab host (only while │
+  │                     someone has a lab running)  │
+  │                   immich                        │
+  └──┬──────────────────────────────────────────────┘
+     │
+  2 tb disk         nightly backups, plus a second
+                    restic copy of photos and files
+
+  admin: tailscale first, two independent fallbacks.</pre>
+        </div>
+
+        <h2 id="runs">what runs on it</h2>
+        <dl class="label-rows">
+          <div><dt>d's labs</dt><dd>the <a href="/projects/ds-labs">lab platform</a>. student containers run on their own virtual machine that the front door powers on and off.</dd></div>
+          <div><dt>public apis</dt><dd>api.dharun.dev, free apis for indian developers. it deploys itself from github releases and rolls back on its own if a release fails its health check.</dd></div>
+          <div><dt>personal</dt><dd>photos, files, passwords, a document archive with tamil and hindi ocr, a private git server, rss, automations and a code editor in the browser. the full list is on <a href="/uses">uses</a>.</dd></div>
+          <div><dt>monitoring</dt><dd>prometheus, grafana, loki and uptime kuma inside, and a small check from outside that pushes exactly two alerts on a power cut: down, and back.</dd></div>
+        </dl>
+
+        <h2 id="rules">the rules it runs by</h2>
+        <ul>
+          <li>every change must be safe to make from two thousand kilometres away.</li>
+          <li>there are always two independent ways in, and i never change both in one session.</li>
+          <li>risky network changes run behind a ten-minute dead-man switch that undoes itself.</li>
+          <li>a power cut is a normal event: the bios powers on when mains returns, every disk is ext4 with safe caching, every database has fsync on.</li>
+          <li>a backup only counts once a restore has worked.</li>
+        </ul>
+
+        <h2 id="incidents">incidents</h2>
+        <p>every outage and what caused it, newest first. short and honest.</p>
+        <table class="plain">
+          <thead><tr><th scope="col">when</th><th scope="col">what happened</th><th scope="col">the fix</th></tr></thead>
+          <tbody>
+            <tr><td>week of 21 oct 2026</td><td>several real power cuts in the week i moved out.</td><td>none needed. it came back on its own every time.</td></tr>
+            <tr><td>oct 2026</td><td>the isp router quietly dropped its port-forwarding rules until it was restarted.</td><td>fixed, with a test that would have caught it.</td></tr>
+            <tr><td>oct 2026</td><td>a power cut seconds after a config write left a dns file empty.</td><td>fixed, with a test that would have caught it.</td></tr>
+            <tr><td>oct 2026</td><td>turning on the firewall silently broke tailscale access to the guests. my rollout test never tried from a tailnet device to a guest.</td><td>the test does now.</td></tr>
+            <tr><td>oct 2026</td><td>my ai assistant deleted the server's <code>/dev/null</code> with a stray command, and ssh died with it. only the physical console could fix it.</td><td>a guard that blocks destructive commands, and a timer that recreates the file within thirty seconds.</td></tr>
+            <tr><td>oct 2026</td><td>cold boots took up to thirteen minutes. multi-mount protection waited about forty-two seconds per container after an unclean stop.</td><td>turned it off and reordered the boot. twenty-two guests now come back in fifty-three seconds.</td></tr>
+          </tbody>
+        </table>
+
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/explainers/home-server-public-service">how to run a public service from a home server</a></li>
+            <li><a href="/reflections/home-server">a home server that runs without me</a></li>
+            <li><a href="/uses">everything i use</a></li>
+          </ul>
+        </nav>
+      </main>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="js/shell.js" defer></script>
+  </body>
+</html>

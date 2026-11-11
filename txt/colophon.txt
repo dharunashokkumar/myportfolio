@@ -1,0 +1,24 @@
+colophon
+========
+
+hand-written html, css and a little javascript. no framework, no build
+step, no dependencies. the repository is the website. view source; it's
+meant to be read.
+
+type: merriweather, self-hosted. lowercase. greys, plus a highlighter
+yellow and a gold. one shadow. almost no animation.
+
+what a page weighs (gzip -9, from the repository)
+
+page                html       css        js  with font
+home              6.9 kb   15.4 kb    3.6 kb   121.2 kb
+d's labs          5.0 kb   15.4 kb    3.2 kb   118.9 kb
+an explainer      4.8 kb   16.1 kb    2.5 kb   118.6 kb
+a reflection      2.4 kb   15.4 kb    2.5 kb   115.6 kb
+now               2.3 kb   15.4 kb    2.5 kb   115.5 kb
+
+refuses to: track you across sites, load fonts or css from a third party,
+animate for decoration, or need javascript to be read.
+
+--
+html version: https://dharun.dev/colophon

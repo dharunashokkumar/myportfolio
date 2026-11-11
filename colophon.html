@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>colophon: how this site is made · dharun ashokkumar</title>
+    <meta name="description" content="how dharun.dev is made: hand-written html, no framework, no build step, one self-hosted typeface, two accent colours, and the real byte counts.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/colophon">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <link rel="alternate" type="text/plain" title="plain-text version of this page" href="https://dharun.dev/txt/colophon.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="colophon: how this site is made · dharun ashokkumar">
+    <meta property="og:description" content="how dharun.dev is made: hand-written html, no framework, no build step, one self-hosted typeface, two accent colours, and the real byte counts.">
+    <meta property="og:url" content="https://dharun.dev/colophon">
+    <meta property="og:image" content="https://dharun.dev/img/og/colophon.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="colophon: how this site is made · dharun ashokkumar">
+    <meta name="twitter:description" content="how dharun.dev is made: hand-written html, no framework, no build step, one self-hosted typeface, two accent colours, and the real byte counts.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/colophon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "colophon",
+      "description": "how dharun.dev is made: hand-written html, no framework, no build step, one self-hosted typeface, two accent colours, and the real byte counts.",
+      "url": "https://dharun.dev/colophon",
+      "dateModified": "2026-11-11",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "isPartOf": {
+        "@id": "https://dharun.dev/#website"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Colophon",
+          "item": "https://dharun.dev/colophon"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main id="content" class="short-page">
+        <h1>colophon</h1>
+        <p class="page-meta">updated <time datetime="2026-11-11">11 november 2026</time> · how this site is made, and what it refuses to do.</p>
+
+        <h2>how it's built</h2>
+        <p>hand-written html, css and a little javascript. no framework, no build step, no bundler, no package manager, no dependencies. the repository is the website: what's in the folder is what deploys, through cloudflare pages. view source; it's meant to be read.</p>
+        <p>the stylesheets are six small files linked in order, never <code>@import</code>ed, because <code>@import</code> hides each file from the browser until its parent has loaded. the server also sends them as early hints, so the browser starts fetching before the html arrives.</p>
+
+        <h2>type and colour</h2>
+        <p>everything is set in merriweather, by sorkin type, self-hosted: two cuts, latin and latin-ext, roman and italic. everything is lowercase. the palette is greys. there are exactly two accent colours, <span class="highlight">a highlighter yellow</span> for things worth marking and a gold that marks a featured post. there is one shadow on the whole site, and almost no animation.</p>
+
+        <h2>what a page weighs</h2>
+        <p>measured from the files in the repository, gzipped at level 9. cloudflare may send brotli, which is a little smaller. the font is cached for a year after the first visit.</p>
+        <table class="plain">
+          <thead><tr><th scope="col">page</th><th scope="col" class="num">html</th><th scope="col" class="num">css</th><th scope="col" class="num">js</th><th scope="col" class="num">with font</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">home</th><td class="num">6.9 kb</td><td class="num">15.4 kb</td><td class="num">3.6 kb</td><td class="num">121.2 kb</td></tr>
+            <tr><th scope="row">d's labs</th><td class="num">5.0 kb</td><td class="num">15.4 kb</td><td class="num">3.2 kb</td><td class="num">118.9 kb</td></tr>
+            <tr><th scope="row">an explainer</th><td class="num">4.8 kb</td><td class="num">16.1 kb</td><td class="num">2.5 kb</td><td class="num">118.6 kb</td></tr>
+            <tr><th scope="row">a reflection</th><td class="num">2.4 kb</td><td class="num">15.4 kb</td><td class="num">2.5 kb</td><td class="num">115.6 kb</td></tr>
+            <tr><th scope="row">now</th><td class="num">2.3 kb</td><td class="num">15.4 kb</td><td class="num">2.5 kb</td><td class="num">115.5 kb</td></tr>
+          </tbody>
+        </table>
+        <p class="small-note">the font is 95.3 kb and is the heaviest thing on a first visit. lighthouse scores aren't recorded yet; when i run them on a throttled phone profile, they go here.</p>
+
+        <h2>what it refuses to do</h2>
+        <ul>
+          <li>track you across sites. analytics is cloudflare web analytics: no cookies, no fingerprinting, no ad network.</li>
+          <li>load a font or a stylesheet from a third party. the one outside script is cloudflare's analytics beacon.</li>
+          <li>animate for decoration, scroll-jack, or move anything you didn't ask to move.</li>
+          <li>need javascript to be read. every demo leaves a readable page without it.</li>
+        </ul>
+
+        <h2>small things</h2>
+        <ul>
+          <li>press <code>`</code> on any page for a terminal. type <code>help</code>.</li>
+          <li><code>curl -L dharun.dev</code> returns the site as plain text, 72 columns wide.</li>
+          <li>every explainer has a <a href="/explainers/home-server-public-service.txt">plain-text twin</a>, for reading or quoting.</li>
+          <li>posts print as clean essays.</li>
+          <li><a href="/humans.txt">humans.txt</a>, <a href="/llms.txt">llms.txt</a>, <a href="/.well-known/security.txt">security.txt</a>, an <a href="/feed.xml">atom feed</a> and a <a href="/changelog.xml">changelog feed</a>.</li>
+          <li>there's a lock on the home page. it's a toy, and the source says so.</li>
+        </ul>
+      </main>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="js/shell.js" defer></script>
+  </body>
+</html>

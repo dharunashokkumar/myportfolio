@@ -1,24 +1,16 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Termcall | Terminal Video Calls &amp; Chat Rooms in Go, Rendered as ASCII | Dharun Ashokkumar</title>
-    <meta name="description" content="Termcall — chat rooms and video calls that live in your terminal, with the video drawn in characters. One Go binary with ffmpeg embedded, one Cloudflare Worker, a Durable Object per room, and peer-to-peer WebRTC video with three render modes. MIT licensed.">
+    <title>termcall: video calls in the terminal, in go · dharun ashokkumar</title>
+    <meta name="description" content="chat rooms and video calls in your terminal, drawn as characters. one go binary with ffmpeg embedded, a durable object per room, peer-to-peer webrtc.">
     <meta name="keywords" content="termcall, terminal video call, ascii video chat, go tui, webrtc mesh, cloudflare durable objects, braille rendering, terminal chat room, cli video call">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/termcall">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -42,11 +34,13 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="Termcall | Terminal Video Calls &amp; Chat Rooms in Go">
-    <meta property="og:description" content="Chat rooms and video calls that live in your terminal. The video is characters. One Go binary, one Cloudflare Worker, and peer-to-peer WebRTC frames.">
+    <meta property="og:title" content="termcall: video calls in the terminal, in go · dharun ashokkumar">
+    <meta property="og:description" content="chat rooms and video calls in your terminal, drawn as characters. one go binary with ffmpeg embedded, a durable object per room, peer-to-peer webrtc.">
     <meta property="og:url" content="https://dharun.dev/projects/termcall">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
-    <meta property="og:image:alt" content="Termcall — terminal video calls rendered as characters">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-termcall.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="termcall: video calls in the terminal, in go">
     <meta property="og:locale" content="en_GB">
     <meta property="article:author" content="Dharun Ashokkumar">
     <meta property="article:published_time" content="2026-09-09">
@@ -59,9 +53,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="Termcall | Terminal Video Calls &amp; Chat Rooms in Go">
-    <meta name="twitter:description" content="Chat rooms and video calls that live in your terminal. The video is characters — three render modes, peer-to-peer frames, one binary.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="termcall: video calls in the terminal, in go · dharun ashokkumar">
+    <meta name="twitter:description" content="chat rooms and video calls in your terminal, drawn as characters. one go binary with ffmpeg embedded, a durable object per room, peer-to-peer webrtc.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-termcall.png">
 
     <!-- Schema.org: SoftwareSourceCode -->
     <script type="application/ld+json">
@@ -79,7 +73,7 @@
       "datePublished": "2026-09-09",
       "dateModified": "2026-09-09",
       "keywords": "terminal video call, ascii video, braille rendering, webrtc mesh, cloudflare durable objects, go tui, peer-to-peer, chat room",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "author": { "@id": "https://dharun.dev/#person" },
       "maintainer": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
       "isAccessibleForFree": true,
       "targetProduct": {
@@ -138,45 +132,6 @@
       ]
     }
     </script>
-    <!-- Schema.org: FAQ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How many people can join a termcall room?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Chat rooms hold up to 10 people. Video calls stop at 4, because video is a full mesh: everyone connects to everyone, the cost climbs as the square, and a fifth person makes it worse for everyone already there." }
-        },
-        {
-          "@type": "Question",
-          "name": "What actually crosses the wire in a termcall video call?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A JPEG, not characters. Each terminal renders locally, which is why the render mode can change mid-call and why every tile fits whatever size your window happens to be. It is also smaller: ANSI colour codes are bulky enough that a screenful compresses no better than a photograph. A frame is about 1.5 KB." }
-        },
-        {
-          "@type": "Question",
-          "name": "What are the three termcall render modes?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Blocks is the default: each cell is a half-block character carrying two colours, so one cell shows two pixels in 24-bit colour. ASCII uses one character per cell chosen by brightness. Braille packs 2x4 dots per cell for four times the resolution, thresholded per cell, which makes it find edges." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does termcall need a server for video?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Only for the handshake. Chat is relayed through a Durable Object, but after the WebRTC handshake video frames go directly between terminals and Cloudflare carries nothing further. That split is a billing decision as much as an architectural one." }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need to install ffmpeg to use termcall?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Release binaries carry a build of ffmpeg inside, which takes the binary from about 7 MB to about 40 MB. A system ffmpeg on PATH is still preferred at runtime when there is one, so the unpacking is skipped for anyone who already has it." }
-        },
-        {
-          "@type": "Question",
-          "name": "Are termcall rooms stored anywhere?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. When the last person leaves, the room is deleted and its code is free again. Idle rooms hibernate, so holding one open bills no duration." }
-        }
-      ]
-    }
-    </script>
     <!-- Schema.org: Breadcrumb -->
     <script type="application/ld+json">
     {
@@ -190,6 +145,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -496,6 +455,14 @@ npx wrangler secret put TURN_PASS</pre>
 
         <p class="callout" style="border:none;font-style:normal;opacity:0.55;">mit licensed. release binaries bundle a gplv3 build of ffmpeg, run as a separate program rather than linked — see <a href="https://github.com/dharunashokkumar/termcall/blob/main/NOTICE" target="_blank" rel="noopener">notice</a>.</p>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/projects/dropbin">dropbin, the other tiny-server project</a></li>
+            <li><a href="/homelab">the machine at home</a></li>
+            <li><a href="/projects">all projects</a></li>
+          </ul>
+        </nav>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects">all projects</a></p>
@@ -512,7 +479,9 @@ npx wrangler secret put TURN_PASS</pre>
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

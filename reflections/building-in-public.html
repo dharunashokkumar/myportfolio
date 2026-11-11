@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>building in public, even the unfinished and the archived | Dharun Ashokkumar</title>
+    <title>building in public, even the unfinished and the archived · dharun ashokkumar</title>
     <meta name="description" content="a note on why i leave unfinished and archived projects live — showing the workshop instead of the showroom, and what learning in public actually looks like.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/reflections/building-in-public">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -40,18 +32,22 @@
 
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="building in public, even the unfinished and the archived">
+    <meta property="og:title" content="building in public, even the unfinished and the archived · dharun ashokkumar">
     <meta property="og:description" content="why i leave unfinished and archived projects live — the workshop, not the showroom.">
     <meta property="og:url" content="https://dharun.dev/reflections/building-in-public">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/reflections-building-in-public.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
+    <meta property="article:published_time" content="2026-04-10">
+    <meta property="article:modified_time" content="2026-05-29">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="building in public, even the unfinished and the archived">
+    <meta name="twitter:title" content="building in public, even the unfinished and the archived · dharun ashokkumar">
     <meta name="twitter:description" content="showing the seams — deferred features, archived projects, learning in public.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/reflections-building-in-public.png">
 
     <script type="application/ld+json">
     {
@@ -64,8 +60,8 @@
       "dateModified": "2026-05-29",
       "inLanguage": "en-GB",
       "keywords": "building in public, open source, learning in public, cs archive, portfolio",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
-      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "author": { "@id": "https://dharun.dev/#person" },
+      "publisher": { "@id": "https://dharun.dev/#person" },
       "mainEntityOfPage": "https://dharun.dev/reflections/building-in-public"
     }
     </script>
@@ -81,6 +77,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -108,6 +108,14 @@
         <p>building in public means letting people see the seams. the deferred features, the "iteration 1 complete" notes, the projects that taught me something and then stopped. my <a href="/galley">galley</a> is the same instinct pointed at smaller, stranger things. none of it is a finished monument. all of it is a record of someone actually learning.</p>
         <p>i'd rather show the workshop than the showroom.</p>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/changelog">the changelog</a></li>
+            <li><a href="/projects/cs-archive">cs archive</a></li>
+            <li><a href="/opensource">merged pull requests</a></li>
+          </ul>
+        </nav>
         <hr class="dotted">
         <p style="text-align:center; opacity:0.5;">written by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/reflections">more reflections</a></p>
       </div>
@@ -123,7 +131,9 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>d's labs: browser lab environments from a home server · dharun ashokkumar</title>
+    <meta name="description" content="d's labs gives every user isolated docker labs in a browser: 40 one-click environments, guided skills, ctf events and attack ranges, run from a home server.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/projects/ds-labs">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="../fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../css/components.css">
+    <link rel="stylesheet" type="text/css" href="../css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="d's labs: browser lab environments from a home server · dharun ashokkumar">
+    <meta property="og:description" content="d's labs gives every user isolated docker labs in a browser: 40 one-click environments, guided skills, ctf events and attack ranges, run from a home server.">
+    <meta property="og:url" content="https://dharun.dev/projects/ds-labs">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-ds-labs.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="d's labs: browser lab environments from a home server · dharun ashokkumar">
+    <meta name="twitter:description" content="d's labs gives every user isolated docker labs in a browser: 40 one-click environments, guided skills, ctf events and attack ranges, run from a home server.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-ds-labs.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "@id": "https://dharun.dev/projects/ds-labs#app",
+      "name": "D's Labs",
+      "url": "https://labs.dharun.dev",
+      "description": "A lab platform that gives every user isolated, browser-accessible Docker environments: one-click labs, custom stacks, guided skills with automatic checking, CTF events and multi-machine attack ranges. It runs on a server at home.",
+      "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Lab environments",
+      "operatingSystem": "web",
+      "browserRequirements": "a modern web browser",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "creator": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "mainEntityOfPage": "https://dharun.dev/projects/ds-labs",
+      "keywords": "browser labs, docker labs, cybersecurity labs, ctf platform, attack range, self-hosted, fastapi, react",
+      "featureList": [
+        "40 one-click lab environments",
+        "custom labs built into one compose project",
+        "guided skills with a check-my-progress engine",
+        "ctf events with dynamic scoring",
+        "multi-machine attack ranges on internet-less networks",
+        "ssh gateway for terminal labs",
+        "mcp server for ai clients"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "d's labs",
+      "url": "https://dharun.dev/projects/ds-labs",
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11",
+      "about": {
+        "@id": "https://dharun.dev/projects/ds-labs#app"
+      },
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "inLanguage": "en-GB"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projects",
+          "item": "https://dharun.dev/projects"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "D's Labs",
+          "item": "https://dharun.dev/projects/ds-labs"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects" id="active_page">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div id="content">
+        <div class="project-hero">
+          <span class="kicker">fastapi · react · docker · my main project</span>
+          <h1>d's labs</h1>
+          <p class="tagline">browser lab environments, served from a server at home.</p>
+        </div>
+
+        <p>d's labs gives you a linux desktop, a security target or a data-engineering stack in a browser tab, isolated from everyone else's. i build it and i run it. anyone can sign up.</p>
+        <p class="project-actions"><a class="primary-link" href="https://labs.dharun.dev">open d's labs ↗</a></p>
+
+        <hr class="dotted">
+
+        <h2 id="what">what you can do in it</h2>
+        <dl class="label-rows">
+          <div><dt>labs</dt><dd>40 one-click environments: kali, ubuntu desktop and terminal, jenkins, gitlab, gitea, airflow, kafka, nifi, keycloak, minio, n8n, grafana, prometheus, jupyter, juice shop, dvwa, webgoat, metasploitable and more. or build your own stack from a palette; it becomes one compose project.</dd></div>
+          <div><dt>skills</dt><dd>guided, timed courses in disposable containers. a "check my progress" engine verifies the work inside the container, not a quiz about it. 9 tracks and 6 timed challenges.</dd></div>
+          <div><dt>ctf</dt><dd>timed events with flags, dynamic scoring, first-blood bonuses, hints, teams and a scoreboard.</dd></div>
+          <div><dt>ranges</dt><dd>multi-machine attack scenarios on networks with no internet: a dmz host, an internal app and database, and a samba active directory domain controller. the internal segment is only reachable through the dmz host, so the pivot is real.</dd></div>
+        </dl>
+        <p class="small-note">also there: an ssh gateway for terminal labs, managed mysql, postgresql, mongodb, cockroachdb, redis and rabbitmq, an optional ai mentor that reads and proposes but never changes anything, and an <a href="https://labs.dharun.dev/mcp">mcp server</a> with 50 tools so claude, cursor or vs code can drive the platform.</p>
+
+        <section class="demo" id="demo" data-steps-demo aria-labelledby="demo-title">
+          <h2 id="demo-title">start a pretend lab</h2>
+          <p>press the button and step through what happens when you start a lab. the steps are the real ones; the log lines are written for this page, not copied from production.</p>
+          <ol class="demo-steps" data-steps>
+            <li><p class="step-name">request accepted</p><p>the api checks your session and your limits, records the lab as starting, and returns <code>202 accepted</code> straight away. nothing slow happens inside the request.</p><pre>POST /labs/kali/start  →  202 accepted  (job queued)</pre></li>
+            <li><p class="step-name">job queued</p><p>the start becomes a job on a redis queue. a separate worker process picks it up. your browser starts polling for readiness.</p><pre>worker  picked up start_lab  user=7f3a  lab=kali</pre></li>
+            <li><p class="step-name">lab host woken</p><p>the machine that runs student containers is a separate virtual machine, and it's only switched on while someone has a lab running. if it's asleep, the worker wakes it first.</p><pre>labhost  power on requested  →  docker daemon reachable</pre></li>
+            <li><p class="step-name">private network created</p><p>every user gets their own docker network. your containers can see each other and nobody else's.</p><pre>network  private bridge for user 7f3a  created</pre></li>
+            <li><p class="step-name">container started</p><p>the lab image starts on your network, capped at 2 cpu and 4 gb of memory, with your volume attached so your files outlive the container.</p><pre>container  kali started  cpus=2  memory=4g  volume attached</pre></li>
+            <li><p class="step-name">login gate ready</p><p>the lab gets a random address with a login in front of it. the poll comes back ready and the tab opens. the username and password are on your lab's page.</p><pre>GET /labs/kali/ready  →  200 ready  (login gate up)</pre></li>
+          </ol>
+          <div class="demo-controls" hidden>
+            <button type="button" data-start>start lab</button>
+            <button type="button" data-next>next step →</button>
+            <button type="button" data-reset>reset</button>
+          </div>
+          <p class="demo-status" data-status role="status" aria-live="polite"></p>
+        </section>
+
+        <h2 id="built">how it's built</h2>
+        <div class="term">
+          <div class="term-bar"><span>architecture</span></div>
+<pre>  browser
+     │  rest + websocket
+  ┌──┴───────────────────────────────────────┐
+  │ frontend   react 19 · typescript · vite  │
+  └──┬───────────────────────────────────────┘
+  ┌──┴───────────────────────────────────────┐
+  │ api        fastapi, fully async          │
+  │            auth · labs · skills · ctf    │
+  │            ranges · services · mcp       │
+  └──┬──────────────┬──────────────┬─────────┘
+  mongodb        redis          docker
+  accounts,      cache, locks,  ├─ labs
+  progress       pub/sub,       ├─ services
+                 job queue      ├─ skills
+                    │           └─ ranges
+  ┌─────────────────┴────────────────────────┐
+  │ worker     provisioning · snapshots ·    │
+  │            cleanup · nightly backup      │
+  ├──────────────────────────────────────────┤
+  │ ssh gateway   one port, docker exec      │
+  └──────────────────────────────────────────┘
+  admin console: a separate server, not shown</pre>
+        </div>
+        <p class="small-note">stack: fastapi, react 19, typescript, mongodb, redis, an arq worker, traefik and docker.</p>
+
+        <section class="field-notes" id="decisions" aria-labelledby="decisions-title">
+          <h2 id="decisions-title">decisions i'd defend</h2>
+          <dl>
+            <dt>the admin console is a different server</dt><dd>accounts, groups and sessions are managed from a separate console with its own operators. the public api has no admin endpoints at all, so breaking into it gives you no administrative power.</dd>
+            <dt>slow work never blocks a request</dt><dd>starting a lab, taking a snapshot and cleaning up all run in the worker. the api answers <code>202</code> at once and the frontend polls. if a worker crashes mid-job, a reconciler expires the abandoned claim.</dd>
+            <dt>no lab runs sshd</dt><dd>the ssh gateway is the only ssh implementation. it <code>docker exec</code>s into your lab as your own account, never as root. one authentication boundary instead of one per image.</dd>
+            <dt>the frontend trusts no storage</dt><dd>the access token lives in memory only. refresh goes through an httponly cookie, with one refresh in flight at a time. nothing sensitive sits in localstorage.</dd>
+            <dt>labs and skills are separate systems</dt><dd>a skill is disposable and is purged when its timer ends. a lab lives until you stop it. different collections, different cleanup paths, so one can't eat the other's data.</dd>
+          </dl>
+        </section>
+
+        <h2 id="home">it runs on a server at home</h2>
+        <p>there's no cloud account behind d's labs. it runs on <a href="/homelab">one machine in my family's home</a>, two thousand kilometres from where i study. the public front door is always on. the lab host only wakes when someone needs it. when the power goes, the site says so and comes back by itself.</p>
+        <p><a href="/reflections/home-server">how i built that box →</a></p>
+
+        <h2 id="plans">plans</h2>
+        <p>there's a free plan and paid plans. the current ones are <a href="https://labs.dharun.dev">on d's labs itself</a>; i'd rather not copy prices here and let them go stale.</p>
+
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/homelab">the machine it runs on</a></li>
+            <li><a href="/explainers/home-server-public-service">how to run a public service from a home server</a></li>
+            <li><a href="/projects/vmmanager">vmmanager, the other virtualisation project</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="../js/steps-demo.js" defer></script>
+    <script src="../js/shell.js" defer></script>
+  </body>
+</html>

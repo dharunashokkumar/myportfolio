@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>now: what i'm working on this month · dharun ashokkumar</title>
+    <meta name="description" content="what i'm building, learning and stuck on this month: d's labs for real users, a clearing engine in rust, and a home server that has to run without me.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/now">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <link rel="alternate" type="text/plain" title="plain-text version of this page" href="https://dharun.dev/txt/now.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="now: what i'm working on this month · dharun ashokkumar">
+    <meta property="og:description" content="what i'm building, learning and stuck on this month: d's labs for real users, a clearing engine in rust, and a home server that has to run without me.">
+    <meta property="og:url" content="https://dharun.dev/now">
+    <meta property="og:image" content="https://dharun.dev/img/og/now.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="now: what i'm working on this month · dharun ashokkumar">
+    <meta name="twitter:description" content="what i'm building, learning and stuck on this month: d's labs for real users, a clearing engine in rust, and a home server that has to run without me.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/now.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "now",
+      "description": "what i'm building, learning and stuck on this month: d's labs for real users, a clearing engine in rust, and a home server that has to run without me.",
+      "url": "https://dharun.dev/now",
+      "dateModified": "2026-11-11",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "isPartOf": {
+        "@id": "https://dharun.dev/#website"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Now",
+          "item": "https://dharun.dev/now"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main id="content" class="short-page">
+        <h1>now</h1>
+        <p class="page-meta">updated <time datetime="2026-11-11">11 november 2026</time> · i update this on the first of each month. <a href="https://nownownow.com/about">what is a now page?</a></p>
+
+        <dl class="label-rows">
+          <div><dt>building</dt><dd><a href="/projects/ds-labs">d's labs</a>, for real users now. most of my time goes into the boring parts: limits, cleanup, and what happens when a worker dies halfway through starting a lab.</dd></div>
+          <div><dt>running</dt><dd><a href="/homelab">the home server</a>, from two thousand kilometres away. every change has to be safe to make from a hostel room.</dd></div>
+          <div><dt>learning</dt><dd>linux isolation: where a container's network, storage and resource boundaries actually meet, and where they leak.</dd></div>
+          <div><dt>still on</dt><dd><a href="/projects/open-clearing-engine">open clearing engine</a>: following a trade all the way to a replayable settlement result.</dd></div>
+          <div><dt>writing</dt><dd>an explainer series: one post a month that answers a question someone would actually type. the first is <a href="/explainers/home-server-public-service">how to run a public service from a home server</a>.</dd></div>
+          <div><dt>studying</dt><dd>second year of a btech in computer science at <a href="https://www.lpu.in/">lovely professional university</a>, punjab.</dd></div>
+        </dl>
+
+        <p class="small-note">older months aren't archived here. what shipped is in the <a href="/changelog">changelog</a>.</p>
+      </main>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="js/shell.js" defer></script>
+  </body>
+</html>

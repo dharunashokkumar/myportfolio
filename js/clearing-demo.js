@@ -1,4 +1,5 @@
-/* An illustrative cash-netting walkthrough; independent of the Rust engine. */
+/* An illustrative cash-netting walkthrough; independent of the Rust engine.
+   "your own numbers" lets the reader type the three obligations. Only numbers are interpolated. */
 (() => {
   'use strict';
   const demo = document.querySelector('[data-clearing-demo]');
@@ -11,10 +12,14 @@
   const previous = demo.querySelector('[data-previous]');
   const next = demo.querySelector('[data-next]');
   const select = demo.querySelector('select');
+  const custom = demo.querySelector('[data-custom]');
+  const amount = (id) => Math.max(0, Math.floor(Number(demo.querySelector('#' + id).value) || 0));
+  scenarios.custom = () => [['a', 'b', amount('ab')], ['b', 'c', amount('bc')], ['c', 'a', amount('ca')]];
   let step = 0;
 
   function render() {
-    const trades = scenarios[select.value];
+    const pick = scenarios[select.value];
+    const trades = typeof pick === 'function' ? pick() : pick;
     const balances = { a: 0, b: 0, c: 0 };
     trades.forEach(([from, to, amount]) => {
       balances[from] -= amount;
@@ -48,7 +53,8 @@
   previous.addEventListener('click', () => { if (step > 0) step--; render(); });
   next.addEventListener('click', () => { if (step < 3) step++; render(); });
   demo.querySelector('[data-reset]').addEventListener('click', () => { step = 0; render(); });
-  select.addEventListener('change', () => { step = 0; render(); });
+  select.addEventListener('change', () => { step = 0; if (custom) custom.hidden = select.value !== 'custom'; render(); });
+  if (custom) custom.addEventListener('input', () => render());
   demo.querySelectorAll('.demo-controls').forEach(control => { control.hidden = false; });
   render();
 })();

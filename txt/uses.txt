@@ -1,0 +1,19 @@
+uses
+====
+
+laptop        lenovo loq 15
+os            fedora linux
+editor        vs code
+shell         bash
+pair          claude code, as pair programmer and pair sysadmin
+languages     rust, go, c, python, javascript, typescript, kotlin
+server        i9-14900k, 32 gb ddr4, 1 tb nvme, 2 tb nas disk, proxmox
+              ve
+self-hosted   immich, nextcloud, vaultwarden, paperless-ngx, freshrss,
+              karakeep, n8n, forgejo, prometheus, grafana, loki, uptime
+              kuma, restic
+access        tailscale for admin, cloudflare tunnels for public apps
+
+--
+html version: https://dharun.dev/uses
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

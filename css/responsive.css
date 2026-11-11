@@ -290,6 +290,27 @@
     display: none;
   }
 
+  /* posts print as essays: write each link's address after it, so the paper
+     still says where it pointed. in-page and mailto links are left alone. */
+  #container.post #content a[href^="http"]::after,
+  #container.post #content a[href^="/"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #666;
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  #container.post #content a[href^="/"]::after {
+    content: " (dharun.dev" attr(href) ")";
+  }
+
+  #container.post .related,
+  #container.post .project-actions,
+  #container.post .list-note {
+    display: none;
+  }
+
   .hide-in-print {
     display: none;
   }

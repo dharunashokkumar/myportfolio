@@ -1,0 +1,6 @@
+# security contact for dharun.dev and the services it runs (including labs.dharun.dev).
+# please report privately first. i'll reply within a week.
+Contact: mailto:me@dharun.dev
+Expires: 2027-11-11T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://dharun.dev/.well-known/security.txt

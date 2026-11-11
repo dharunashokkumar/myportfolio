@@ -1,0 +1,40 @@
+the homelab
+===========
+
+one proxmox ve machine at my family's home, two thousand kilometres from
+where i study. it runs d's labs and about thirty other guests.
+
+live status isn't wired up yet. the incidents below are the honest
+record.
+
+the machine
+-----------
+
+cpu           intel core i9-14900k, capped at 90 w sustained, 125 w
+              burst
+board         gigabyte b760m ds3h, micro-atx
+memory        32 gb ddr4-3200
+disks         1 tb wd_black sn7100 nvme, 2 tb wd red plus
+cooling       360 mm aio, plus a fan zip-tied over the power stage
+power         corsair rm850e. no ups for the server.
+network       2.5 gbe, home fibre, changing address, inbound web ports
+              blocked
+
+incidents, newest first
+-----------------------
+
+21 oct 2026   several power cuts in the week i moved out. it came back
+              on its own every time.
+oct 2026      the isp router dropped its port-forwarding rules until
+              restarted.
+oct 2026      a power cut seconds after a config write left a dns file
+              empty.
+oct 2026      the firewall silently broke tailscale access to the
+              guests.
+oct 2026      a stray command deleted /dev/null and ssh died with it.
+oct 2026      cold boots took 13 minutes. now 22 guests are back in 53
+              seconds.
+
+--
+html version: https://dharun.dev/homelab
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

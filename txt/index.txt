@@ -1,0 +1,50 @@
+     _ _                                 _
+  __| | |__   __ _ _ __ _   _ _ __    __| | _____   __
+ / _` | '_ \ / _` | '__| | | | '_ \  / _` |/ _ \ \ / /
+| (_| | | | | (_| | |  | |_| | | | || (_| |  __/\ V /
+ \__,_|_| |_|\__,_|_|   \__,_|_| |_(_)__,_|\___| \_/
+
+dharun ashokkumar builds systems software in rust, go and c, and runs
+d's labs: browser lab environments served from a server at home.
+
+three things i've built
+-----------------------
+
+d's labs      browser lab environments, isolated per user. 40 one-click
+              labs, guided skills, ctf events and attack ranges. live at
+              https://labs.dharun.dev
+clearing      open clearing engine: novation, netting and settlement in
+              rust, with a replayable event log. 210 units owed become
+              60 payable.
+vmmanager     virtual machines and containers in one native gtk4 app,
+              written in c against libvirt and incus.
+
+right now
+---------
+
+building d's labs for real users. running the home server from two
+thousand kilometres away. writing one explainer a month.
+
+pages
+-----
+
+projects      curl -L dharun.dev/projects
+d's labs      curl -L dharun.dev/projects/ds-labs
+homelab       curl -L dharun.dev/homelab
+explainers    curl -L dharun.dev/explainers
+reflections   curl -L dharun.dev/reflections
+now           curl -L dharun.dev/now
+uses          curl -L dharun.dev/uses
+changelog     curl -L dharun.dev/changelog
+colophon      curl -L dharun.dev/colophon
+about         curl -L dharun.dev/about (a man page)
+
+say hello
+---------
+
+me@dharun.dev or dharun.dak@gmail.com. code at
+https://github.com/dharunashokkumar. open to internships, freelance and
+open-source work.
+
+--
+this is the plain-text version of https://dharun.dev

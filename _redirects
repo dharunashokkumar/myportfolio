@@ -4,3 +4,8 @@
 # remaining search results land on the real page.
 /explorer      /galley          301
 /explorer/*    /galley/:splat   301
+
+# the old lab-platform page became d's labs (november 2026). old links and
+# search results land on the new page.
+/projects/lpulabs       /projects/ds-labs   301
+/projects/lpulabs.html  /projects/ds-labs   301

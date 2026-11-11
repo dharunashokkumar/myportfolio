@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CS Archive | Open-Source Computer Science Knowledge Hub | Dharun Ashokkumar</title>
-    <meta name="description" content="CS Archive — a free, open-source knowledge hub for computer science students and self-taught developers. 20+ curated categories: skills, resources, learning paths, security, self-hosted tools, and more, in a retro Web 1.0 aesthetic.">
+    <title>cs archive: an open computer science knowledge hub · dharun ashokkumar</title>
+    <meta name="description" content="cs archive is a free, open-source hub for cs students and self-taught developers: 20+ curated categories in a deliberately retro web 1.0 style.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/cs-archive">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -40,18 +32,20 @@
 
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="CS Archive | Open-Source Computer Science Knowledge Hub">
-    <meta property="og:description" content="A free knowledge hub for CS students — 20+ curated categories across skills, resources, learning paths, security, and self-hosting. Retro Web 1.0 aesthetic.">
+    <meta property="og:title" content="cs archive: an open computer science knowledge hub · dharun ashokkumar">
+    <meta property="og:description" content="cs archive is a free, open-source hub for cs students and self-taught developers: 20+ curated categories in a deliberately retro web 1.0 style.">
     <meta property="og:url" content="https://dharun.dev/projects/cs-archive">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-cs-archive.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="CS Archive | Computer Science Knowledge Hub">
-    <meta name="twitter:description" content="20+ curated categories for CS students and developers, in a retro Web 1.0 aesthetic. Open source.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="cs archive: an open computer science knowledge hub · dharun ashokkumar">
+    <meta name="twitter:description" content="cs archive is a free, open-source hub for cs students and self-taught developers: 20+ curated categories in a deliberately retro web 1.0 style.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-cs-archive.png">
 
     <script type="application/ld+json">
     {
@@ -66,7 +60,7 @@
       "datePublished": "2025-12-20",
       "dateModified": "2026-05-29",
       "keywords": "computer science, knowledge base, learning paths, free resources, self-hosted, security",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" }
+      "author": { "@id": "https://dharun.dev/#person" }
     }
     </script>
     <script type="application/ld+json">
@@ -81,6 +75,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -139,6 +137,14 @@
 
         <div class="callout">it's archived now — kept live as a reference snapshot rather than actively maintained. it's also where the "old archive" link on my home page points. i learned a lot about information architecture by trying to organize the whole of cs into one navigable place.</div>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/reflections/building-in-public">building in public, even the unfinished and the archived</a></li>
+            <li><a href="/uses">what i use</a></li>
+            <li><a href="/projects">all projects</a></li>
+          </ul>
+        </nav>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a></p>
@@ -155,7 +161,9 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

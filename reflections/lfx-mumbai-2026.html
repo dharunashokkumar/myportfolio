@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>linux foundation, lfx, and a trip to mumbai i didn't pay for | Dharun Ashokkumar</title>
-    <meta name="description" content="on being a linux foundation member, contributor, and maintainer — and being funded by the lfx mentorship travel grant to attend the linux foundation open source summit 2026 in mumbai, june 16-18.">
+    <title>lfx and a trip to mumbai i didn't pay for · dharun ashokkumar</title>
+    <meta name="description" content="lfx funded my travel to the linux foundation open source summit 2026 in mumbai, june 16-18. what three days there taught me.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/reflections/lfx-mumbai-2026">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -40,32 +32,36 @@
 
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="linux foundation, lfx, and a trip to mumbai i didn't pay for">
-    <meta property="og:description" content="being a linux foundation member, contributor, and maintainer — and lfx funding my travel to the open source summit 2026 in mumbai, june 16-18.">
+    <meta property="og:title" content="lfx and a trip to mumbai i didn't pay for">
+    <meta property="og:description" content="lfx funded my travel to the linux foundation open source summit 2026 in mumbai, june 16-18.">
     <meta property="og:url" content="https://dharun.dev/reflections/lfx-mumbai-2026">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/reflections-lfx-mumbai-2026.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
+    <meta property="article:published_time" content="2026-06-19">
+    <meta property="article:modified_time" content="2026-11-11">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="linux foundation, lfx, and a trip to mumbai i didn't pay for">
-    <meta name="twitter:description" content="linux foundation member, contributor, and maintainer — lfx funded my travel to the open source event 2026 in mumbai.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="lfx and a trip to mumbai i didn't pay for">
+    <meta name="twitter:description" content="lfx funded my travel to the linux foundation open source summit 2026 in mumbai, june 16-18.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/reflections-lfx-mumbai-2026.png">
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "linux foundation, lfx, and a trip to mumbai i didn't pay for",
-      "description": "on being a linux foundation member, contributor, and maintainer — and being funded by the lfx mentorship travel grant to attend the linux foundation open source summit 2026 in mumbai, june 16-18.",
+      "headline": "lfx and a trip to mumbai i didn't pay for",
+      "description": "lfx funded my travel to the linux foundation open source summit 2026 in mumbai, june 16-18. what three days there taught me.",
       "url": "https://dharun.dev/reflections/lfx-mumbai-2026",
       "datePublished": "2026-06-19",
-      "dateModified": "2026-07-18",
+      "dateModified": "2026-11-11",
       "inLanguage": "en-GB",
-      "keywords": "linux foundation, lfx, open source summit 2026, mumbai, lfx mentorship, travel fund, open source contributor, maintainer",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
-      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "keywords": "lfx, lfx mentorship, travel fund, open source summit 2026, mumbai, linux foundation, open source contributor",
+      "author": { "@id": "https://dharun.dev/#person" },
+      "publisher": { "@id": "https://dharun.dev/#person" },
       "mainEntityOfPage": "https://dharun.dev/reflections/lfx-mumbai-2026",
       "about": {
         "@type": "Event",
@@ -98,11 +94,15 @@
       "itemListElement": [
         {"@type":"ListItem","position":1,"name":"Home","item":"https://dharun.dev"},
         {"@type":"ListItem","position":2,"name":"Reflections","item":"https://dharun.dev/reflections"},
-        {"@type":"ListItem","position":3,"name":"linux foundation, lfx, and a trip to mumbai i didn't pay for","item":"https://dharun.dev/reflections/lfx-mumbai-2026"}
+        {"@type":"ListItem","position":3,"name":"lfx and a trip to mumbai i didn't pay for","item":"https://dharun.dev/reflections/lfx-mumbai-2026"}
       ]
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -123,19 +123,25 @@
 
       <div id="content">
         <p class="list-note"><a href="/reflections">← reflections</a></p>
-        <h1>linux foundation, lfx, and a trip to mumbai i didn't pay for</h1>
-        <p class="inline-meta">2026.06 · linux foundation, lfx, open source</p>
+        <h1>lfx and a trip to mumbai i didn't pay for</h1>
+        <p class="inline-meta">2026.06 · lfx, open source · updated <time datetime="2026-11-11">11 november 2026</time></p>
 
-        <p>i'm a member of the <a href="https://www.linuxfoundation.org" target="_blank" rel="noopener">linux foundation</a> — and, more than that, an active contributor and maintainer across its projects. that membership isn't a sticker on a laptop; it's the door that led to mumbai.</p>
+        <p>in june 2026 the <a href="https://www.linuxfoundation.org" target="_blank" rel="noopener">linux foundation</a> ran its open source summit in <strong>mumbai, june 16-18</strong>. i was there. and i didn't pay for the trip. it was covered by a travel fund from <a href="https://mentorship.lfx.linuxfoundation.org" target="_blank" rel="noopener">lfx</a>, the linux foundation's mentorship and training programme. lfx funded the travel itself, outright.</p>
 
-        <p>in june 2026 the linux foundation ran its open source summit in <strong>mumbai, june 16-18</strong>. i was there. and i didn't pay for the trip — it was covered by an exclusive travel fund from <a href="https://mentorship.lfx.linuxfoundation.org" target="_blank" rel="noopener">lfx</a>, the linux foundation's own mentorship and training program. lfx funded the travel itself, outright.</p>
+        <p>i went as an open-source contributor. the small things i'd sent upstream, a fix here, a review there, turned into something concrete: a funded seat in a room full of people who build the infrastructure the rest of the world runs on.</p>
 
-        <p>being a maintainer and contributor is what made the funding possible. the work i'd put into upstream projects — reviews, fixes, the slow accumulation of trust — turned into something concrete: a sponsored seat at a room full of people who build the infrastructure the rest of the world runs on.</p>
+        <p>what stuck with me wasn't any one talk. it was the confirmation that open source is a relationship, not a repo. you show up, you do the boring work, and the community shows up for you. sometimes with a plane ticket.</p>
 
-        <p>what stuck with me wasn't any one talk. it was the confirmation that open source is a relationship, not a repo. you show up, you maintain, and the community shows up for you — sometimes with a plane ticket.</p>
+        <p>for three days in june, mumbai was the payoff. the merged pull requests that came before it are on <a href="/opensource">my open source page</a>.</p>
 
-        <p>i'm a linux foundation member, a contributor, and a maintainer. and for three days in june, mumbai was the payoff.</p>
-
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/opensource">merged pull requests</a></li>
+            <li><a href="/reflections/building-in-public">building in public</a></li>
+            <li><a href="/about">about me</a></li>
+          </ul>
+        </nav>
         <hr class="dotted">
         <p style="text-align:center; opacity:0.5;">written by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/reflections">more reflections</a></p>
       </div>
@@ -151,7 +157,9 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

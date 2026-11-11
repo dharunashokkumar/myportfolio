@@ -1,0 +1,13 @@
+explainers
+==========
+
+one question a month, answered with a worked example from something i
+built.
+
+2026-11-11    how to run a public service from a home server
+              https://dharun.dev/explainers/home-server-public-
+              service.txt
+
+--
+html version: https://dharun.dev/explainers
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

@@ -1,0 +1,149 @@
+source: https://dharun.dev/explainers/home-server-public-service
+
+how to run a public service from a home server
+==============================================
+
+explainer · self-hosting · 11 november 2026
+
+to run a public service from a home server, don't open ports on your
+router. run an outbound tunnel from the server to an edge network, and
+let the edge take the public traffic. then design for the house itself:
+the address changes, the power cuts out, the router forgets things, and
+nobody is there to press a button. make each of those a normal event the
+server recovers from on its own.
+
+that's the whole answer. the rest of this page is the worked example:
+the box that runs d's labs (https://dharun.dev/projects/ds-labs) and
+about thirty other services from my family's home, while i'm two
+thousand kilometres away.
+
+why not just forward a port
+---------------------------
+
+the textbook way is to forward ports 80 and 443 on the router to the
+server and point a dns record at your public address. at home, three
+things break that.
+
+  - the isp blocks inbound web ports. mine does.
+
+  - the public address changes whenever the isp feels like it, so a dns
+    record goes stale.
+
+  - the router is consumer hardware. mine quietly dropped its port-
+    forwarding rules until it was restarted.
+
+a tunnel turns the problem around. a small daemon on the server dials
+out to the edge network and holds the connection open. visitors connect
+to the edge, and the edge sends their requests back down that
+connection. nothing inbound is needed, so the blocked ports, the
+changing address and the forgetful router stop mattering. [note: i use a
+cloudflare tunnel. the idea isn't cloudflare-specific; any reverse
+tunnel to a machine with a public address works the same way.]
+
+visitor ──https──▶ edge network │ │ the tunnel: one connection that │
+the server opened, outbound ▼ ┌───────────────────┐ house │ tunnel
+daemon │ (its own small container) │ │ │ │ ▼ │ │ the service │
+└───────────────────┘ nothing listens on the router. there is no port to
+scan. the house is the hard part getting traffic in takes an afternoon.
+keeping the service up when nobody is home takes the rest of the month.
+every decision gets one test: is this safe to do from two thousand
+kilometres away?
+
+power cuts
+----------
+
+with no ups, a power cut is a hard power-off, so it has to be routine.
+four settings do most of the work: the bios powers the box on when mains
+returns, the kernel reboots itself on a panic or a hang, every disk is
+ext4 with safe caching, and every database runs with fsync on. then you
+pull the plug on purpose, while you're still there to press reset.
+
+a worked example: the thirteen-minute boot
+------------------------------------------
+
+after a power cut my server came back, but slowly. a cold boot took up
+to thirteen minutes, and nothing was technically wrong.
+
+   | before | after
+
+  wait per container after an unclean stop | about 42 s | 0 s
+
+  containers waiting | one at a time | none
+
+  full cold boot | up to 13 min | 22 guests in 53 s
+
+the kernel log explained it. every container disk had multi-mount
+protection on, which waits about forty-two seconds after an unclean stop
+to be sure no other machine is using the disk. on a single host there is
+no other machine, so i turned it off and reordered the boot. then i
+pulled the plug twice in a row, the second time in the middle of
+booting. [note: multi-mount protection is an ext4 feature for shared
+storage. it guards against two hosts mounting one disk. it's a real
+safety feature on a cluster and pure delay on a single box.]
+
+the machine has limits the spec sheet doesn't
+---------------------------------------------
+
+stress testing showed my limit was the motherboard's power stage, not
+the cpu: 105 degrees in fifty-five seconds at 180 watts. i capped the
+chip at 90 watts sustained and zip-tied a spare fan over the power
+stage. thirty minutes at full load, side panels on: flat at sixty-seven
+degrees. a home server spends its life at light load, so the cap costs
+almost nothing. measure it before you trust it.
+
+always two ways in
+------------------
+
+if you lock yourself out, the fix is a long trip or a phone call to
+someone at home. so there are always two independent ways in: a private
+network for admin first, a second path through the edge as a fallback.
+never change both in the same session. any risky network change runs
+behind a ten-minute dead-man switch that undoes itself unless you log
+back in and cancel it.
+
+a dead server can't report its own death
+----------------------------------------
+
+monitoring that runs on the box goes down with the box. something
+outside has to check it. mine checks every minute from the outside, and
+a power cut sends exactly two pushes to my phone: down, and back. if an
+alert doesn't need me to do something, it shouldn't exist.
+
+where it breaks
+---------------
+
+  - the edge sees your traffic. the tunnel's https ends at the edge
+    network, so you're trusting it with what passes through. put a login
+    in front of anything sensitive, and keep the really private things
+    off the tunnel entirely.
+
+  - request size limits. an edge network can cap the size of one
+    request. cloudflare's free plan caps a request body at 100 mb, so my
+    file sync uploads in 50 mb chunks.
+
+  - tests that miss a path. turning on the firewall silently broke
+    private-network access to the guests. my rollout test passed because
+    it never tried from a private-network device to a guest. the test
+    does now.
+
+  - tools with too much reach. my ai assistant once deleted the server's
+    /dev/null with a stray command, and ssh died with it. only the
+    physical console could fix it. now a guard blocks destructive
+    commands, and a timer recreates the file within thirty seconds.
+
+the short version
+-----------------
+
+  - tunnel out; open nothing in.
+
+  - make a power cut boring, then cause one on purpose.
+
+  - keep two ways in, and change only one at a time.
+
+  - watch it from outside the house.
+
+  - a backup only counts once you've restored from it.
+
+cite as: dharun ashokkumar, "how to run a public service from a home
+server", dharun.dev, 11 november 2026. plain-text version
+(https://dharun.dev/explainers/home-server-public-service.txt).

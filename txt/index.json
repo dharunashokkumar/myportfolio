@@ -1,0 +1,250 @@
+{
+ "whoami": "dharun ashokkumar builds systems software in rust, go and c, and runs d's labs: browser lab environments served from a server at home.",
+ "uptime": "no live status yet. the machine, and every incident, is at /homelab.",
+ "pages": [
+  {
+   "name": "home",
+   "title": "start here",
+   "path": "/",
+   "txt": "/txt/index.txt",
+   "aliases": [
+    "index",
+    "~"
+   ]
+  },
+  {
+   "name": "projects",
+   "title": "what i've built",
+   "path": "/projects",
+   "txt": "/txt/projects.txt"
+  },
+  {
+   "name": "explainers",
+   "title": "one question each",
+   "path": "/explainers",
+   "txt": "/txt/explainers.txt"
+  },
+  {
+   "name": "reflections",
+   "title": "what building things taught me",
+   "path": "/reflections",
+   "txt": "/txt/reflections.txt"
+  },
+  {
+   "name": "homelab",
+   "title": "the server at home",
+   "path": "/homelab",
+   "txt": "/txt/homelab.txt"
+  },
+  {
+   "name": "now",
+   "title": "this month",
+   "path": "/now",
+   "txt": "/txt/now.txt"
+  },
+  {
+   "name": "uses",
+   "title": "hardware and software",
+   "path": "/uses",
+   "txt": "/txt/uses.txt"
+  },
+  {
+   "name": "changelog",
+   "title": "what shipped",
+   "path": "/changelog",
+   "txt": "/txt/changelog.txt"
+  },
+  {
+   "name": "colophon",
+   "title": "how this site is made",
+   "path": "/colophon",
+   "txt": "/txt/colophon.txt"
+  },
+  {
+   "name": "about",
+   "title": "the long version",
+   "path": "/about",
+   "txt": "/txt/man-dharun.txt"
+  },
+  {
+   "name": "resume",
+   "title": "the resume",
+   "path": "/resume"
+  },
+  {
+   "name": "contact",
+   "title": "email and elsewhere",
+   "path": "/contact"
+  },
+  {
+   "name": "opensource",
+   "title": "merged pull requests",
+   "path": "/opensource"
+  },
+  {
+   "name": "ds-labs",
+   "title": "d's labs",
+   "path": "/projects/ds-labs",
+   "txt": "/txt/ds-labs.txt",
+   "section": "projects",
+   "aliases": [
+    "projects/ds-labs",
+    "labs"
+   ]
+  },
+  {
+   "name": "open-clearing-engine",
+   "title": "clearing and settlement in rust",
+   "path": "/projects/open-clearing-engine",
+   "section": "projects",
+   "aliases": [
+    "projects/open-clearing-engine"
+   ]
+  },
+  {
+   "name": "vmmanager",
+   "title": "a gtk4 vm manager in c",
+   "path": "/projects/vmmanager",
+   "section": "projects",
+   "aliases": [
+    "projects/vmmanager"
+   ]
+  },
+  {
+   "name": "termcall",
+   "title": "video calls in the terminal",
+   "path": "/projects/termcall",
+   "section": "projects",
+   "aliases": [
+    "projects/termcall"
+   ]
+  },
+  {
+   "name": "dropbin",
+   "title": "a file, a four-digit pin",
+   "path": "/projects/dropbin",
+   "section": "projects",
+   "aliases": [
+    "projects/dropbin"
+   ]
+  },
+  {
+   "name": "indie-market-analyst",
+   "title": "nse scanner and backtester",
+   "path": "/projects/indie-market-analyst",
+   "section": "projects",
+   "aliases": [
+    "projects/indie-market-analyst"
+   ]
+  },
+  {
+   "name": "alt-data-platform-india",
+   "title": "point-in-time alt data",
+   "path": "/projects/alt-data-platform-india",
+   "section": "projects",
+   "aliases": [
+    "projects/alt-data-platform-india"
+   ]
+  },
+  {
+   "name": "rler",
+   "title": "rl paper trader in rust",
+   "path": "/projects/rler",
+   "section": "projects",
+   "aliases": [
+    "projects/rler"
+   ]
+  },
+  {
+   "name": "aisoul",
+   "title": "ai harness for android",
+   "path": "/projects/aisoul",
+   "section": "projects",
+   "aliases": [
+    "projects/aisoul"
+   ]
+  },
+  {
+   "name": "cs-archive",
+   "title": "cs knowledge hub",
+   "path": "/projects/cs-archive",
+   "section": "projects",
+   "aliases": [
+    "projects/cs-archive"
+   ]
+  },
+  {
+   "name": "home-server-public-service",
+   "title": "how to run a public service from a home server",
+   "path": "/explainers/home-server-public-service",
+   "txt": "/explainers/home-server-public-service.txt",
+   "section": "explainers",
+   "aliases": [
+    "explainers/home-server-public-service"
+   ]
+  },
+  {
+   "name": "home-server",
+   "title": "a home server that runs without me",
+   "path": "/reflections/home-server",
+   "section": "reflections",
+   "aliases": [
+    "reflections/home-server"
+   ]
+  },
+  {
+   "name": "lfx-mumbai-2026",
+   "title": "lfx and a trip to mumbai i didn't pay for",
+   "path": "/reflections/lfx-mumbai-2026",
+   "section": "reflections",
+   "aliases": [
+    "reflections/lfx-mumbai-2026"
+   ]
+  },
+  {
+   "name": "clearing-engine",
+   "title": "why i built a clearing engine",
+   "path": "/reflections/clearing-engine",
+   "section": "reflections",
+   "aliases": [
+    "reflections/clearing-engine"
+   ]
+  },
+  {
+   "name": "backtest-costs",
+   "title": "a backtest that ignores costs is fiction",
+   "path": "/reflections/backtest-costs",
+   "section": "reflections",
+   "aliases": [
+    "reflections/backtest-costs"
+   ]
+  },
+  {
+   "name": "rust-slower",
+   "title": "rust keeps making me slower",
+   "path": "/reflections/rust-slower",
+   "section": "reflections",
+   "aliases": [
+    "reflections/rust-slower"
+   ]
+  },
+  {
+   "name": "building-in-public",
+   "title": "building in public",
+   "path": "/reflections/building-in-public",
+   "section": "reflections",
+   "aliases": [
+    "reflections/building-in-public"
+   ]
+  },
+  {
+   "name": "vmmanager-in-c",
+   "title": "i wrote a vm manager in c on purpose",
+   "path": "/reflections/vmmanager-in-c",
+   "section": "reflections",
+   "aliases": [
+    "reflections/vmmanager-in-c"
+   ]
+  }
+ ]
+}

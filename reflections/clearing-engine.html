@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>why i built a clearing engine i'll probably never run in production | Dharun Ashokkumar</title>
-    <meta name="description" content="a note on building an event-sourced, deterministic clearing &amp; settlement engine in rust — and why correctness requirements shape the code more than the finance does.">
+    <title>why i built a clearing engine i'll probably never run in production · dharun ashokkumar</title>
+    <meta name="description" content="building an event-sourced, deterministic clearing &amp; settlement engine in rust, and why correctness shapes the code more than the finance does.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/reflections/clearing-engine">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -40,18 +32,22 @@
 
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="why i built a clearing engine i'll probably never run in production">
+    <meta property="og:title" content="why i built a clearing engine i'll probably never run in production · dharun ashokkumar">
     <meta property="og:description" content="a note on building an event-sourced, deterministic clearing &amp; settlement engine in rust — and why correctness requirements shape the code.">
     <meta property="og:url" content="https://dharun.dev/reflections/clearing-engine">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/reflections-clearing-engine.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
+    <meta property="article:published_time" content="2026-05-20">
+    <meta property="article:modified_time" content="2026-05-29">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="why i built a clearing engine i'll probably never run in production">
+    <meta name="twitter:title" content="why i built a clearing engine i'll probably never run in production · dharun ashokkumar">
     <meta name="twitter:description" content="event sourcing, determinism, and why the correctness requirements shape the code.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/reflections-clearing-engine.png">
 
     <script type="application/ld+json">
     {
@@ -64,8 +60,8 @@
       "dateModified": "2026-05-29",
       "inLanguage": "en-GB",
       "keywords": "clearing house, settlement, event sourcing, determinism, rust, learning by building",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
-      "publisher": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "author": { "@id": "https://dharun.dev/#person" },
+      "publisher": { "@id": "https://dharun.dev/#person" },
       "mainEntityOfPage": "https://dharun.dev/reflections/clearing-engine"
     }
     </script>
@@ -81,6 +77,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -108,6 +108,14 @@
         <p>the thing that surprised me wasn't the finance. it was how much the <em>correctness</em> requirements shape the code. i made it event-sourced and deterministic not because it's fashionable, but because that's the only way to replay a settlement run and prove it produces a byte-identical result. once you pin a golden output file and refuse to let the engine drift from it, you stop trusting your own assumptions and start trusting the tests.</p>
         <p>i'll never run this against real money. that was never the point. i wanted the concept to live in my hands instead of in a textbook, and now it does.</p>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/projects/open-clearing-engine#clearing-demo">step through the netting yourself</a></li>
+            <li><a href="/reflections/rust-slower">rust keeps making me slower</a></li>
+            <li><a href="/reflections/backtest-costs">a backtest that ignores costs is fiction</a></li>
+          </ul>
+        </nav>
         <hr class="dotted">
         <p style="text-align:center; opacity:0.5;">written by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/reflections">more reflections</a></p>
       </div>
@@ -123,7 +131,9 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

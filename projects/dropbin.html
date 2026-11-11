@@ -1,24 +1,16 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Dropbin | Instant File Sharing on One Cloudflare Worker &amp; R2 | Dharun Ashokkumar</title>
-    <meta name="description" content="Dropbin — upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Zero-dependency Node client, HMAC-signed share links, and nothing that lists what is stored. MIT licensed.">
+    <title>dropbin: file sharing with a four-digit pin · dharun ashokkumar</title>
+    <meta name="description" content="upload a file, get a four-digit pin. one worker, one bucket, hmac-signed share links, two cli clients, and no endpoint that lists what's stored.">
     <meta name="keywords" content="dropbin, cloudflare worker file sharing, r2 bucket upload, pin file transfer, zero dependency cli, self-hosted file sharing, wrangler deploy, serverless file upload">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/dropbin">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -42,11 +34,13 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="Dropbin | Instant File Sharing on One Cloudflare Worker &amp; R2">
-    <meta property="og:description" content="Upload a file, get a 4-digit PIN. One Cloudflare Worker, one R2 bucket, a web UI and two served CLI clients. Nothing lists what is stored.">
+    <meta property="og:title" content="dropbin: file sharing with a four-digit pin · dharun ashokkumar">
+    <meta property="og:description" content="upload a file, get a four-digit pin. one worker, one bucket, hmac-signed share links, two cli clients, and no endpoint that lists what's stored.">
     <meta property="og:url" content="https://dharun.dev/projects/dropbin">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
-    <meta property="og:image:alt" content="Dropbin — file sharing on one Cloudflare Worker and one R2 bucket">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-dropbin.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="dropbin: file sharing with a four-digit pin">
     <meta property="og:locale" content="en_GB">
     <meta property="article:author" content="Dharun Ashokkumar">
     <meta property="article:published_time" content="2026-09-09">
@@ -59,9 +53,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="Dropbin | File Sharing on One Cloudflare Worker &amp; R2">
-    <meta name="twitter:description" content="Upload a file, get a 4-digit PIN. One Worker, one R2 bucket, a web UI and two served CLI clients. Nothing lists what is stored.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="dropbin: file sharing with a four-digit pin · dharun ashokkumar">
+    <meta name="twitter:description" content="upload a file, get a four-digit pin. one worker, one bucket, hmac-signed share links, two cli clients, and no endpoint that lists what's stored.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-dropbin.png">
 
     <!-- Schema.org: SoftwareSourceCode -->
     <script type="application/ld+json">
@@ -79,7 +73,7 @@
       "datePublished": "2026-09-09",
       "dateModified": "2026-09-09",
       "keywords": "cloudflare workers, r2 object storage, file sharing, pin, zero-dependency cli, wrangler, serverless, hmac share links",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
+      "author": { "@id": "https://dharun.dev/#person" },
       "maintainer": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" },
       "isAccessibleForFree": true,
       "targetProduct": {
@@ -140,40 +134,6 @@
       ]
     }
     </script>
-    <!-- Schema.org: FAQ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What does a dropbin PIN hold?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Exactly one thing. Upload a file and the PIN holds that file. Upload a folder and it is zipped on your machine first, so the PIN holds one zip, and downloading gives that zip straight back. Uploading to a PIN you have already used replaces what was there." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can anyone list the files stored in a dropbin instance?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing lists what is stored, anywhere. The only number either front end reports is how much room is left. You need the PIN and the password to take a file back out." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does dropbin cost anything to run?",
-          "acceptedAnswer": { "@type": "Answer", "text": "It is built to fit the Cloudflare free plans: Workers Free at 100,000 requests a day, and R2 Free at 10 GB with 1M class-A and 10M class-B operations a month. The free-plan request body cap of 100 MB is the per-upload ceiling." }
-        },
-        {
-          "@type": "Question",
-          "name": "How do dropbin share links work without a password?",
-          "acceptedAnswer": { "@type": "Answer", "text": "db open and db qr sign a link instead of just linking it. The k parameter carries an expiry and an HMAC of the PIN keyed on the password. Nothing is stored, it opens exactly that one PIN, it is read-only, and it lasts a week." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is there a way to use dropbin without installing anything?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Worker serves a shell client already pointed at your host, fetched with curl and run with bash. PowerShell gets the same client at /cli.ps1. Plain curl works too, with the password as basic auth." }
-        }
-      ]
-    }
-    </script>
     <!-- Schema.org: Breadcrumb -->
     <script type="application/ld+json">
     {
@@ -187,6 +147,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -489,6 +453,14 @@ curl -X DELETE "https://files.dharun.dev/4821?p=$PASS"        <span class="cmt">
 
         <p class="callout" style="border:none;font-style:normal;opacity:0.55;">mit licensed. deploys, github releases and npm publishes are run by hand, not by a workflow. the threat model and hardening notes are in <a href="https://github.com/dharunashokkumar/dropbin/blob/main/SECURITY.md" target="_blank" rel="noopener">security.md</a>.</p>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/projects/termcall">termcall, video calls in the terminal</a></li>
+            <li><a href="/homelab">the machine at home</a></li>
+            <li><a href="/projects">all projects</a></li>
+          </ul>
+        </nav>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a> · <a href="/projects">all projects</a></p>
@@ -505,7 +477,9 @@ curl -X DELETE "https://files.dharun.dev/4821?p=$PASS"        <span class="cmt">
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>

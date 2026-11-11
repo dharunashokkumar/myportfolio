@@ -1,14 +1,6 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>vault</title>
@@ -54,13 +46,6 @@
           </li>
 
           <li>
-            <a href="https://lpulabs.pages.dev/" target="_blank">
-              <span class="link-label">lpulabs</span>
-              <span class="link-url">https://lpulabs.pages.dev/</span>
-            </a>
-          </li>
-
-          <li>
             <a href="https://finnhub.pages.dev/" target="_blank">
               <span class="link-label">Finnhub (market)</span>
               <span class="link-url">https://finnhub.pages.dev/</span>
@@ -76,7 +61,7 @@
     </div>
 
     <script>
-      // Protect vault: redirect if not authenticated
+      // a toy gate, not security: the riddle on the home page sets this flag.
       if (sessionStorage.getItem('vault_access') !== 'granted') {
         window.location.href = '/';
       }

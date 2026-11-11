@@ -1,23 +1,15 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EGD879ZLL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EGD879ZLL');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Open Clearing Engine | Clearing &amp; Settlement in Rust | Dharun Ashokkumar</title>
-    <meta name="description" content="Open Clearing Engine — an open-source experimental clearing and settlement engine in Rust. Novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic, with a REST/WebSocket API and ops dashboard.">
+    <title>open clearing engine: netting and settlement in rust · dharun ashokkumar</title>
+    <meta name="description" content="an experimental clearing and settlement engine in rust: novation, multilateral netting, span margin, event-sourced and replayable. try the netting demo.">
     <meta name="author" content="Dharun Ashokkumar">
     <link rel="canonical" href="https://dharun.dev/projects/open-clearing-engine">
-    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
     <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#555555">
@@ -41,19 +33,21 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Dharun Ashokkumar">
-    <meta property="og:title" content="Open Clearing Engine | Clearing &amp; Settlement in Rust">
-    <meta property="og:description" content="An open-source clearing and settlement engine in Rust: novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic.">
+    <meta property="og:title" content="open clearing engine: netting and settlement in rust · dharun ashokkumar">
+    <meta property="og:description" content="an experimental clearing and settlement engine in rust: novation, multilateral netting, span margin, event-sourced and replayable. try the netting demo.">
     <meta property="og:url" content="https://dharun.dev/projects/open-clearing-engine">
-    <meta property="og:image" content="https://dharun.dev/img/main.webp">
+    <meta property="og:image" content="https://dharun.dev/img/og/projects-open-clearing-engine.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_GB">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@dharuna457">
     <meta name="twitter:creator" content="@dharuna457">
-    <meta name="twitter:title" content="Open Clearing Engine | Clearing &amp; Settlement in Rust">
-    <meta name="twitter:description" content="An open-source clearing and settlement engine in Rust: novation, multilateral netting, SPAN portfolio risk, event-sourced and deterministic.">
-    <meta name="twitter:image" content="https://dharun.dev/img/main.webp">
+    <meta name="twitter:title" content="open clearing engine: netting and settlement in rust · dharun ashokkumar">
+    <meta name="twitter:description" content="an experimental clearing and settlement engine in rust: novation, multilateral netting, span margin, event-sourced and replayable. try the netting demo.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/projects-open-clearing-engine.png">
 
     <!-- Schema.org: SoftwareSourceCode -->
     <script type="application/ld+json">
@@ -69,7 +63,7 @@
       "datePublished": "2026-05-17",
       "dateModified": "2026-09-24",
       "keywords": "clearing house, settlement, novation, multilateral netting, SPAN margin, central counterparty, event sourcing, fintech infrastructure",
-      "author": { "@type": "Person", "name": "Dharun Ashokkumar", "url": "https://dharun.dev" }
+      "author": { "@id": "https://dharun.dev/#person" }
     }
     </script>
     <!-- Schema.org: Breadcrumb -->
@@ -85,6 +79,10 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
   <body class="editorial">
     <a class="skip-link" href="#content">skip to content</a>
@@ -136,12 +134,17 @@
         <p>this is research and learning infrastructure. the embedded implementations run without external services. production adapters and scaling work remain separate from that embedded path. the codebase is a cargo workspace laid out hexagonally — ports and adapters — so the financial logic never depends on the plumbing.</p>
 
 
-        <section class="clearing-demo" id="clearing-demo" data-clearing-demo aria-labelledby="demo-title">
+        <section class="clearing-demo demo" id="clearing-demo" data-clearing-demo aria-labelledby="demo-title">
           <h2 id="demo-title">follow three obligations</h2>
           <p>a small cash-netting example you can step through. the amounts are sample units; this illustration runs independently of the rust project.</p>
           <div class="demo-controls" hidden>
             <label for="clearing-scenario">choose an example</label>
-            <select id="clearing-scenario"><option value="uneven">uneven cycle — some cash remains</option><option value="balanced">balanced cycle — everything offsets</option></select>
+            <select id="clearing-scenario"><option value="uneven">uneven cycle — some cash remains</option><option value="balanced">balanced cycle — everything offsets</option><option value="custom">your own numbers</option></select>
+            <div class="field-row" data-custom hidden>
+              <div><label for="ab">a owes b</label><input id="ab" type="number" min="0" step="1" value="100"></div>
+              <div><label for="bc">b owes c</label><input id="bc" type="number" min="0" step="1" value="70"></div>
+              <div><label for="ca">c owes a</label><input id="ca" type="number" min="0" step="1" value="40"></div>
+            </div>
           </div>
           <div class="demo-stage" data-stage role="status" aria-live="polite" aria-atomic="true">
             <h3>210 units gross → 60 units payable</h3>
@@ -195,6 +198,14 @@
           <p><a href="/reflections/clearing-engine">what building it taught me →</a></p>
         </section>
 
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/reflections/clearing-engine">why i built it</a></li>
+            <li><a href="/projects/indie-market-analyst#cost-ticket">the cost of one nse trade, line by line</a></li>
+            <li><a href="/projects/rler">rler, the other rust market project</a></li>
+          </ul>
+        </nav>
         <hr>
 
         <p style="text-align:center; opacity:0.5;">built by <a href="https://dharun.dev">dharun ashokkumar</a></p>
@@ -211,8 +222,10 @@
             <li><a href="/contact">contact</a></li>
           </ul>
         </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
       </div>
     </div>
     <script src="../js/clearing-demo.js" defer></script>
+    <script src="../js/shell.js" defer></script>
   </body>
 </html>
