@@ -139,22 +139,15 @@
         </ul>
         <p>a tunnel turns the problem around. a small daemon on the server dials <em>out</em> to the edge network and holds the connection open. visitors connect to the edge, and the edge sends their requests back down that connection. nothing inbound is needed, so the blocked ports, the changing address and the forgetful router stop mattering.<span class="sidenote-ref" aria-hidden="true"></span><small class="sidenote"><span class="note-kind">note</span> i use a cloudflare tunnel. the idea isn't cloudflare-specific; any reverse tunnel to a machine with a public address works the same way.</small></p>
 
-        <div class="term">
-          <div class="term-bar"><span>the request path</span></div>
-<pre>  visitor ──https──▶ edge network
-                         │
-                         │  the tunnel: one connection that
-                         │  the server opened, outbound
-                         ▼
-                 ┌───────────────────┐
-  house          │ tunnel daemon     │  (its own small container)
-                 │       │           │
-                 │       ▼           │
-                 │ the service       │
-                 └───────────────────┘
-
-  nothing listens on the router. there is no port to scan.</pre>
-        </div>
+        <figure style="margin:1.2rem 0">
+          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/tunnel-path.svg" alt="a house with a tunnel pipe running out of its roof up to a cloud, and a visitor reaching the cloud from outside" width="480" height="360" loading="lazy" decoding="async">
+        <dl class="label-rows">
+          <div><dt>visitor</dt><dd>connects over https to the edge network.</dd></div>
+          <div><dt>the tunnel</dt><dd>one connection that the server opened, outbound, to the edge. requests come back down it.</dd></div>
+          <div><dt>in the house</dt><dd>the tunnel daemon, in its own small container, hands each request to the service.</dd></div>
+          <div><dt>the router</dt><dd>nothing listens on it. there is no port to scan.</dd></div>
+        </dl>
+        </figure>
 
         <h2>the house is the hard part</h2>
         <p>getting traffic in takes an afternoon. keeping the service up when nobody is home takes the rest of the month. every decision gets one test: is this safe to do from two thousand kilometres away?</p>

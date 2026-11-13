@@ -185,31 +185,20 @@
         </section>
 
         <h2 id="built">how it's built</h2>
-        <div class="term">
-          <div class="term-bar"><span>architecture</span></div>
-<pre>  browser
-     │  rest + websocket
-  ┌──┴───────────────────────────────────────┐
-  │ frontend   react 19 · typescript · vite  │
-  └──┬───────────────────────────────────────┘
-  ┌──┴───────────────────────────────────────┐
-  │ api        fastapi, fully async          │
-  │            auth · labs · skills · ctf    │
-  │            ranges · services · mcp       │
-  └──┬──────────────┬──────────────┬─────────┘
-  mongodb        redis          docker
-  accounts,      cache, locks,  ├─ labs
-  progress       pub/sub,       ├─ services
-                 job queue      ├─ skills
-                    │           └─ ranges
-  ┌─────────────────┴────────────────────────┐
-  │ worker     provisioning · snapshots ·    │
-  │            cleanup · nightly backup      │
-  ├──────────────────────────────────────────┤
-  │ ssh gateway   one port, docker exec      │
-  └──────────────────────────────────────────┘
-  admin console: a separate server, not shown</pre>
-        </div>
+        <figure style="margin:1.2rem 0">
+          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/dslabs-stack.svg" alt="d's labs drawn as a stack: the frontend on the api, the api resting on the three stores, all on the worker, with the ssh gateway at the side" width="480" height="360" loading="lazy" decoding="async">
+        <dl class="label-rows">
+          <div><dt>browser</dt><dd>talks to the frontend over rest and a websocket.</dd></div>
+          <div><dt>frontend</dt><dd>react 19 · typescript · vite.</dd></div>
+          <div><dt>api</dt><dd>fastapi, fully async. auth · labs · skills · ctf · ranges · services · mcp.</dd></div>
+          <div><dt>mongodb</dt><dd>accounts, progress.</dd></div>
+          <div><dt>redis</dt><dd>cache, locks, pub/sub, and the job queue the worker reads.</dd></div>
+          <div><dt>docker</dt><dd>labs, services, skills, ranges.</dd></div>
+          <div><dt>worker</dt><dd>provisioning · snapshots · cleanup · nightly backup.</dd></div>
+          <div><dt>ssh gateway</dt><dd>one port, docker exec.</dd></div>
+          <div><dt>admin console</dt><dd>a separate server, not shown.</dd></div>
+        </dl>
+        </figure>
         <p class="small-note">stack: fastapi, react 19, typescript, mongodb, redis, an arq worker, traefik and docker.</p>
 
         <section class="field-notes" id="decisions" aria-labelledby="decisions-title">

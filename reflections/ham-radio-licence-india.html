@@ -190,17 +190,17 @@
 
         <h2 id="timeline">the timeline</h2>
 
-<pre class="plain" aria-label="timeline from application to licence">24 oct  applied on saral sanchar (restricted, jalandhar centre)
-        paid ₹100 on bharatkosh
-        readiness check, before any study: 85%
-        planned four weeks of prep
-26 oct  e-admit card arrives. exam is friday. four days.
-        four weeks becomes four days
-26-28   crash plan
-29 oct  full mock 87%. a real-style test: 60%, in 14 minutes
-        drilled 169 questions from three public pools
-30 oct  exam at wms jalandhar, 2 pm. passed, same day
-03 nov  licence issued: vu36da, valid to 2046</pre>
+<figure style="margin:1.2rem 0">
+          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-timeline.svg" alt="a ruler of ten days with pins on the days that mattered, a flag on exam day and a star on licence day" width="480" height="360" loading="lazy" decoding="async">
+        <dl class="label-rows">
+          <div><dt>24 oct</dt><dd>applied on saral sanchar (restricted, jalandhar centre). paid ₹100 on bharatkosh. readiness check, before any study: 85%. planned four weeks of prep.</dd></div>
+          <div><dt>26 oct</dt><dd>e-admit card arrives. exam is friday. four days. four weeks becomes four days.</dd></div>
+          <div><dt>26–28 oct</dt><dd>crash plan.</dd></div>
+          <div><dt>29 oct</dt><dd>full mock 87%. a real-style test: 60%, in 14 minutes. drilled 169 questions from three public pools.</dd></div>
+          <div><dt>30 oct</dt><dd>exam at wms jalandhar, 2 pm. passed, same day.</dd></div>
+          <div><dt>3 nov</dt><dd>licence issued: vu36da, valid to 2046.</dd></div>
+        </dl>
+        </figure>
 
         <p>the readiness check said 85% before i'd studied anything. that number lied to me a little. it was a twenty-question quiz, and it made the exam feel closer than it was. the first real topic quiz, on basic electricity, came back at 50%.</p>
 
@@ -248,19 +248,26 @@
 
         <h2 id="scores">every score, including the bad ones</h2>
 
-<pre class="plain" aria-label="score progression during the four days">readiness check (no study) ........ 85%
-first electricity quiz ............ 50%  → redo 88%
-receivers quiz .................... 50%  → misses drill 100%
-revision rounds, monday night ..... 92% / 100% / 81% / 80%
-transmitters + propagation ........ 85%  (propagation 10/10)
-antennas / swr / db ............... 87%
-rules, part one ................... 100%
-rules, part two ................... 75%
-diodes / power supplies ........... 92%
-full mock 1 ....................... 87%  → misses drill 100%
-real-style test ................... 60%  (rushed, 14 minutes)
-pool drill, 169 questions ......... theory 74% / 64%, rules 80%
-the exam .......................... passed</pre>
+<figure style="margin:1.2rem 0">
+          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-scores.svg" alt="a bar for each practice score in order, peach for the low ones, dashed tops where a redo went higher, and a flag for the exam" width="480" height="360" loading="lazy" decoding="async">
+          <table class="plain">
+            <tbody>
+              <tr><th scope="row">readiness check (no study)</th><td>85%</td></tr>
+              <tr><th scope="row">first electricity quiz</th><td>50% → redo 88%</td></tr>
+              <tr><th scope="row">receivers quiz</th><td>50% → misses drill 100%</td></tr>
+              <tr><th scope="row">revision rounds, monday night</th><td>92% / 100% / 81% / 80%</td></tr>
+              <tr><th scope="row">transmitters + propagation</th><td>85% (propagation 10/10)</td></tr>
+              <tr><th scope="row">antennas / swr / db</th><td>87%</td></tr>
+              <tr><th scope="row">rules, part one</th><td>100%</td></tr>
+              <tr><th scope="row">rules, part two</th><td>75%</td></tr>
+              <tr><th scope="row">diodes / power supplies</th><td>92%</td></tr>
+              <tr><th scope="row">full mock 1</th><td>87% → misses drill 100%</td></tr>
+              <tr><th scope="row">real-style test</th><td>60% (rushed, 14 minutes)</td></tr>
+              <tr><th scope="row">pool drill, 169 questions</th><td>theory 74% / 64%, rules 80%</td></tr>
+              <tr><th scope="row">the exam</th><td>passed</td></tr>
+            </tbody>
+          </table>
+        </figure>
 
         <p>two 50s on monday. that's what the start of a topic looks like when you actually test yourself. both turned into 88% and 100% within hours, because the drill was only the misses.</p>
 
@@ -319,14 +326,14 @@ the exam .......................... passed</pre>
 
         <p>a licence with no radio is just a certificate. this is the plan.</p>
 
-<pre class="plain" aria-label="planned station: hf rig at home reached from college over tailscale">     home (tamil nadu)                    hostel (punjab)
- +----------------------+          +----------------------+
- | sbitx v3 hf rig      |          | vhf/uhf handheld     |
- | for long distance    |          | for short range      |
- |          |           |          |                      |
- | raspberry pi         |<-------->| laptop / phone       |
- | remote rx + tx       | tailscale| runs the home rig    |
- +----------------------+          +----------------------+</pre>
+<figure style="margin:1.2rem 0">
+          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-station.svg" alt="a house with an hf rig, a raspberry pi and a wire antenna, a hostel far away with a handheld, and a dashed link between them" width="480" height="360" loading="lazy" decoding="async">
+        <dl class="label-rows">
+          <div><dt>home (tamil nadu)</dt><dd>sbitx v3 hf rig for long distance, and a raspberry pi beside it for remote receive and transmit.</dd></div>
+          <div><dt>hostel (punjab)</dt><dd>a vhf/uhf handheld for short range, and a laptop or phone that runs the home rig.</dd></div>
+          <div><dt>between them</dt><dd>tailscale, from the laptop to the pi.</dd></div>
+        </dl>
+        </figure>
 
         <ul>
           <li><strong>hf at home:</strong> an sbitx v3 from hf signals, for long-distance contacts.</li>

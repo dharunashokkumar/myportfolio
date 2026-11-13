@@ -13,6 +13,14 @@
   </author>
 
   <entry>
+    <title>site: redrew the text diagrams as hand-drawn sketches, with their labels kept as text underneath.</title>
+    <link href="https://dharun.dev/homelab#diagram" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-13-27</id>
+    <updated>2026-11-13T00:00:00+00:00</updated>
+    <summary>redrew the text diagrams as hand-drawn sketches, with their labels kept as text underneath.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
     <title>site: added hand-drawn sketches to fifteen pages and icons to the home page index.</title>
     <link href="https://dharun.dev/colophon" rel="alternate" type="text/html"/>
     <id>https://dharun.dev/changelog#2026-11-13-26</id>
