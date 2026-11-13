@@ -202,16 +202,14 @@
         <p>there are two things you can do — <strong>upload</strong> and <strong>download</strong> — and the whole tool is built around only those two. uploading gets you a <strong>pin</strong>; anyone with the pin <em>and</em> the password can take the thing back out, in a browser or in a terminal. nothing lists what is stored, anywhere. the only number either front end reports is how much room is left.</p>
         <p>a pin holds exactly one thing. upload a file and the pin holds that file. upload a folder and it's zipped on your machine first, so the pin holds one zip — and downloading gives you that zip straight back.</p>
 
-        <figure style="margin:1.2rem 0">
-          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/dropbin-terminal.svg" alt="a terminal screen with an upload row, a download row and a nearly empty storage bar, cabled to a bucket on the floor" width="480" height="360" loading="lazy" decoding="async">
+        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/dropbin-terminal.svg" alt="a terminal screen with an upload row, a download row and a nearly empty storage bar, cabled to a bucket on the floor" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>1 upload</dt><dd>a file or a folder.</dd></div>
           <div><dt>2 download</dt><dd>with a pin.</dd></div>
           <div><dt>the bar</dt><dd>room left, and nothing else: 9.71 gb free of 10.0 gb, 6 pins stored.</dd></div>
           <div><dt>keys</dt><dd>1 or 2 to choose, q to quit.</dd></div>
         </dl>
-          <figcaption class="small-note">the dropbin menu at files.dharun.dev, as the terminal client draws it.</figcaption>
-        </figure>
+        <p class="small-note">the dropbin menu at files.dharun.dev, as the terminal client draws it.</p>
 
         <div class="spec-grid">
           <div class="spec"><span class="spec-value">1 + 1</span><span class="spec-label">one worker, one bucket</span></div>

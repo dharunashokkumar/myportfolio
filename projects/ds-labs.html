@@ -185,8 +185,7 @@
         </section>
 
         <h2 id="built">how it's built</h2>
-        <figure style="margin:1.2rem 0">
-          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/dslabs-stack.svg" alt="d's labs drawn as a stack: the frontend on the api, the api resting on the three stores, all on the worker, with the ssh gateway at the side" width="480" height="360" loading="lazy" decoding="async">
+        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/dslabs-stack.svg" alt="d's labs drawn as a stack: the frontend on the api, the api resting on the three stores, all on the worker, with the ssh gateway at the side" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>browser</dt><dd>talks to the frontend over rest and a websocket.</dd></div>
           <div><dt>frontend</dt><dd>react 19 · typescript · vite.</dd></div>
@@ -198,7 +197,6 @@
           <div><dt>ssh gateway</dt><dd>one port, docker exec.</dd></div>
           <div><dt>admin console</dt><dd>a separate server, not shown.</dd></div>
         </dl>
-        </figure>
         <p class="small-note">stack: fastapi, react 19, typescript, mongodb, redis, an arq worker, traefik and docker.</p>
 
         <section class="field-notes" id="decisions" aria-labelledby="decisions-title">

@@ -131,8 +131,7 @@
         </dl>
 
         <h2 id="diagram">how traffic reaches it</h2>
-        <figure style="margin:1.2rem 0">
-          <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="img/sketch/homelab-traffic.svg" alt="the home server with its containers and virtual machines on top, a backup disk beside it, and a tunnel going up to the cloud" width="480" height="360" loading="lazy" decoding="async">
+        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="img/sketch/homelab-traffic.svg" alt="the home server with its containers and virtual machines on top, a backup disk beside it, and a tunnel going up to the cloud" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>cloudflare</dt><dd>between the internet and the house. tunnels go out from the house, so no inbound port is needed. a login sits in front of anything sensitive.</dd></div>
           <div><dt>proxmox ve</dt><dd>the host.</dd></div>
@@ -141,8 +140,7 @@
           <div><dt>2 tb disk</dt><dd>nightly backups, plus a second restic copy of photos and files.</dd></div>
           <div><dt>admin</dt><dd>tailscale first, two independent fallbacks.</dd></div>
         </dl>
-          <figcaption class="small-note">top to bottom, the way a request travels. no addresses, on purpose.</figcaption>
-        </figure>
+        <p class="small-note">top to bottom, the way a request travels. no addresses, on purpose.</p>
 
         <h2 id="runs">what runs on it</h2>
         <dl class="label-rows">
