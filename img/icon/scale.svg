@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="balance">
+  <path d="M32 10v42M20 56h24M10 16h44" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 16 4 34M10 16l6 18M54 16l-6 18M54 16l6 18" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="3,34 17,34 14,40 6,40" fill="#F7DD72" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="47,34 61,34 58,40 50,40" fill="#F7DD72" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

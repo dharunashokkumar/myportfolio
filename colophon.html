@@ -109,13 +109,14 @@
       <main id="content" class="short-page">
         <h1>colophon</h1>
         <p class="page-meta">updated <time datetime="2026-11-11">11 november 2026</time> · how this site is made, and what it refuses to do.</p>
+        <img class="sketch" src="img/sketch/terminal.svg" alt="" width="480" height="360" decoding="async">
 
         <h2>how it's built</h2>
         <p>hand-written html, css and a little javascript. no framework, no build step, no bundler, no package manager, no dependencies. the repository is the website: what's in the folder is what deploys, through cloudflare pages. view source; it's meant to be read.</p>
         <p>the stylesheets are six small files linked in order, never <code>@import</code>ed, because <code>@import</code> hides each file from the browser until its parent has loaded. the server also sends them as early hints, so the browser starts fetching before the html arrives.</p>
 
         <h2>type and colour</h2>
-        <p>everything is set in merriweather, by sorkin type, self-hosted: two cuts, latin and latin-ext, roman and italic. everything is lowercase. the palette is greys. there are exactly two accent colours, <span class="highlight">a highlighter yellow</span> for things worth marking and a gold that marks a featured post. there is one shadow on the whole site, and almost no animation.</p>
+        <p>everything is set in merriweather, by sorkin type, self-hosted: two cuts, latin and latin-ext, roman and italic. everything is lowercase. the palette is greys. there are exactly two accent colours, <span class="highlight">a highlighter yellow</span> for things worth marking and a gold that marks a featured post. the one exception is the drawings: the marker sketches at the top of pages and the small icons on the home page use six pastels, kept to the pictures and never the text. there is one shadow on the whole site, and almost no animation.</p>
 
         <h2>what a page weighs</h2>
         <p>measured from the files in the repository, gzipped at level 9. cloudflare may send brotli, which is a little smaller. the font is cached for a year after the first visit.</p>

@@ -1,6 +1,8 @@
 changelog · dharun.dev
 ======================
 
+2026-11-13  site        added hand-drawn sketches to fifteen pages and
+                         icons to the home page index.
 2026-11-13  site        added /science: live folding@home stats from
                          the home server.
 2026-11-12  homelab     the server now gives spare cpu to folding@home

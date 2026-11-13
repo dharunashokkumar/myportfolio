@@ -927,3 +927,25 @@ td code,
     font-size: 0.68rem;
   }
 }
+
+/* illustrations: hand-drawn marker sketches (img/sketch/) and clean icons (img/icon/).
+   the pastel palette is allowed here and only here — see CLAUDE.md. */
+img.sketch {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  margin: 1.2rem auto 1.6rem;
+}
+
+img.row-icon {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0 .45rem 0 0;
+  vertical-align: -.2rem;
+}
+
+@media print {
+  img.sketch { display: none; }
+}

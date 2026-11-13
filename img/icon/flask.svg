@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="science">
+  <polygon points="21,40 43,40 52,56 12,56" fill="#CDB6EC" stroke="#7C5CBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M26 6v18L12 56h40L38 24V6M22 6h20" fill="none" stroke="#7C5CBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M21 40h22" fill="none" stroke="#7C5CBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

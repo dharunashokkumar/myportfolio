@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="browser lab">
+  <rect x="6" y="8" width="52" height="48" fill="#9CCDE8" stroke="#2F7CC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6 17h52" fill="none" stroke="#2F7CC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="11" y="22" width="19" height="14" fill="#B7DFA4" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="34" y="22" width="19" height="14" fill="#F7DD72" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="11" y="40" width="42" height="11" fill="#CDB6EC" stroke="#7C5CBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

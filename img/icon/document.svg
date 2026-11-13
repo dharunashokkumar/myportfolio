@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="resume">
+  <polygon points="14,6 40,6 50,16 50,58 14,58" fill="#D1D1D1" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M40 6v10h10" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="19" y="13" width="10" height="10" fill="#B7DFA4" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M33 15h3M33 20h10M19 30h26M19 36h26M19 42h20M19 48h24" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

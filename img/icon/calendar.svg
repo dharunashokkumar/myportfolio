@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="calendar">
+  <rect x="8" y="12" width="48" height="44" fill="#F7DD72" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="8" y="12" width="48" height="10" fill="#F6BD78" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 6v10M44 6v10" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 30h6M26 30h6M38 30h6M14 40h6M26 40h6M14 50h6" fill="none" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="41" cy="43" r="6" fill="none" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="plant">
+  <polygon points="20,40 44,40 40,58 24,58" fill="#F6BD78" stroke="#D97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 40V22" fill="none" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 30c-10 0-16-6-16-14 9 0 16 5 16 14z" fill="#B7DFA4" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 26c0-10 6-17 16-17 0 10-6 17-16 17z" fill="#B7DFA4" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

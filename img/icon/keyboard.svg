@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="keyboard">
+  <rect x="4" y="18" width="56" height="30" fill="#D1D1D1" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="9" y="23" width="6" height="6" fill="#9CCDE8" stroke="#2F7CC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 26h4M29 26h4M38 26h4M12 34h4M21 34h4M30 34h4M39 34h4" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="47" y="23" width="8" height="14" fill="#9CCDE8" stroke="#2F7CC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="18" y="40" width="28" height="4" fill="#9CCDE8" stroke="#2F7CC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

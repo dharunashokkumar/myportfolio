@@ -6,7 +6,8 @@ step, no dependencies. the repository is the website. view source; it's
 meant to be read.
 
 type: merriweather, self-hosted. lowercase. greys, plus a highlighter
-yellow and a gold. one shadow. almost no animation.
+yellow and a gold. pastels in the drawings only, never the text.
+one shadow. almost no animation.
 
 what a page weighs (gzip -9, from the repository)
 
