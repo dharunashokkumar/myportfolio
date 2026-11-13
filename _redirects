@@ -9,3 +9,57 @@
 # search results land on the new page.
 /projects/lpulabs       /projects/ds-labs   301
 /projects/lpulabs.html  /projects/ds-labs   301
+
+# old urls from earlier versions of the site (deleted, previously 404). search
+# console still crawls them. the ones with a clear modern equivalent go there;
+# the rest stay 404 on purpose — google drops a 404 cleanly, but a redirect to
+# an unrelated page is a "soft 404" and helps nobody. both spellings are listed
+# because pages only strips .html from files that exist.
+/blog                                   /reflections                           301
+/blog.html                              /reflections                           301
+/blogs/home_network                     /explainers/home-server-public-service 301
+/blogs/home_network.html                /explainers/home-server-public-service 301
+/blogs/cloudflare_dynu                  /explainers/home-server-public-service 301
+/blogs/cloudflare_dynu.html             /explainers/home-server-public-service 301
+/blogs/raspberry_to_cloud               /reflections/home-server               301
+/blogs/raspberry_to_cloud.html          /reflections/home-server               301
+/blogs/cybersecurity_lab                /projects/ds-labs                      301
+/blogs/cybersecurity_lab.html           /projects/ds-labs                      301
+/blogs/college_journey                  /about                                 301
+/blogs/college_journey.html             /about                                 301
+/blogs/tech_journey                     /about                                 301
+/blogs/tech_journey.html                /about                                 301
+/blogs/electronics_journey              /about                                 301
+/blogs/electronics_journey.html         /about                                 301
+/explorer.html                          /galley                                301
+/resume-preview                         /resume                                301
+/resume-preview.html                    /resume                                301
+/Dharun_CV.pdf                          /files/dharun-ashokkumar-resume.pdf    301
+/tools                                  /uses                                  301
+/tools.html                             /uses                                  301
+/timeline                               /about                                 301
+/timeline.html                          /about                                 301
+/portfolio                              /projects                              301
+/portfolio.html                         /projects                              301
+/projects/dadscloud                     /reflections/home-server               301
+/projects/dadscloud.html                /reflections/home-server               301
+/projects/sysadmin                      /homelab                               301
+/projects/sysadmin.html                 /homelab                               301
+/reflections/building-dadscloud         /reflections/home-server               301
+/reflections/building-dadscloud.html    /reflections/home-server               301
+/reflections/raspberry-pi-cloud-server  /reflections/home-server               301
+/reflections/raspberry-pi-cloud-server.html /reflections/home-server           301
+/reflections/why-self-host-everything   /reflections/home-server               301
+/reflections/why-self-host-everything.html /reflections/home-server            301
+/reflections/home-network-setup         /explainers/home-server-public-service 301
+/reflections/home-network-setup.html    /explainers/home-server-public-service 301
+/reflections/cloudflare-dynu-setup      /explainers/home-server-public-service 301
+/reflections/cloudflare-dynu-setup.html /explainers/home-server-public-service 301
+/reflections/home-cybersecurity-lab     /projects/ds-labs                      301
+/reflections/home-cybersecurity-lab.html /projects/ds-labs                     301
+/reflections/my-college-journey         /about                                 301
+/reflections/my-college-journey.html    /about                                 301
+/reflections/my-tech-journey            /about                                 301
+/reflections/my-tech-journey.html       /about                                 301
+/reflections/my-electronics-journey     /about                                 301
+/reflections/my-electronics-journey.html /about                                301
