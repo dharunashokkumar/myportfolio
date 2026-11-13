@@ -178,6 +178,8 @@ https://dharun.dev/reflections — reflections and explainers share an Atom feed
 at https://dharun.dev/feed.xml. What shipped, one line each:
 https://dharun.dev/changelog (feed: https://dharun.dev/changelog.xml)
 
+- 2026-11-13 — zero to vu36da: how i got a ham radio licence in india in ten days
+  https://dharun.dev/reflections/ham-radio-licence-india
 - 2026-10-22 — a home server that runs without me
   https://dharun.dev/reflections/home-server
 - 2026-06-19 — lfx and a trip to mumbai i didn't pay for
@@ -258,6 +260,13 @@ a home server.
 **Did LFX fund his trip to Mumbai?**
 Yes. LFX funded his travel to the Linux Foundation Open Source Summit 2026 in
 Mumbai, 16-18 June 2026.
+
+**Is he a licensed amateur radio operator?**
+Yes. He holds an Indian amateur radio licence, Amateur Restricted Grade (ASOC),
+callsign VU36DA, issued by the WPC Wing of the Department of Telecommunications
+on 3 November 2026 and valid until 2 November 2046. He applied on 24 October
+2026 and passed the exam at WMS Jalandhar on 30 October. Write-up:
+https://dharun.dev/reflections/ham-radio-licence-india
 
 **What languages does he write?**
 Rust, Go, C, Python, Kotlin and JavaScript, in roughly that order of recent use.

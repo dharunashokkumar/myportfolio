@@ -191,7 +191,8 @@ body.editorial { color: #555; line-height: 1.75; }
 .riddle button { font: inherit; background: #fff; color: #555; border: 1px solid #999; border-radius: 0; padding: .4rem .8rem; cursor: pointer; min-height: 40px; }
 .riddle p[role="status"] { margin: .6rem 0 0; font-size: .8rem; }
 /* lists and tables placed straight in a post's content keep the 36rem reading column */
-.editorial #container #content > .label-rows, .editorial #container #content > table.plain, .editorial #container .short-page table.plain { max-width: 36rem; margin: 1.4rem auto; text-align: left; }
+.editorial #container #content > .label-rows, .editorial #container #content > table.plain, .editorial #container #content > pre.plain, .editorial #container .short-page table.plain { max-width: 36rem; margin: 1.4rem auto; text-align: left; }
+.editorial #container #content > pre.plain { box-sizing: border-box; }
 .editorial #content > .label-rows dd, .editorial .short-page .label-rows dd { text-align: left; }
 .editorial #content p code, .editorial #content dd code, .editorial #content li code, .editorial #content td code { font-size: .85em; }
 @media (prefers-reduced-motion: reduce) {

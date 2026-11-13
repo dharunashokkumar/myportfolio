@@ -3,6 +3,8 @@ reflections
 
 first-person notes from building things.
 
+2026-11-13    zero to vu36da: how i got a ham radio licence in india
+              in ten days
 2026-10-22    a home server that runs without me
 2026-06-19    lfx and a trip to mumbai i didn't pay for
 2026-05-20    why i built a clearing engine i'll probably never run in

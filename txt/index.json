@@ -190,6 +190,15 @@
    ]
   },
   {
+   "name": "ham-radio-licence-india",
+   "title": "how i got a ham radio licence in india",
+   "path": "/reflections/ham-radio-licence-india",
+   "section": "reflections",
+   "aliases": [
+    "reflections/ham-radio-licence-india"
+   ]
+  },
+  {
    "name": "home-server",
    "title": "a home server that runs without me",
    "path": "/reflections/home-server",

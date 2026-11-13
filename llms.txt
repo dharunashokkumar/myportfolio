@@ -52,6 +52,7 @@ One question each, answered with a worked example from a real project. Each has 
 
 Short, first-person essays written while building the projects above.
 
+- [zero to vu36da: how i got a ham radio licence in india in ten days](https://dharun.dev/reflections/ham-radio-licence-india) (2026-11-13): getting an Indian amateur radio licence (ASOC Restricted grade, callsign VU36DA) in ten days — the Saral Sanchar application, a four-day crash plan, every score, the common exam traps, and what the 2024 Amateur Service Rules say about portable operation.
 - [a home server that runs without me](https://dharun.dev/reflections/home-server) (2026-10-22): building a Proxmox home server in seventeen days before leaving for college — crash-safe with no UPS, self-monitoring, replacing Google Photos and Drive with Immich and Nextcloud — with a seven-minute video of the build.
 - [lfx and a trip to mumbai i didn't pay for](https://dharun.dev/reflections/lfx-mumbai-2026) (2026-06-19): LFX funded his travel to the Linux Foundation Open Source Summit 2026 in Mumbai, and what three days there taught him about open source.
 - [why i built a clearing engine i'll probably never run in production](https://dharun.dev/reflections/clearing-engine) (2026-05-20): building an event-sourced, deterministic clearing and settlement engine in Rust, and why correctness requirements shape the code more than the finance does.

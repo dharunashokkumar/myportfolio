@@ -6,7 +6,7 @@
   <link href="https://dharun.dev/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://dharun.dev/reflections" rel="alternate" type="text/html"/>
   <id>https://dharun.dev/</id>
-  <updated>2026-11-11T00:00:00+00:00</updated>
+  <updated>2026-11-13T00:00:00+00:00</updated>
   <icon>https://dharun.dev/favicon/favicon.png</icon>
   <logo>https://dharun.dev/img/main.webp</logo>
   <rights>© Dharun Ashokkumar</rights>
@@ -16,6 +16,17 @@
     <uri>https://dharun.dev</uri>
     <email>me@dharun.dev</email>
   </author>
+
+  <entry>
+    <title>zero to vu36da: how i got a ham radio licence in india in ten days</title>
+    <link href="https://dharun.dev/reflections/ham-radio-licence-india" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/reflections/ham-radio-licence-india</id>
+    <published>2026-11-13T00:00:00+00:00</published>
+    <updated>2026-11-13T00:00:00+00:00</updated>
+    <summary>from application to callsign vu36da in ten days: applying on saral sanchar, a four-day crash plan for the asoc restricted exam, every score including a rushed 60%, the traps that nearly got me, eleven wrong answers in public keys, and what the 2024 rules say about operating away from home.</summary>
+    <category term="amateur radio"/>
+    <category term="asoc exam"/>
+  </entry>
 
   <entry>
     <title>how to run a public service from a home server</title>
