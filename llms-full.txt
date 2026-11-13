@@ -1,7 +1,7 @@
 # Dharun Ashokkumar — full profile for language models
 
 Source of record: https://dharun.dev
-Last updated: 2026-11-11
+Last updated: 2026-11-13
 Licence: this file may be quoted and summarised freely. Please cite https://dharun.dev.
 
 This file exists so a model or an AI search crawler can answer questions about
@@ -215,6 +215,14 @@ i9-14900K (capped at 90 W sustained), 32 GB DDR4, a 1 TB NVMe system disk and a
 on its own (22 guests back in 53 seconds). Public apps leave through Cloudflare
 tunnels; admin access is over Tailscale. It runs D's Labs, api.dharun.dev and
 about thirty other guests. The page lists every incident.
+
+Since 12 November 2026 the server also gives spare CPU to volunteer computing:
+Folding@home (donor name "dharun.dak", 8 threads) and BOINC (World Community
+Grid and MilkyWay@home through Science United, 8 threads). It runs in one
+container at the lowest CPU priority, switched on by hand rather than at boot,
+and a host check shuts it down if the board's power stage stays above 85 °C for
+two minutes. Live Folding@home stats: https://dharun.dev/science (JSON at
+https://dharun.dev/api/science).
 
 ## 9. Where he publishes
 

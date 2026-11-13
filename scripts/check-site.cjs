@@ -74,7 +74,8 @@ for (const f of allPages) {
     let target = ref.startsWith('/') ? ref.slice(1) : path.posix.normalize(path.posix.join(dir, ref));
     if (target === '' || target === '.') target = 'index.html';
     if (target.endsWith('/')) target += 'index.html';
-    const candidates = [target, `${target}.html`, `${target}/index.html`];
+    // pages functions are routes too: functions/api/science.js serves /api/science.
+    const candidates = [target, `${target}.html`, `${target}/index.html`, `functions/${target}.js`];
     if (!candidates.some(exists)) err(f, `broken local reference: ${ref}`);
   }
   for (const m of head.matchAll(/<meta (?:property="og:image"|name="twitter:image") content="([^"]+)"/g)) {

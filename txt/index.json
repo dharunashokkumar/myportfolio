@@ -37,6 +37,12 @@
    "txt": "/txt/homelab.txt"
   },
   {
+   "name": "science",
+   "title": "folding@home and boinc",
+   "path": "/science",
+   "txt": "/txt/science.txt"
+  },
+  {
    "name": "now",
    "title": "this month",
    "path": "/now",

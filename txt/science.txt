@@ -1,0 +1,47 @@
+folding@home and boinc
+======================
+
+when my home server has cpu to spare, i give it to volunteer computing.
+folding@home simulates how proteins move and fold, for disease
+research. boinc runs work for world community grid and milkyway@home.
+i switch it on and off by hand, so some weeks it runs every night and
+some weeks it doesn't run at all.
+
+live numbers
+------------
+
+folding@home  donor dharun.dak, 8 threads, since 12 november 2026
+boinc         world community grid and milkyway@home, 8 threads,
+              through science united
+live stats    curl -sL dharun.dev/api/science   (json, folding@home's
+              public numbers, refreshed every 30 minutes)
+
+how it's set up
+---------------
+
+where         one container on the proxmox ve host, 16 threads, 4 gb.
+              it doesn't start at boot.
+priority      the lowest on the machine: nice 19, the idle scheduler,
+              the smallest cpu weight. d's labs always wins.
+one command   on, off, status, or finish (complete the current work
+              units, then switch off).
+backups       none, on purpose. work units are throwaway.
+network       nothing in it is reachable from the internet.
+
+keeping the power stage cool
+----------------------------
+
+15 cores of science pulled 89 w at the cpu package; the power stage
+settled at 62 degrees. a check on the host runs every 30 seconds: above
+85 degrees for two minutes, the container shuts down and my phone gets
+a notification.
+
+join in
+-------
+
+folding@home  https://foldingathome.org/start-folding/
+boinc         https://scienceunited.org
+
+--
+html version: https://dharun.dev/science
+all text pages: https://dharun.dev/txt/   ·   `curl -L dharun.dev`

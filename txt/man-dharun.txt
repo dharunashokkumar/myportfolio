@@ -26,6 +26,7 @@ OPTIONS
 
 FILES
        /homelab   the machine
+       /science   folding@home and boinc
        /now       this month
        /uses      the tools
 

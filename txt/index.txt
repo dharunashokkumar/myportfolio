@@ -31,6 +31,7 @@ pages
 projects      curl -L dharun.dev/projects
 d's labs      curl -L dharun.dev/projects/ds-labs
 homelab       curl -L dharun.dev/homelab
+science       curl -L dharun.dev/science
 explainers    curl -L dharun.dev/explainers
 reflections   curl -L dharun.dev/reflections
 now           curl -L dharun.dev/now

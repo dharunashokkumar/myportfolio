@@ -5,13 +5,29 @@
   <link href="https://dharun.dev/changelog.xml" rel="self" type="application/atom+xml"/>
   <link href="https://dharun.dev/changelog" rel="alternate" type="text/html"/>
   <id>https://dharun.dev/changelog</id>
-  <updated>2026-11-11T00:00:00+00:00</updated>
+  <updated>2026-11-13T00:00:00+00:00</updated>
   <icon>https://dharun.dev/favicon/favicon.png</icon>
   <author>
     <name>Dharun Ashokkumar</name>
     <uri>https://dharun.dev</uri>
   </author>
 
+  <entry>
+    <title>site: added /science: live folding@home stats from the home server.</title>
+    <link href="https://dharun.dev/science" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-13-24</id>
+    <updated>2026-11-13T00:00:00+00:00</updated>
+    <summary>added /science: live folding@home stats from the home server.</summary>
+    <category term="site"/>
+  </entry>
+  <entry>
+    <title>homelab: the server now gives spare cpu to folding@home and boinc, on demand.</title>
+    <link href="https://dharun.dev/science" rel="alternate" type="text/html"/>
+    <id>https://dharun.dev/changelog#2026-11-12-23</id>
+    <updated>2026-11-12T00:00:00+00:00</updated>
+    <summary>the server now gives spare cpu to folding@home and boinc, on demand.</summary>
+    <category term="homelab"/>
+  </entry>
   <entry>
     <title>site: added three reading paths to the home page and tab completion in the terminal.</title>
     <link href="https://dharun.dev/" rel="alternate" type="text/html"/>

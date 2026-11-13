@@ -4,7 +4,7 @@
 const TEXT_CLIENT = /^(curl|wget|httpie)\//i;
 
 const PAGES = {
-  '': 'index', '/projects': 'projects', '/projects/ds-labs': 'ds-labs', '/homelab': 'homelab',
+  '': 'index', '/projects': 'projects', '/projects/ds-labs': 'ds-labs', '/homelab': 'homelab', '/science': 'science',
   '/explainers': 'explainers', '/reflections': 'reflections', '/now': 'now', '/uses': 'uses',
   '/changelog': 'changelog', '/colophon': 'colophon', '/about': 'man-dharun',
 };

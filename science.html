@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>folding@home and boinc on my home server · dharun ashokkumar</title>
+    <meta name="description" content="my home server gives its spare cpu to folding@home and boinc (world community grid, milkyway@home): live folding stats, how it's set up, and how it stays cool.">
+    <meta name="author" content="Dharun Ashokkumar">
+    <link rel="canonical" href="https://dharun.dev/science">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — reflections and explainers" href="https://dharun.dev/feed.xml">
+    <link rel="alternate" type="application/atom+xml" title="dharun ashokkumar — changelog" href="https://dharun.dev/changelog.xml">
+    <link rel="alternate" type="text/plain" title="llms.txt — profile for language models" href="https://dharun.dev/llms.txt">
+    <link rel="alternate" type="text/plain" title="plain-text version of this page" href="https://dharun.dev/txt/science.txt">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon/favicon.png" type="image/png" />
+    <!-- Stylesheets are linked individually and in cascade order. Link order is
+         cascade order; keep this order and keep page-scoped sheets after it. -->
+    <link rel="preload" href="fonts/merriweather-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/components.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/modules.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dharun Ashokkumar">
+    <meta property="og:title" content="folding@home and boinc on my home server · dharun ashokkumar">
+    <meta property="og:description" content="my home server gives its spare cpu to folding@home and boinc (world community grid, milkyway@home): live folding stats, how it's set up, and how it stays cool.">
+    <meta property="og:url" content="https://dharun.dev/science">
+    <meta property="og:image" content="https://dharun.dev/img/og/science.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@dharuna457">
+    <meta name="twitter:creator" content="@dharuna457">
+    <meta name="twitter:title" content="folding@home and boinc on my home server · dharun ashokkumar">
+    <meta name="twitter:description" content="my home server gives its spare cpu to folding@home and boinc (world community grid, milkyway@home): live folding stats, how it's set up, and how it stays cool.">
+    <meta name="twitter:image" content="https://dharun.dev/img/og/science.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "folding@home and boinc on my home server",
+      "description": "my home server gives its spare cpu to folding@home and boinc (world community grid, milkyway@home): live folding stats, how it's set up, and how it stays cool.",
+      "url": "https://dharun.dev/science",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "inLanguage": "en-GB",
+      "author": {
+        "@id": "https://dharun.dev/#person"
+      },
+      "isPartOf": {
+        "@id": "https://dharun.dev/#website"
+      },
+      "about": [
+        {"@type": "Thing", "name": "Folding@home", "sameAs": "https://en.wikipedia.org/wiki/Folding@home"},
+        {"@type": "Thing", "name": "BOINC", "sameAs": "https://en.wikipedia.org/wiki/Berkeley_Open_Infrastructure_for_Network_Computing"},
+        {"@type": "Thing", "name": "Volunteer computing", "sameAs": "https://en.wikipedia.org/wiki/Volunteer_computing"}
+      ],
+      "mentions": [
+        {"@type": "Thing", "name": "World Community Grid", "sameAs": "https://en.wikipedia.org/wiki/World_Community_Grid"},
+        {"@type": "Thing", "name": "MilkyWay@home", "sameAs": "https://en.wikipedia.org/wiki/MilkyWay@home"},
+        {"@type": "Thing", "name": "Science United", "url": "https://scienceunited.org"},
+        {"@type": "Thing", "name": "Proxmox VE", "sameAs": "https://en.wikipedia.org/wiki/Proxmox_Virtual_Environment"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dharun.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Homelab",
+          "item": "https://dharun.dev/homelab"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Science",
+          "item": "https://dharun.dev/science"
+        }
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="css/editorial.css">
+    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <script type="speculationrules">
+    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    </script>
+  </head>
+  <body class="editorial">
+    <a class="skip-link" href="#content">skip to content</a>
+    <div id="container" class="post">
+      <div id="header">
+        <h1><a href="https://dharun.dev">Dharun Ashokkumar</a></h1>
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main id="content" class="short-page">
+        <h1>folding@home and boinc</h1>
+        <p class="page-meta">updated <time datetime="2026-11-13">13 november 2026</time> · spare cpu from <a href="/homelab">my home server</a>, given to science.</p>
+
+        <p>when my home server has cpu to spare, i give it to volunteer computing. <a href="https://foldingathome.org">folding@home</a> simulates how proteins move and fold, for research into diseases like cancer and alzheimer's. <a href="https://boinc.berkeley.edu">boinc</a> runs work for <a href="https://www.worldcommunitygrid.org">world community grid</a> and <a href="https://milkyway.cs.rpi.edu/milkyway/">milkyway@home</a>. i switch it on and off by hand, so some weeks it runs every night and some weeks it doesn't run at all.</p>
+
+        <h2 id="live">live numbers</h2>
+        <dl class="label-rows" data-sci>
+          <div><dt>status</dt><dd data-sci-status>these numbers load from folding@home's public stats, which needs javascript. the rows below are what's true without it.</dd></div>
+          <div><dt>folding@home</dt><dd>donor <a href="https://stats.foldingathome.org/" data-sci-link>dharun.dak</a>, on 8 threads.</dd></div>
+          <div><dt>points</dt><dd data-sci-score>shown when folding@home has credited a work unit.</dd></div>
+          <div><dt>work units</dt><dd data-sci-wus>counted once folding@home credits the first one. folding started 12 november 2026.</dd></div>
+          <div><dt>rank</dt><dd data-sci-rank>not ranked yet.</dd></div>
+          <div><dt>boinc</dt><dd>world community grid and milkyway@home, on 8 threads, through <a href="https://scienceunited.org">science united</a>. it has no public per-person page, so boinc credit lives on the server's own dashboard for now.</dd></div>
+        </dl>
+        <p class="page-meta"><span data-sci-fetched></span> the same numbers as json: <a href="/api/science">/api/science</a>.</p>
+
+        <h2 id="setup">how it's set up</h2>
+        <dl class="label-rows">
+          <div><dt>where</dt><dd>one container on the <a href="/homelab">proxmox ve</a> host, with 16 threads and 4 gb of memory. it doesn't start at boot; i turn it on when i want it.</dd></div>
+          <div><dt>priority</dt><dd>the lowest the host has: nice 19, the idle scheduler and the smallest cpu weight. <a href="/projects/ds-labs">d's labs</a> and everything else always win, and science gets what's left.</dd></div>
+          <div><dt>split</dt><dd>8 threads for folding@home, 8 for boinc. boinc may use half the memory and 8 gb of disk.</dd></div>
+          <div><dt>one command</dt><dd>on, off, status, or finish: finish lets the current work units complete, then switches off, so nothing is thrown away.</dd></div>
+          <div><dt>backups</dt><dd>none, on purpose. work units are throwaway and the identity is saved separately, so the container can be rebuilt from its script.</dd></div>
+          <div><dt>network</dt><dd>it can reach the projects' servers, but not the rest of my home network apart from shipping its logs. nothing in it is reachable from the internet.</dd></div>
+        </dl>
+
+        <h2 id="heat">keeping the power stage cool</h2>
+        <p>the weak point on this board is the power stage around the cpu, not the cpu. in a load test, 15 cores of science pulled 89 watts at the cpu package and the power stage settled at 62 degrees. a check on the host runs every 30 seconds: if the power stage stays above 85 degrees for two minutes, it shuts the science container down and sends a notification to my phone. i'm two thousand kilometres away, so it has to look after itself.</p>
+
+        <h2 id="counting">what it counts</h2>
+        <p>a small program on the server keeps lifetime totals that survive the container being off: energy used (the cpu package's power times the container's share of the busy cores, so the wall draw is higher), cpu core-hours, hours switched on, and every on-to-off session. it also checks folding@home's public stats every half hour. the totals go to grafana, next to the rest of the server's monitoring.</p>
+
+        <h2 id="questions">questions</h2>
+        <h3>does it slow the server down?</h3>
+        <p>not noticeably. science runs at the lowest priority on the machine, so anything else that wants the cpu gets it first. what it does cost is power and heat, which is why it's on demand.</p>
+        <h3>why both folding@home and boinc?</h3>
+        <p>folding@home is one project with one goal. boinc is a platform for many projects; science united picks them for me by topic. running both splits the cpu between biology and astronomy.</p>
+        <h3>can i do this at home?</h3>
+        <p>yes. <a href="https://foldingathome.org/start-folding/">install the folding@home client</a>, or <a href="https://scienceunited.org">sign up with science united</a> for boinc. on a desktop, set it to run only when the computer is idle.</p>
+
+        <nav class="related" aria-label="related">
+          <h2>read next</h2>
+          <ul>
+            <li><a href="/homelab">the homelab: the machine this runs on</a></li>
+            <li><a href="/reflections/home-server">a home server that runs without me</a></li>
+            <li><a href="/explainers/home-server-public-service">how to run a public service from a home server</a></li>
+          </ul>
+        </nav>
+      </main>
+      <div id="footer">
+        <nav>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/projects">projects</a></li>
+            <li><a href="/reflections">reflections</a></li>
+            <li><a href="/resume">resume</a></li>
+            <li><a href="/about">about</a></li>
+            <li><a href="/contact">contact</a></li>
+          </ul>
+        </nav>
+        <p class="site-foot"><a href="/txt/" data-shell-open>terminal</a> · <code>curl -L dharun.dev</code> · <a href="/colophon">colophon</a></p>
+      </div>
+    </div>
+    <script src="js/science.js" defer></script>
+    <script src="js/shell.js" defer></script>
+  </body>
+</html>

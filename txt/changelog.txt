@@ -1,6 +1,10 @@
 changelog · dharun.dev
 ======================
 
+2026-11-13  site        added /science: live folding@home stats from
+                         the home server.
+2026-11-12  homelab     the server now gives spare cpu to folding@home
+                         and boinc, on demand.
 2026-11-11  site        added three reading paths to the home page and
                          tab completion in the terminal.
 2026-11-11  site        removed google analytics; switched to

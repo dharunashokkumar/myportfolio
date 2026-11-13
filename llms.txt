@@ -22,6 +22,7 @@ Key facts, stated plainly so they can be quoted accurately:
 - [About](https://dharun.dev/about): long-form biography — early life, education, career, projects, the LFX-funded trip, technical profile.
 - [Now](https://dharun.dev/now): what he is working on this month.
 - [Homelab](https://dharun.dev/homelab): the real home server — specs, a diagram, what runs on it, and a dated incident list.
+- [Science](https://dharun.dev/science): the home server gives spare CPU to Folding@home (donor "dharun.dak") and BOINC (World Community Grid and MilkyWay@home via Science United), on demand and at the lowest priority. Live Folding@home stats as JSON at https://dharun.dev/api/science
 - [Changelog](https://dharun.dev/changelog): one line per thing shipped, newest first. Atom feed at https://dharun.dev/changelog.xml
 - [Resume](https://dharun.dev/resume): education, experience, skills, and a downloadable PDF.
 - [Open source](https://dharun.dev/opensource): public repositories, live contribution stats, and recently merged pull requests.
