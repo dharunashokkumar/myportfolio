@@ -2,7 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+    <script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>how i got a ham radio licence in india · dharun ashokkumar</title>
@@ -137,9 +137,9 @@
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
     <link rel="stylesheet" href="../css/notes.css">
-    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <!-- prefetch same-origin links early, prerender them on hover or touch (chromium only; ignored elsewhere). -->
     <script type="speculationrules">
-    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    {"prefetch": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "eager"}], "prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
     </script>
   </head>
   <body class="editorial">
@@ -163,7 +163,7 @@
         <p class="list-note"><a href="/reflections">← reflections</a></p>
         <h1>zero to vu36da: how i got a ham radio licence in india in ten days</h1>
         <p class="inline-meta">2026.11 · amateur radio, asoc exam · <time datetime="2026-11-13">13 november 2026</time></p>
-        <img class="sketch" style="max-width:20rem;margin:1.2rem auto 1.6rem" src="../img/sketch/ham-radio.svg" alt="" width="480" height="360" decoding="async">
+        <img class="sketch" fetchpriority="high" style="max-width:20rem;margin:1.2rem auto 1.6rem" src="../img/sketch/ham-radio.svg" alt="" width="480" height="360" decoding="async">
 
         <p>on 24 october 2026 i applied for an amateur radio licence. on 3 november the wireless planning and coordination wing of the department of telecommunications issued it, with the callsign <strong>vu36da</strong>, valid for twenty years. in between there was a four-day crash plan, a mock test i rushed and nearly failed, eleven wrong answers in a public answer key, and an exam at the wireless monitoring station in jalandhar. this is the whole thing, scores included, the bad ones too.</p>
 
@@ -191,7 +191,7 @@
 
         <h2 id="timeline">the timeline</h2>
 
-        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-timeline.svg" alt="a ruler of ten days with pins on the days that mattered, a flag on exam day and a star on licence day" width="480" height="360" decoding="async">
+        <img class="sketch" loading="lazy" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-timeline.svg" alt="a ruler of ten days with pins on the days that mattered, a flag on exam day and a star on licence day" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>24 oct</dt><dd>applied on saral sanchar (restricted, jalandhar centre). paid ₹100 on bharatkosh. readiness check, before any study: 85%. planned four weeks of prep.</dd></div>
           <div><dt>26 oct</dt><dd>e-admit card arrives. exam is friday. four days. four weeks becomes four days.</dd></div>
@@ -247,7 +247,7 @@
 
         <h2 id="scores">every score, including the bad ones</h2>
 
-        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-scores.svg" alt="a bar for each practice score in order, peach for the low ones, dashed tops where a redo went higher, and a flag for the exam" width="480" height="360" decoding="async">
+        <img class="sketch" loading="lazy" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-scores.svg" alt="a bar for each practice score in order, peach for the low ones, dashed tops where a redo went higher, and a flag for the exam" width="480" height="360" decoding="async">
         <table class="plain">
           <tbody>
             <tr><th scope="row">readiness check (no study)</th><td>85%</td></tr>
@@ -323,7 +323,7 @@
 
         <p>a licence with no radio is just a certificate. this is the plan.</p>
 
-        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-station.svg" alt="a house with an hf rig, a raspberry pi and a wire antenna, a hostel far away with a handheld, and a dashed link between them" width="480" height="360" decoding="async">
+        <img class="sketch" loading="lazy" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/ham-station.svg" alt="a house with an hf rig, a raspberry pi and a wire antenna, a hostel far away with a handheld, and a dashed link between them" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>home (tamil nadu)</dt><dd>sbitx v3 hf rig for long distance, and a raspberry pi beside it for remote receive and transmit.</dd></div>
           <div><dt>hostel (punjab)</dt><dd>a vhf/uhf handheld for short range, and a laptop or phone that runs the home rig.</dd></div>

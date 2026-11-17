@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+<script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
   <meta name="robots" content="noindex, nofollow">
 <title>Boot Sequence</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -177,7 +177,8 @@
   }
 
   /* Scrollbar hidden but content can overflow during very long boots */
-  .screen::-webkit-scrollbar { display: none; }
+  .screen { scrollbar-width: none; }
+  @supports not (scrollbar-width: none) { .screen::-webkit-scrollbar { display: none; } }
 </style>
 </head>
 <body>
@@ -309,7 +310,7 @@
   async function runBoot() {
     cancelTokens.forEach(fn => fn());
     cancelTokens = [];
-    screen.innerHTML = '';
+    screen.replaceChildren();
 
     // ----- 1. Firmware handoff -----
     appendLine(`<span class="dim">Arboreal Linux 14.2 LTS (vespertine)</span>`);

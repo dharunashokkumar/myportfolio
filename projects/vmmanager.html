@@ -2,7 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+    <script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>vmmanager: a gtk4 vm manager written in c · dharun ashokkumar</title>
@@ -78,9 +78,9 @@
     }
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
-    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <!-- prefetch same-origin links early, prerender them on hover or touch (chromium only; ignored elsewhere). -->
     <script type="speculationrules">
-    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    {"prefetch": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "eager"}], "prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
     </script>
   </head>
   <body class="editorial">
@@ -106,7 +106,7 @@
           <h1>vmmanager</h1>
           <p class="tagline">a native gtk4 desktop app for managing qemu/kvm virtual machines and incus/lxd containers — from one window.</p>
         </div>
-          <img class="sketch" style="max-width:20rem;margin:1.2rem auto 1.6rem" src="../img/sketch/vm-boxes.svg" alt="" width="480" height="360" decoding="async">
+          <img class="sketch" fetchpriority="high" style="max-width:20rem;margin:1.2rem auto 1.6rem" src="../img/sketch/vm-boxes.svg" alt="" width="480" height="360" decoding="async">
 
         <div class="project-actions">
           <a class="btn-ghost" href="https://github.com/dharunashokkumar/VnCmgr" target="_blank" rel="noopener">

@@ -2,7 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+    <script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>how to run a public service from a home server · dharun ashokkumar</title>
@@ -99,9 +99,9 @@
     </script>
     <link rel="stylesheet" href="../css/editorial.css">
     <link rel="stylesheet" href="../css/notes.css">
-    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <!-- prefetch same-origin links early, prerender them on hover or touch (chromium only; ignored elsewhere). -->
     <script type="speculationrules">
-    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    {"prefetch": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "eager"}], "prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
     </script>
   </head>
   <body class="editorial">
@@ -139,7 +139,7 @@
         </ul>
         <p>a tunnel turns the problem around. a small daemon on the server dials <em>out</em> to the edge network and holds the connection open. visitors connect to the edge, and the edge sends their requests back down that connection. nothing inbound is needed, so the blocked ports, the changing address and the forgetful router stop mattering.<span class="sidenote-ref" aria-hidden="true"></span><small class="sidenote"><span class="note-kind">note</span> i use a cloudflare tunnel. the idea isn't cloudflare-specific; any reverse tunnel to a machine with a public address works the same way.</small></p>
 
-        <img class="sketch" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/tunnel-path.svg" alt="a house with a tunnel pipe running out of its roof up to a cloud, and a visitor reaching the cloud from outside" width="480" height="360" decoding="async">
+        <img class="sketch" fetchpriority="high" style="max-width:24rem;margin:1.2rem auto 1rem" src="../img/sketch/tunnel-path.svg" alt="a house with a tunnel pipe running out of its roof up to a cloud, and a visitor reaching the cloud from outside" width="480" height="360" decoding="async">
         <dl class="label-rows">
           <div><dt>visitor</dt><dd>connects over https to the edge network.</dd></div>
           <div><dt>the tunnel</dt><dd>one connection that the server opened, outbound, to the edge. requests come back down it.</dd></div>

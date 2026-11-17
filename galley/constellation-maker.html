@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+<script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
   <meta name="robots" content="noindex, nofollow">
 <title>Constellation Maker</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
@@ -226,7 +226,7 @@
 
     function redrawLines() {
       // clear
-      while (lines.firstChild) lines.removeChild(lines.firstChild);
+      lines.replaceChildren();
       for (let i = 0; i < stars.length; i++) {
         for (let j = i + 1; j < stars.length; j++) {
           const a = stars[i], b = stars[j];

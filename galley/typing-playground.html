@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+<script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
   <meta name="robots" content="noindex, nofollow">
 <title>Typing Playground</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -305,7 +305,7 @@
 
   function renderChars() {
     const src = text.length ? text : "";
-    canvas.innerHTML = "";
+    canvas.replaceChildren();
     if (!src.length) {
       const g = document.createElement("div");
       g.className = "ghost";

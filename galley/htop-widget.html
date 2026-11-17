@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+<script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
   <meta name="robots" content="noindex, nofollow">
 <title>sysmon</title>
 <style>
@@ -452,7 +452,7 @@
 
   function renderProcs() {
     // Sort by cpu desc
-    const sorted = procs.slice().sort((a,b) => b.cpu - a.cpu);
+    const sorted = procs.toSorted((a,b) => b.cpu - a.cpu);
     const frag = document.createDocumentFragment();
     sorted.forEach((p, idx) => {
       const row = document.createElement('div');
@@ -472,8 +472,7 @@
       `;
       frag.appendChild(row);
     });
-    procsBody.innerHTML = '';
-    procsBody.appendChild(frag);
+    procsBody.replaceChildren(frag);
   }
 
   // ---------- Tick loop ----------

@@ -2,7 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
-    <script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+    <script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>projects: d's labs, rust, go and c · dharun ashokkumar</title>
@@ -220,9 +220,9 @@
     }
     </script>
     <link rel="stylesheet" href="css/editorial.css">
-    <!-- prerender same-origin links on hover or touch (chromium only; ignored elsewhere). -->
+    <!-- prefetch same-origin links early, prerender them on hover or touch (chromium only; ignored elsewhere). -->
     <script type="speculationrules">
-    {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
+    {"prefetch": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "eager"}], "prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/vault"}}, {"not": {"href_matches": "/galley*"}}, {"not": {"href_matches": "/txt/*"}}, {"not": {"href_matches": "/*.txt"}}, {"not": {"href_matches": "/*.xml"}}, {"not": {"href_matches": "/files/*"}}]}, "eagerness": "moderate"}]}
     </script>
   </head>
   <body class="editorial">
@@ -269,7 +269,7 @@
 	<li>
 	<a href="/projects/termcall">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/termcall.svg" alt="termcall" />
+			<img src="/projects/asset/thumbs/termcall.svg" alt="termcall" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">termcall</span>
@@ -283,7 +283,7 @@
 	<li>
 	<a href="/projects/dropbin">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/dropbin.svg" alt="dropbin" />
+			<img loading="lazy" src="/projects/asset/thumbs/dropbin.svg" alt="dropbin" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">dropbin</span>
@@ -297,7 +297,7 @@
 	<li>
 	<a href="/projects/open-clearing-engine">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/open-clearing-engine.svg" alt="open clearing engine" />
+			<img loading="lazy" src="/projects/asset/thumbs/open-clearing-engine.svg" alt="open clearing engine" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">open clearing engine</span>
@@ -311,7 +311,7 @@
 	<li>
 	<a href="/projects/indie-market-analyst">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/indie-market-analyst.svg" alt="indie market analyst" />
+			<img loading="lazy" src="/projects/asset/thumbs/indie-market-analyst.svg" alt="indie market analyst" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">indie market analyst</span>
@@ -325,7 +325,7 @@
 	<li>
 	<a href="/projects/alt-data-platform-india">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/alt-data-platform-india.svg" alt="alternative data platform" />
+			<img loading="lazy" src="/projects/asset/thumbs/alt-data-platform-india.svg" alt="alternative data platform" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">alt-data platform</span>
@@ -339,7 +339,7 @@
 	<li>
 	<a href="/projects/vmmanager">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/vmmanager.svg" alt="vmmanager" />
+			<img loading="lazy" src="/projects/asset/thumbs/vmmanager.svg" alt="vmmanager" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">vmmanager</span>
@@ -353,7 +353,7 @@
 	<li>
 	<a href="/projects/aisoul">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/aisoul.svg" alt="aisoul" />
+			<img loading="lazy" src="/projects/asset/thumbs/aisoul.svg" alt="aisoul" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">aisoul</span>
@@ -367,7 +367,7 @@
 	<li>
 	<a href="/projects/rler">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/rler.svg" alt="rler" />
+			<img loading="lazy" src="/projects/asset/thumbs/rler.svg" alt="rler" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">rler</span>
@@ -381,7 +381,7 @@
 	<li>
 	<a href="/projects/cs-archive">
 		<div class="thumbnail">
-			<img src="/projects/asset/thumbs/cs-archive.svg" alt="cs archive" />
+			<img loading="lazy" src="/projects/asset/thumbs/cs-archive.svg" alt="cs archive" width="600" height="400" />
 		</div>
 		<p>
 			<span class="title">cs archive</span>

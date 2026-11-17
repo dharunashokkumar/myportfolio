@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
+<script defer fetchpriority="low" src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
   <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>:: StarlitVoid :: Jess's Cyber Pad ::</title>
@@ -736,7 +736,7 @@ body{
     n += 1;                        // YOU are the latest visitor
     localStorage.setItem(KEY, String(n));
     var s = String(n).padStart(7, "0");
-    box.innerHTML = "";
+    box.replaceChildren();
     s.split("").forEach(function (d) {
       var b = document.createElement("b"); b.textContent = d; box.appendChild(b);
     });
@@ -833,7 +833,7 @@ body{
 
     function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
     function render() {
-      list.innerHTML = "";
+      list.replaceChildren();
       entries.forEach(function (en) {
         var who = en.url
           ? '<a href="#" onclick="return false">' + esc(en.name) + "</a>"

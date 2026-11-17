@@ -86,6 +86,8 @@
 # 103 Early Hints: Cloudflare turns these Link headers into early hints, so the
 # browser starts on the font and the six global stylesheets while the HTML is
 # still in flight. Same order as the <link> tags; do not merge the files.
+# editorial.css is page-scoped but on almost every page, so it is hinted too
+# (the galley pages that skip it pay ~4 KB they never use).
 /*
   Link: </fonts/merriweather-latin-normal.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin
   Link: </css/fonts.css>; rel=preload; as=style
@@ -94,3 +96,4 @@
   Link: </css/components.css>; rel=preload; as=style
   Link: </css/responsive.css>; rel=preload; as=style
   Link: </css/modules.css>; rel=preload; as=style
+  Link: </css/editorial.css>; rel=preload; as=style
