@@ -10,10 +10,10 @@
   everyone whose pull request review taught me something.
 
 /* SITE */
-  last update: 2026/11/11
+  last update: 2026/11/17
   language: english
   standards: html, css, a little javascript. no framework, no build step.
   typeface: merriweather, self-hosted.
-  analytics: cloudflare web analytics. no cookies.
+  analytics: umami, self-hosted. no cookies.
   how it's made: https://dharun.dev/colophon
   as plain text: curl -L dharun.dev

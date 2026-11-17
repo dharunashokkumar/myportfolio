@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en-GB">
   <head>
-    <!-- analytics: cloudflare web analytics, injected at the edge by pages. no tag here. -->
     <meta charset="utf-8">
+    <script defer src="https://stats.dharun.dev/script.js" data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6" data-domains="dharun.dev" data-exclude-search="true"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>colophon: how this site is made · dharun ashokkumar</title>
@@ -52,7 +52,7 @@
       "name": "colophon",
       "description": "how dharun.dev is made: hand-written html, no framework, no build step, one self-hosted typeface, two accent colours, and the real byte counts.",
       "url": "https://dharun.dev/colophon",
-      "dateModified": "2026-11-11",
+      "dateModified": "2026-11-17",
       "inLanguage": "en-GB",
       "author": {
         "@id": "https://dharun.dev/#person"
@@ -108,7 +108,7 @@
 
       <main id="content" class="short-page">
         <h1>colophon</h1>
-        <p class="page-meta">updated <time datetime="2026-11-11">11 november 2026</time> · how this site is made, and what it refuses to do.</p>
+        <p class="page-meta">updated <time datetime="2026-11-17">17 november 2026</time> · how this site is made, and what it refuses to do.</p>
         <img class="sketch" style="max-width:20rem;margin:1.2rem auto 1.6rem" src="img/sketch/terminal.svg" alt="" width="480" height="360" decoding="async">
 
         <h2>how it's built</h2>
@@ -134,8 +134,8 @@
 
         <h2>what it refuses to do</h2>
         <ul>
-          <li>track you across sites. analytics is cloudflare web analytics: no cookies, no fingerprinting, no ad network.</li>
-          <li>load a font or a stylesheet from a third party. the one outside script is cloudflare's analytics beacon.</li>
+          <li>track you across sites. analytics is <a href="https://umami.is">umami</a>, self-hosted at stats.dharun.dev: no cookies, no personal data, nothing shared with a third party. it counts page views and never sees the query string.</li>
+          <li>load a font or a stylesheet from a third party. the one outside script is that umami counter, and it's served from my own subdomain.</li>
           <li>animate for decoration, scroll-jack, or move anything you didn't ask to move.</li>
           <li>need javascript to be read. every demo leaves a readable page without it.</li>
         </ul>

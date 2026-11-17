@@ -57,6 +57,7 @@ for (const f of allPages) {
   if (preload < 0) err(f, 'missing the roman font preload');
   else if (preload > head.indexOf('css/fonts.css')) err(f, 'font preload should come before the stylesheets');
   if (/@import\s+(url\(|["'])/.test(head)) err(f, '@import in <head>');
+  if (!head.includes('src="https://stats.dharun.dev/script.js"') || !head.includes('data-website-id="a07fc9bd-d4ac-432f-90f6-6250e475eff6"')) err(f, 'missing the umami tag in <head>');
 
   // json-ld must parse
   for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
@@ -165,6 +166,7 @@ const BANNED = [
   [/dharunashokkumar\.com/i, 'the retired domain'],
   [/G-DGWHDZMCF6/, 'the removed analytics tag'],
   [/googletagmanager|gtag\(/, 'google analytics (removed november 2026)'],
+  [/cloudflareinsights|beacon\.min\.js|data-cf-beacon/, 'the cloudflare web analytics beacon (replaced by umami, november 2026)'],
   [/lpulabs|lpu labs/i, 'lpu labs (now d\'s labs)'],
   [/linux foundation member|member of the linux foundation/i, 'the linux foundation membership claim'],
   [/dharuna457@gmail/i, 'the old email address'],
